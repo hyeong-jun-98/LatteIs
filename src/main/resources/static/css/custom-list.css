@@ -1,0 +1,17 @@
+.custom-MyList {
+    color: #fd7e14;
+}
+.custom-gotoWrite {
+    margin-top: 5%;
+    background-color: #ffc720;
+    border-color: white;
+    font-weight: 600;
+    color: black;
+}
+
+.custom-gotoWrite:hover {
+    color: #0a58ca;
+    background-color: #ffc720;
+    border-color: white;
+}
+
