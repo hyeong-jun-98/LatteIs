@@ -4,20 +4,31 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.academy.latteis.board.repository.BoardMapper">
 
-<!--    <resultMap id="boardMap" type="com.academy.latteis.board.domain.Board">-->
-<!--        <result property="boardNo" column="board_no" />-->
-<!--        <result property="regdate" column="regdate" />-->
-<!--        <result property="hit" column="hit" />-->
-<!--    </resultMap>-->
+    <!-- sql과 java의 이름 관례 차이에서 오는 매핑을 맞춰주는 것 -->
+    <resultMap id="boardMap" type="com.academy.latteis.board.domain.Board">
+        <result property="boardNo" column="board_no"/>
+        <result property="topicNo" column="topic_no"/>
+    </resultMap>
 
     <insert id="write">
         insert into board
-        (writer, title, content)
+            (writer, title, content)
         values (#{writer}, #{title}, #{content})
     </insert>
 
-<!--    <select id="findAll" resultMap="boardMap">-->
-<!--        SELECT * FROM board-->
-<!--        ORDER BY board_no DESC-->
-<!--    </select>-->
+    <select id="findAll" resultMap="boardMap">
+        SELECT *
+        FROM board
+        ORDER BY board_no DESC
+        LIMIT #{start}, #{amount}
+    </select>
+
+    <select id="findOne" resultMap="boardMap">
+        select * from board where board_no = #{boardNo}
+    </select>
+    
+    <select id="getTotalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM board
+    </select>
 </mapper>
