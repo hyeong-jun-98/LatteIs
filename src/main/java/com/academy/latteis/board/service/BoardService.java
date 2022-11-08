@@ -2,9 +2,14 @@ package com.academy.latteis.board.service;
 
 import com.academy.latteis.board.domain.Board;
 import com.academy.latteis.board.repository.BoardMapper;
+import com.academy.latteis.common.Page;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Log4j2
@@ -13,6 +18,7 @@ public class BoardService {
 
     private final BoardMapper boardMapper;
 
+    // 게시글 작성
     public boolean writeService(Board board){
         log.info("save service start - {}", board);
 
@@ -21,4 +27,20 @@ public class BoardService {
 
         return flag;
     }
+
+    // 게시글 전체 조회
+    public Map<String, Object> findAllService(Page page){
+        log.info("findAll service start");
+
+        Map<String, Object> findDataMap = new HashMap<>();
+
+        List<Board> boardList = boardMapper.findAll(page);
+
+        findDataMap.put("boardList", boardList);
+        findDataMap.put("totalCount", boardMapper.getTotalCount());
+        return findDataMap;
+    }
+
+
+
 }
