@@ -1,17 +1,16 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: SL
-  Date: 2022-11-07
-  Time: 오후 4:03
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<!doctype html>
+<html lang="kor">
 <head>
-    <title>Title</title>
-    test111
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 </head>
 <body>
-
+    <h1>홈페이지!!!</h1>
 </body>
 </html>
