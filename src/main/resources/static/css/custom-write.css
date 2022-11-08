@@ -1,0 +1,23 @@
+.today-diary {
+    font-weight: 600;
+}
+
+.diary_title {
+    margin-top: 5%;
+}
+
+.form-control {
+    border-color: #ffc720;
+}
+
+.uploadDiv {
+    border-color: #ffc720;
+}
+
+.custom-button {
+    margin-top: 3%;
+    width: 200px;
+    float: left;
+    position: relative;
+
+}

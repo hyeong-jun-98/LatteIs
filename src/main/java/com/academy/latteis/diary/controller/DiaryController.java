@@ -18,8 +18,16 @@ public class DiaryController {
 
     private final DiaryService diaryService;
 
-    // 게시물 쓰기 화면 요청
-    @GetMapping("/diary/write")
+    // 일기장 리스트 화면
+    @GetMapping("/diary/list")
+    public String DiaryList() {
+
+
+        return "diary/diary_list";
+    }
+
+    // 일기 작성 화면
+    @GetMapping("diary/write")
     public String DiaryWrite() {
 
 
