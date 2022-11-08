@@ -41,6 +41,14 @@ public class BoardService {
         return findDataMap;
     }
 
+    // 게시글 상세보기
+    public Board findOneService(Long boardNo){
+        log.info("findOne service start");
+
+        Board board = boardMapper.findOne(boardNo);
+        return board;
+    }
+
 
 
 }

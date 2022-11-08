@@ -16,13 +16,21 @@
             margin: 0 auto;
         }
 
+        table tbody a {
+            color: #000 !important;
+            text-decoration: none;
+        }
+        table tbody a:hover {
+            color: orange !important;
+            text-decoration: underline;
+        }
+
         .bottom-section nav {
             flex: 9;
             display: flex;
             justify-content: center;
         }
-
-        .pagination-custom li a{
+        .pagination-custom li a {
             color: #000 !important;
         }
         .pagination-custom li.active a,
@@ -30,7 +38,6 @@
             background: lightyellow !important;
             border-color: orange !important;
         }
-
 
         table tr th:nth-child(1) {
             width: 10%;
@@ -46,7 +53,7 @@
     </style>
 </head>
 <body>
-
+<h1>자유게시판</h1>
 <%-- 글 목록 영역 --%>
 <div class="wrap">
     <div class="freeboard-list">
@@ -66,7 +73,7 @@
                 <tr>
                     <th>${b.boardNo}</th>
                     <td>${b.writer}</td>
-                    <td>${b.title}</td>
+                    <td><a href="#">${b.title}</a></td>
                     <td>${b.good}</td>
                     <td>${b.hit}</td>
                     <td>${b.regdate}</td>
@@ -130,8 +137,21 @@
         });
     }
 
+    // 게시글 상세보기
+    function detailEvent() {
+        const $tbody = document.querySelector('.table-group-divider');
+        $tbody.onclick = e => {
+            if (!e.target.matches('a')) return;
+            const boardNo = e.target.parentNode.parentNode.firstElementChild.textContent;
+            console.log(boardNo);
+            location.href = "/freeboard/detail/"
+                + boardNo + "?pageNum=${pm.page.pageNum}&amount=${pm.page.amount}"
+            ;
+        }
+    }
+
     //현재 위치한 페이지에 active 스타일 부여하기
-    function appendPageActive(){
+    function appendPageActive() {
         // 현재 내가 보고있는 페이지 번호
         const curPageNum = '${pm.page.pageNum}';
         console.log('현재 페이지 번호는 ', curPageNum);
@@ -141,16 +161,18 @@
         // 일치하는 li를 찾아서 class active 부여
         const $ul = document.querySelector('.pagination');
 
-        for (let $li of [...$ul.children]){
-            if (curPageNum === $li.dataset.pageNum){
+        for (let $li of [...$ul.children]) {
+            if (curPageNum === $li.dataset.pageNum) {
                 $li.classList.add('active');
                 break;
             }
         }
     }
 
+
     (function () {
         alertServerMessage();
+        detailEvent();
         writeForm();
         appendPageActive();
     })();

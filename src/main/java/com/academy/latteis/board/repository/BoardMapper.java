@@ -15,6 +15,9 @@ public interface BoardMapper {
     // 게시글 전체 조회
     List<Board> findAll(Page page);
 
+    // 게시글 상세보기
+    Board findOne(Long boardNo);
+
     // 전체 게시글 수 조회
     int getTotalCount();
 

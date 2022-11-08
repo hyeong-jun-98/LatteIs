@@ -22,6 +22,10 @@
         ORDER BY board_no DESC
         LIMIT #{start}, #{amount}
     </select>
+
+    <select id="findOne" resultMap="boardMap">
+        select * from board where board_no = #{boardNo}
+    </select>
     
     <select id="getTotalCount" resultType="int">
         SELECT COUNT(*)

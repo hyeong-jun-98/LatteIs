@@ -9,6 +9,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -38,6 +39,16 @@ public class FreeBoardController {
         model.addAttribute("pm", pm);
 
         return "freeboard/freeboard-list";
+    }
+
+    @GetMapping("/detail/{boardNo}")
+    public String getDetail(@PathVariable Long boardNo, Model model, Page page){
+        log.info("controller request /freeboard/detail GET! - {}", boardNo);
+        Board board = boardService.findOneService(boardNo);
+        log.info("return data - {}", board);
+        model.addAttribute("board", board);
+        model.addAttribute("page", page);
+        return "freeboard/freeboard-detail";
     }
 
     // 게시글 작성 화면
