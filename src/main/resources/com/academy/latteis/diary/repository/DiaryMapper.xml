@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.academy.latteis.diary.repository.DiaryMapper">
+
+    
+    <resultMap id="diaryMap" type="com.academy.latteis.diary.domain.Diary">
+        <id property="diaryNo" column="diary_no" />
+        <result property="diaryContent" column="diary_content" />
+        <result property="diaryRegdate" column="diary_regdate" />
+        <result property="diaryShow" column="diary_show" />
+        <result property="diaryGood" column="diary_good" />
+
+
+    </resultMap>
+
+    <insert id="save">
+        insert into diary
+        (emotion, diary_content, diary_show)
+        values (#{emotion}, #{diaryContent}, #{diaryShow})
+    </insert>
+
+
+
+
+
+
+
+
+
+
+</mapper>

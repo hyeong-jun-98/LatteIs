@@ -9,12 +9,12 @@ import java.util.Date;
 @AllArgsConstructor
 public class Diary {
 
-    private long diary_no;
-    private long emotion;
-    private String diary_content;
-    private Date diary_regdate;
-    private long diary_show;
-    private long diary_good;
+    private long diaryNo;
+    private String emotion;
+    private String diaryContent;
+    private Date diaryRegdate;
+    private String diaryShow;
+    private long diaryGood;
 
 
 }
