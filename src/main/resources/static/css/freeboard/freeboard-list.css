@@ -1,0 +1,85 @@
+.wrap {
+    width: 60%;
+    margin: 0 auto;
+}
+.freeboard-list{
+    margin-top: 100px;
+}
+
+/* 검색창 */
+.freeboard-list .top-section {
+    display: flex;
+    justify-content: space-between;
+}
+.freeboard-list .top-section .search {
+    flex: 4;
+}
+.freeboard-list .top-section .amount {
+    flex: 4;
+}
+.freeboard-list .top-section .search form {
+    display: flex;
+}
+.freeboard-list .top-section .search form #search-type {
+    flex: 1;
+    margin-right: 10px;
+}
+.freeboard-list .top-section .search form input[name=keyword] {
+    flex: 3;
+}
+
+/* 목록 개수별 보기 스타일 */
+.freeboard-list .amount {
+    display: flex;
+    /* background: skyblue; */
+    justify-content: flex-end;
+}
+.freeboard-list .amount {
+    list-style: none;
+}
+.freeboard-list .amount li {
+    width: 8%;
+    margin-right: 10px;
+}
+.freeboard-list .amount li a {
+    width: 100%;
+}
+.freeboard-list .amount li a.active {
+    color: #000 !important;
+    background-color: #ffc107 !important;
+    border-color: #ffc107 !important;
+}
+
+/* 테이블 style */
+table tbody a {
+    color: #000 !important;
+    text-decoration: none;
+}
+table tbody a:hover {
+    color: orange !important;
+    text-decoration: underline;
+}
+table tr th:nth-child(1) {
+    width: 10%;
+}
+table tr th:nth-child(2) {
+    width: 15%;
+}
+table tr th:nth-child(3) {
+    width: 30%;
+}
+
+/* bottom-section style */
+.bottom-section nav {
+    flex: 9;
+    display: flex;
+    justify-content: center;
+}
+.pagination-custom li a {
+    color: #000 !important;
+}
+.pagination-custom li.active a,
+.pagination-custom li:hover a {
+    background: lightyellow !important;
+    border-color: orange !important;
+}
