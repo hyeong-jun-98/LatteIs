@@ -12,12 +12,32 @@
     <!-- bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
 
+    <%--  topbar  --%>
+    <link href="/css/topbar.css" rel="stylesheet">
     <!-- freeboard-list css -->
     <link href="/css/freeboard/freeboard-list.css" rel="stylesheet">
 
+    <style>
+        @font-face {
+            font-family: 'KyoboHand';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
+            font-weight: bold;
+            font-style: normal;
+        }
+        body{
+            background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            overflow: visible;
+            font-family: KyoboHand;
+        }
+    </style>
 </head>
 <body>
 <h1>자유게시판</h1>
+
+<%@include file="../topbar.jsp"%>
+
 <%-- 글 목록 영역 --%>
 <div class="wrap">
     <div class="freeboard-list">
