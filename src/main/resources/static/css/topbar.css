@@ -1,0 +1,48 @@
+/*topbar*/
+.topbar{
+    width: 100%;
+    height: 150px;
+    background: rgba(0,0,0,0.1);
+    padding: 30px;
+    display: flex;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+}
+.icon{
+    width: 80px;
+    height: 80px;
+    margin-top: -10px;
+    background-size: cover;
+    background-image: url("https://cdn-icons-png.flaticon.com/128/6937/6937770.png");
+}
+.icon-wrapper{
+    width: 300px;
+    height: 100px;
+    padding: 10px;
+    display: flex;
+}
+.icon-text{
+    margin-top: 20px;
+    font-size: 30px;
+}
+.category{
+    font-size: 30px;
+    height: 150px;
+    margin-top: -30px;
+    display: flex;
+}
+.category div{
+    width: 200px;
+    height: 100%;
+    margin: 20px;
+    margin-right: 40px;
+    text-align: center;
+    line-height: 150px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.category div:hover{
+    background: rgba(0,0,0,0.3);
+}
+/*topbar end*/
