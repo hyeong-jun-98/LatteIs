@@ -349,9 +349,16 @@
             location.href = "/diary/list";
         }
     }
+    function toLogin(){
+        const $toLogin = document.getElementById("tologin");
+        $toLogin.onclick = e => {
+            location.href = "/user/loginform";
+        }
+    }
     (function(){
         toList();
         toDiary();
+        toLogin();
     })();
 </script>
 </html>
