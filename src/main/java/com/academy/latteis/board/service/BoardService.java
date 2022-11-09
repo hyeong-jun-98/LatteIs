@@ -56,6 +56,12 @@ public class BoardService {
         return flag;
     }
 
+    // 게시글 수정
+    public boolean editService(Board board){
+        log.info("edit service start");
+        boolean flag=boardMapper.edit(board);
+        return flag;
+    }
 
 
 }

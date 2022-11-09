@@ -26,7 +26,7 @@ public class FreeBoardController {
 
     // 게시글 목록 요청
     @GetMapping("/list")
-    public String list(Page page, Model model){
+    public String list(Page page, Model model) {
         log.info("controller request /freeboard/list GET! - page: {}", page);
 
         Map<String, Object> boardMap = boardService.findAllService(page);
@@ -42,7 +42,7 @@ public class FreeBoardController {
     }
 
     @GetMapping("/detail/{boardNo}")
-    public String getDetail(@PathVariable Long boardNo, Model model, Page page){
+    public String getDetail(@PathVariable Long boardNo, Model model, Page page) {
         log.info("controller request /freeboard/detail GET! - {}", boardNo);
         Board board = boardService.findOneService(boardNo);
         log.info("return data - {}", board);
@@ -65,20 +65,39 @@ public class FreeBoardController {
 
         boolean flag = boardService.writeService(board);
 
-        if(flag)ra.addFlashAttribute("msg", "write-success");
+        if (flag) ra.addFlashAttribute("msg", "write-success");
 
         return flag ? "redirect:/freeboard/list" : "redirect:/list";
     }
 
     // 게시글 삭제
-    @GetMapping("/delete/{boardNo}")
-    public String remove(@PathVariable Long boardNo, RedirectAttributes ra){
+    @GetMapping("/delete")
+    public String remove(Long boardNo, RedirectAttributes ra) {
         log.info("controller request /freeboard/delete GET! - {}", boardNo);
 
         boolean flag = boardService.removeService(boardNo);
-        if (flag)ra.addFlashAttribute("msg", "delete-success");
+        if (flag) ra.addFlashAttribute("msg", "delete-success");
 
         return flag ? "redirect:/freeboard/list" : "redirect:/freeboard/list";
+    }
+
+    // 게시글 수정 화면 요청
+    @GetMapping("/edit/{boardNo}")
+    public String edit(@PathVariable Long boardNo, Model model, Page page) {
+        log.info("controller request /freeboard/edit GET! - {}", boardNo);
+        Board board = boardService.findOneService(boardNo);
+        model.addAttribute("board", board);
+        model.addAttribute("page", page);
+        return "/freeboard/freeboard-edit";
+    }
+
+    // 게시글 수정 요청
+    @PostMapping("/edit")
+    public String edit(Board board, Page page) {
+        log.info("controller request /freeboard/edit POST!!");
+        boolean flag = boardService.editService(board);
+        return flag ? "redirect:/freeboard/detail/" + board.getBoardNo() + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount()
+                : "redirect:/freeboard/detail/" + board.getBoardNo() + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount();
     }
 
 }

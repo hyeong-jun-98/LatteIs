@@ -50,12 +50,12 @@
             <div class="mb-3">
                 <label for="title-input" class="form-label">글제목</label>
                 <input type="text" class="form-control" id="title-input"
-                       placeholder="제목" name="title" value="${board.title}">
+                       placeholder="제목" name="title" value="${board.title}" disabled>
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">내용</label>
                 <textarea name="content" class="form-control"
-                          id="exampleFormControlTextarea1" rows="10">${board.content}</textarea>
+                          id="exampleFormControlTextarea1" rows="10" disabled>${board.content}</textarea>
             </div>
 
             <div class="d-flex">
@@ -70,6 +70,15 @@
 </div>
 
 <script>
+    <%--// 성공 여부 메시지--%>
+    <%--function alertServerMessage(){--%>
+    <%--    const msg="${editMsg}";--%>
+    <%--    console.log("msg : ",editMsg)--%>
+    <%--    if (msg === "edit-success"){--%>
+    <%--        alert("게시글을 수정하였습니다.");--%>
+    <%--    }--%>
+    <%--}--%>
+
     // 목록으로 가지
     function toList() {
         // 목록 버튼
@@ -84,17 +93,26 @@
         // 삭제하기 버튼
         const $delBtn = document.getElementById("del-btn");
         $delBtn.onclick = e => {
-            if (!confirm("삭제하시겠습니까?"))return;
+            if (!confirm("삭제하시겠습니까?")) return;
             console.log(${board.boardNo});
-            location.href="/freeboard/delete/${board.boardNo}"
+            location.href = "/freeboard/delete?boardNo=" +${board.boardNo};
         }
+    }
 
-
+    // 게시글 수정하기
+    function editEvent() {
+        // 수정하기 버튼
+        const $editBtn = document.getElementById("edit-btn");
+        $editBtn.onclick = e => {
+            location.href = "/freeboard/edit/${board.boardNo}?pageNum=${page.pageNum}&amount=${page.amount}";
+        }
     }
 
     (function () {
         toList();
         deleteEvent();
+        editEvent();
+        // alertServerMessage();
     })();
 </script>
 </body>

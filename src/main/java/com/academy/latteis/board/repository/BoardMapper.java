@@ -23,4 +23,7 @@ public interface BoardMapper {
 
     // 게시글 삭제
     boolean remove(Long boardNo);
+
+    // 게시글 수정
+    boolean edit(Board board);
 }
