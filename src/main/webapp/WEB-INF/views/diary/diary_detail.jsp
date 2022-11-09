@@ -32,6 +32,12 @@
             width: 100px;
             height: 100px;
         }
+        #emotion-input {
+            margin-top: 10%;
+        }
+        .btn btn-warning custom-button {
+
+        }
     </style>
     <!-- bootstrap css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -53,35 +59,31 @@
 
 
             <div>
-                <h1 class="today-diary">오늘의 일기</h1>
+                <h1 class="today-diary">(작성자)의 일기</h1>
             </div>
+
 
             <div class="mb-3">
                 <select name="emotion" id="emotion-input">
-                    <option value="">오늘의 기분</option>
-                    <option value="좋음">좋음</option>
-                    <option value="보통">보통</option>
-                    <option value="슬픔">슬픔</option>
-                    <option value="근심">근심/걱정</option>
+                    <option value="">${d.emotion}</option>
                 </select>
             </div>
 
             <div class="mb-3">
                 <select name="diaryShow" id="show-input">
-                    <option value="">공개여부</option>
-                    <option value="비공개">비공개</option>
-                    <option value="공개">공개</option>
-
+                    <option value="">${d.diaryShow}</option>
                 </select>
             </div>
             <div class="mb-3">
-
-                <textarea name="diaryContent" class="form-control" id="exampleFormControlTextarea1" rows="10" placeholder="내용"></textarea>
+                <textarea name="diaryContent" class="form-control" id="exampleFormControlTextarea1" rows="10">${d.diaryContent}</textarea>
             </div>
 
+
+
             <div class="d-grid gap-2">
-                <button id="reg-btn" class="btn btn-dark custom-button" type="button">일기 작성</button>
                 <button id="to-list" class="btn btn-warning custom-button" type="button">목록</button>
+                <button id="btn-update" class="btn btn-warning custom-button" type="button">수정</button>
+                <button id="btn-delete" class="btn btn-warning custom-button" type="button">삭제</button>
             </div>
 
         </form>
@@ -120,19 +122,34 @@
     }
 */
     // 게시물 입력값 검증
-    const $regBtn = document.getElementById('reg-btn');
-
-    $regBtn.onclick = e => {
-        // 필수 입력값을 잘 채웠으면 폼을 서브밋한다.
-        const $form = document.getElementById('write-form');
-        $form.submit();
-    };
+    // const $regBtn = document.getElementById('reg-btn');
+    //
+    // $regBtn.onclick = e => {
+    //     // 필수 입력값을 잘 채웠으면 폼을 서브밋한다.
+    //     const $form = document.getElementById('write-form');
+    //     $form.submit();
+    // };
 
 
     //목록버튼 이벤트
     const $toList = document.getElementById('to-list');
     $toList.onclick = e => {
         location.href = '/diary/list';
+    };
+
+    // 수정
+    const $update = document.getElementById('btn-update');
+    $update.onclick = e => {
+        location.href = '/diary/list';
+    };
+
+    // 삭제
+    const $delete = document.getElementById('btn-delete');
+    $delete.onclick = e => {
+        if(!confirm('삭제하시겠습니까? 정말..? 추억인데....')) {
+            return;
+        }
+        location.href = '/diary/delete?diaryNo=${diaryNo}';
     };
 
 

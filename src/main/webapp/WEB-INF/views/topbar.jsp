@@ -25,4 +25,5 @@
             나의 한 줄 일기
         </div>
     </div>
+    <div class="login" id="tologin">로그인/회원가입</div>
 </div>

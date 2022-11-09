@@ -25,13 +25,32 @@
     <select id="findAll" resultMap="diaryMap">
         select * from diary
                  order by diary_no desc
-                 limit (#{pageNum} - 1) * #{amount}, (#{pageNum} * #{amount})
+                 limit #{start}, #{amount}
     </select>
 
+<!--    일기 상세보기-->
+    <select id="findOne" resultMap="diaryMap">
+        select * from diary where diary_no = #{diary_no}
+    </select>
+
+<!--    일기 삭제-->
+    <delete id="remove">
+        delete from diary where diary_no = #{diaryNo}
+    </delete>
+
+<!--    일기 수정-->
+    <update id="modify">
+        update diary set emotion = #{emotion}, diary_show = #{diaryShow}, diary_content = #{diaryContent}
+        where diary_no = #{diaryNo}
+    </update>
 
 
 
 
+    <select id="getTotalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM diary
+    </select>
 
 
 

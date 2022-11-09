@@ -45,4 +45,11 @@
 .category div:hover{
     background: rgba(0,0,0,0.3);
 }
+.login{
+    width: 150px;
+    height: 100%;
+    font-size: 20px;
+    line-height: 90px;
+    margin-left: 50px;
+}
 /*topbar end*/
