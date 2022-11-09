@@ -1,4 +1,4 @@
-package com.academy.latteis.common;
+package com.academy.latteis.common.page;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
