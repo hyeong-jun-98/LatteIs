@@ -16,6 +16,18 @@
         <result property="topicNo" column="topic_no"/>
     </resultMap>
 
+    <!-- 중복 쿼리문 재사용하기 -->
+    <sql id="search">
+        <if test="type == 'title'">WHERE title LIKE CONCAT('%', #{keyword}, '%')</if>
+        <if test="type == 'writer'">WHERE writer LIKE CONCAT('%', #{keyword}, '%')</if>
+        <if test="type == 'content'">WHERE content LIKE CONCAT('%', #{keyword}, '%')</if>
+        <if test="type == 'tc'">
+            WHERE title LIKE CONCAT('%', #{keyword}, '%')
+            OR content LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+    </sql>
+
+
     <insert id="write">
         insert into board
             (writer, title, content)
@@ -25,8 +37,11 @@
     <select id="findAll" resultMap="boardConvertMap">
         SELECT *
         FROM board
+
+        <include refid="search"/>
+
         ORDER BY board_no DESC
-            LIMIT #{start}, #{amount}
+        LIMIT #{start}, #{amount}
     </select>
 
     <select id="findOne" resultMap="boardMap">
@@ -38,6 +53,7 @@
     <select id="getTotalCount" resultType="int">
         SELECT COUNT(*)
         FROM board
+        <include refid="search"/>
     </select>
 
     <!-- 게시글 삭제 -->
@@ -54,5 +70,12 @@
             title=#{title},
             content=#{content}
         where board_no = #{boardNo}
+    </update>
+
+    <!-- 조회수 -->
+    <update id="upHit">
+        UPDATE board
+        SET hit = hit + 1
+        WHERE board_no = #{boardNo}
     </update>
 </mapper>

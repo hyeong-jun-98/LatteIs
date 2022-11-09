@@ -2,8 +2,9 @@ package com.academy.latteis.board.controller;
 
 import com.academy.latteis.board.domain.Board;
 import com.academy.latteis.board.service.BoardService;
-import com.academy.latteis.common.Page;
-import com.academy.latteis.common.PageMaker;
+import com.academy.latteis.common.page.Page;
+import com.academy.latteis.common.page.PageMaker;
+import com.academy.latteis.common.search.Search;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @Controller
@@ -26,25 +29,27 @@ public class FreeBoardController {
 
     // 게시글 목록 요청
     @GetMapping("/list")
-    public String list(Page page, Model model) {
-        log.info("controller request /freeboard/list GET! - page: {}", page);
+    public String list(Search search, Model model) {
+        log.info("controller request /freeboard/list GET! - page: {}", search);
 
-        Map<String, Object> boardMap = boardService.findAllService(page);
+        Map<String, Object> boardMap = boardService.findAllService(search);
         log.debug("return data - {}", boardMap);
 
         // 페이지 정보 생성
-        PageMaker pm = new PageMaker(new Page(page.getPageNum(), page.getAmount()), (Integer) boardMap.get("totalCount"));
+        PageMaker pm = new PageMaker(new Page(search.getPageNum(), search.getAmount()), (Integer) boardMap.get("totalCount"));
 
         model.addAttribute("boardList", boardMap.get("boardList"));
         model.addAttribute("pm", pm);
+        model.addAttribute("search", search);
 
         return "freeboard/freeboard-list";
     }
 
     @GetMapping("/detail/{boardNo}")
-    public String getDetail(@PathVariable Long boardNo, Model model, Page page) {
+    public String getDetail(@PathVariable Long boardNo, Model model, Page page,
+                            HttpServletResponse response, HttpServletRequest request) {
         log.info("controller request /freeboard/detail GET! - {}", boardNo);
-        Board board = boardService.findOneService(boardNo);
+        Board board = boardService.findOneService(boardNo, response, request);
         log.info("return data - {}", board);
         model.addAttribute("board", board);
         model.addAttribute("page", page);
@@ -85,9 +90,9 @@ public class FreeBoardController {
     @GetMapping("/edit/{boardNo}")
     public String edit(@PathVariable Long boardNo, Model model, Page page) {
         log.info("controller request /freeboard/edit GET! - {}", boardNo);
-        Board board = boardService.findOneService(boardNo);
-        model.addAttribute("board", board);
-        model.addAttribute("page", page);
+//        Board board = boardService.findOneService(boardNo);
+//        model.addAttribute("board", board);
+//        model.addAttribute("page", page);
         return "/freeboard/freeboard-edit";
     }
 
