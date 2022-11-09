@@ -15,7 +15,9 @@
             width: 60%;
             margin: 0 auto;
         }
-
+        .freeboard-list{
+            margin-top: 100px;
+        }
         table tbody a {
             color: #000 !important;
             text-decoration: none;
@@ -73,10 +75,10 @@
                 <tr>
                     <th>${b.boardNo}</th>
                     <td>${b.writer}</td>
-                    <td><a href="#">${b.title}</a></td>
+                    <td><a href="#">${b.shortTitle}</a></td>
                     <td>${b.good}</td>
                     <td>${b.hit}</td>
-                    <td>${b.regdate}</td>
+                    <td>${b.prettierDate}</td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -120,12 +122,14 @@
 
 
 <script>
-    // 게시글 작성 성공 메시지
+    // 성공 메시지
     function alertServerMessage() {
         const msg = '${msg}';
         console.log('msg : ', msg);
         if (msg === 'write-success') {
             alert('게시물이 정상 등록되었습니다.');
+        } else if(msg === 'delete-success'){
+            alert('게시글이 정상적으로 삭제되었습니다.');
         }
     }
 

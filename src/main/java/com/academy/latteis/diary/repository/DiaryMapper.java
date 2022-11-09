@@ -3,12 +3,15 @@ package com.academy.latteis.diary.repository;
 import com.academy.latteis.diary.domain.Diary;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface DiaryMapper {
 
     // 일기 작성
     boolean save(Diary diary);
     // 일기장 (전체조회)
+    List <Diary> findAll();
 
     // 일기 상세 조회
 

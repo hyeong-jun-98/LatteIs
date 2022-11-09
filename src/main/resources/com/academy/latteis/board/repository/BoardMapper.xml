@@ -10,25 +10,49 @@
         <result property="topicNo" column="topic_no"/>
     </resultMap>
 
+    <!-- BoardConvertDTO -->
+    <resultMap id="boardConvertMap" type="com.academy.latteis.board.dto.BoardConvertDTO">
+        <result property="boardNo" column="board_no"/>
+        <result property="topicNo" column="topic_no"/>
+    </resultMap>
+
     <insert id="write">
         insert into board
             (writer, title, content)
         values (#{writer}, #{title}, #{content})
     </insert>
 
-    <select id="findAll" resultMap="boardMap">
+    <select id="findAll" resultMap="boardConvertMap">
         SELECT *
         FROM board
         ORDER BY board_no DESC
-        LIMIT #{start}, #{amount}
+            LIMIT #{start}, #{amount}
     </select>
 
     <select id="findOne" resultMap="boardMap">
-        select * from board where board_no = #{boardNo}
+        select *
+        from board
+        where board_no = #{boardNo}
     </select>
-    
+
     <select id="getTotalCount" resultType="int">
         SELECT COUNT(*)
         FROM board
     </select>
+
+    <!-- 게시글 삭제 -->
+    <delete id="remove">
+        delete
+        from board
+        where board_no = #{boardNo}
+    </delete>
+
+    <!-- 게시글 수정 -->
+    <update id="edit">
+        update board
+        set writer=#{writer},
+            title=#{title},
+            content=#{content}
+        where board_no = #{boardNo}
+    </update>
 </mapper>
