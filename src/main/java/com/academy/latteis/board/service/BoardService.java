@@ -49,6 +49,13 @@ public class BoardService {
         return board;
     }
 
+    // 게시글 삭제
+    public boolean removeService(Long boardNo){
+        log.info("remove service start");
+        boolean flag = boardMapper.remove(boardNo);
+        return flag;
+    }
+
 
 
 }

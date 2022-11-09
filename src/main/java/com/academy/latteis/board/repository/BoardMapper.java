@@ -21,4 +21,6 @@ public interface BoardMapper {
     // 전체 게시글 수 조회
     int getTotalCount();
 
+    // 게시글 삭제
+    boolean remove(Long boardNo);
 }

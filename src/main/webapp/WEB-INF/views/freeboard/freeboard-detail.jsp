@@ -16,6 +16,20 @@
             width: 60%;
             margin: 0 auto;
         }
+
+        .write-container {
+            margin-top: 100px;
+        }
+
+        .d-flex {
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        #edit-btn, #del-btn {
+            width: 49%;
+        }
+
     </style>
 </head>
 <body>
@@ -44,9 +58,11 @@
                           id="exampleFormControlTextarea1" rows="10">${board.content}</textarea>
             </div>
 
-            <div class="d-grid gap-2">
+            <div class="d-flex">
                 <button id="edit-btn" class="btn btn-dark" type="button">수정하기</button>
                 <button id="del-btn" class="btn btn-danger" type="button">삭제하기</button>
+            </div>
+            <div class="d-grid gap-2">
                 <button id="to-list" class="btn btn-warning" type="button">목록으로</button>
             </div>
         </form>
@@ -62,8 +78,23 @@
             location.href = "/freeboard/list?pageNum=${page.pageNum}&amount=${page.amount}";
         }
     }
-    (function(){
+
+    // 게시글 삭제하기
+    function deleteEvent() {
+        // 삭제하기 버튼
+        const $delBtn = document.getElementById("del-btn");
+        $delBtn.onclick = e => {
+            if (!confirm("삭제하시겠습니까?"))return;
+            console.log(${board.boardNo});
+            location.href="/freeboard/delete/${board.boardNo}"
+        }
+
+
+    }
+
+    (function () {
         toList();
+        deleteEvent();
     })();
 </script>
 </body>

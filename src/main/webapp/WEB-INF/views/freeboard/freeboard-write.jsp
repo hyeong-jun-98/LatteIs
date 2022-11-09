@@ -16,6 +16,10 @@
             width: 60%;
             margin: 0 auto;
         }
+        .write-container{
+            margin-top: 100px;
+        }
+
     </style>
 </head>
 <body>
@@ -59,7 +63,7 @@
         });
     }
 
-    // 목록으로 가지
+    // 목록으로 가기
     function toList() {
         // 목록 버튼
         const $toList = document.getElementById('to-list');

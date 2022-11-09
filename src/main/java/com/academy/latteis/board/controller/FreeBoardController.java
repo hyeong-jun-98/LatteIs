@@ -67,7 +67,18 @@ public class FreeBoardController {
 
         if(flag)ra.addFlashAttribute("msg", "write-success");
 
-        return flag ? "redirect:/freeboard/list" : "redirect:/";
+        return flag ? "redirect:/freeboard/list" : "redirect:/list";
+    }
+
+    // 게시글 삭제
+    @GetMapping("/delete/{boardNo}")
+    public String remove(@PathVariable Long boardNo, RedirectAttributes ra){
+        log.info("controller request /freeboard/delete GET! - {}", boardNo);
+
+        boolean flag = boardService.removeService(boardNo);
+        if (flag)ra.addFlashAttribute("msg", "delete-success");
+
+        return flag ? "redirect:/freeboard/list" : "redirect:/freeboard/list";
     }
 
 }

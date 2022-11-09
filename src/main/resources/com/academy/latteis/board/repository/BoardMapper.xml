@@ -31,4 +31,9 @@
         SELECT COUNT(*)
         FROM board
     </select>
+
+    <!-- 게시글 삭제 -->
+    <delete id="remove">
+        delete from board where board_no = #{boardNo}
+    </delete>
 </mapper>
