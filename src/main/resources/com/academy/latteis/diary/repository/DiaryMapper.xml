@@ -12,15 +12,21 @@
         <result property="diaryShow" column="diary_show" />
         <result property="diaryGood" column="diary_good" />
 
-
     </resultMap>
 
+<!--    // 일기 작성-->
     <insert id="save">
         insert into diary
         (emotion, diary_content, diary_show)
         values (#{emotion}, #{diaryContent}, #{diaryShow})
     </insert>
 
+<!--    // 일기 리스트-->
+    <select id="findAll" resultMap="diaryMap">
+        select * from diary
+                 order by diary_no desc
+                 limit (#{pageNum} - 1) * #{amount}, (#{pageNum} * #{amount})
+    </select>
 
 
 

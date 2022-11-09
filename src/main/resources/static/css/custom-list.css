@@ -1,3 +1,13 @@
+body {
+    font-family: inherit;
+    line-height: inherit;
+    height: auto;
+    min-height: 100%;
+    padding-bottom: 220px;
+    margin: 0;
+}
+
+
 .custom-MyList {
     color: #fd7e14;
 }
@@ -14,4 +24,163 @@
     background-color: #ffc720;
     border-color: white;
 }
+.justify-start {
+    justify-content: flex-start;
+}
+.flex-wrap {
+    flex-wrap: wrap;
+}
+.flex {
+    display: flex;
+}
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+.container {
+    width: 100%;
+}
+*, ::after, ::before {
+    --tw-ring-inset: var(--tw-empty, );
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-color: #fff;
+    --tw-ring-color: rgba(59, 130, 246, 0.5);
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+}
+*, ::after, ::before {
+    --tw-shadow: 0 0 #0000;
+}
+*, ::after, ::before {
+    --tw-border-opacity: 1;
+    border-color: rgba(229,231,235,var(--tw-border-opacity));
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    border-color: currentColor;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+* {
+    --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-color: #fff;
+    --tw-ring-color: rgba(59, 130, 246, 0.5);
+    --tw-ring-offset-shadow: 0 0 transparent;
+    --tw-ring-shadow: 0 0 transparent;
+}
+*, :after, :before {
+    box-sizing: border-box;
+    border: 0 solid;
+}
+div {
+    display: block;
+}
+.bg-gray-50 {
+    --tw-bg-opacity: 1;
+    background-color: rgba(249,250,251,var(--tw-bg-opacity));
+}
 
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: pointer;
+}
+.p-5 {
+     padding: 1.25rem;
+ }
+.w-full {
+    width: 100%;
+}
+.shadow-lg {
+    --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);
+}
+.break-all {
+    word-break: break-all;
+}
+.w-full {
+    width: 100%;
+}
+.h-full {
+    height: 100%;
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    border-radius: var(--rounded-box, 1rem);
+}
+.bg-white {
+    --tw-bg-opacity: 1;
+    background-color: rgba(255,255,255,var(--tw-bg-opacity));
+}
+.h-72 {
+    height: 18rem;
+}
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    padding: var(--padding-card, 2rem);
+}
+p {
+    margin:0;
+}
+.text-gray-500 {
+    --tw-text-opacity: 1;
+    color: rgba(107,114,128,var(--tw-text-opacity));
+}
+.text-sm {
+    font-size: .875rem;
+    line-height: 1.25rem;
+}
+.text-right {
+    text-align: right;
+}
+.my-0 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.divider {
+    display: flex;
+    align-items: center;
+    height: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.divider:after, .divider:before {
+    content: "";
+    flex-grow: 1;
+    --tw-bg-opacity: 1;
+    --tw-bg-opacity: var(--tw-border-opacity, 0.1);
+    background-color: hsla(var(--bc) / var(--tw-bg-opacity, 1));
+    height: 0.125rem;
+}
+.card-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    margin-bottom: 0.75rem;
+}
+h2 {
+    font-size: inherit;
+    font-weight: inherit;
+}
+.overflow-hidden {
+    overflow: hidden;
+}
+.bg-gray-50 {
+    --tw-bg-opacity: 1;
+    background-color: rgba(249,250,251,var(--tw-bg-opacity));
+}
+html > body {
+    font-family: 'KyoboHand';
+}
