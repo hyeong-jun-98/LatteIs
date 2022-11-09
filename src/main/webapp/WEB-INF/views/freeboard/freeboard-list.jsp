@@ -75,10 +75,10 @@
                 <tr>
                     <th>${b.boardNo}</th>
                     <td>${b.writer}</td>
-                    <td><a href="#">${b.title}</a></td>
+                    <td><a href="#">${b.shortTitle}</a></td>
                     <td>${b.good}</td>
                     <td>${b.hit}</td>
-                    <td>${b.regdate}</td>
+                    <td>${b.prettierDate}</td>
                 </tr>
             </c:forEach>
             </tbody>

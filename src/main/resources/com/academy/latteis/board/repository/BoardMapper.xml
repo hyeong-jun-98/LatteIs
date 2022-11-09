@@ -10,13 +10,19 @@
         <result property="topicNo" column="topic_no"/>
     </resultMap>
 
+    <!-- BoardConvertDTO -->
+    <resultMap id="boardConvertMap" type="com.academy.latteis.board.dto.BoardConvertDTO">
+        <result property="boardNo" column="board_no"/>
+        <result property="topicNo" column="topic_no"/>
+    </resultMap>
+
     <insert id="write">
         insert into board
             (writer, title, content)
         values (#{writer}, #{title}, #{content})
     </insert>
 
-    <select id="findAll" resultMap="boardMap">
+    <select id="findAll" resultMap="boardConvertMap">
         SELECT *
         FROM board
         ORDER BY board_no DESC
