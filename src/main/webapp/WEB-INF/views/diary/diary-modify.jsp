@@ -68,7 +68,7 @@
     <input type="hidden" name="diaryNo" value="${d.diaryNo}">
     <div class="write-container custom-container">
 
-        <form id="write-form" action="/diary/modify" method="post" autocomplete="off" enctype="multipart/form-data">
+        <form id="write-form" action="/diary/write" method="post" autocomplete="off" enctype="multipart/form-data">
 
 
             <div>
