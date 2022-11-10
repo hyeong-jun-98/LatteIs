@@ -1,19 +1,17 @@
 package com.academy.latteis.diary.controller;
 
-import com.academy.latteis.common.Page;
-import com.academy.latteis.common.PageMaker;
+import com.academy.latteis.common.page.Page;
+import com.academy.latteis.common.page.PageMaker;
 import com.academy.latteis.diary.domain.Diary;
 import com.academy.latteis.diary.service.DiaryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Map;
 
 
