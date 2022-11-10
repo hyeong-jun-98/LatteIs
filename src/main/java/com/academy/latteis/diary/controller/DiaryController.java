@@ -1,7 +1,7 @@
 package com.academy.latteis.diary.controller;
 
-import com.academy.latteis.common.Page;
-import com.academy.latteis.common.PageMaker;
+import com.academy.latteis.common.page.Page;
+import com.academy.latteis.common.page.PageMaker;
 import com.academy.latteis.diary.domain.Diary;
 import com.academy.latteis.diary.service.DiaryService;
 import lombok.RequiredArgsConstructor;

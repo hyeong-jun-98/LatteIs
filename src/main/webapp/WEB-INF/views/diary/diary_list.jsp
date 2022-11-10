@@ -113,7 +113,7 @@
 
     <!--글 하나하나-->
     <c:forEach var="d" items="${dList}">
-        <div class="lg:w-1/4 md:w-1/2 w-full p-5 articles" data-diary-num="${d.diaryNo}">
+        <div class="w-full articles margin" data-diary-num="${d.diaryNo}">
             <a href="#">
                 <div class="hover:shadow-2x1 card shadow-lg w-full h-full break-all">
                     <div class="card-body h-72 bg-white">

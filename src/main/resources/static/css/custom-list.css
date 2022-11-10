@@ -33,6 +33,10 @@ body {
 .flex {
     display: flex;
 }
+.margin{
+    margin: 0 10px;
+    margin-bottom: 10px;
+}
 .mx-auto {
     margin-left: auto;
     margin-right: auto;
@@ -79,6 +83,9 @@ body {
 div {
     display: block;
 }
+/*inline-block{*/
+/*    display: inline-block;*/
+/*}*/
 .bg-gray-50 {
     --tw-bg-opacity: 1;
     background-color: rgba(249,250,251,var(--tw-bg-opacity));
@@ -95,9 +102,7 @@ a:-webkit-any-link {
 .p-5 {
      padding: 1.25rem;
  }
-.w-full {
-    width: 100%;
-}
+
 .shadow-lg {
     --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),0 4px 6px -2px rgba(0, 0, 0, 0.05);
     box-shadow: var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);
@@ -106,7 +111,7 @@ a:-webkit-any-link {
     word-break: break-all;
 }
 .w-full {
-    width: 100%;
+    width: 300px;
 }
 .h-full {
     height: 100%;
