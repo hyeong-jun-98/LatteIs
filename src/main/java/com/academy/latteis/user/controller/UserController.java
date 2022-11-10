@@ -4,7 +4,6 @@ import com.academy.latteis.common.page.Page;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,14 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Log4j2
 @RequiredArgsConstructor
 @RequestMapping("/user")
-public class LoginController {
+public class UserController {
 
-        // 게시글 목록 요청
+        // 로그인 화면 요청
         @GetMapping("/loginform")
-        public String list(Page page, Model model) {
+        public String loginform() {
             return "/user/loginform";
         }
 
+        // 회원가입 화면 요청
+        @GetMapping("/joinform")
+        public String joinform() { return "/user/joinform"; }
 
 //        @GetMapping("/detail/{boardNo}")
 //        public String getDetail(@PathVariable Long boardNo, Model model, Page page) {
