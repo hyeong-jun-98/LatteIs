@@ -1,7 +1,7 @@
 package com.academy.latteis.diary.controller;
 
-import com.academy.latteis.common.page.Page;
-import com.academy.latteis.common.page.PageMaker;
+import com.academy.latteis.common.page.DiaryPage;
+import com.academy.latteis.common.page.DiaryPageMaker;
 import com.academy.latteis.diary.domain.Diary;
 import com.academy.latteis.diary.service.DiaryService;
 import lombok.RequiredArgsConstructor;
@@ -37,10 +37,10 @@ public class DiaryController {
 
     // 일기 목록 요청
     @GetMapping("/list")
-    public String list(Page page, Model model) {
-        Map <String, Object> diaryMap = diaryService.findAllService(page);
-        PageMaker pm = new PageMaker(
-                new Page(page.getPageNum(), page.getAmount())
+    public String list(DiaryPage diaryPage, Model model) {
+        Map <String, Object> diaryMap = diaryService.findAllService(diaryPage);
+        DiaryPageMaker pm = new DiaryPageMaker(
+                new DiaryPage(diaryPage.getPageNum(), diaryPage.getAmount())
                 , (Integer) diaryMap.get("tc"));
 
         model.addAttribute("dList", diaryMap.get("dList"));
@@ -110,7 +110,7 @@ public class DiaryController {
         Diary diary = diaryService.findOneService(diaryNo);
         log.info("find article {} ", diary);
 
-        model.addAttribute("diary", diary);
+        model.addAttribute("d", diary);
         return "diary/diary-modify";
     }
 

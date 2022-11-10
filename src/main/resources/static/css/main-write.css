@@ -5,6 +5,10 @@ a {
     color: inherit;
     text-decoration: none;
 }
+html > body {
+    font-family: 'KyoboHand';
+}
+
 
 button,
 input {

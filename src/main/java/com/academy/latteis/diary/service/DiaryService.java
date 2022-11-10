@@ -1,7 +1,8 @@
 package com.academy.latteis.diary.service;
 
 
-import com.academy.latteis.common.page.Page;
+import com.academy.latteis.common.page.DiaryPage;
+
 import com.academy.latteis.diary.domain.Diary;
 import com.academy.latteis.diary.repository.DiaryMapper;
 import lombok.RequiredArgsConstructor;
@@ -31,11 +32,11 @@ public class DiaryService {
     }
 
     // 일기장 목록 with paging
-    public Map<String, Object> findAllService(Page page) {
+    public Map<String, Object> findAllService(DiaryPage diaryPage) {
 
         Map <String, Object> findDataMap  = new HashMap<>();
 
-        List <Diary> diaryList = diaryMapper.findAll(page);
+        List <Diary> diaryList = diaryMapper.findAll(diaryPage);
 
         // 목록 중간 데이터 중간처리
         processConverting(diaryList);
@@ -55,7 +56,7 @@ public class DiaryService {
     // 날짜 변환
     private void convertDateFormat(Diary d) {
         Date date = d.getDiaryRegdate();
-        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd a hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yy년 MM월 dd일 a hh:mm");
         d.setPrettierDate(sdf.format(date));
     }
 

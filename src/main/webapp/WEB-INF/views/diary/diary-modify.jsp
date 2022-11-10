@@ -4,9 +4,26 @@
 <html lang="ko">
 
 <head>
-    <%--    <%@ include file="../include/static-head.jsp" %>--%>
+    <!-- bootstrap css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- bootstrap js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <link href="/css/topbar.css" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'KyoboHand';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
+            font-weight: bold;
+            font-style: normal;
+        }
+        body{
+            background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            overflow: visible;
+            font-family: KyoboHand;
+        }
         .write-container {
             width: 50%;
             margin: 200px auto 150px;
@@ -41,15 +58,17 @@
     <!-- custom css -->
     <link rel="stylesheet" href="/css/main-write.css">
     <link rel="stylesheet" href="/css/custom-write.css">
+    <link href="/css/topbar.css" rel="stylesheet">
 </head>
 
 <body>
-<div class="wrap">
+<%@include file="../topbar.jsp"%>
+<div class="wrap custom-wrap">
     <%--    <%@ include file="../include/header.jsp" %>--%>
+    <input type="hidden" name="diaryNo" value="${d.diaryNo}">
+    <div class="write-container custom-container">
 
-    <div class="write-container">
-
-        <form id="write-form" action="/diary/write" method="post" autocomplete="off" enctype="multipart/form-data">
+        <form id="write-form" action="/diary/modify" method="post" autocomplete="off" enctype="multipart/form-data">
 
 
             <div>
@@ -58,7 +77,7 @@
 
             <div class="mb-3">
                 <select name="emotion" id="emotion-input">
-                    <option value="">오늘의 기분 : ${d.emotion}</option>
+                    <option value="">${d.emotion}</option>
                     <option value="좋음">좋음</option>
                     <option value="보통">보통</option>
                     <option value="슬픔">슬픔</option>
@@ -68,18 +87,17 @@
 
             <div class="mb-3">
                 <select name="diaryShow" id="show-input">
-                    <option value="">공개여부 : ${d.diaryShow}</option>
+                    <option value="">${d.diaryShow}</option>
                     <option value="비공개">비공개</option>
                     <option value="공개">공개</option>
 
                 </select>
             </div>
             <div class="mb-3">
-
-                <textarea name="diaryContent" class="form-control" id="exampleFormControlTextarea1" rows="10" placeholder="내용"></textarea>
+                <textarea name="diaryContent" class="form-control" id="exampleFormControlTextarea1" rows="10" placeholder="내용">${d.diaryContent}</textarea>
             </div>
 
-            <div class="d-grid gap-2">
+            <div class="d-grid gap-2 btn-list">
                 <button id="reg-btn" class="btn btn-dark custom-button" type="submit">일기 수정</button>
                 <button id="to-list" class="btn btn-warning custom-button" type="button">목록</button>
             </div>
@@ -90,6 +108,13 @@
 
     <%--    <%@ include file="../include/footer.jsp" %>--%>
 </div>
+<script>
+    //목록버튼 이벤트
+    const $toList = document.getElementById('to-list');
+    $toList.onclick = e => {
+        location.href = '/diary/list';
+    };
+</script>
 
 </body>
 

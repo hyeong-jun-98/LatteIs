@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -14,41 +14,27 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" rel="stylesheet"/>
     <link href="/css/custom-list.css" rel="stylesheet"/>
+    <link href="/css/topbar.css" rel="stylesheet">
+
+
 
 </head>
 
 <style>
-
-    .page-item {
-        margin-top: 2%;
+    @font-face {
+        font-family: 'KyoboHand';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
+        font-weight: bold;
+        font-style: normal;
+    }
+    body{
+        background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        overflow: visible;
+        font-family: KyoboHand;
     }
 
-    /* pagination style */
-    .bottom-section {
-        margin-top: -50px;
-        margin-bottom: 100px;
-        display: flex;
-    }
-
-    .bottom-section nav {
-        flex: 9;
-        display: flex;
-        justify-content: center;
-    }
-
-    .bottom-section .btn-write {
-        flex: 1;
-    }
-
-    .pagination-custom a {
-        color: #444 !important;
-    }
-
-    .pagination-custom li.active a,
-    .pagination-custom li:hover a {
-        background: #333 !important;
-        color: #fff !important;
-    }
 
     .amount {
         display: flex;
@@ -64,19 +50,41 @@
     .amount li a {
         width: 100%;
     }
+    /* bottom-section style */
+    .bottom-section nav {
+        flex: 9;
+        display: flex;
+        justify-content: center;
+    }
+    .bottom-section button {
+        font-size: 20px;
+    }
+
+    .pagination-custom li a {
+        color: #000 !important;
+    }
+    .pagination-custom li.active a,
+    .pagination-custom li:hover a {
+        background: lightyellow !important;
+        border-color: orange !important;
+
+    }
+
 
 
 </style>
 
 <body>
+<%--topbar--%>
+<%@include file="../topbar.jsp"%>
 
 <!-- Header-->
 <header class="py-5">
     <div class="container px-lg-5">
-        <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+        <div class="p-4 p-lg-5 rounded-3 text-center list-title">
             <div class="m-4 m-lg-5">
-                <h1 class="display-5 fw-bold custom-Mylist">나의 일기장</h1>
-                <a class="btn btn-primary btn-lg custom-gotoWrite" href="/diary/write">일기 작성하러 가기</a>
+                <h1 class="display-5 fw-bold custom-Mylist diary-header">나의 일기장</h1>
+                <a class="btn btn-primary btn-lg custom-gotoWrite diary-header" href="/diary/write" style="color: black">일기 작성하러 가기</a>
             </div>
         </div>
     </div>
@@ -113,20 +121,21 @@
 
     <!--글 하나하나-->
     <c:forEach var="d" items="${dList}">
-        <div class="lg:w-1/4 md:w-1/2 w-full p-5 articles" data-diary-num="${d.diaryNo}">
+        <div class="lg:w-1/4 md:w-1/2 w-full p-5 articles margin" data-diary-num="${d.diaryNo}">
             <a href="#" style="color: black">
                 <div class="hover:shadow-2x1 card shadow-lg w-full h-full break-all">
                     <div class="card-body h-72 bg-white">
                         <div class="flex justify-between">
-
+                            <div>
                             <p>(작성자 이름)</p>
                             <p class="text-right text-sm text-gray-500 date">${d.prettierDate}</p>
                             <!-- <p class="text-sm text-gray-500 text-right">조회수 </p> -->
-                        </div>
-                        <div class="divider my-0">
 
-                        </div>
+<%--                        <div class="divider my-0">--%>
 
+<%--                        </div>--%>
+                            </div>
+                        </div>
                         <h2 class="card-title">오늘의 기분 : ${d.emotion}</h2>
 
                         <div class="text-clip overflow-hidden">
@@ -148,19 +157,19 @@
 
             <c:if test="${pm.prev}">
                 <li class="page-item"><a class="page-link"
-                                         href="/diary/list?pageNum=${pm.beginPage - 1}&amount=${pm.page.amount}">prev</a>
+                                         href="/diary/list?pageNum=${pm.beginPage - 1}&amount=${pm.diaryPage.amount}">prev</a>
                 </li>
             </c:if>
 
             <c:forEach var="n" begin="${pm.beginPage}" end="${pm.endPage}" step="1">
-                <li data-page-num="${n}" class="page-item">
-                    <a class="page-link" href="/diary/list?pageNum=${n}&amount=${pm.page.amount}">${n}</a>
+                <li data-page-num="${n}" class="page-item" style="color: black">
+                    <a class="page-link" href="/diary/list?pageNum=${n}&amount=${pm.diaryPage.amount}" >${n}</a>
                 </li>
             </c:forEach>
 
             <c:if test="${pm.next}">
                 <li class="page-item"><a class="page-link"
-                                         href="/diary/list?pageNum=${pm.endPage + 1}&amount=${pm.page.amount}">next</a>
+                                         href="/diary/list?pageNum=${pm.endPage + 1}&amount=${pm.diaryPage.amount}">next</a>
                 </li>
             </c:if>
 
@@ -179,7 +188,7 @@
     function appendPageActive() {
 
         // 현재 내가 보고 있는 페이지 넘버
-        const curPageNum = '${pm.page.pageNum}';
+        const curPageNum = '${pm.diaryPage.pageNum}';
         // console.log("현재페이지: ", curPageNum);
 
         // 페이지 li태그들을 전부 확인해서
@@ -215,8 +224,8 @@
             // console.log('글번호: ' + diaryNo);
 
             location.href = '/diary/detail/' + diaryNo
-                + "?pageNum=${pm.page.pageNum}"
-                + "&amount=${pm.page.amount}";
+                + "?pageNum=${pm.diaryPage.pageNum}"
+                + "&amount=${pm.diaryPage.amount}";
         });
     }
 

@@ -4,9 +4,28 @@
 <html lang="ko">
 
 <head>
-<%--    <%@ include file="../include/static-head.jsp" %>--%>
+    <!-- bootstrap css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- bootstrap js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <link href="/css/topbar.css" rel="stylesheet">
 
     <style>
+
+        @font-face {
+            font-family: 'KyoboHand';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
+            font-weight: bold;
+            font-style: normal;
+        }
+        body{
+            background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            overflow: visible;
+            font-family: KyoboHand;
+        }
         .write-container {
             width: 50%;
             margin: 200px auto 150px;
@@ -32,12 +51,7 @@
             width: 100px;
             height: 100px;
         }
-        #emotion-input {
-            margin-top: 10%;
-        }
-        .btn btn-warning custom-button {
 
-        }
     </style>
     <!-- bootstrap css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -47,15 +61,20 @@
     <!-- custom css -->
     <link rel="stylesheet" href="/css/main-write.css">
     <link rel="stylesheet" href="/css/custom-write.css">
+
+    <link href="/css/topbar.css" rel="stylesheet">
+
 </head>
 
 <body>
-<div class="wrap">
+<%@include file="../topbar.jsp"%>
+<div class="wrap custom-wrap">
 <%--    <%@ include file="../include/header.jsp" %>--%>
 
-    <div class="write-container">
+    <div class="write-container custom-container">
 
-        <form id="write-form" action="/diary/write" method="post" autocomplete="off" enctype="multipart/form-data">
+
+        <form id="write-form" class="custom-write" action="/diary/write" method="post" autocomplete="off" enctype="multipart/form-data">
 
 
             <div>
@@ -63,7 +82,7 @@
             </div>
 
 
-            <div class="mb-3">
+            <div class="mb-3 custom-emotion">
                 <select name="emotion" id="emotion-input">
                     <option value="">${d.emotion}</option>
                 </select>
@@ -80,7 +99,7 @@
 
 
 
-            <div class="d-grid gap-2">
+            <div class="d-grid gap-2 btn-list">
                 <button id="to-list" class="btn btn-warning custom-button" type="button">목록</button>
                 <button id="btn-update" class="btn btn-warning custom-button" type="button">수정</button>
                 <button id="btn-delete" class="btn btn-warning custom-button" type="button">삭제</button>

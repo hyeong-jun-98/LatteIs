@@ -27,6 +27,9 @@ body {
 .justify-start {
     justify-content: flex-start;
 }
+.justify-between {
+    justify-content: space-between;
+}
 .flex-wrap {
     flex-wrap: wrap;
 }
@@ -36,6 +39,16 @@ body {
 .margin{
     margin: 0 10px;
     margin-bottom: 10px;
+}
+.list-title {
+    margin-top: 5%;
+}
+
+
+
+.diary-header {
+
+
 }
 .mx-auto {
     margin-left: auto;
@@ -152,11 +165,21 @@ p {
 }
 .text-right {
     text-align: right;
-    margin-left: 70%;
+    /*margin-left: 70%;*/
 }
 .my-0 {
     margin-top: 0;
     margin-bottom: 0;
+}
+.date {
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+.card-title {
+    border-bottom: black;
+    border-width: 2px;
+    border-right: black;
+    border-left: black;
 }
 .divider {
     display: flex;
@@ -193,3 +216,5 @@ h2 {
 html > body {
     font-family: 'KyoboHand';
 }
+
+

@@ -1,14 +1,38 @@
 .today-diary {
     font-weight: 600;
+    line-height: 100px;
+    border-bottom: black solid 3px;
 }
+
 
 .diary_title {
     margin-top: 5%;
 }
 
+
 .form-control {
     border-color: #ffc720;
 }
+.btn-list {
+    display: flex !important;
+    justify-content: space-between;
+}
+.custom-wrap {
+    background-color: white;
+    border-radius: 5%;
+    width: 650px;
+    margin: auto;
+    height: 550px
+}
+.custom-container {
+    width: 95%;
+}
+
+#emotion-input {
+    margin-top: 10px;
+}
+
+
 
 .uploadDiv {
     border-color: #ffc720;
@@ -20,4 +44,9 @@
     float: left;
     position: relative;
 
+}
+
+
+html > body {
+    font-family: 'KyoboHand';
 }

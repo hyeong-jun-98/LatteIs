@@ -1,6 +1,7 @@
 package com.academy.latteis.diary.repository;
 
-import com.academy.latteis.common.page.Page;
+import com.academy.latteis.common.page.DiaryPage;
+
 import com.academy.latteis.diary.domain.Diary;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,7 +16,7 @@ public interface DiaryMapper {
     //List <Diary> findAll();
     
     //  일기장 페이징 처리
-    List <Diary> findAll(Page page);
+    List <Diary> findAll(DiaryPage diaryPage);
 
     // 일기 상세 조회
     Diary findOne(Long diaryNo);
