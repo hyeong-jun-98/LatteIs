@@ -65,10 +65,10 @@
 <%@include file="../topbar.jsp"%>
 <div class="wrap custom-wrap">
     <%--    <%@ include file="../include/header.jsp" %>--%>
-    <input type="hidden" name="diaryNo" value="${d.diaryNo}">
     <div class="write-container custom-container">
 
-        <form id="write-form" action="/diary/write" method="post" autocomplete="off" enctype="multipart/form-data">
+        <form id="write-form" action="/diary/modify" method="post" >
+            <input type="hidden" name="diaryNo" value="${d.diaryNo}">
 
 
             <div>
@@ -77,7 +77,7 @@
 
             <div class="mb-3">
                 <select name="emotion" id="emotion-input">
-                    <option value="">${d.emotion}</option>
+                    <option disabled>${d.emotion}</option/>
                     <option value="좋음">좋음</option>
                     <option value="보통">보통</option>
                     <option value="슬픔">슬픔</option>
@@ -87,7 +87,7 @@
 
             <div class="mb-3">
                 <select name="diaryShow" id="show-input">
-                    <option value="">${d.diaryShow}</option>
+                    <option value="" disabled>${d.diaryShow}</option>
                     <option value="비공개">비공개</option>
                     <option value="공개">공개</option>
 
@@ -112,8 +112,12 @@
     //목록버튼 이벤트
     const $toList = document.getElementById('to-list');
     $toList.onclick = e => {
+
         location.href = '/diary/list';
     };
+
+
+
 </script>
 
 </body>

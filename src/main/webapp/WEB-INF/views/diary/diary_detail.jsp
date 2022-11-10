@@ -94,7 +94,7 @@
                 </select>
             </div>
             <div class="mb-3">
-                <textarea name="diaryContent" class="form-control" id="exampleFormControlTextarea1" rows="10">${d.diaryContent}</textarea>
+                <textarea name="diaryContent" class="form-control" id="exampleFormControlTextarea1" rows="10" readonly>${d.diaryContent}</textarea>
             </div>
 
 
@@ -163,9 +163,7 @@
 
         $update.onclick = e => {
 
-            if(!confirm('일기를 수정할까요?')) {
-                return;
-            }
+
             location.href = '/diary/modify?diaryNo=${d.diaryNo}';
         };
     }

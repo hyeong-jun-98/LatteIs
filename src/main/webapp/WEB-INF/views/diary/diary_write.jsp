@@ -62,7 +62,7 @@
                     <option value="좋음">좋음</option>
                     <option value="보통">보통</option>
                     <option value="슬픔">슬픔</option>
-                    <option value="근심">근심/걱정</option>
+                    <option value="근심/걱정">근심/걱정</option>
                 </select>
             </div>
 
