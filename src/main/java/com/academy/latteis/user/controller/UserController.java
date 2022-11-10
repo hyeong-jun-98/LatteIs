@@ -1,9 +1,12 @@
 package com.academy.latteis.user.controller;
 
+import com.academy.latteis.user.domain.User;
+import com.academy.latteis.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class UserController {
 
+        private final UserService userService;
         // 로그인 화면 요청
         @GetMapping("/loginform")
         public String loginform() {
@@ -22,6 +26,13 @@ public class UserController {
         @GetMapping("/joinform")
         public String joinform() { return "/user/joinform"; }
 
+        @PostMapping("/join")
+        public String join(User user){
+                log.info(user);
+                boolean check = userService.saveUser(user);
+                return check ? "/user/loginform" : "/";
+
+        }
 //        @GetMapping("/detail/{boardNo}")
 //        public String getDetail(@PathVariable Long boardNo, Model model, Page page) {
 //            log.info("controller request /freeboard/detail GET! - {}", boardNo);

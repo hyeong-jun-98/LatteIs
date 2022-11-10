@@ -334,31 +334,5 @@
         </div>
     </div>
 </body>
-<script>
-    // 목록으로 가지
-    function toList() {
-        // 목록 버튼
-        const $toList = document.getElementById('list');
-        $toList.onclick = e => {
-            location.href = "/freeboard/list";
-        }
-    }
-    function toDiary(){
-        const $toDiary = document.getElementById('diary');
-        $toDiary.onclick = e => {
-            location.href = "/diary/list";
-        }
-    }
-    function toLogin(){
-        const $toLogin = document.getElementById("tologin");
-        $toLogin.onclick = e => {
-            location.href = "/user/loginform";
-        }
-    }
-    (function(){
-        toList();
-        toDiary();
-        toLogin();
-    })();
-</script>
+
 </html>
