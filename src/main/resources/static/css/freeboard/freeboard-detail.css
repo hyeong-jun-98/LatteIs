@@ -1,0 +1,54 @@
+.wrap {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.write-container {
+    margin-top: 250px;
+    margin-bottom: 100px;
+    font-size: 20px;
+}
+
+.write-container .mb-3 .form-control {
+    background: #fff !important;
+}
+
+/* 댓글 스타일 적용*/
+#comments {
+    margin-bottom: 20px;
+}
+#commentData{
+    margin-bottom: 16px;
+}
+#commentContent {
+    margin: 0 20px;
+}
+.row {
+    justify-content: space-between;
+}
+.offset-md-2 {
+    display: flex;
+    justify-content: end;
+}
+.bottom-line {
+    border-bottom: 1px solid lightgray;
+}
+
+/* 페이지 버튼 스타일 */
+.pagination-custom li a {
+    color: #000 !important;
+}
+.pagination-custom li.active a,
+.pagination-custom li:hover a {
+    background: lightyellow !important;
+    border-color: orange !important;
+}
+
+/* 하단 버튼 스타일 */
+.d-flex {
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+#edit-btn, #del-btn {
+    width: 49%;
+}

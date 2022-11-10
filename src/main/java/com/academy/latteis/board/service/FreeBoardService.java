@@ -3,7 +3,6 @@ package com.academy.latteis.board.service;
 import com.academy.latteis.board.domain.Board;
 import com.academy.latteis.board.dto.BoardConvertDTO;
 import com.academy.latteis.board.repository.BoardMapper;
-import com.academy.latteis.common.page.Page;
 import com.academy.latteis.common.search.Search;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -22,7 +21,7 @@ import java.util.Map;
 @Service
 @Log4j2
 @RequiredArgsConstructor
-public class BoardService {
+public class FreeBoardService {
 
     private final BoardMapper boardMapper;
 
