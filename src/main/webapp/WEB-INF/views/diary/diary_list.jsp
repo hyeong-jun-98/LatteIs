@@ -108,13 +108,13 @@
 <%--</ul>--%>
 
 <!--글 목록-->
-<div id="article-container" class="container mx-auto flex flex-wrap justify-start ">
+<div id="article-container" class="container mx-auto flex flex-wrap justify-start">
 
 
     <!--글 하나하나-->
     <c:forEach var="d" items="${dList}">
         <div class="lg:w-1/4 md:w-1/2 w-full p-5 articles" data-diary-num="${d.diaryNo}">
-            <a href="#">
+            <a href="#" style="color: black">
                 <div class="hover:shadow-2x1 card shadow-lg w-full h-full break-all">
                     <div class="card-body h-72 bg-white">
                         <div class="flex justify-between">

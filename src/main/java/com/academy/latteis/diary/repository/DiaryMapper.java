@@ -1,6 +1,6 @@
 package com.academy.latteis.diary.repository;
 
-import com.academy.latteis.common.Page;
+import com.academy.latteis.common.page.Page;
 import com.academy.latteis.diary.domain.Diary;
 import org.apache.ibatis.annotations.Mapper;
 
