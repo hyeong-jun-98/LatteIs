@@ -111,7 +111,7 @@
             자동 로그인<input class="check" type="checkbox">
             <div class="join">
                 <button id="login">로그인</button>
-                <button id="signin">회원가입</button>
+                <button id="joinform">회원가입</button>
                 <a id="custom-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=${kakaoAppKey}&redirect_uri=http://localhost:8183${kakaoRedirect}&response_type=code">
                     <img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300"/>
                 </a>
@@ -130,8 +130,15 @@
             location.href= "user/login"
         }
     }
+    function joinform(){
+        const $joingform = document.getElementById("joinform");
+        $joingform.onclick = e => {
+            location.href= "joinform"
+        }
+    }
     (function(){
         login();
+        joinform();
     })();
 </script>
 </html>

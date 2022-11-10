@@ -1,7 +1,6 @@
 package com.academy.latteis.diary.service;
 
 
-
 import com.academy.latteis.common.page.Page;
 import com.academy.latteis.diary.domain.Diary;
 import com.academy.latteis.diary.repository.DiaryMapper;
@@ -26,7 +25,6 @@ public class DiaryService {
     // 일기장 작성
     @Transactional
     public boolean saveService(Diary diary) {
-
         // 게시물 내용 DB 저장
         boolean flag = diaryMapper.save(diary);
         return flag;
