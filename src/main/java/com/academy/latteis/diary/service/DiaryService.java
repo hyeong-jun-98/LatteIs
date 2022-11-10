@@ -1,7 +1,8 @@
 package com.academy.latteis.diary.service;
 
 
-import com.academy.latteis.common.Page;
+
+import com.academy.latteis.common.page.Page;
 import com.academy.latteis.diary.domain.Diary;
 import com.academy.latteis.diary.repository.DiaryMapper;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class DiaryService {
     // 일기장 작성
     @Transactional
     public boolean saveService(Diary diary) {
+
         // 게시물 내용 DB 저장
         boolean flag = diaryMapper.save(diary);
         return flag;
@@ -45,13 +47,14 @@ public class DiaryService {
         return findDataMap;
     }
 
+    // 날짜변환
     private void processConverting(List<Diary> diaryList) {
         for (Diary d : diaryList) {
             convertDateFormat(d);
         }
     }
 
-
+    // 날짜 변환
     private void convertDateFormat(Diary d) {
         Date date = d.getDiaryRegdate();
         SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd a hh:mm");
@@ -77,7 +80,11 @@ public class DiaryService {
 
 
     // 일기 수정
+    public boolean modifyService (Diary diary) {
+        log.info("modify service {}", diary);
 
+        return diaryMapper.modify(diary);
+    }
 
 
 

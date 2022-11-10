@@ -1,7 +1,7 @@
 package com.academy.latteis.diary.controller;
 
-import com.academy.latteis.common.Page;
-import com.academy.latteis.common.PageMaker;
+import com.academy.latteis.common.page.Page;
+import com.academy.latteis.common.page.PageMaker;
 import com.academy.latteis.diary.domain.Diary;
 import com.academy.latteis.diary.service.DiaryService;
 import lombok.RequiredArgsConstructor;
@@ -81,6 +81,8 @@ public class DiaryController {
 
         return "diary/diary_detail";
     }
+
+
     // 일기 삭제 확인
     @GetMapping("delete")
     public String delete(@ModelAttribute("diaryNo") Long diaryNo, Model model) {
@@ -101,6 +103,26 @@ public class DiaryController {
     }
 
 
+    // 수정 화면 요청
+    @GetMapping("/modify")
+    public String modify(Long diaryNo, Model model) {
+        log.info("controller diary/modify Get {}", diaryNo);
+        Diary diary = diaryService.findOneService(diaryNo);
+        log.info("find article {} ", diary);
+
+        model.addAttribute("diary", diary);
+        return "diary/diary-modify";
+    }
+
+    // 수정 처리 요청
+    @PostMapping("/modify")
+    public String modify(Diary diary) {
+        log.info("controller request /diary/modify POST {}", diary);
+         boolean flag = diaryService.modifyService(diary);
+         return flag ? "redirect:/diary/detail/" + diary.getDiaryNo() : "redirect:/";
+
+
+    }
 
 
 
