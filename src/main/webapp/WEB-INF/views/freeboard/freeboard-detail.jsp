@@ -178,9 +178,10 @@
     const URL = '/api/v1/comment';
 
     // 댓글 등록버튼 클릭
-    function clickRegister(){
+    function clickRegister() {
         document.getElementById('commentAddBtn').onclick = commentRegisterEvent;
     }
+
     // 댓글 등록 요청 함수
     function commentRegisterEvent() {
 
@@ -203,21 +204,32 @@
             body: JSON.stringify(commentData)
         };
 
+        // 등록 성공하면
         fetch(URL, reqInfo).then(res => res.text())
             .then(msg => {
-                alert(msg);
+                if (msg === 'insert-success') {
+                    alert('댓글 등록 성공');
+                    // 댓글 입력 창 초기화
+                    $writerInput.textContent = '';
+                    $contentInput.textContent = '';
+                    // 댓글 목록 재요청
+                    showComment(document.querySelector('.pagination').dataset.fp);
+                } else {
+                    alert('댓글 등록 실패');
+                }
             })
     }
 
     // 댓글 목록을 서버로부터 비동기 요청으로 불러오는 함수
     function showComment(pageNum = 1) {
-        fetch(URL + '?boardNo=' + bno +'&pageNum=' + pageNum)
+        fetch(URL + '?boardNo=' + bno + '&pageNum=' + pageNum)
             .then(res => res.json())
             .then(commentMap => {
                 // console.log(commentMap.commentList);
                 makeCommentDOM(commentMap);
             })
     }
+
     // 댓글 목록 DOM을 생성하는 함수
     function makeCommentDOM({commentList, pageMaker, count}) {
         // 각 댓글 하나의 태그
@@ -275,7 +287,7 @@
                 active = 'active';
             }
 
-            tag += "<li class='page-item "+ active +"'><a class='page-link' href='"+ i + "'>" + i + "</a></li>";
+            tag += "<li class='page-item " + active + "'><a class='page-link' href='" + i + "'>" + i + "</a></li>";
         }
         // 다음 버튼 만들기
         if (pageInfo.next) {
@@ -293,11 +305,11 @@
     }
 
     // 페이지 이동 함수
-    function pageMove(){
+    function pageMove() {
         // 페이지 버튼 클릭 이벤트 처리
         const $pageUI = document.querySelector('.pagination');
-        $pageUI.onclick = e =>{
-            if (!e.target.matches('.page-item a'))return;
+        $pageUI.onclick = e => {
+            if (!e.target.matches('.page-item a')) return;
 
             e.preventDefault();
             // 누른 페이지 번호 가져오기
