@@ -45,13 +45,14 @@ public class DiaryService {
         return findDataMap;
     }
 
+    // 날짜변환
     private void processConverting(List<Diary> diaryList) {
         for (Diary d : diaryList) {
             convertDateFormat(d);
         }
     }
 
-
+    // 날짜 변환
     private void convertDateFormat(Diary d) {
         Date date = d.getDiaryRegdate();
         SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd a hh:mm");
@@ -77,7 +78,11 @@ public class DiaryService {
 
 
     // 일기 수정
+    public boolean modifyService (Diary diary) {
+        log.info("modify service {}", diary);
 
+        return diaryMapper.modify(diary);
+    }
 
 
 

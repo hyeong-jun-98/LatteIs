@@ -139,14 +139,22 @@
 
     // 수정
     const $update = document.getElementById('btn-update');
-    $update.onclick = e => {
-        location.href = '/diary/list';
-    };
+
+    if($update !== null) {
+
+        $update.onclick = e => {
+
+            if(!confirm('일기를 수정할까요?')) {
+                return;
+            }
+            location.href = '/diary/modify?diaryNo=${d.diaryNo}';
+        };
+    }
 
     // 삭제
     const $delete = document.getElementById('btn-delete');
     $delete.onclick = e => {
-        if(!confirm('삭제하시겠습니까? 정말..? 추억인데....')) {
+        if(!confirm('일기를 지울까요? 정말..? 추억인데....')) {
             return;
         }
         location.href = '/diary/delete?diaryNo=${diaryNo}';
