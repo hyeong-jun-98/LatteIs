@@ -40,6 +40,16 @@ public class CommentService {
         return commentMap;
     }
 
+    // 댓글 삭제
+    public boolean removeService(Long commentNo){
+        return commentMapper.remove(commentNo);
+    }
+
+    // 댓글 수정
+    public boolean editService(Comment comment){
+        return commentMapper.edit(comment);
+    }
+
     // 댓글 수
     public int getCommentCount(Long boardNo){
         return commentMapper.getCommentCount(boardNo);

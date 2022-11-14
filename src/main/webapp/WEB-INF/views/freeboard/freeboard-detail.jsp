@@ -9,7 +9,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- bootstrap js -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+
 
     <!-- 상세보기 css -->
     <link href="/css/freeboard/freeboard-detail.css" rel="stylesheet"/>
@@ -86,6 +89,40 @@
                             </ul>
                         </div>
                     </div> <!-- end comment content -->
+
+                    <!-- 댓글 수정 모달 -->
+                    <div class="modal fade bd-example-modal-lg" id="commentEditModal">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header" style="background: #343A40; color: white;">
+                                    <h4 class="modal-title">댓글 수정하기</h4>
+                                    <button type="button" class="close text-black" data-bs-dismiss="modal">X</button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <input id="modCommentId" type="hidden">
+                                        <label for="modCommentText" hidden>댓글내용</label>
+                                        <textarea id="modCommentText" class="form-control"
+                                                  placeholder="수정할 댓글 내용을 입력하세요."
+                                                  rows="3"></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button id="commentEditBtn" type="button" class="btn btn-dark">수정</button>
+                                    <button id="modal-close" type="button" class="btn btn-danger"
+                                            data-bs-dismiss="modal">닫기
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end replyModifyModal -->
 
                     <!-- 댓글 쓰기 영역 -->
                     <div class="card">
@@ -244,7 +281,7 @@
                     "       <span class='col-md-3'>" +
                     "         <b>" + comment.commentWriter + "</b>" +
                     "       </span>" +
-                    "       <span class='offset-md-6 col-md-3 text-right'><b>" +
+                    "       <span class='offset-md-6 col-md-3 text-right'><b>" + formatDate(comment.commentDate) +
                     "       </b></span>" +
                     "    </div><br>" +
                     "    <div class='row'>" +
@@ -321,6 +358,131 @@
         }
     }
 
+    // 날짜 포맷 변환 함수
+    function formatDate(dateTime) {
+        // 문자열 날짜 데이터를 날짜 객체로 변환
+        const dateObj = new Date(dateTime);
+        // console.log(dateObj);
+
+        // 날짜 객체를 통해 각 날짜 정보 얻기
+        let year = dateObj.getFullYear();
+        let month = dateObj.getMonth() + 1;   // 1월이 0으로 설정돼있음
+        let day = dateObj.getDate();
+        let hour = dateObj.getHours();
+        let minute = dateObj.getMinutes();
+
+        // 오전, 오후 시간 체크
+        // let ampm = '';
+        // if (hour < 12 && hour >= 0) {
+        //     ampm = '오전';
+        // } else if (hour => 12 && hour < 24) {
+        //     ampm = '오후';
+        //     if (hour !== 12) {
+        //         hour -= 12;
+        //     }
+        // }
+
+        // 숫자가 한자리일 경우 두자리로 변환
+        (month < 10) ? month = '0' + month : month;
+        (day < 10) ? day = '0' + day : day;
+        (day < 10) ? day = '0' + day : day;
+        (hour < 10) ? hour = '0' + hour : hour;
+        (minute < 10) ? minute = '0' + minute : minute;
+        return year + '-' + month + '-' + day + ' ' +
+            // ampm +
+            ' ' + hour + ':' + minute;
+    }
+
+    // 댓글 수정화면 열기, 삭제 처리 핸들러 정의
+    function commentEditAndDelHandler(e) {
+
+        const cno = e.target.parentElement.parentElement.parentElement.dataset.commentid;
+
+        e.preventDefault();
+
+        if (e.target.matches('#commentEditBtn')) {
+            openEditModal(e, cno);
+        } else if (e.target.matches('#commentDelBtn')) {
+            removeComment(cno);
+        }
+    }
+
+    // 댓글 수정화면 열기, 삭제 이벤트 처리
+    function openEditModalAndDelEvent() {
+        const $commentData = document.getElementById('commentData');
+        $commentData.onclick = commentEditAndDelHandler;
+    }
+
+    // 댓글 삭제 요청
+    function removeComment(cno) {
+        if (!confirm('정말 삭제하시겠습니까')) return;
+
+        fetch(URL + '?commentNo=' + cno, {
+            method: 'DELETE'
+        })
+            .then(res => res.text())
+            .then(msg => {
+                if (msg === 'del-success') {
+                    alert('댓글 삭제 성공');
+                    showComment();  // 댓글 새로 불러오기
+                } else {
+                    alert('삭제 실패');
+                }
+            })
+    }
+
+    // 댓글 수정화면 열기 요청
+    function openEditModal(e, cno) {
+        console.log('번호는 ', cno)
+        const commentText = e.target.parentElement.parentElement.firstElementChild.textContent;
+        console.log('댓글 내용은 ', commentText);
+
+        // 모달에 해당 댓글 내용을 배치
+        document.getElementById('modCommentText').textContent = commentText;
+
+        // 모달을 띄울 때 다음 작업(수정 완료 처리)을 위해 댓글 번호를 모달에 달아두자
+        const $modal = document.querySelector('.modal');
+        $modal.dataset.cno = cno;
+    }
+
+    // 댓글 수정 비동기 처리
+    function editComment(){
+        const $modal = new bootstrap.Modal(document.getElementById('commentEditModal'));
+        console.log('모달은 ', $modal);
+
+        document.getElementById('commentEditBtn').onclick = e => {
+            console.log('수정 버튼 클릭');
+
+            // 서버에 수정 비동기 요청 보내기
+            const cno = e.target.closest('.modal').dataset.cno;
+            console.log(cno);
+
+            const reqInfo = {
+                method: 'PUT',
+                headers :{
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    commentNo: cno,
+                    commentContent: document.querySelector('#modCommentText').value
+                })
+            };
+            console.log(reqInfo);
+
+            fetch(URL + '/' + cno, reqInfo)
+                .then(res => res.text())
+                .then(msg => {
+                    if (msg === 'edit-success'){
+                        alert('수정 성공');
+                        $modal.hide();   // 모달창 닫기
+                        showComment();  // 댓글 새로 불러오기
+                    } else{
+                        alert('수정 실패');
+                    }
+                })
+        }
+    }
+
 
     // 메인 실행부
     (function () {
@@ -332,6 +494,12 @@
 
         // 페이지 이동 처리
         pageMove();
+
+        // 댓글 수정화면 열기, 삭제 이벤트 처리
+        openEditModalAndDelEvent();
+
+        // 댓글 수정 요청
+        editComment();
     })();
 
 </script>
