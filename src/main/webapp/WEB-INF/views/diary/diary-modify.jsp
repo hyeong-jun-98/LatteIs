@@ -65,10 +65,10 @@
 <%@include file="../topbar.jsp"%>
 <div class="wrap custom-wrap">
     <%--    <%@ include file="../include/header.jsp" %>--%>
-    <input type="hidden" name="diaryNo" value="${d.diaryNo}">
     <div class="write-container custom-container">
 
-        <form id="write-form" action="/diary/write" method="post" autocomplete="off" enctype="multipart/form-data">
+        <form id="write-form" action="/diary/modify" method="post" >
+            <input type="hidden" name="diaryNo" value="${d.diaryNo}">
 
 
             <div>
@@ -77,17 +77,17 @@
 
             <div class="mb-3">
                 <select name="emotion" id="emotion-input">
-                    <option value="">${d.emotion}</option>
+<%--                    <option disabled>${d.emotion}</option/>--%>
                     <option value="좋음">좋음</option>
                     <option value="보통">보통</option>
                     <option value="슬픔">슬픔</option>
-                    <option value="근심">근심/걱정</option>
+                    <option value="근심/걱정">근심/걱정</option>
                 </select>
             </div>
 
             <div class="mb-3">
                 <select name="diaryShow" id="show-input">
-                    <option value="">${d.diaryShow}</option>
+<%--                    <option value="" disabled>${d.diaryShow}</option>--%>
                     <option value="비공개">비공개</option>
                     <option value="공개">공개</option>
 
@@ -112,8 +112,42 @@
     //목록버튼 이벤트
     const $toList = document.getElementById('to-list');
     $toList.onclick = e => {
+
         location.href = '/diary/list';
     };
+
+
+    const emotion = '${d.emotion}';
+    const diaryShow = '${d.diaryShow}';
+
+
+    function selectedOption() {
+        const $select_emotion = document.querySelector('#emotion-input');
+        const $select_show = document.querySelector('#show-input');
+        console.log($select_emotion);
+        console.log($select_show);
+
+        // console.log($select.children)
+        for (let $option of [...$select_emotion.children]) {
+            if (emotion === $option.value){
+                console.log($option.value);
+                $option.setAttribute('selected', 'selected');
+            }
+        }
+        for (let $option of [...$select_show.children]) {
+            if (diaryShow === $option.value){
+                console.log($option.value);
+                $option.setAttribute('selected', 'selected');
+            }
+        }
+    }
+
+    (function () {
+        selectedOption();
+    })();
+
+
+
 </script>
 
 </body>
