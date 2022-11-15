@@ -7,6 +7,20 @@
 <%--    <%@ include file="../include/static-head.jsp" %>--%>
 
     <style>
+        @font-face {
+            font-family: 'KyoboHand';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
+            font-weight: bold;
+            font-style: normal;
+        }
+        body{
+            background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            overflow: visible;
+            font-family: KyoboHand;
+        }
+
         .write-container {
             width: 50%;
             margin: 200px auto 150px;
@@ -32,6 +46,7 @@
             width: 100px;
             height: 100px;
         }
+
     </style>
     <!-- bootstrap css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">

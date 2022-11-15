@@ -38,12 +38,34 @@
     border-color: #ffc720;
 }
 
+
 .custom-button {
     margin-top: 3%;
     width: 200px;
     float: left;
     position: relative;
 
+}
+
+
+
+.custom-emotion,.custom-show, .custom-good, .custom-good-bt {
+    background-color: #ffc720;
+    color: black;
+    margin-top: 20px;
+    font-size: 17px;
+}
+.custom-good-bt :hover {
+    background-color: #fd7e14;
+
+}
+.good-part {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.form-control {
+    height: 248px;
 }
 
 

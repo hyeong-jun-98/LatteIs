@@ -119,8 +119,10 @@ public class DiaryController {
          boolean flag = diaryService.modifyService(diary);
          return flag ? "redirect:/diary/detail/" + diary.getDiaryNo() : "redirect:/";
 
-
     }
+
+    // 일기 추천 + 1 확인
+
 
 
 
