@@ -25,7 +25,15 @@
             나의 한 줄 일기
         </div>
     </div>
+    <c:if test="${loginUser == null}">
     <div class="login" id="tologin">로그인/회원가입</div>
+    </c:if>
+    <c:if test="${loginUser != null}">
+        <div class="nickname">
+            <div id="tomypage">${loginUser.user_nickname}</div>
+            <div id="logout">/로그아웃</div>
+        </div>
+    </c:if>
 </div>
 <script>
 // 목록으로 가지
@@ -45,12 +53,23 @@ location.href = "/diary/list";
 function toLogin(){
 const $toLogin = document.getElementById("tologin");
 $toLogin.onclick = e => {
-location.href = "/user/loginform";
+location.href = "/user/login";
 }
+}
+function logout(){
+    const $logout = document.getElementById("logout");
+    $logout.onclick = e => {
+        location.href = "/user/logout";
+    }
 }
 (function(){
 toList();
 toDiary();
-toLogin();
+    <c:if test="${loginUser == null}">
+    toLogin();
+    </c:if>
+    <c:if test="${loginUser != null}">
+    logout();
+    </c:if>
 })();
 </script>

@@ -1,6 +1,7 @@
 package com.academy.latteis.user.repository;
 
 import com.academy.latteis.user.domain.User;
+import com.academy.latteis.user.dto.AutoLoginDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Map;
@@ -17,11 +18,11 @@ public interface UserMapper {
     int isDuplicate(Map<String, Object> checkMap);
 
     // 회원정보 조회 기능
-//    User findUser(String account);
+    User findUser(String user_email);
 
     // 자동로그인 쿠키정보 저장
-//    void saveAutoLoginValue(AutoLoginDTO dto);
+    void saveAutoLoginValue(AutoLoginDTO dto);
 
     // 쿠키값(세션아이디)을 가지고 있는 회원정보 조회
-//    Member findMemberBySessionId(String sessionId);
+    User findUserBySessionId(String sessionId);
 }

@@ -28,7 +28,7 @@
     .login_wrapper{
         margin: auto;
         width: 40%;
-        height: 600px;
+        height: 700px;
         border-radius: 20px;
         background: white;
         margin-top: 200px;
@@ -106,27 +106,42 @@
         font-size: 15px;
         color: red;
     }
+    .c-red{
+        color: red;
+    }
+    .c-green{
+        color: green;
+    }
+    span{
+        height: 30px;
+        width: 100%;
+        display:inline-block;
+    }
+    b{
+        font-size: 20px;
+    }
 </style>
 </head>
 <body>
 <div class="login_wrapper">
     <div class="login_form">
-        <form id="joinForm">
+        <form id="joinForm" action="/user/join" method="post">
             <div class="input">
                 <label id="user_email">아이디
                 <input type="text" id="loginid" name="user_email"></label>
-                <div class="check_email">필수 입력 사항입니다.</div>
+                <span class="check_id"></span>
                 <label id="password">비밀번호
                 <input type="password" id="loginpw" name="password"></label>
-                <div class="check_pass">필수 입력 사항입니다.</div>
+                <span class="check_pass"></span>
                 <label id="repassword">비밀번호 재확인
                 <input type="password" id="reloginpw"></label>
-                <div class="check_repass">필수 입력 사항입니다.</div>
+                <span class="check_repass"></span>
                 <label id="user_nickname">닉네임
-                <input type="text" name="user_nickname"></label>
-                <div class="check_nick"></div>
+                <input type="text" id="nickname" name="user_nickname"></label>
+                <span class="check_nickname"></span>
                 <label name="user_name">이름
                 <input type="text" id="user_name" name="user_name"></label>
+                <span class="check_name"></span>
                 <div name="user_year">연령대</div>
                 <div class="check_year">필수 입력 사항입니다.</div>
                 <div class="user_year" name="user_year">
@@ -160,45 +175,45 @@
         const getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 
         // 입력값 검증 배열
-        // 1: 아이디,  2: 비번, 3: 비번확인, 4: 이름, 5: 이메일
+        // 1: 닉네임,  2: 비번, 3: 비번확인, 4: 이름, 5: 이메일
         const checkArr = [false, false, false, false, false];
 
-        // 1. 아이디 검증
-        const $idInput = $('#loginid');
+        // 1. 닉네임 검증
+        const $idInput = $('#nickname');
 
         $idInput.on('keyup', e => {
 
-            // 아이디를 입력하지 않은 경우
+            // 닉네임 입력하지 않은 경우
             if ($idInput.val().trim() === '') {
                 $idInput.css('border-color', 'red');
-                $('.check_email').textContent='아이디를 입력해주세요';
+                $('.check_nickname').html('<b class="c-red">닉네임은 필수 정보입니다.</b>');
                 checkArr[0] = false;
             }
 
-                // 아이디를 패턴에 맞지 않게 입력하였을 경우
+                // 닉네임 패턴에 맞지 않게 입력하였을 경우
                 // test() 메서드는 정규표현식을 검증하여 입력값이 표현식과
             // 일치하면 true, 일치하지 않으면 false를 리턴
             else if (!getIdCheck.test($idInput.val())) {
                 $idInput.css('border-color', 'red');
-                $('.check_email').textContent='영문, 숫자로 4~14자 사이로 작성하세요!';
+                $('.check_nickname').html('<b class="c-red">영문, 숫자로 4~14자 사이로 작성하세요!</b>');
                 checkArr[0] = false;
             }
 
-            // 아이디 중복 확인 검증
+            // 닉네임 중복 확인 검증
             else {
 
-                fetch('/member/check?type=account&value=' + $idInput.val())
+                fetch('/user/check?type=user_nickname&value=' + $idInput.val())
                     .then(res => res.text())
                     .then(flag => {
                         console.log('flag:', flag);
                         if (flag === 'true') {
                             $idInput.css('border-color', 'red');
-                            $('#idChk').html('<b class="c-red">[중복된 아이디입니다.]</b>');
+                            $('.check_nickname').html('<b class="c-red">중복된 닉네임입니다.</b>');
                             checkArr[0] = false;
                         } else {
                             // 정상적으로 입력한 경우
-                            $idInput.css('border-color', 'skyblue');
-                            $('#idChk').html('<b class="c-blue">[사용가능한 아이디입니다.]</b>');
+                            $idInput.css('border-color', 'green');
+                            $('.check_nickname').html('<b class="c-green">사용가능한 닉네임입니다.</b>');
                             checkArr[0] = true;
                         }
                     });
@@ -208,42 +223,42 @@
         }); //end id check event
 
         //2. 패스워드 입력값 검증.
-        $('#password').on('keyup', function () {
+        $('#loginpw').on('keyup', function () {
             //비밀번호 공백 확인
-            if ($("#password").val() === "") {
-                $('#password').css('border-color', 'red');
-                $('#pwChk').html('<b class="c-red">[패스워드는 필수정보!]</b>');
+            if ($("#loginpw").val() === "") {
+                $('#loginpw').css('border-color', 'red');
+                $('.check_pass').html('<b class="c-red">패스워드는 필수정보!</b>');
                 checkArr[1] = false;
             }
             //비밀번호 유효성검사
-            else if (!getPwCheck.test($("#password").val()) || $("#password").val().length < 8) {
-                $('#password').css('border-color', 'red');
-                $('#pwChk').html('<b class="c-red">[특수문자 포함 8자이상]</b>');
+            else if (!getPwCheck.test($("#loginpw").val()) || $("#loginpw").val().length < 8) {
+                $('#loginpw').css('border-color', 'red');
+                $('.check_pass').html('<b class="c-red">특수문자 포함 8자이상</b>');
                 checkArr[1] = false;
             } else {
-                $('#password').css('border-color', 'skyblue');
-                $('#pwChk').html('<b class="c-blue">[참 잘했어요]</b>');
+                $('#loginpw').css('border-color', 'green');
+                $('.check_pass').html('<b class="c-green">참 잘했어요</b>');
                 checkArr[1] = true;
             }
 
         });
 
         //패스워드 확인란 입력값 검증.
-        $('#password_check').on('keyup', function () {
+        $('#reloginpw').on('keyup', function () {
             //비밀번호 확인란 공백 확인
-            if ($("#password_check").val() === "") {
-                $('#password_check').css('border-color', 'red');
-                $('#pwChk2').html('<b class="c-red">[패스워드확인은 필수정보!]</b>');
+            if ($("#reloginpw").val() === "") {
+                $('#reloginpw').css('border-color', 'red');
+                $('.check_repass').html('<b class="c-red">패스워드확인은 필수정보!</b>');
                 checkArr[2] = false;
             }
             //비밀번호 확인란 유효성검사
-            else if ($("#password").val() !== $("#password_check").val()) {
-                $('#password_check').css('border-color', 'red');
-                $('#pwChk2').html('<b class="c-red">[위에랑 똑같이!!]</b>');
+            else if ($("#reloginpw").val() !== $("#loginpw").val()) {
+                $('.check_repass').css('border-color', 'red');
+                $('.check_repass').html('<b class="c-red">위에랑 똑같이!!</b>');
                 checkArr[2] = false;
             } else {
-                $('#password_check').css('border-color', 'skyblue');
-                $('#pwChk2').html('<b class="c-blue">[참 잘했어요]</b>');
+                $('.check_repass').css('border-color', 'green');
+                $('.check_repass').html('<b class="c-green">참 잘했어요</b>');
                 checkArr[2] = true;
             }
 
@@ -254,52 +269,52 @@
             //이름값 공백 확인
             if ($("#user_name").val() === "") {
                 $('#user_name').css('border-color', 'red');
-                $('#nameChk').html('<b class="c-red">[이름은 필수정보!]</b>');
+                $('.check_name').html('<b class="c-red">이름은 필수정보!</b>');
                 checkArr[3] = false;
             }
             //이름값 유효성검사
             else if (!getName.test($("#user_name").val())) {
                 $('#user_name').css('border-color', 'red');
-                $('#nameChk').html('<b class="c-red">[이름은 한글로 ~]</b>');
+                $('.check_name').html('<b class="c-red">이름은 한글로 ~</b>');
                 checkArr[3] = false;
             } else {
-                $('#user_name').css('border-color', 'skyblue');
-                $('#nameChk').html('<b class="c-blue">[참 잘했어요]</b>');
+                $('#user_name').css('border-color', 'green');
+                $('.check_name').html('<b class="c-green">참 잘했어요</b>');
                 checkArr[3] = true;
             }
 
         });
 
-        //이메일 입력값 검증.
-        const $emailInput = $('#user_email');
+        //아이디 입력값 검증.
+        const $emailInput = $('#loginid');
         $emailInput.on('keyup', function () {
             //이메일값 공백 확인
             if ($emailInput.val() == "") {
                 $emailInput.css('border-color', 'red');
-                $('#emailChk').html('<b class="c-red">[이메일은 필수정보에요!]</b>');
+                $('.check_id').html('<b class="c-red">아이디는 필수정보에요!</b>');
                 checkArr[4] = false;
             }
             //이메일값 유효성검사
             else if (!getMail.test($emailInput.val())) {
                 $emailInput.css('border-color', 'red');
-                $('#emailChk').html('<b class="c-red">[이메일 형식 몰라?]</b>');
+                $('.check_id').html('<b class="c-red">이메일 형식으로 입력하세요</b>');
                 checkArr[4] = false;
             } else {
 
                 //이메일 중복확인 비동기 통신
-                fetch('/member/check?type=email&value=' + $emailInput.val())
+                fetch('/user/check?type=user_email&value=' + $emailInput.val())
                     .then(res => res.text())
                     .then(flag => {
                         //console.log(flag);
                         if (flag === 'true') {
                             $emailInput.css('border-color', 'red');
-                            $('#emailChk').html(
-                                '<b class="c-red">[이메일이 중복되었습니다!]</b>');
+                            $('.check_id').html(
+                                '<b class="c-red">아이디가 중복되었습니다!</b>');
                             checkArr[4] = false;
                         } else {
-                            $emailInput.css('border-color', 'skyblue');
-                            $('#emailChk').html(
-                                '<b class="c-blue">[사용가능한 이메일입니다.]</b>'
+                            $emailInput.css('border-color', 'green');
+                            $('.check_id').html(
+                                '<b class="c-green" style="color:green"> 사용 가능한 아이디입니다.</b>'
                             );
                             checkArr[4] = true;
                         }

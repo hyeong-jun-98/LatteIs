@@ -19,9 +19,9 @@ public class LoginUtils {
     }
 
     // 로그인한 사용자 계정 가져오기
-    public static int getCurrentMemberAccount(HttpSession session) {
+    public static String getCurrentMemberAccount(HttpSession session) {
         User user = (User) session.getAttribute(LOGIN_FLAG);
-        return user.getUser_no();
+        return user.getUser_email();
     }
 
     // 로그인한 사용자 권한 가져오기

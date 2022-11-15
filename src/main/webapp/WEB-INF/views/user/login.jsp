@@ -8,6 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <title>로그인/회원가입</title>
     <style>
         @font-face {
@@ -50,6 +53,8 @@
             border-radius: 20px;
         }
         .login_form .check{
+            z-index: 100;
+            position: relative;
         }
         .login_form .join{
             width: 100%;
@@ -100,19 +105,20 @@
 <body>
     <div class="login_wrapper">
         <div class="login_form">
-            <form>
+            <form action="/user/login" method="post" id="loginForm">
                 <div class="input">
                     <div name="user_email">아이디</div>
-                    <input type="text" id="loginid">
+                    <input type="text" id="loginid" name="user_email">
                     <div name="password">비밀번호</div>
-                    <input type="password" id="loginpw">
+                    <input type="password" id="loginpw" name="password">
                 </div>
+
+            자동 로그인<input class="check" type="checkbox" name="autologin">
             </form>
-            자동 로그인<input class="check" type="checkbox">
             <div class="join">
                 <button id="login">로그인</button>
                 <button id="joinform">회원가입</button>
-                <a id="custom-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=${kakaoAppKey}&redirect_uri=http://localhost:8183${kakaoRedirect}&response_type=code">
+                <a id="custom-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=${kakaoAppKey}&redirect_uri=http://localhost:8184${kakaoRedirect}&response_type=code">
                     <img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300"/>
                 </a>
             </div>
@@ -124,16 +130,23 @@
     </div>
 </body>
 <script>
+    const loginMsg = '${loginMsg}';
+    if (loginMsg === 'NO_ACC') {
+        alert('존재하지 않는 회원입니다.');
+    } else if (loginMsg === 'NO_PW') {
+        alert('비밀번호가 틀렸습니다.');
+    }
+
     function login(){
-        const $login = document.getElementById("login");
-        $login.onclick = e =>{
-            location.href= "user/login"
-        }
+        const $form = $('#loginForm');
+        $('#login').on('click', e => {
+            $form.submit();
+        });
     }
     function joinform(){
         const $joingform = document.getElementById("joinform");
         $joingform.onclick = e => {
-            location.href= "joinform"
+            location.href= "join"
         }
     }
     (function(){
