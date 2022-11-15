@@ -11,14 +11,14 @@
         <result property="diaryRegdate" column="diary_regdate" />
         <result property="diaryShow" column="diary_show" />
         <result property="diaryGood" column="diary_good" />
-        <result property="diaryWriter" column="diary_writer" />
+        <result property="userNickname" column="user_nickname" />
     </resultMap>
 
 <!--    // 일기 작성-->
     <insert id="save">
         insert into diary
-        (emotion, diary_content, diary_show)
-        values (#{emotion}, #{diaryContent}, #{diaryShow})
+        (emotion, diary_content, diary_show, user_nickname)
+        values (#{emotion}, #{diaryContent}, #{diaryShow}, #{userNickname})
     </insert>
 
 <!--    // 일기 리스트-->

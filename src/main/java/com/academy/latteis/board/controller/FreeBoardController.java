@@ -5,6 +5,8 @@ import com.academy.latteis.board.service.FreeBoardService;
 import com.academy.latteis.common.page.Page;
 import com.academy.latteis.common.page.PageMaker;
 import com.academy.latteis.common.search.Search;
+import com.academy.latteis.user.domain.User;
+import com.academy.latteis.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
@@ -58,18 +61,28 @@ public class FreeBoardController {
 
     // 게시글 작성 화면
     @GetMapping("/write")
-    public String write() {
+    public String write(Model model, HttpSession session) {
         log.info("controller request /freeboard/write GET!");
+
+        User loginUser = (User) session.getAttribute("loginUser");
+        model.addAttribute("user", loginUser);
+
         return "freeboard/freeboard-write";
     }
 
     // 게시글 작성 요청 처리
     @PostMapping("/write")
-    public String write(Board board, RedirectAttributes ra) {
+    public String write(Board board, RedirectAttributes ra, HttpSession session) {
         log.info("controller request /freeboard/write POST!");
 
-        boolean flag = freeBoardService.writeService(board);
+        // 세션에 담아둔 로그인 정보 뽑기
+        User loginUser = (User) session.getAttribute("loginUser");
+        log.info("로그인 한 사람의 닉네임은 - {}", loginUser.getUser_nickname());
 
+        // 세션에서 뽑은 닉네임 넣기
+        board.setUserNickname(loginUser.getUser_nickname());
+
+        boolean flag = freeBoardService.writeService(board);
         if (flag) ra.addFlashAttribute("msg", "write-success");
 
         return flag ? "redirect:/freeboard/list" : "redirect:/list";

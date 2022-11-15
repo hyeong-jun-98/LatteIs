@@ -24,6 +24,15 @@ public class LoginUtils {
         return user.getUserEmail();
     }
 
+
+    // 로그인한 사용자 계정 가져오기
+    public static String getCurrentMemberNickname(HttpSession session) {
+        User user = (User) session.getAttribute(LOGIN_FLAG);
+        return user.getUser_nickname();
+    }
+
+
+
     // 로그인한 사용자 권한 가져오기
 //    public static String getCurrentMemberAuth(HttpSession session) {
 //        User user = (User) session.getAttribute(LOGIN_FLAG);

@@ -14,6 +14,8 @@ public class BoardConvertDTO {
     private Date regdate;
     private Long hit;
     private Long good;
+    private String userNickname;
+
 
     // 커스텀 필드
     private String shortTitle;  // 줄임 제목
