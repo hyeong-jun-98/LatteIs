@@ -9,6 +9,7 @@
 
     <!-- bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="/css/topbar.css" rel="stylesheet">
 
     <style>
@@ -31,25 +32,12 @@
             margin: 200px auto 150px;
             font-size: 1.2em;
         }
-
-        .fileDrop {
-            width: 600px;
-            height: 200px;
-            border: 1px dashed gray;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5em;
+        .form-control {
+            height: 212px;
         }
 
-        .uploaded-list {
-            display: flex;
-        }
-
-        .img-sizing {
-            display: block;
-            width: 100px;
-            height: 100px;
+        html > body {
+            font-family: 'KyoboHand';
         }
 
     </style>
@@ -79,20 +67,26 @@
 
             <div>
                 <h1 class="today-diary">(작성자)의 일기</h1>
+                <div class="badge badge-primary custom-emotion">${d.emotion}</div>
+                <div class="badge badge-primary custom-show">${d.diaryShow}</div>
+                <div class="badge badge-primary custom-good">좋아요 : ${d.diaryGood}</div>
+                <div class="good-part">
+                    <buttom type="button" id="btnGood" class="badge badge-primary custom-good-bt">좋아요</buttom>
+                </div>
             </div>
 
 
-            <div class="mb-3 custom-emotion">
-                <select name="emotion" id="emotion-input">
-                    <option value="">${d.emotion}</option>
-                </select>
-            </div>
+<%--            <div class="mb-3 custom-emotion">--%>
+<%--                <select name="emotion" id="emotion-input">--%>
+<%--                    <option value="">${d.emotion}</option>--%>
+<%--                </select>--%>
+<%--            </div>--%>
 
-            <div class="mb-3">
-                <select name="diaryShow" id="show-input">
-                    <option value="">${d.diaryShow}</option>
-                </select>
-            </div>
+<%--            <div class="mb-3">--%>
+<%--                <select name="diaryShow" id="show-input">--%>
+<%--                    <option value="">${d.diaryShow}</option>--%>
+<%--                </select>--%>
+<%--            </div>--%>
             <div class="mb-3">
                 <textarea name="diaryContent" class="form-control" id="exampleFormControlTextarea1" rows="10" readonly>${d.diaryContent}</textarea>
             </div>
@@ -177,6 +171,12 @@
         location.href = '/diary/delete?diaryNo=${diaryNo}';
     };
 
+    // 추천
+    $("#btnGood").click(function () {
+        if(confirm("해당 일기를 추천하시겠습니까?")) {
+            
+        }
+    })
 
 </script>
 

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');*/
 
 /* reset */
 a {
@@ -19,7 +19,7 @@ input {
 /* common style */
 .wrap {
     font-size: 15px;
-    font-family: 'Noto Sans KR', sans-serif;
+
 }
 .hide {
     display: none !important;
@@ -80,6 +80,8 @@ header .inner-header .menu-open .lnr-menu {
     font-size: 33px;
     margin-left: 15px;
 }
+
+
 
 /* header gnb style */
 header .gnb {
