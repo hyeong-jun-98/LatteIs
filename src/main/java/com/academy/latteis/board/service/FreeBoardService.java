@@ -3,11 +3,12 @@ package com.academy.latteis.board.service;
 import com.academy.latteis.board.domain.Board;
 import com.academy.latteis.board.dto.BoardConvertDTO;
 import com.academy.latteis.board.repository.BoardMapper;
-import com.academy.latteis.comment.service.CommentService;
+import com.academy.latteis.comment.repository.CommentMapper;
 import com.academy.latteis.common.search.Search;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
@@ -25,7 +26,7 @@ import java.util.Map;
 public class FreeBoardService {
 
     private final BoardMapper boardMapper;
-    private final CommentService commentService;
+    private final CommentMapper commentMapper;
 
     // 게시글 작성
     public boolean writeService(Board board) {
@@ -105,7 +106,7 @@ public class FreeBoardService {
 
     // 댓글 수 가져오기
     private void setCommentCount(BoardConvertDTO b){
-        b.setCommentCount(commentService.getCommentCountService(b.getBoardNo()));
+        b.setCommentCount(commentMapper.getCommentCount(b.getBoardNo()));
     }
 
     // 게시글 상세보기
@@ -137,8 +138,14 @@ public class FreeBoardService {
     }
 
     // 게시글 삭제
+    @Transactional
     public boolean removeService(Long boardNo) {
         log.info("remove service start");
+
+        // 댓글 먼저 모두 삭제
+        commentMapper.removeByBoardNo(boardNo);
+
+        // 원본 게시물 삭제
         boolean flag = boardMapper.remove(boardNo);
         return flag;
     }

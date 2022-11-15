@@ -85,6 +85,13 @@ public class DiaryService {
         return diaryMapper.modify(diary);
     }
 
+    // 일기 추천 + 1
+    public boolean diaryGoodUp (Long diaryNo) {
+        log.info("diaryGoodUp service {}", diaryNo);
+
+        return diaryMapper.goodUp(diaryNo);
+    }
+
 
 
 

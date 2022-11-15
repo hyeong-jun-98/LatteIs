@@ -32,10 +32,6 @@
             font-family: KyoboHand;
         }
 
-        #title :not(a){
-            font-size: 15px;
-            margin-left: 10px;
-        }
 
     </style>
 </head>

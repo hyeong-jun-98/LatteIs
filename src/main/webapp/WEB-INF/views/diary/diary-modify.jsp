@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
     <link href="/css/topbar.css" rel="stylesheet">
     <style>
+
         @font-face {
             font-family: 'KyoboHand';
             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
@@ -29,25 +30,11 @@
             margin: 200px auto 150px;
             font-size: 1.2em;
         }
-
-        .fileDrop {
-            width: 600px;
-            height: 200px;
-            border: 1px dashed gray;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5em;
+        .form-control {
+            height: 212px;
         }
-
-        .uploaded-list {
-            display: flex;
-        }
-
-        .img-sizing {
-            display: block;
-            width: 100px;
-            height: 100px;
+        html > body {
+            font-family: 'KyoboHand';
         }
     </style>
     <!-- bootstrap css -->
@@ -94,7 +81,7 @@
                 </select>
             </div>
             <div class="mb-3">
-                <textarea name="diaryContent" class="form-control" id="exampleFormControlTextarea1" rows="10" placeholder="내용">${d.diaryContent}</textarea>
+                <textarea name="diaryContent" class="form-control" id="exampleFormControlTextarea1" rows="10" placeholder="내용" style="height: 210px">${d.diaryContent}</textarea>
             </div>
 
             <div class="d-grid gap-2 btn-list">
