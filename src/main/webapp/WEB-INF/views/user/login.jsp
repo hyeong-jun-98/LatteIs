@@ -108,7 +108,7 @@
             <form action="/user/login" method="post" id="loginForm">
                 <div class="input">
                     <div name="user_email">아이디</div>
-                    <input type="text" id="loginid" name="user_email">
+                    <input type="text" id="loginid" name="userEmail">
                     <div name="password">비밀번호</div>
                     <input type="password" id="loginpw" name="password">
                 </div>

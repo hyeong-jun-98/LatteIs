@@ -9,7 +9,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AutoLoginDTO {
-    private String user_email;
-    private String session_id;
-    private Date limit_time;
+    private String userEmail;
+    private String sessionId;
+    private Date limitTime;
 }

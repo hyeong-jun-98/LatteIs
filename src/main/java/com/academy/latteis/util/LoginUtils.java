@@ -21,7 +21,7 @@ public class LoginUtils {
     // 로그인한 사용자 계정 가져오기
     public static String getCurrentMemberAccount(HttpSession session) {
         User user = (User) session.getAttribute(LOGIN_FLAG);
-        return user.getUser_email();
+        return user.getUserEmail();
     }
 
     // 로그인한 사용자 권한 가져오기

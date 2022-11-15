@@ -128,7 +128,7 @@
         <form id="joinForm" action="/user/join" method="post">
             <div class="input">
                 <label id="user_email">아이디
-                <input type="text" id="loginid" name="user_email"></label>
+                <input type="text" id="loginid" name="userEmail"></label>
                 <span class="check_id"></span>
                 <label id="password">비밀번호
                 <input type="password" id="loginpw" name="password"></label>
@@ -137,18 +137,18 @@
                 <input type="password" id="reloginpw"></label>
                 <span class="check_repass"></span>
                 <label id="user_nickname">닉네임
-                <input type="text" id="nickname" name="user_nickname"></label>
+                <input type="text" id="nickname" name="userNickname"></label>
                 <span class="check_nickname"></span>
                 <label name="user_name">이름
-                <input type="text" id="user_name" name="user_name"></label>
+                <input type="text" id="user_name" name="userName"></label>
                 <span class="check_name"></span>
                 <div name="user_year">연령대</div>
                 <div class="check_year">필수 입력 사항입니다.</div>
-                <div class="user_year" name="user_year">
-                    <label><input type="radio" name="user_year" value="70">70년대</label>
-                    <label><input type="radio" name="user_year" value="80">80년대</label>
-                    <label><input type="radio" name="user_year" value="90">90년대</label>
-                    <label><input type="radio" name="user_year" value="00">00년대</label>
+                <div class="user_year" name="userYear">
+                    <label><input type="radio" name="userYear" value="70">70년대</label>
+                    <label><input type="radio" name="userYear" value="80">80년대</label>
+                    <label><input type="radio" name="userYear" value="90">90년대</label>
+                    <label><input type="radio" name="userYear" value="00">00년대</label>
                 </div>
 
             </div>

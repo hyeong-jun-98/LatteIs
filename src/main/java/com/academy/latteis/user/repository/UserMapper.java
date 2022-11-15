@@ -18,7 +18,7 @@ public interface UserMapper {
     int isDuplicate(Map<String, Object> checkMap);
 
     // 회원정보 조회 기능
-    User findUser(String user_email);
+    User findUser(String userEmail);
 
     // 자동로그인 쿠키정보 저장
     void saveAutoLoginValue(AutoLoginDTO dto);

@@ -8,10 +8,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    private int user_no;
-    private String user_nickname;
-    private String user_name;
-    private String user_email;
+    private int userNo;
+    private String userNickname;
+    private String userName;
+    private String userEmail;
     private String password;
-    private int user_year;
+    private int userYear;
 }
