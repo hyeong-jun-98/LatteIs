@@ -4,6 +4,7 @@ import com.academy.latteis.common.page.DiaryPage;
 import com.academy.latteis.common.page.DiaryPageMaker;
 import com.academy.latteis.diary.domain.Diary;
 import com.academy.latteis.diary.service.DiaryService;
+import com.academy.latteis.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -60,6 +61,10 @@ public class DiaryController {
     public String DiaryWrite(Diary diary, RedirectAttributes ra, HttpSession session) {
 
         log.info("/write POST - param: {}", diary);
+
+
+        // 현재 로그인 사용자 계정명 추가
+        diary.setUserNickname(LoginUtils.getCurrentMemberNickname(session));
 
        boolean flag = diaryService.saveService(diary);
 

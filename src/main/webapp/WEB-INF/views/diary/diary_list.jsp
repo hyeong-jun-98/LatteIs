@@ -127,7 +127,7 @@
                     <div class="card-body h-72 bg-white">
                         <div class="flex justify-between">
                             <div>
-                            <p>(작성자 이름)</p>
+                            <p>${d.userNickname}</p>
                             <p class="text-right text-sm text-gray-500 date">${d.prettierDate}</p>
                             <p class="text-sm text-gray-500 date">좋아요 : ${d.diaryGood}</p>
                             <!-- <p class="text-sm text-gray-500 text-right">조회수 </p> -->

@@ -17,8 +17,8 @@ public class Diary {
     private Date diaryRegdate;
     private String diaryShow;
     private long diaryGood;
+    private String userNickname;
 
-    private String diaryWriter;
 
 
     // 커스텀 데이터 필드
@@ -34,7 +34,7 @@ public class Diary {
         this.diaryRegdate = rs.getTimestamp("diary_regdate");
         this.diaryShow = rs.getString("diary_show");
         this.diaryGood = rs.getLong("diary_good");
-        this.diaryWriter = rs.getString("diary_writer");
+        this.userNickname = rs.getString("user_nickname");
     }
 
 }

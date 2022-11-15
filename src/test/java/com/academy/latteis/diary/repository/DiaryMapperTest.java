@@ -23,4 +23,18 @@ class DiaryMapperTest {
 
         assertTrue(flag);
     }
+
+    @Test
+    void insertTest() {
+        Diary diary= new Diary();
+
+        diary.setUserNickname("HJ");
+        diary.setDiaryContent("테슽");
+        diary.setDiaryShow("테슽");
+        diary.setEmotion("테슽");
+
+        boolean flag = mapper.save(diary);
+        assertTrue(flag);
+
+    }
 }
