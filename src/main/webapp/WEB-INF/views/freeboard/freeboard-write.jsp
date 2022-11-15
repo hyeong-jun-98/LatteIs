@@ -11,19 +11,38 @@
     <!-- bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
 
+    <%--  topbar  --%>
+    <link href="/css/topbar.css" rel="stylesheet">
+
     <style>
+        @font-face {
+            font-family: 'KyoboHand';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
+            font-weight: bold;
+            font-style: normal;
+        }
+        body{
+            background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            overflow: visible;
+            font-family: KyoboHand;
+        }
+
         .wrap {
             width: 60%;
             margin: 0 auto;
         }
         .write-container{
-            margin-top: 100px;
+            margin-top: 200px;
         }
 
     </style>
 </head>
 <body>
-<h1>글쓰기 페이지</h1>
+
+<%@include file="../topbar.jsp"%>
+
 
 <div class="wrap">
 

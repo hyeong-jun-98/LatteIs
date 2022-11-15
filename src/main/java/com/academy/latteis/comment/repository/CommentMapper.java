@@ -20,6 +20,9 @@ public interface CommentMapper {
     // 댓글 삭제
     boolean remove(Long commentNo);
 
+    // 댓글 전체 삭제
+    boolean removeByBoardNo(Long boardNo);
+
     // 댓글 수정
     boolean edit(Comment comment);
 
