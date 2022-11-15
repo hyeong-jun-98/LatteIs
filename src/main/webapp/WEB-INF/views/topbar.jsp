@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <div class="topbar">
-    <div class="icon-wrapper">
+    <div class="icon-wrapper" id="home">
         <div class="icon">
 
         </div>
@@ -36,6 +36,13 @@
     </c:if>
 </div>
 <script>
+    //홈으로 이동
+    function toHome(){
+        const $toHome = document.getElementById('home');
+        $toHome.onclick = e =>{
+            location.href = "/";
+        }
+    }
 // 목록으로 가지
 function toList() {
 // 목록 버튼
@@ -71,5 +78,6 @@ toDiary();
     <c:if test="${loginUser != null}">
     logout();
     </c:if>
+    toHome();
 })();
 </script>
