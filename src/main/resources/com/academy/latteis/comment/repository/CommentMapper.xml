@@ -34,6 +34,12 @@
         WHERE comment_no = #{commentNo}
     </delete>
 
+    <!-- 댓글 전체 삭제 -->
+    <delete id="removeByBoardNo">
+        DELETE FROM comment
+        WHERE board_no = #{boardNo}
+    </delete>
+
     <!-- 댓글 수정 -->
     <update id="edit">
         UPDATE comment
