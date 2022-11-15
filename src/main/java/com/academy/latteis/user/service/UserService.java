@@ -47,7 +47,7 @@ public class UserService {
 
     public LoginFlag login(LoginDTO inputData, HttpSession session, HttpServletResponse response) {
         // 회원가입 여부 확인
-        User foundUser = userMapper.findUser(inputData.getUser_email());
+        User foundUser = userMapper.findUser(inputData.getUserEmail());
         log.info(foundUser);
         if (foundUser != null) {
             if (encoder.matches(inputData.getPassword(), foundUser.getPassword())) {
@@ -61,7 +61,7 @@ public class UserService {
                 // 자동 로그인 처리
                 if (inputData.isAutologin()) {
                     log.info("checked auto login user!!");
-                    keepLogin(foundUser.getUser_email(), session, response);
+                    keepLogin(foundUser.getUserEmail(), session, response);
                 }
 
 

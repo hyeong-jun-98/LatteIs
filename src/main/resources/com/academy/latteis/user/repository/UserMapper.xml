@@ -6,18 +6,18 @@
 
     
     <resultMap id="userMap" type="com.academy.latteis.user.domain.User">
-        <id property="user_no" column="user_no" />
-        <result property="user_nickname" column="user_nickname" />
-        <result property="user_name" column="user_name" />
-        <result property="user_email" column="user_email" />
+        <id property="userNo" column="user_no" />
+        <result property="userNickname" column="user_nickname" />
+        <result property="userName" column="user_name" />
+        <result property="userEmail" column="user_email" />
         <result property="password" column="password" />
-        <result property="user_year" column="user_year" />
+        <result property="userYear" column="user_year" />
     </resultMap>
 
     <insert id="save">
         insert into user
         (user_nickname, user_name, user_email, password, user_year)
-        values (#{user_nickname}, #{user_name}, #{user_email}, #{password}, #{user_year})
+        values (#{userNickname}, #{userName}, #{userEmail}, #{password}, #{userYear})
     </insert>
 
     <select id="isDuplicate" resultType="int">
@@ -34,22 +34,22 @@
     <select id="findUser" resultMap="userMap">
         SELECT *
         FROM user
-        WHERE user_email = #{user_email}
+        WHERE user_email = #{userEmail}
     </select>
 
     <!-- 자동 로그인 정보 추가   -->
     <update id="saveAutoLoginValue">
 
         UPDATE user
-        SET session_id = #{session_id}, limit_time = #{limit_time}
-        WHERE user_email = #{user_email}
+        SET session_id = #{sessionId}, limit_time = #{limitTime}
+        WHERE user_email = #{userEmail}
 
     </update>
 
     <select id="findUserBySessionId" resultMap="userMap">
 
         SELECT * FROM user
-        WHERE session_id = #{session_id}
+        WHERE session_id = #{sessionId}
 
     </select>
 
