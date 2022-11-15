@@ -29,9 +29,13 @@
 .offset-md-2 {
     display: flex;
     justify-content: end;
+    align-items: end;
 }
 .bottom-line {
     border-bottom: 1px solid lightgray;
+}
+#commentEditBtn, #commentDelBtn {
+    height: 30px;
 }
 
 /* 페이지 버튼 스타일 */

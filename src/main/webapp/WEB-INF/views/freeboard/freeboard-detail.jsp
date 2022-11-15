@@ -34,6 +34,7 @@
             overflow: visible;
             font-family: KyoboHand;
         }
+
     </style>
 </head>
 <body>
@@ -114,7 +115,7 @@
 
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
-                                    <button id="commentEditBtn" type="button" class="btn btn-dark">수정</button>
+                                    <button id="modalCommentEditBtn" type="button" class="btn btn-dark">수정</button>
                                     <button id="modal-close" type="button" class="btn btn-danger"
                                             data-bs-dismiss="modal">닫기
                                     </button>
@@ -247,8 +248,8 @@
                 if (msg === 'insert-success') {
                     alert('댓글 등록 성공');
                     // 댓글 입력 창 초기화
-                    $writerInput.textContent = '';
-                    $contentInput.textContent = '';
+                    $writerInput.value = '';
+                    $contentInput.value = '';
                     // 댓글 목록 재요청
                     showComment(document.querySelector('.pagination').dataset.fp);
                 } else {
@@ -450,7 +451,7 @@
         const $modal = new bootstrap.Modal(document.getElementById('commentEditModal'));
         console.log('모달은 ', $modal);
 
-        document.getElementById('commentEditBtn').onclick = e => {
+        document.getElementById('modalCommentEditBtn').onclick = e => {
             console.log('수정 버튼 클릭');
 
             // 서버에 수정 비동기 요청 보내기
