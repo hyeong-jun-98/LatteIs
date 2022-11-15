@@ -1,7 +1,7 @@
 package com.academy.latteis.board.controller;
 
 import com.academy.latteis.board.domain.Board;
-import com.academy.latteis.board.service.BoardService;
+import com.academy.latteis.board.service.FreeBoardService;
 import com.academy.latteis.common.page.Page;
 import com.academy.latteis.common.page.PageMaker;
 import com.academy.latteis.common.search.Search;
@@ -25,15 +25,15 @@ import java.util.Map;
 @RequestMapping("/freeboard")
 public class FreeBoardController {
 
-    private final BoardService boardService;
+    private final FreeBoardService freeBoardService;
 
     // 게시글 목록 요청
     @GetMapping("/list")
     public String list(Search search, Model model) {
         log.info("controller request /freeboard/list GET! - page: {}", search);
 
-        Map<String, Object> boardMap = boardService.findAllService(search);
-        log.debug("return data - {}", boardMap);
+        Map<String, Object> boardMap = freeBoardService.findAllService(search);
+        log.info("return data - {}", boardMap);
 
         // 페이지 정보 생성
         PageMaker pm = new PageMaker(new Page(search.getPageNum(), search.getAmount()), (Integer) boardMap.get("totalCount"));
@@ -49,7 +49,7 @@ public class FreeBoardController {
     public String getDetail(@PathVariable Long boardNo, Model model, Page page,
                             HttpServletResponse response, HttpServletRequest request) {
         log.info("controller request /freeboard/detail GET! - {}", boardNo);
-        Board board = boardService.findOneService(boardNo, response, request);
+        Board board = freeBoardService.findOneService(boardNo, response, request);
         log.info("return data - {}", board);
         model.addAttribute("board", board);
         model.addAttribute("page", page);
@@ -68,7 +68,7 @@ public class FreeBoardController {
     public String write(Board board, RedirectAttributes ra) {
         log.info("controller request /freeboard/write POST!");
 
-        boolean flag = boardService.writeService(board);
+        boolean flag = freeBoardService.writeService(board);
 
         if (flag) ra.addFlashAttribute("msg", "write-success");
 
@@ -80,7 +80,7 @@ public class FreeBoardController {
     public String remove(Long boardNo, RedirectAttributes ra) {
         log.info("controller request /freeboard/delete GET! - {}", boardNo);
 
-        boolean flag = boardService.removeService(boardNo);
+        boolean flag = freeBoardService.removeService(boardNo);
         if (flag) ra.addFlashAttribute("msg", "delete-success");
 
         return flag ? "redirect:/freeboard/list" : "redirect:/freeboard/list";
@@ -100,7 +100,7 @@ public class FreeBoardController {
     @PostMapping("/edit")
     public String edit(Board board, Page page) {
         log.info("controller request /freeboard/edit POST!!");
-        boolean flag = boardService.editService(board);
+        boolean flag = freeBoardService.editService(board);
         return flag ? "redirect:/freeboard/detail/" + board.getBoardNo() + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount()
                 : "redirect:/freeboard/detail/" + board.getBoardNo() + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount();
     }

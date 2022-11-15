@@ -4,6 +4,7 @@ import com.academy.latteis.user.domain.User;
 import com.academy.latteis.user.dto.LoginDTO;
 import com.academy.latteis.user.service.LoginFlag;
 import com.academy.latteis.user.service.UserService;
+import com.academy.latteis.common.page.Page;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,10 @@ import javax.servlet.http.HttpSession;
 
 import static com.academy.latteis.util.LoginUtils.*;
 import static com.academy.latteis.user.domain.OAuthValue.*;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @Log4j2

@@ -1,19 +1,17 @@
 package com.academy.latteis.diary.controller;
 
-import com.academy.latteis.common.page.Page;
-import com.academy.latteis.common.page.PageMaker;
+import com.academy.latteis.common.page.DiaryPage;
+import com.academy.latteis.common.page.DiaryPageMaker;
 import com.academy.latteis.diary.domain.Diary;
 import com.academy.latteis.diary.service.DiaryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Map;
 
 
@@ -37,10 +35,10 @@ public class DiaryController {
 
     // 일기 목록 요청
     @GetMapping("/list")
-    public String list(Page page, Model model) {
-        Map <String, Object> diaryMap = diaryService.findAllService(page);
-        PageMaker pm = new PageMaker(
-                new Page(page.getPageNum(), page.getAmount())
+    public String list(DiaryPage diaryPage, Model model) {
+        Map <String, Object> diaryMap = diaryService.findAllService(diaryPage);
+        DiaryPageMaker pm = new DiaryPageMaker(
+                new DiaryPage(diaryPage.getPageNum(), diaryPage.getAmount())
                 , (Integer) diaryMap.get("tc"));
 
         model.addAttribute("dList", diaryMap.get("dList"));
@@ -81,6 +79,8 @@ public class DiaryController {
 
         return "diary/diary_detail";
     }
+
+
     // 일기 삭제 확인
     @GetMapping("delete")
     public String delete(@ModelAttribute("diaryNo") Long diaryNo, Model model) {
@@ -101,6 +101,26 @@ public class DiaryController {
     }
 
 
+    // 수정 화면 요청
+    @GetMapping("/modify")
+    public String modify(Long diaryNo, Model model) {
+        log.info("controller diary/modify Get {}", diaryNo);
+        Diary diary = diaryService.findOneService(diaryNo);
+        log.info("find article {} ", diary);
+
+        model.addAttribute("d", diary);
+        return "diary/diary-modify";
+    }
+
+    // 수정 처리 요청
+    @PostMapping("/modify")
+    public String modify(Diary diary) {
+        log.info("controller request /diary/modify POST {}", diary);
+         boolean flag = diaryService.modifyService(diary);
+         return flag ? "redirect:/diary/detail/" + diary.getDiaryNo() : "redirect:/";
+
+
+    }
 
 
 
