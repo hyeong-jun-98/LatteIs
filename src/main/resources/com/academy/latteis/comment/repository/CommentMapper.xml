@@ -10,12 +10,13 @@
         <result property="commentContent" column="comment_content"/>
         <result property="commentDate" column="comment_regdate"/>
         <result property="boardNo" column="board_no"/>
+        <result property="userNickname" column="user_nickname"/>
     </resultMap>
 
     <!-- 댓글 삽입 -->
     <insert id="write">
-        INSERT INTO comment(comment_writer, comment_content, board_no)
-        VALUES (#{commentWriter}, #{commentContent}, #{boardNo})
+        INSERT INTO comment(comment_writer, comment_content, board_no, user_nickname)
+        VALUES (#{commentWriter}, #{commentContent}, #{boardNo}, #{userNickname})
     </insert>
 
     <!-- 댓글 목록 조회 -->

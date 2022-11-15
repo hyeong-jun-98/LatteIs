@@ -14,6 +14,7 @@
     <resultMap id="boardConvertMap" type="com.academy.latteis.board.dto.BoardConvertDTO">
         <result property="boardNo" column="board_no"/>
         <result property="topicNo" column="topic_no"/>
+        <result property="userNickname" column="user_nickname"/>
     </resultMap>
 
     <!-- 중복 쿼리문 재사용하기 -->

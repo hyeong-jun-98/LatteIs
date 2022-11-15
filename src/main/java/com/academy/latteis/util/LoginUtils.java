@@ -28,7 +28,7 @@ public class LoginUtils {
     // 로그인한 사용자 계정 가져오기
     public static String getCurrentMemberNickname(HttpSession session) {
         User user = (User) session.getAttribute(LOGIN_FLAG);
-        return user.getUser_nickname();
+        return user.getUserNickname();
     }
 
 

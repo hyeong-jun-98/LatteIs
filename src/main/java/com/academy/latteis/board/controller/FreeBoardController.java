@@ -6,7 +6,6 @@ import com.academy.latteis.common.page.Page;
 import com.academy.latteis.common.page.PageMaker;
 import com.academy.latteis.common.search.Search;
 import com.academy.latteis.user.domain.User;
-import com.academy.latteis.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -50,12 +49,18 @@ public class FreeBoardController {
 
     @GetMapping("/detail/{boardNo}")
     public String getDetail(@PathVariable Long boardNo, Model model, Page page,
-                            HttpServletResponse response, HttpServletRequest request) {
+                            HttpServletResponse response, HttpServletRequest request,
+                            HttpSession session
+    ) {
         log.info("controller request /freeboard/detail GET! - {}", boardNo);
         Board board = freeBoardService.findOneService(boardNo, response, request);
         log.info("return data - {}", board);
+
+        User loginUser = (User) session.getAttribute("loginUser");
+
         model.addAttribute("board", board);
         model.addAttribute("page", page);
+        model.addAttribute("user", loginUser);
         return "freeboard/freeboard-detail";
     }
 
@@ -77,10 +82,10 @@ public class FreeBoardController {
 
         // 세션에 담아둔 로그인 정보 뽑기
         User loginUser = (User) session.getAttribute("loginUser");
-        log.info("로그인 한 사람의 닉네임은 - {}", loginUser.getUser_nickname());
+        log.info("로그인 한 사람의 닉네임은 - {}", loginUser.getUserNickname());
 
         // 세션에서 뽑은 닉네임 넣기
-        board.setUserNickname(loginUser.getUser_nickname());
+        board.setUserNickname(loginUser.getUserNickname());
 
         boolean flag = freeBoardService.writeService(board);
         if (flag) ra.addFlashAttribute("msg", "write-success");
