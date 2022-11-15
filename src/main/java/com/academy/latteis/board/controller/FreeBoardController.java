@@ -77,10 +77,10 @@ public class FreeBoardController {
 
         // 세션에 담아둔 로그인 정보 뽑기
         User loginUser = (User) session.getAttribute("loginUser");
-        log.info("로그인 한 사람의 닉네임은 - {}", loginUser.getUser_nickname());
+        log.info("로그인 한 사람의 닉네임은 - {}", loginUser.getUserNickname());
 
         // 세션에서 뽑은 닉네임 넣기
-        board.setUserNickname(loginUser.getUser_nickname());
+        board.setUserNickname(loginUser.getUserNickname());
 
         boolean flag = freeBoardService.writeService(board);
         if (flag) ra.addFlashAttribute("msg", "write-success");
