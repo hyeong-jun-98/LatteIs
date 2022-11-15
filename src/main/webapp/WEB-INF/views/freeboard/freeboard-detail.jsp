@@ -141,7 +141,7 @@
                                     <div class="form-group">
                                         <label for="newCommentWriter" hidden>댓글 작성자</label>
                                         <input id="newCommentWriter" name="commentWriter" type="text"
-                                               class="form-control" placeholder="작성자 이름"
+                                               class="form-control" placeholder="작성자 이름" readonly value="${user.userNickname}"
                                                style="margin-bottom: 6px;">
                                         <button id="commentAddBtn" type="button"
                                                 class="btn btn-dark form-control">등록
@@ -248,7 +248,7 @@
                 if (msg === 'insert-success') {
                     alert('댓글 등록 성공');
                     // 댓글 입력 창 초기화
-                    $writerInput.value = '';
+                    $writerInput.value = '${user.userNickname}';
                     $contentInput.value = '';
                     // 댓글 목록 재요청
                     showComment(document.querySelector('.pagination').dataset.fp);

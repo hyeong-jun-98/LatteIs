@@ -3,10 +3,12 @@ package com.academy.latteis.comment.api;
 import com.academy.latteis.comment.domain.Comment;
 import com.academy.latteis.comment.service.CommentService;
 import com.academy.latteis.common.page.Page;
+import com.academy.latteis.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @RestController
@@ -20,8 +22,15 @@ public class CommentApiController {
 
     // 댓글 작성 요청
     @PostMapping("")
-    public String write(@RequestBody Comment comment){
+    public String write(@RequestBody Comment comment, HttpSession session){
         log.info("/api/v1/comment POST! - {}", comment);
+
+        // 세션에서 로그인 정보 받아오기
+        User loginUser = (User) session.getAttribute("loginUser");
+
+        // 받아온 로그인 정보에서 닉네임 꺼내기
+        comment.setUserNickname(loginUser.getUserNickname());
+
         boolean flag = commentService.writeService(comment);
         return flag ? "insert-success" : "insert-fail";
     }

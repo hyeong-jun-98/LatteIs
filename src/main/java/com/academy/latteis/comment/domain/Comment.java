@@ -14,4 +14,5 @@ public class Comment {
     private String commentContent;
     private Date commentDate;
     private Long boardNo;
+    private String userNickname;
 }
