@@ -18,6 +18,7 @@ public class Board {
     private Long hit;
     private Long good;
     private String img;
+    private String userNickname;
 
     // fk
     private Long topicNo;

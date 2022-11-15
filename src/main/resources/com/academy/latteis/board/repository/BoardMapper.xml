@@ -30,8 +30,8 @@
 
     <insert id="write">
         insert into board
-            (writer, title, content)
-        values (#{writer}, #{title}, #{content})
+            (writer, title, content, user_nickname)
+        values (#{writer}, #{title}, #{content}, #{userNickname})
     </insert>
 
     <select id="findAll" resultMap="boardConvertMap">

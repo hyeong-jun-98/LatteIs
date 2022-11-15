@@ -49,10 +49,11 @@
     <div class="write-container">
 
         <form id="write-form" autocomplete="off" enctype="multipart/form-data">
+            <input type="hidden" name="userNickname" value="${user.user_nickname}">
 
             <div class="mb-3">
                 <label for="writer-input" class="form-label">작성자</label>
-                <input type="text" class="form-control" id="writer-input" placeholder="이름" name="writer" maxlength="20">
+                <input type="text" class="form-control" id="writer-input" placeholder="이름" name="writer" maxlength="20" value="${user.user_nickname}" readonly>
             </div>
             <div class="mb-3">
                 <label for="title-input" class="form-label">글제목</label>
