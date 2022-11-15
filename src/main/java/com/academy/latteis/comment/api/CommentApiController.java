@@ -35,4 +35,24 @@ public class CommentApiController {
         return comment;
     }
 
+    // 댓글 삭제 요청
+    @DeleteMapping("")
+    public String removeComment(Long commentNo){
+        log.info("/api/v1/comment DELETE! - {}", commentNo);
+
+        boolean flag = commentService.removeService(commentNo);
+        return flag ?  "del-success" : "del-fail";
+    }
+
+    // 댓글 수정 요청
+    @PutMapping("{cno}")
+    public String editComment(@PathVariable("cno") Long commentNo, @RequestBody Comment comment){
+        log.info("/api/v1//comment PUT! - commentNo = {}, comment = {}", commentNo, comment);
+
+        boolean flag = commentService.editService(comment);
+
+        return flag ? "edit-success" : "edit-fail";
+    }
+
+
 }

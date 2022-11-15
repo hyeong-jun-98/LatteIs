@@ -33,7 +33,7 @@ public class FreeBoardController {
         log.info("controller request /freeboard/list GET! - page: {}", search);
 
         Map<String, Object> boardMap = freeBoardService.findAllService(search);
-        log.debug("return data - {}", boardMap);
+        log.info("return data - {}", boardMap);
 
         // 페이지 정보 생성
         PageMaker pm = new PageMaker(new Page(search.getPageNum(), search.getAmount()), (Integer) boardMap.get("totalCount"));

@@ -27,6 +27,20 @@
             LIMIT #{page.start}, #{page.amount}
     </select>
 
+    <!-- 댓글 삭제 -->
+    <delete id="remove">
+        DELETE
+        FROM comment
+        WHERE comment_no = #{commentNo}
+    </delete>
+
+    <!-- 댓글 수정 -->
+    <update id="edit">
+        UPDATE comment
+        SET comment_content = #{commentContent}
+        WHERE comment_no = #{commentNo}
+    </update>
+
     <!-- 댓글 수 -->
     <select id="getCommentCount" resultType="int">
         SELECT COUNT(*)

@@ -34,6 +34,11 @@ dependencies {
     //jsp 라이브러리 추가
     implementation 'javax.servlet:jstl'
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    implementation 'org.springframework.boot:spring-boot-starter-security:2.7.5'
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+    testImplementation 'org.springframework.security:spring-security-test:5.7.5'
+
 }
 
 tasks.named('test') {

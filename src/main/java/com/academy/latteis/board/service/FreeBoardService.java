@@ -3,6 +3,7 @@ package com.academy.latteis.board.service;
 import com.academy.latteis.board.domain.Board;
 import com.academy.latteis.board.dto.BoardConvertDTO;
 import com.academy.latteis.board.repository.BoardMapper;
+import com.academy.latteis.comment.service.CommentService;
 import com.academy.latteis.common.search.Search;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -24,6 +25,7 @@ import java.util.Map;
 public class FreeBoardService {
 
     private final BoardMapper boardMapper;
+    private final CommentService commentService;
 
     // 게시글 작성
     public boolean writeService(Board board) {
@@ -55,6 +57,8 @@ public class FreeBoardService {
         for (BoardConvertDTO b : boardList) {
             convertDateFormat(b);
             substringTitle(b);
+            setCommentCount(b);
+            checkNewPost(b);
         }
     }
 
@@ -76,6 +80,32 @@ public class FreeBoardService {
         }else {
             b.setShortTitle(title);
         }
+    }
+
+    // 신규 게시물 여부
+    private void checkNewPost(BoardConvertDTO b){
+        // 게시물의 작성일자와 현재 시간을 비교해서 신규 게시물인지를 판단한다
+
+        // 게시물의 작성시간
+        long regDateTime = b.getRegdate().getTime();
+
+        // 현재 시간 얻기
+        long currTime = System.currentTimeMillis();
+
+        // 현재 시간에서 게시물 뺌
+        long diff = currTime - regDateTime;
+
+        // 신규 게시물 제한 시간
+        long limitTime = 60 * 5 * 1000;
+
+        if (diff < limitTime){
+            b.setNewPost(true);
+        }
+    }
+
+    // 댓글 수 가져오기
+    private void setCommentCount(BoardConvertDTO b){
+        b.setCommentCount(commentService.getCommentCountService(b.getBoardNo()));
     }
 
     // 게시글 상세보기

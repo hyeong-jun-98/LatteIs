@@ -17,6 +17,14 @@ public interface CommentMapper {
     List<Comment> findAll(@Param("boardNo") Long boardNo,
                           @Param("page") Page page);
 
+    // 댓글 삭제
+    boolean remove(Long commentNo);
+
+    // 댓글 수정
+    boolean edit(Comment comment);
+
     // 댓글 수
     int getCommentCount(Long boardNo);
+
+
 }

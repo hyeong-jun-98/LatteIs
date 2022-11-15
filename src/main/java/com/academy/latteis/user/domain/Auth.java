@@ -1,4 +1,5 @@
 package com.academy.latteis.user.domain;
 
-public class test {
+public enum Auth {
+    COMMON, ADMIN
 }

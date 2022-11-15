@@ -31,10 +31,15 @@
             overflow: visible;
             font-family: KyoboHand;
         }
+
+        #title :not(a){
+            font-size: 15px;
+            margin-left: 10px;
+        }
+
     </style>
 </head>
 <body>
-<h1>자유게시판</h1>
 
 <%@include file="../topbar.jsp"%>
 
@@ -87,9 +92,14 @@
             <tbody class="table-group-divider">
             <c:forEach var="b" items="${boardList}">
                 <tr>
-                    <th>${b.boardNo}</th>
+                    <td>${b.boardNo}</td>
                     <td>${b.writer}</td>
-                    <td title="${b.title}"><a href="#">${b.shortTitle}</a></td>
+                    <td title="${b.title}" id="title">
+                        <a href="#">${b.shortTitle}</a><span>[${b.commentCount}]</span>
+                        <c:if test="${b.newPost}">
+                            <span class="badge bg-opacity-75 bg-danger">new</span>
+                        </c:if>
+                    </td>
                     <td>${b.good}</td>
                     <td>${b.hit}</td>
                     <td>${b.prettierDate}</td>

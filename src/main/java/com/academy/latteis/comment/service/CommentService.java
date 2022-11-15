@@ -28,7 +28,7 @@ public class CommentService {
 
     // 댓글 목록 조회
     public Map<String, Object> findAllService(Long boardNo, Page page){
-        PageMaker pageMaker = new PageMaker(page, getCommentCount(boardNo));
+        PageMaker pageMaker = new PageMaker(page, getCommentCountService(boardNo));
 
         List<Comment> comment = commentMapper.findAll(boardNo, page);
 
@@ -40,8 +40,18 @@ public class CommentService {
         return commentMap;
     }
 
+    // 댓글 삭제
+    public boolean removeService(Long commentNo){
+        return commentMapper.remove(commentNo);
+    }
+
+    // 댓글 수정
+    public boolean editService(Comment comment){
+        return commentMapper.edit(comment);
+    }
+
     // 댓글 수
-    public int getCommentCount(Long boardNo){
+    public int getCommentCountService(Long boardNo){
         return commentMapper.getCommentCount(boardNo);
     }
 }

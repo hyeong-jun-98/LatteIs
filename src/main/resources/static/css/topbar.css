@@ -52,4 +52,12 @@
     line-height: 90px;
     margin-left: 50px;
 }
+.nickname{
+    width: 200px;
+    height: 100%;
+    font-size: 20px;
+    line-height: 90px;
+    margin-left: 50px;
+    display: flex;
+}
 /*topbar end*/

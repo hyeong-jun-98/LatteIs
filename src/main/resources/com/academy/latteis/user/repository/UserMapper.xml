@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.academy.latteis.user.repository.UserMapper">
+
+    
+    <resultMap id="userMap" type="com.academy.latteis.user.domain.User">
+        <id property="user_no" column="user_no" />
+        <result property="user_nickname" column="user_nickname" />
+        <result property="user_name" column="user_name" />
+        <result property="user_email" column="user_email" />
+        <result property="password" column="password" />
+        <result property="user_year" column="user_year" />
+    </resultMap>
+
+    <insert id="save">
+        insert into user
+        (user_nickname, user_name, user_email, password, user_year)
+        values (#{user_nickname}, #{user_name}, #{user_email}, #{password}, #{user_year})
+    </insert>
+
+    <select id="isDuplicate" resultType="int">
+        SELECT COUNT(*)
+        FROM user
+        <if test="type=='user_nickname'">
+            WHERE user_nickname = #{value}
+        </if>
+        <if test="type=='user_email'">
+            WHERE user_email = #{value}
+        </if>
+    </select>
+
+    <select id="findUser" resultMap="userMap">
+        SELECT *
+        FROM user
+        WHERE user_email = #{user_email}
+    </select>
+
+    <!-- 자동 로그인 정보 추가   -->
+    <update id="saveAutoLoginValue">
+
+        UPDATE user
+        SET session_id = #{session_id}, limit_time = #{limit_time}
+        WHERE user_email = #{user_email}
+
+    </update>
+
+    <select id="findUserBySessionId" resultMap="userMap">
+
+        SELECT * FROM user
+        WHERE session_id = #{session_id}
+
+    </select>
+
+
+</mapper>
