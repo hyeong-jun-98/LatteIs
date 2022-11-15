@@ -132,11 +132,16 @@ public class KakaoService implements OAuthService, OAuthValue {
             JsonObject kakaoAccount = object.get("kakao_account").getAsJsonObject();
 
             JsonObject profile = kakaoAccount.get("profile").getAsJsonObject();
-
             String nickName = profile.get("nickname").getAsString();
             String profileImage = profile.get("profile_image_url").getAsString();
-            String email = kakaoAccount.get("email").getAsString();
-            String gender = kakaoAccount.get("gender").getAsString();
+            String email=null;
+            String gender=null;
+            if(kakaoAccount.has("email")) {
+                email = kakaoAccount.get("email").getAsString();
+            }
+            if(kakaoAccount.has("gender")) {
+                gender = kakaoAccount.get("gender").getAsString();
+            }
 
             KaKaoUserInfoDTO dto = new KaKaoUserInfoDTO(nickName, profileImage, email, gender);
 
