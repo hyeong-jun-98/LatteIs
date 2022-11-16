@@ -10,6 +10,8 @@
     <!-- bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
 
+    <!-- 상세보기 css -->
+    <link href="/css/freeboard/freeboard-detail.css" rel="stylesheet"/>
     <%--  topbar  --%>
     <link href="/css/topbar.css" rel="stylesheet">
 
@@ -27,41 +29,57 @@
             overflow: visible;
             font-family: KyoboHand;
         }
-
-        .wrap {
-            width: 60%;
-            margin: 0 auto;
-        }
-        .content-container {
-            margin-top: 200px;
-            position: relative;
+        .content-container .main-content{
+            overflow:hidden;
         }
 
-        .content-container .main-title {
-            font-size: 24px;
-            font-weight: 700;
-            text-align: center;
-            border-bottom: 2px solid rgb(75, 73, 73);
-            padding: 0 20px 15px;
-            width: fit-content;
-            margin: 20px auto 30px;
-        }
 
-        .content-container .main-content {
-            border: 2px solid #ccc;
-            border-radius: 20px;
-            padding: 10px 25px;
-            font-size: 1.1em;
-            text-align: justify;
-            min-height: 400px;
-        }
+        /* 페이지 버튼 스타일 */
+        /*.pagination-custom li a {*/
+        /*    color: #000 !important;*/
+        /*}*/
+        /*.pagination-custom li.active a,*/
+        /*.pagination-custom li:hover a {*/
+        /*    background: lightyellow !important;*/
+        /*    border-color: orange !important;*/
+        /*}*/
 
-        .content-container .custom-btn-group {
-            position: absolute;
-            bottom: -10%;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+
+        /*.wrap {*/
+        /*    width: 50%;*/
+        /*    margin: 0 auto;*/
+        /*}*/
+        /*.content-container {*/
+        /*    margin-top: 200px;*/
+        /*    margin-bottom: 100px;*/
+        /*    font-size: 20px;*/
+        /*}*/
+
+        /*.content-container .main-title {*/
+        /*    font-size: 24px;*/
+        /*    font-weight: 700;*/
+        /*    text-align: center;*/
+        /*    border-bottom: 2px solid rgb(75, 73, 73);*/
+        /*    padding: 0 20px 15px;*/
+        /*    width: fit-content;*/
+        /*    margin: 20px auto 30px;*/
+        /*}*/
+
+        /*.content-container .main-content {*/
+        /*    border: 2px solid #ccc;*/
+        /*    border-radius: 20px;*/
+        /*    padding: 10px 25px;*/
+        /*    font-size: 1.1em;*/
+        /*    text-align: justify;*/
+        /*    background: #fff;*/
+        /*    min-height: 400px;*/
+        /*}*/
+
+        /*.content-container .custom-btn-group {*/
+        /*    position: absolute;*/
+        /*    left: 50%;*/
+        /*    transform: translateX(-50%);*/
+        /*}*/
     </style>
 </head>
 
@@ -92,14 +110,14 @@
 
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-                <textarea name="content" class="form-control" id="exampleFormControlTextarea1"
-                          rows="10">${board.content}</textarea>
+                <textarea name="content" class="form-control main-content"
+                          id="exampleFormControlTextarea1" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'">${board.content}</textarea>
             </div>
 
 
             <div class="btn-group btn-group-lg custom-btn-group" role="group">
-                <button id="edit-btn" type="button" class="btn btn-warning">완료</button>
-                <button id="cancle-btn" type="button" class="btn btn-dark">취소</button>
+                <button id="apply-btn" type="button" class="btn btn-warning">완료</button>
+                <button id="cancel-btn" type="button" class="btn btn-dark">취소</button>
             </div>
         </form>
 
@@ -111,7 +129,7 @@
     // 게시글 수정 완료
     function edit(){
         // 완료버튼
-        const $editBtn = document.getElementById("edit-btn");
+        const $editBtn = document.getElementById("apply-btn");
         $editBtn.onclick=e=>{
             if (!confirm("수정하시겠습니까?"))return;
             const $form = document.querySelector("form");
@@ -124,7 +142,7 @@
     // 수정 취소
     function cancel(){
         // 취소 버튼
-        const $cancelBtn = document.getElementById('cancle-btn');
+        const $cancelBtn = document.getElementById('cancel-btn');
         $cancelBtn.onclick = e =>{
             location.href = "/freeboard/detail/${board.boardNo}?pageNum=${page.pageNum}&amount=${page.amount}";
         }
@@ -133,6 +151,10 @@
     (function(){
         edit();
         cancel();
+
+        const $textarea = document.querySelector('#exampleFormControlTextarea1');
+        $textarea.style.height = $textarea.scrollHeight + 'px';
+
     })();
 </script>
 </body>

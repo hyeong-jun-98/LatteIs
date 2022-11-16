@@ -121,6 +121,8 @@ public class FreeBoardController {
             , HttpServletResponse response, HttpServletRequest request) {
         log.info("controller request /freeboard/edit GET! - {}", boardNo);
         Board board = freeBoardService.findOneService(boardNo, response, request);
+
+        model.addAttribute("board", board);
         model.addAttribute("boardNo", board.getBoardNo());
         model.addAttribute("page", page);
         model.addAttribute("validate", freeBoardService.getUser(boardNo));

@@ -45,90 +45,97 @@
 <%-- 글 상세보기 영역 --%>
 <div class="wrap">
 
-    <div class="write-container">
+    <div class="content-container">
 
-        <form id="write-form" autocomplete="off" enctype="multipart/form-data">
+        <h1 class="main-title">${board.boardNo}번 게시물</h1>
 
-            <div class="mb-3">
-                <label for="writer-input" class="form-label">작성자</label>
-                <input type="text" class="form-control" id="writer-input"
-                       placeholder="이름" name="writer" maxlength="20" readonly value="${board.writer}">
-            </div>
-            <div class="mb-3">
-                <label for="title-input" class="form-label">글제목</label>
-                <input type="text" class="form-control" id="title-input"
-                       placeholder="제목" name="title" value="${board.title}" disabled>
-            </div>
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-                <textarea name="content" class="form-control"
-                          id="exampleFormControlTextarea1" rows="10" disabled>${board.content}</textarea>
-            </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">작성자</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1"
+                   placeholder="이름" name="writer" value="${board.writer}" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput2" class="form-label">글제목</label>
+            <input type="text" class="form-control" id="exampleFormControlInput2"
+                   placeholder="제목" name="title" value="${board.title}" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">내용</label>
+            <p class="form-control main-content" id="exampleFormControlTextarea1">
+                ${board.content}
+            </p>
+        </div>
 
-            <!-- 댓글 영역 -->
-            <div id="comments" class="row">
-                <div class="offset-md-1 col-md-10">
-                    <!--댓글 내용 영역-->
-                    <div class="card">
-                        <!-- 댓글 내용 헤더 -->
-                        <div class="card-header text-white m-0 bg-warning bg-opacity-50">
-                            <div class="float-left  text-black">댓글 (<span id="commentCnt">0</span>)</div>
+        <!-- 댓글 영역 -->
+        <div id="comments" class="row">
+            <div class="offset-md-1 col-md-10">
+                <!--댓글 내용 영역-->
+                <div class="card">
+                    <!-- 댓글 내용 헤더 -->
+                    <div class="card-header text-white m-0 bg-warning bg-opacity-50">
+                        <div class="float-left  text-black">댓글 (<span id="commentCnt">0</span>)</div>
+                    </div>
+
+                    <!-- 댓글 내용 바디 -->
+                    <div id="commentCollapse" class="card">
+                        <div id="commentData">
+                            <!--
+                            < JS로 댓글 정보 DIV삽입 >
+                        -->
                         </div>
 
-                        <!-- 댓글 내용 바디 -->
-                        <div id="commentCollapse" class="card">
-                            <div id="commentData">
-                                <!--
-								< JS로 댓글 정보 DIV삽입 >
-							-->
+                        <!-- 댓글 페이징 영역 -->
+                        <ul class="pagination justify-content-center pagination-custom">
+                            <!--
+                            < JS로 댓글 페이징 DIV삽입 >
+                        -->
+                        </ul>
+                    </div>
+                </div> <!-- end comment content -->
+
+                <!-- 댓글 수정 모달 -->
+                <div class="modal fade bd-example-modal-lg" id="commentEditModal">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header" style="background: #343A40; color: white;">
+                                <h4 class="modal-title">댓글 수정하기</h4>
+                                <button type="button" class="close text-black" data-bs-dismiss="modal">X</button>
                             </div>
 
-                            <!-- 댓글 페이징 영역 -->
-                            <ul class="pagination justify-content-center pagination-custom">
-                                <!--
-								< JS로 댓글 페이징 DIV삽입 >
-							-->
-                            </ul>
-                        </div>
-                    </div> <!-- end comment content -->
-
-                    <!-- 댓글 수정 모달 -->
-                    <div class="modal fade bd-example-modal-lg" id="commentEditModal">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-
-                                <!-- Modal Header -->
-                                <div class="modal-header" style="background: #343A40; color: white;">
-                                    <h4 class="modal-title">댓글 수정하기</h4>
-                                    <button type="button" class="close text-black" data-bs-dismiss="modal">X</button>
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <input id="modCommentId" type="hidden">
+                                    <label for="modCommentText" hidden>댓글내용</label>
+                                    <textarea id="modCommentText" class="form-control"
+                                              placeholder="수정할 댓글 내용을 입력하세요."
+                                              rows="3"></textarea>
                                 </div>
+                            </div>
 
-                                <!-- Modal body -->
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <input id="modCommentId" type="hidden">
-                                        <label for="modCommentText" hidden>댓글내용</label>
-                                        <textarea id="modCommentText" class="form-control"
-                                                  placeholder="수정할 댓글 내용을 입력하세요."
-                                                  rows="3"></textarea>
-                                    </div>
-                                </div>
-
-                                <!-- Modal footer -->
-                                <div class="modal-footer">
-                                    <button id="modalCommentEditBtn" type="button" class="btn btn-dark">수정</button>
-                                    <button id="modal-close" type="button" class="btn btn-danger"
-                                            data-bs-dismiss="modal">닫기
-                                    </button>
-                                </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button id="modalCommentEditBtn" type="button" class="btn btn-dark">수정</button>
+                                <button id="modal-close" type="button" class="btn btn-danger"
+                                        data-bs-dismiss="modal">닫기
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <!-- end replyModifyModal -->
+                </div>
+                <!-- end replyModifyModal -->
 
-                    <!-- 댓글 쓰기 영역 -->
-                    <div class="card">
-                        <div class="card-body">
+                <!-- 댓글 쓰기 영역 -->
+                <div class="card">
+                    <div class="card-body">
+
+                        <c:if test="${empty user}">
+                            <a href="/user/login">댓글은 로그인 후 작성 가능합니다.</a>
+                        </c:if>
+
+                        <c:if test="${not empty user}">
                             <div class="row">
                                 <div class="col-md-9">
                                     <div class="form-group">
@@ -151,20 +158,21 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div> <!-- end comment write -->
-                </div>
+                        </c:if>
+                    </div>
+                </div> <!-- end comment write -->
             </div>
+        </div>
 
-            <div class="d-flex">
-                <c:if test="${user.userNickname == board.userNickname}">
-                    <button id="edit-btn" class="btn btn-dark" type="button">수정하기</button>
-                    <button id="del-btn" class="btn btn-danger" type="button">삭제하기</button>
-                </c:if>
-            </div>
-            <div class="d-grid gap-2">
-                <button id="to-list" class="btn bg-warning bg-opacity-50" type="button">목록으로</button>
-            </div>
+        <div class="d-flex">
+            <c:if test="${user.userNickname == board.userNickname}">
+                <button id="edit-btn" class="btn btn-dark" type="button">수정하기</button>
+                <button id="del-btn" class="btn btn-danger" type="button">삭제하기</button>
+            </c:if>
+        </div>
+        <div class="d-grid gap-2">
+            <button id="to-list" class="btn bg-warning bg-opacity-50" type="button">목록으로</button>
+        </div>
         </form>
     </div>
 
@@ -222,6 +230,9 @@
 
 <!-- 댓글 관련 script -->
 <script>
+
+    // 로그인한 계정의 닉네임
+    const currNickname = '${user.userNickname}';
 
     // 글 번호
     const bno = ${board.boardNo};
@@ -301,9 +312,13 @@
                     "    </div><br>" +
                     "    <div class='row'>" +
                     "       <div class='col-md-6'>" + comment.commentContent + "</div>" +
-                    "       <div class='offset-md-2 col-md-4 text-right'>" +
-                    "           <a id='commentEditBtn' class='btn btn-sm btn-outline-dark' data-bs-toggle='modal' data-bs-target='#commentEditModal'>수정</a>&nbsp;" +
-                    "           <a id='commentDelBtn' class='btn btn-sm btn-outline-dark' href='#'>삭제</a>" +
+                    "       <div class='offset-md-2 col-md-4 text-right'>";
+                if (currNickname === comment.userNickname) {
+                    tag +=
+                        "           <a id='commentEditBtn' class='btn btn-sm btn-outline-dark' data-bs-toggle='modal' data-bs-target='#commentEditModal'>수정</a>&nbsp;" +
+                        "           <a id='commentDelBtn' class='btn btn-sm btn-outline-dark' href='#'>삭제</a>";
+                }
+                tag +=
                     "       </div>" +
                     "   </div>" +
                     " </div>";

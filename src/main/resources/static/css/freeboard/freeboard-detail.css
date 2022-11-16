@@ -2,15 +2,45 @@
     width: 50%;
     margin: 0 auto;
 }
-
-.write-container {
-    margin-top: 250px;
+.content-container {
+    margin-top: 200px;
     margin-bottom: 100px;
     font-size: 20px;
 }
-
-.write-container .mb-3 .form-control {
+.content-container .mb-3 .form-control {
     background: #fff !important;
+}
+.content-container .main-title {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    border-bottom: 2px solid rgb(75, 73, 73);
+    padding: 0 20px 15px;
+    width: fit-content;
+    margin: 20px auto 30px;
+}
+.content-container .main-content {
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    padding: 10px 25px;
+    font-size: 1.1em;
+    text-align: justify;
+    background: #fff;
+    min-height: 400px;
+}
+.content-container .custom-btn-group {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* 하단 버튼 스타일 */
+.d-flex {
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+#edit-btn, #del-btn {
+    width: 49%;
 }
 
 /* 댓글 스타일 적용*/
@@ -46,13 +76,4 @@
 .pagination-custom li:hover a {
     background: lightyellow !important;
     border-color: orange !important;
-}
-
-/* 하단 버튼 스타일 */
-.d-flex {
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-#edit-btn, #del-btn {
-    width: 49%;
 }
