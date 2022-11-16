@@ -43,6 +43,7 @@ public class FreeBoardController {
         model.addAttribute("boardList", boardMap.get("boardList"));
         model.addAttribute("pm", pm);
         model.addAttribute("search", search);
+        model.addAttribute("page", "free");
 
         return "freeboard/freeboard-list";
     }

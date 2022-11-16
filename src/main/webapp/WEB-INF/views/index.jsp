@@ -15,6 +15,10 @@
 
     <%--  topbar  --%>
     <link href="/css/topbar.css" rel="stylesheet">
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <style>
         @font-face {
             font-family: 'KyoboHand';
@@ -36,8 +40,9 @@
         .title{
             width: 100%;
             font-size: 150px;
-            line-height: 600px;
+            line-height: 400px;
             text-align: center;
+            margin-top: 200px;
         }
         .today{
             width: 60%;
@@ -268,7 +273,7 @@
     <%@include file="topbar.jsp"%>
 
     <div class="main">
-        <div class="title">
+        <div class="title animate__animated animate__fadeInDown">
             Latte is...
         </div>
         <div class="today">
