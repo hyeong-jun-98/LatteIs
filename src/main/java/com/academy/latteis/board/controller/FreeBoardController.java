@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +28,7 @@ public class FreeBoardController {
 
     // 게시글 목록 요청
     @GetMapping("/list")
-    public String list(Search search, Model model) {
+    public String list(Search search, Model model, @ModelAttribute("msg") String msg) {
         log.info("controller request /freeboard/list GET! - page: {}", search);
 
         Map<String, Object> boardMap = freeBoardService.findAllService(search);
@@ -51,13 +48,14 @@ public class FreeBoardController {
     @GetMapping("/detail/{boardNo}")
     public String getDetail(@PathVariable Long boardNo, Model model, Page page,
                             HttpServletResponse response, HttpServletRequest request,
-                            HttpSession session
+                            HttpSession session, @ModelAttribute("msg") String msg
     ) {
         log.info("controller request /freeboard/detail GET! - {}", boardNo);
         Board board = freeBoardService.findOneService(boardNo, response, request);
         log.info("return data - {}", board);
 
         User loginUser = (User) session.getAttribute("loginUser");
+        log.info("로그인 유저 데이터 - {}", loginUser);
 
         model.addAttribute("board", board);
         model.addAttribute("page", page);
@@ -94,24 +92,38 @@ public class FreeBoardController {
         return flag ? "redirect:/freeboard/list" : "redirect:/list";
     }
 
-    // 게시글 삭제
+    // 게시글 삭제 확인 요청
     @GetMapping("/delete")
-    public String remove(Long boardNo, RedirectAttributes ra) {
+    public String remove(Long boardNo, Model model, @ModelAttribute("page") Page page) {
         log.info("controller request /freeboard/delete GET! - {}", boardNo);
 
+        model.addAttribute("boardNo", boardNo);
+        model.addAttribute("validate", freeBoardService.getUser(boardNo));
+
+        return "freeboard/process-delete";
+    }
+
+    // 게시글 삭제 확정 요청
+    @PostMapping("/delete")
+    public String delete(Long boardNo, RedirectAttributes ra, @ModelAttribute("page") Page page) {
+        log.info("controller request /freeboard/delete POST! - {}", boardNo);
+
         boolean flag = freeBoardService.removeService(boardNo);
+
         if (flag) ra.addFlashAttribute("msg", "delete-success");
 
         return flag ? "redirect:/freeboard/list" : "redirect:/freeboard/list";
     }
 
     // 게시글 수정 화면 요청
-    @GetMapping("/edit/{boardNo}")
-    public String edit(@PathVariable Long boardNo, Model model, Page page) {
+    @GetMapping("/edit")
+    public String edit(Long boardNo, Model model, Page page
+            , HttpServletResponse response, HttpServletRequest request) {
         log.info("controller request /freeboard/edit GET! - {}", boardNo);
-//        Board board = boardService.findOneService(boardNo);
-//        model.addAttribute("board", board);
-//        model.addAttribute("page", page);
+        Board board = freeBoardService.findOneService(boardNo, response, request);
+        model.addAttribute("boardNo", board.getBoardNo());
+        model.addAttribute("page", page);
+        model.addAttribute("validate", freeBoardService.getUser(boardNo));
         return "/freeboard/freeboard-edit";
     }
 

@@ -137,6 +137,12 @@
         alert('비밀번호가 틀렸습니다.');
     }
 
+    const message = '${message}';
+    console.log(message);
+    if (message === 'no-login'){
+        alert('로그인이 필요한 서비스입니다.');
+    }
+
     function login(){
         const $form = $('#loginForm');
         $('#login').on('click', e => {
@@ -149,6 +155,9 @@
             location.href= "join"
         }
     }
+
+
+
     (function(){
         login();
         joinform();

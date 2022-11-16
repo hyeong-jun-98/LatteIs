@@ -8,6 +8,7 @@
     <resultMap id="boardMap" type="com.academy.latteis.board.domain.Board">
         <result property="boardNo" column="board_no"/>
         <result property="topicNo" column="topic_no"/>
+        <result property="userNickname" column="user_nickname"/>
     </resultMap>
 
     <!-- BoardConvertDTO -->
@@ -79,4 +80,19 @@
         SET hit = hit + 1
         WHERE board_no = #{boardNo}
     </update>
+
+<!--    <resultMap id="valMap" type="com.academy.latteis.board.dto.ValidateUserDTO">-->
+<!--        <result property="userEmail" column="user_email" />-->
+<!--    </resultMap>-->
+
+    <!-- 게시글 번호에 맞는 계정 가져오기 -->
+    <select id="findUserByBoardNo" resultType="com.academy.latteis.board.dto.ValidateUserDTO">
+        SELECT user_email AS userEmail, auth
+        FROM user
+        WHERE user_nickname = (
+            SELECT user_nickname
+            FROM board
+            WHERE board_no = #{boardNo}
+            )
+    </select>
 </mapper>

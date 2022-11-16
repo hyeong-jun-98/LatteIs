@@ -157,12 +157,14 @@
     // 성공 메시지
     function alertServerMessage() {
         const msg = '${msg}';
-        console.log('msg : ', msg);
         if (msg === 'write-success') {
             alert('게시물이 정상 등록되었습니다.');
         } else if (msg === 'delete-success') {
             alert('게시글이 정상적으로 삭제되었습니다.');
         }
+        // else if (msg === 'no-match'){
+        //     alert('로그인 정보가 맞지 않습니다.');
+        // }
     }
 
     // 글 작성 폼으로 이동
