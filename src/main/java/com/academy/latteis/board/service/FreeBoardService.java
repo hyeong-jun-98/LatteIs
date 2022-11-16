@@ -2,6 +2,7 @@ package com.academy.latteis.board.service;
 
 import com.academy.latteis.board.domain.Board;
 import com.academy.latteis.board.dto.BoardConvertDTO;
+import com.academy.latteis.board.dto.ValidateUserDTO;
 import com.academy.latteis.board.repository.BoardMapper;
 import com.academy.latteis.comment.repository.CommentMapper;
 import com.academy.latteis.common.search.Search;
@@ -157,5 +158,10 @@ public class FreeBoardService {
         return flag;
     }
 
+    // 게시글 번호로 작성자 회원정보 가져오기
+    public ValidateUserDTO getUser(Long boardNo){
+        log.info("서비스에서 계정정보는 {}", boardMapper.findUserByBoardNo(boardNo));
+        return boardMapper.findUserByBoardNo(boardNo);
+    }
 
 }

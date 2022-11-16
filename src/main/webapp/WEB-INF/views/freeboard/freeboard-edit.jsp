@@ -9,10 +9,31 @@
 
     <!-- bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
+
+    <%--  topbar  --%>
+    <link href="/css/topbar.css" rel="stylesheet">
+
     <style>
-        .content-container {
+        @font-face {
+            font-family: 'KyoboHand';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
+            font-weight: bold;
+            font-style: normal;
+        }
+        body{
+            background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            overflow: visible;
+            font-family: KyoboHand;
+        }
+
+        .wrap {
             width: 60%;
-            margin: 150px auto;
+            margin: 0 auto;
+        }
+        .content-container {
+            margin-top: 200px;
             position: relative;
         }
 
@@ -45,6 +66,8 @@
 </head>
 
 <body>
+<%@include file="../topbar.jsp"%>
+
 <div class="wrap">
 
     <div class="content-container">
@@ -59,7 +82,7 @@
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">작성자</label>
                 <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="이름" name="writer"
-                       value="${board.writer}">
+                       value="${board.writer}" readonly>
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput2" class="form-label">글제목</label>
@@ -76,7 +99,7 @@
 
             <div class="btn-group btn-group-lg custom-btn-group" role="group">
                 <button id="edit-btn" type="button" class="btn btn-warning">완료</button>
-                <button type="button" class="btn btn-dark">목록</button>
+                <button id="cancle-btn" type="button" class="btn btn-dark">취소</button>
             </div>
         </form>
 
@@ -98,8 +121,18 @@
         }
     }
 
+    // 수정 취소
+    function cancel(){
+        // 취소 버튼
+        const $cancelBtn = document.getElementById('cancle-btn');
+        $cancelBtn.onclick = e =>{
+            location.href = "/freeboard/detail/${board.boardNo}?pageNum=${page.pageNum}&amount=${page.amount}";
+        }
+    }
+
     (function(){
         edit();
+        cancel();
     })();
 </script>
 </body>

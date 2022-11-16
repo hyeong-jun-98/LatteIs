@@ -1,6 +1,8 @@
 package com.academy.latteis.interceptor;
 
+import com.academy.latteis.board.domain.Board;
 import com.academy.latteis.board.dto.ValidateUserDTO;
+import com.academy.latteis.common.page.Page;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -63,10 +65,17 @@ public class FreeBoardInterceptor implements HandlerInterceptor {
             Map<String, Object> modelMap = modelAndView.getModel();
 
             ValidateUserDTO dto = (ValidateUserDTO) modelMap.get("validate");
+            Long boardNo = (Long) modelMap.get("boardNo");
+            Page page = (Page) modelMap.get("page");
+
+            log.info("세션 정보는 - {}", getCurrentMemberAccount(session));
+            log.info("계정 정보는 - {}", dto.getUserEmail());
+            log.info("boardNo  - {}", boardNo);
+            log.info("page  - {}", page);
 
             // 수정하려는 게시글의 계정명 정보와 세션에 저장된 계정명 정보가 일치하지 않으면 리스트로 돌려보내라
             if (!isMine(session, dto.getUserEmail())){
-                response.sendRedirect("/freeboard/list");
+                response.sendRedirect("/freeboard/detail/"+ boardNo + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount()+"&msg=no-match");
             }
         }
     }

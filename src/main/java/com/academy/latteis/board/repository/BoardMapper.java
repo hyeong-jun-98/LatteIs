@@ -2,6 +2,7 @@ package com.academy.latteis.board.repository;
 
 import com.academy.latteis.board.domain.Board;
 import com.academy.latteis.board.dto.BoardConvertDTO;
+import com.academy.latteis.board.dto.ValidateUserDTO;
 import com.academy.latteis.common.page.Page;
 import com.academy.latteis.common.search.Search;
 import org.apache.ibatis.annotations.Mapper;
@@ -31,4 +32,7 @@ public interface BoardMapper {
 
     // 조회수 처리
     void upHit(Long boardNo);
+
+    // 게시물 번호로 게시글 작성자의 계정명과 권한 가져오기
+    ValidateUserDTO findUserByBoardNo(Long boardNo);
 }

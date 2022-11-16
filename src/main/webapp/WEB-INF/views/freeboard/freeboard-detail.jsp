@@ -10,8 +10,9 @@
 
     <!-- bootstrap js -->
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+            crossorigin="anonymous"></script>
 
 
     <!-- 상세보기 css -->
@@ -141,7 +142,8 @@
                                     <div class="form-group">
                                         <label for="newCommentWriter" hidden>댓글 작성자</label>
                                         <input id="newCommentWriter" name="commentWriter" type="text"
-                                               class="form-control" placeholder="작성자 이름" readonly value="${user.userNickname}"
+                                               class="form-control" placeholder="작성자 이름" readonly
+                                               value="${user.userNickname}"
                                                style="margin-bottom: 6px;">
                                         <button id="commentAddBtn" type="button"
                                                 class="btn btn-dark form-control">등록
@@ -155,8 +157,10 @@
             </div>
 
             <div class="d-flex">
-                <button id="edit-btn" class="btn btn-dark" type="button">수정하기</button>
-                <button id="del-btn" class="btn btn-danger" type="button">삭제하기</button>
+                <c:if test="${user.userNickname == board.userNickname}">
+                    <button id="edit-btn" class="btn btn-dark" type="button">수정하기</button>
+                    <button id="del-btn" class="btn btn-danger" type="button">삭제하기</button>
+                </c:if>
             </div>
             <div class="d-grid gap-2">
                 <button id="to-list" class="btn bg-warning bg-opacity-50" type="button">목록으로</button>
@@ -185,7 +189,7 @@
         $delBtn.onclick = e => {
             if (!confirm("삭제하시겠습니까?")) return;
             console.log(${board.boardNo});
-            location.href = "/freeboard/delete?boardNo=" +${board.boardNo};
+            location.href = "/freeboard/delete?boardNo=${board.boardNo}&pageNum=${page.pageNum}&amount=${page.amount}";
         }
     }
 
@@ -194,11 +198,21 @@
         // 수정하기 버튼
         const $editBtn = document.getElementById("edit-btn");
         $editBtn.onclick = e => {
-            location.href = "/freeboard/edit/${board.boardNo}?pageNum=${page.pageNum}&amount=${page.amount}";
+            location.href = "/freeboard/edit?boardNo=${board.boardNo}&pageNum=${page.pageNum}&amount=${page.amount}";
+        }
+    }
+
+    // 로그인 여부 메시지
+    function alertServerMessage() {
+        const msg = '${msg}';
+        console.log('msg : ', msg)
+        if (msg === 'no-match') {
+            alert('로그인 정보가 맞지 않습니다.');
         }
     }
 
     (function () {
+        alertServerMessage();
         toList();
         deleteEvent();
         editEvent();
@@ -447,7 +461,7 @@
     }
 
     // 댓글 수정 비동기 처리
-    function editComment(){
+    function editComment() {
         const $modal = new bootstrap.Modal(document.getElementById('commentEditModal'));
         console.log('모달은 ', $modal);
 
@@ -460,7 +474,7 @@
 
             const reqInfo = {
                 method: 'PUT',
-                headers :{
+                headers: {
                     'content-type': 'application/json'
                 },
                 body: JSON.stringify({
@@ -473,11 +487,11 @@
             fetch(URL + '/' + cno, reqInfo)
                 .then(res => res.text())
                 .then(msg => {
-                    if (msg === 'edit-success'){
+                    if (msg === 'edit-success') {
                         alert('수정 성공');
                         $modal.hide();   // 모달창 닫기
                         showComment();  // 댓글 새로 불러오기
-                    } else{
+                    } else {
                         alert('수정 실패');
                     }
                 })
