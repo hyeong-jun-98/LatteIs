@@ -20,8 +20,12 @@
         (emotion, diary_content, diary_show, user_nickname)
         values (#{emotion}, #{diaryContent}, #{diaryShow}, #{userNickname})
     </insert>
+<!--글 작성 시 좋아요 테이블에도 저장-->
+<!--    <insert id="saveGood">-->
+<!--        insert into good (user_no, diary_no, good_check) values (#{userNo}, #{diaryNo}, 'false');-->
+<!--    </insert>-->
 
-<!--    // 일기 리스트-->
+    <!--    // 일기 리스트-->
     <select id="findAll" resultMap="diaryMap">
         select * from diary
                  order by diary_no desc
@@ -50,21 +54,50 @@
         FROM diary
     </select>
 
+<!--    추천상태확인-->
+    <select id="goodCheck" resultType="String">
+        select good_check
+        from good
+        where diary_no = #{diaryNo} and user_no = #{userNo}
+    </select>
 
     <!--    일기 좋아요 체크-->
+    <update id="goodUpCheck">
+        update good
+        set  good_check = "true"
+        where diary_no = #{diaryNo} and user_no = #{userNo}
+    </update>
+
+    <update id="goodDownCheck">
+        update good
+        set  good_check = "false"
+        where diary_no = #{diaryNo} and user_no = #{userNo}
+    </update>
+
+<!--    좋아요 + 1 (처음)-->
+    <insert id="goodFirstUp">
+        insert into good (user_no, diary_no, good_check) values (#{userNo}, #{diaryNo}, 'false');
+    </insert>
+
+    <!--    좋아요 + 1 (추가)-->
     <update id="goodUp">
-        update good
-        set  good_check = 'true'
-        where diary_no = #{diaryNo} and user_no = #{userNo}
+        update diary
+        set diary_good = diary_good + 1
+        where diary_no = #{diaryNo}
     </update>
 
+<!--    좋아요 - 1 (취소)-->
     <update id="goodDown">
-        update good
-        set  good_check = 'false'
-        where diary_no = #{diaryNo} and user_no = #{userNo}
+        update diary
+        set diary_good = diary_good - 1
+        where diary_no = #{diaryNo}
     </update>
 
-
+<!--일기 작성자로 userNo 가져오기-->
+<select id="findNo">
+    select user_no
+    from user where user_nickname = #{userNickname}
+</select>
 
 
 </mapper>

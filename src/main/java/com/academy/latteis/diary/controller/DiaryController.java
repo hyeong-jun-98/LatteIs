@@ -3,7 +3,9 @@ package com.academy.latteis.diary.controller;
 import com.academy.latteis.common.page.DiaryPage;
 import com.academy.latteis.common.page.DiaryPageMaker;
 import com.academy.latteis.diary.domain.Diary;
+import com.academy.latteis.diary.domain.Good;
 import com.academy.latteis.diary.service.DiaryService;
+import com.academy.latteis.user.domain.User;
 import com.academy.latteis.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -126,7 +128,27 @@ public class DiaryController {
 
     }
 
-    // 일기 추천 + 1 확인
+//    @PostMapping("/goodCheck/{diaryNo}")
+//    public String goodFirstUp(Good good) {
+//        log.info("GoodFirstUp controller {}", good);
+//
+//        boolean flag = diaryService.goodFirstUpService(good);
+//        return
+//    }
+
+
+
+    // 좋아요 하려고
+    @GetMapping("/goodCheck/{diaryNo}")
+    public String goodCheck(HttpSession session, @PathVariable Long diaryNo) {
+        log.info("diaryGoodCheck controller {}", diaryNo);
+
+        User user = (User) session.getAttribute("loginUser");
+
+        diaryService.goodCheckService(diaryNo, (long) user.getUserNo());
+
+        return "redirect:/diary/detail/" + diaryNo;
+    }
 
 
 
