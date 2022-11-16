@@ -43,8 +43,9 @@
     margin-bottom: 0;
 }
 .category div:hover{
-    background: rgba(0,0,0,0.3);
+    color: white;
 }
+
 .login{
     width: 150px;
     height: 100%;
@@ -60,4 +61,30 @@
     margin-left: 50px;
     display: flex;
 }
+.category #img{
+    background: url("/img/images-removebg-preview.png");
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    top:58px;
+    display: none;
+}
+.category #fiximg{
+    background: url("/img/images-removebg-preview.png");
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    top:58px;
+    display: none;
+}
+/*.category #img:first-child{*/
+/*    !*left: 300px;*!*/
+/*    !*left: 565px;*!*/
+/*    !*left:860px;*!*/
+/*    !*left:1135px;*!*/
+/*    left:1355px;*/
+/*}*/
+
 /*topbar end*/

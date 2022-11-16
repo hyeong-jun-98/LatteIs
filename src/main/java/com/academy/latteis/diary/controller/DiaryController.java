@@ -46,7 +46,7 @@ public class DiaryController {
 
         model.addAttribute("dList", diaryMap.get("dList"));
         model.addAttribute("pm", pm);
-
+        model.addAttribute("page", "diary");
         return "diary/diary_list";
     }
 

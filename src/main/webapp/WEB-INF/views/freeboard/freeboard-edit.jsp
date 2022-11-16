@@ -9,42 +9,17 @@
 
     <!-- bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
-    <style>
-        .content-container {
-            width: 60%;
-            margin: 150px auto;
-            position: relative;
-        }
 
-        .content-container .main-title {
-            font-size: 24px;
-            font-weight: 700;
-            text-align: center;
-            border-bottom: 2px solid rgb(75, 73, 73);
-            padding: 0 20px 15px;
-            width: fit-content;
-            margin: 20px auto 30px;
-        }
+    <!-- 상세보기 css -->
+    <link href="/css/freeboard/freeboard-detail.css" rel="stylesheet"/>
+    <%--  topbar  --%>
+    <link href="/css/topbar.css" rel="stylesheet">
 
-        .content-container .main-content {
-            border: 2px solid #ccc;
-            border-radius: 20px;
-            padding: 10px 25px;
-            font-size: 1.1em;
-            text-align: justify;
-            min-height: 400px;
-        }
-
-        .content-container .custom-btn-group {
-            position: absolute;
-            bottom: -10%;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-    </style>
 </head>
 
 <body>
+<%@include file="../topbar.jsp"%>
+
 <div class="wrap">
 
     <div class="content-container">
@@ -59,7 +34,7 @@
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">작성자</label>
                 <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="이름" name="writer"
-                       value="${board.writer}">
+                       value="${board.writer}" readonly>
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput2" class="form-label">글제목</label>
@@ -69,14 +44,14 @@
 
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-                <textarea name="content" class="form-control" id="exampleFormControlTextarea1"
-                          rows="10">${board.content}</textarea>
+                <textarea name="content" class="form-control main-content"
+                          id="exampleFormControlTextarea1" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'">${board.content}</textarea>
             </div>
 
 
             <div class="btn-group btn-group-lg custom-btn-group" role="group">
-                <button id="edit-btn" type="button" class="btn btn-warning">완료</button>
-                <button type="button" class="btn btn-dark">목록</button>
+                <button id="apply-btn" type="button" class="btn btn-warning">완료</button>
+                <button id="cancel-btn" type="button" class="btn btn-dark">취소</button>
             </div>
         </form>
 
@@ -88,7 +63,7 @@
     // 게시글 수정 완료
     function edit(){
         // 완료버튼
-        const $editBtn = document.getElementById("edit-btn");
+        const $editBtn = document.getElementById("apply-btn");
         $editBtn.onclick=e=>{
             if (!confirm("수정하시겠습니까?"))return;
             const $form = document.querySelector("form");
@@ -98,8 +73,22 @@
         }
     }
 
+    // 수정 취소
+    function cancel(){
+        // 취소 버튼
+        const $cancelBtn = document.getElementById('cancel-btn');
+        $cancelBtn.onclick = e =>{
+            location.href = "/freeboard/detail/${board.boardNo}?pageNum=${page.pageNum}&amount=${page.amount}";
+        }
+    }
+
     (function(){
         edit();
+        cancel();
+
+        const $textarea = document.querySelector('#exampleFormControlTextarea1');
+        $textarea.style.height = $textarea.scrollHeight + 'px';
+
     })();
 </script>
 </body>
