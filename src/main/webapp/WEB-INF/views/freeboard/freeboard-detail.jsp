@@ -14,29 +14,11 @@
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous"></script>
 
-
     <!-- 상세보기 css -->
     <link href="/css/freeboard/freeboard-detail.css" rel="stylesheet"/>
     <!-- 상단바 css -->
     <link href="/css/topbar.css" rel="stylesheet">
 
-    <style>
-        @font-face {
-            font-family: 'KyoboHand';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
-            font-weight: bold;
-            font-style: normal;
-        }
-
-        body {
-            background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
-            background-repeat: no-repeat;
-            background-size: cover;
-            overflow: visible;
-            font-family: KyoboHand;
-        }
-
-    </style>
 </head>
 <body>
 

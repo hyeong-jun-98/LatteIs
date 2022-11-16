@@ -1,3 +1,19 @@
+/* 전체 배경 & 폰트 */
+@font-face {
+    font-family: 'KyoboHand';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+body{
+    background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: visible;
+    font-family: KyoboHand;
+}
+
+/* 메인 */
 .wrap {
     width: 50%;
     margin: 0 auto;
@@ -27,6 +43,7 @@
     text-align: justify;
     background: #fff;
     min-height: 400px;
+    overflow:hidden;
 }
 .content-container .custom-btn-group {
     position: absolute;
