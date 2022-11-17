@@ -12,12 +12,13 @@
         <result property="userEmail" column="user_email" />
         <result property="password" column="password" />
         <result property="userYear" column="user_year" />
+        <result property="login" column="login" />
     </resultMap>
 
     <insert id="save">
         insert into user
-        (user_nickname, user_name, user_email, password, user_year)
-        values (#{userNickname}, #{userName}, #{userEmail}, #{password}, #{userYear})
+        (user_nickname, user_name, user_email, password, user_year, login)
+        values (#{userNickname}, #{userName}, #{userEmail}, #{password}, #{userYear}, #{login})
     </insert>
 
     <select id="isDuplicate" resultType="int">
@@ -34,7 +35,7 @@
     <select id="findUser" resultMap="userMap">
         SELECT *
         FROM user
-        WHERE user_email = #{userEmail}
+        WHERE user_email = #{userEmail} and login = #{login}
     </select>
 
     <!-- 자동 로그인 정보 추가   -->

@@ -1,6 +1,7 @@
 package com.academy.latteis.board.controller;
 
 import com.academy.latteis.board.domain.Board;
+import com.academy.latteis.board.dto.BoardGoodDTO;
 import com.academy.latteis.board.service.FreeBoardService;
 import com.academy.latteis.common.page.Page;
 import com.academy.latteis.common.page.PageMaker;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -51,12 +53,15 @@ public class FreeBoardController {
                             HttpSession session, @ModelAttribute("msg") String msg
     ) {
         log.info("controller request /freeboard/detail GET! - {}", boardNo);
-        Board board = freeBoardService.findOneService(boardNo, response, request);
+        List<BoardGoodDTO> boardList = freeBoardService.findOneService(boardNo, response, request);
+        BoardGoodDTO board = boardList.get(0);
         log.info("return data - {}", board);
+        log.info("boardList는 - {}", boardList);
 
         User loginUser = (User) session.getAttribute("loginUser");
         log.info("로그인 유저 데이터 - {}", loginUser);
 
+        model.addAttribute("boardList", boardList);
         model.addAttribute("board", board);
         model.addAttribute("page", page);
         model.addAttribute("user", loginUser);
@@ -120,7 +125,9 @@ public class FreeBoardController {
     public String edit(Long boardNo, Model model, Page page
             , HttpServletResponse response, HttpServletRequest request) {
         log.info("controller request /freeboard/edit GET! - {}", boardNo);
-        Board board = freeBoardService.findOneService(boardNo, response, request);
+        List<BoardGoodDTO> boardList = freeBoardService.findOneService(boardNo, response, request);
+
+        BoardGoodDTO board = boardList.get(0);
 
         model.addAttribute("board", board);
         model.addAttribute("boardNo", board.getBoardNo());

@@ -15,4 +15,5 @@ public class User {
     private String password;
     private int userYear;
     private Auth auth;
+    private String login;
 }

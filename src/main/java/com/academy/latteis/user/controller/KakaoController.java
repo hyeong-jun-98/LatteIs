@@ -4,11 +4,14 @@ import com.academy.latteis.user.domain.User;
 import com.academy.latteis.user.dto.KaKaoUserInfoDTO;
 import com.academy.latteis.user.service.KakaoService;
 
+import com.academy.latteis.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.method.annotation.HttpEntityMethodProcessor;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,6 +25,7 @@ import static com.academy.latteis.user.domain.SNSLogin.*;
 public class KakaoController {
 
     private final KakaoService kakaoService;
+    private final UserService userService;
 
     @GetMapping("/kakao-test")
     public void kakoTest(Model model) {
@@ -51,10 +55,31 @@ public class KakaoController {
             session.setAttribute("profile_path", userInfo.getProfileImg());
             session.setAttribute(LOGIN_FROM, KAKAO);
             session.setAttribute("accessToken", accessToken);
-            return "redirect:/";
+            session.setAttribute("loginUser", user);
+            log.info("test {}", user);
+            return "redirect:/kakaoinfo";
         }
 
         return "redirect:/user/login";
+    }
+    @GetMapping("kakaoinfo")
+    public String kakaoInfo(HttpSession session){
+        log.info(session.getAttribute("loginUser"));
+        String login = "kakao";
+        boolean check = kakaoService.kakaoLogin(session, login);
+        log.info("true? false? {}", check);
+        return check ? "redirect:/" : "/user/kakao_nickname";
+    }
+    @PostMapping("/kakaonickname")
+    public String kakaoNickname(HttpSession session, User user) throws Exception{
+        User kakaouser = (User) session.getAttribute("loginUser");
+        String login = "kakao";
+        user.setUserName(kakaouser.getUserName());
+        user.setUserEmail(kakaouser.getUserEmail());
+        session.setAttribute("loginUser", user);
+        log.info("user check {}",user);
+        kakaoService.kakaoJoin(user, login);
+        return "redirect:/";
     }
 
     // 카카오 로그아웃

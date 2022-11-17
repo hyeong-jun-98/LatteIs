@@ -31,8 +31,9 @@ public class UserService {
     private final BCryptPasswordEncoder encoder;
 
     //회원가입
-    public boolean saveUser(User user){
+    public boolean saveUser(User user, String login){
         user.setPassword(encoder.encode(user.getPassword()));
+        user.setLogin(login);
         boolean loginCheck = userMapper.save(user);
         return loginCheck;
     }
@@ -47,7 +48,7 @@ public class UserService {
 
     public LoginFlag login(LoginDTO inputData, HttpSession session, HttpServletResponse response) {
         // 회원가입 여부 확인
-        User foundUser = userMapper.findUser(inputData.getUserEmail());
+        User foundUser = userMapper.findUser(inputData.getUserEmail(), inputData.getLogin());
         log.info(foundUser);
         if (foundUser != null) {
             if (encoder.matches(inputData.getPassword(), foundUser.getPassword())) {
@@ -110,4 +111,5 @@ public class UserService {
             userMapper.saveAutoLoginValue(dto);
         }
     }
+
 }

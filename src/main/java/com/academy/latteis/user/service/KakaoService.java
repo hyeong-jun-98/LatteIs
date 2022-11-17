@@ -1,21 +1,28 @@
 package com.academy.latteis.user.service;
 
 import com.academy.latteis.user.domain.OAuthValue;
+import com.academy.latteis.user.domain.User;
 import com.academy.latteis.user.dto.KaKaoUserInfoDTO;
+import com.academy.latteis.user.repository.UserMapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 @Service
 @Log4j2
+@RequiredArgsConstructor
 public class KakaoService implements OAuthService, OAuthValue {
+
+    private final UserMapper userMapper;
 
     // 카카오 로그인시 사용자 정보에 접근할 수 있는 액세스토큰을 발급
     @Override
@@ -181,5 +188,20 @@ public class KakaoService implements OAuthService, OAuthValue {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public boolean kakaoLogin(HttpSession session, String login){
+        User user = (User) session.getAttribute("loginUser");
+        log.info("카카오 유저 체크 {}", user);
+        User checkUser = userMapper.findUser(user.getUserEmail(), login);
+        if(checkUser != null){
+            session.setAttribute("loginUser", checkUser);
+            session.setMaxInactiveInterval(60 * 60); // 1시간
+            return true;
+        }else return false;
+    }
+    public void kakaoJoin(User user, String login){
+        user.setLogin(login);
+        user.setPassword("kakao password");
+        userMapper.save(user);
     }
 }
