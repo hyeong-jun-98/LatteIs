@@ -14,6 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
@@ -38,35 +41,41 @@ public class DiaryController {
 
     // 일기 목록 요청
     @GetMapping("/list")
-    public String list(DiaryPage diaryPage, Model model) {
+    public String list(DiaryPage diaryPage, Model model, @ModelAttribute("msg") String msg) {
         Map <String, Object> diaryMap = diaryService.findAllService(diaryPage);
+
         DiaryPageMaker pm = new DiaryPageMaker(
                 new DiaryPage(diaryPage.getPageNum(), diaryPage.getAmount())
                 , (Integer) diaryMap.get("tc"));
 
         model.addAttribute("dList", diaryMap.get("dList"));
         model.addAttribute("pm", pm);
-        model.addAttribute("page", "diary");
+        model.addAttribute("diaryPage", "diaryPage");
         return "diary/diary_list";
     }
 
     // 일기 작성 화면 요청
     @GetMapping("/write")
-    public String DiaryWrite(HttpSession session, RedirectAttributes ra) {
+    public String DiaryWrite(HttpSession session, Model model) {
 
+        User loginUser = (User) session.getAttribute("loginUser");
+        model.addAttribute("loginUser", loginUser);
 
         return "diary/diary_write";
     }
 
     // 일기 작성 화면
     @PostMapping("/write")
-    public String DiaryWrite(Diary diary, RedirectAttributes ra, HttpSession session) {
+    public String DiaryWrite(Diary diary, HttpSession session) {
 
         log.info("/write POST - param: {}", diary);
 
+        // 세션에 담아둔 로그인 정보 뽑기
+        User loginUSer = (User) session.getAttribute("loginUser");
+        log.info("로그인 한 사람 닉네임 : {}", loginUSer.getUserNickname());
 
-        // 현재 로그인 사용자 계정명 추가
-        diary.setUserNickname(LoginUtils.getCurrentMemberNickname(session));
+        // 세션에서 닉네임 뽑기
+        diary.setUserNickname(loginUSer.getUserNickname());
 
        boolean flag = diaryService.saveService(diary);
 
@@ -75,14 +84,20 @@ public class DiaryController {
 
     // 일기 상세화면
     @GetMapping("/detail/{diaryNo}")
-    public String content(@PathVariable Long diaryNo, Model model) {
+    public String content(@PathVariable Long diaryNo,DiaryPage diaryPage, Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
         log.info("/detail/{} GET!!", diaryNo);
 
-        Diary diary = diaryService.findOneService(diaryNo);
-
+        Diary diary = diaryService.findOneService(diaryNo,request, response);
         log.info("return data diary: {}", diary);
+
+        User loginUser = (User) session.getAttribute("loginUser");
+        log.info("로그인 유저 데이터 {}", loginUser);
+
+
         model.addAttribute("d", diary);
+        model.addAttribute("diaryPage", diaryPage);
+        model.addAttribute("loginUser", loginUser);
 
         return "diary/diary_detail";
     }
@@ -90,9 +105,11 @@ public class DiaryController {
 
     // 일기 삭제 확인
     @GetMapping("delete")
-    public String delete(@ModelAttribute("diaryNo") Long diaryNo, Model model) {
+    public String delete(@ModelAttribute("diaryPage") DiaryPage diaryPage, Long diaryNo, Model model) {
         log.info("controller request {}", diaryNo);
 
+        model.addAttribute("diaryNo", diaryNo);
+        model.addAttribute("validate", diaryService.getUser(diaryNo));
 
         return  "diary/process-delete";
     }
@@ -101,7 +118,7 @@ public class DiaryController {
 
     // 일기 삭제 확정
     @PostMapping("/delete")
-    public String delete (Long diaryNo) {
+    public String delete (Long diaryNo, RedirectAttributes ra, @ModelAttribute("diaryPage") DiaryPage diaryPage) {
         log.info("controller delete {}", diaryNo);
 
         return diaryService.removeService(diaryNo) ? "redirect:/diary/list" : "redirect:/";
@@ -110,12 +127,17 @@ public class DiaryController {
 
     // 수정 화면 요청
     @GetMapping("/modify")
-    public String modify(Long diaryNo, Model model) {
+    public String modify(Long diaryNo, Model model, HttpServletRequest request, HttpServletResponse response, DiaryPage diaryPage) {
         log.info("controller diary/modify Get {}", diaryNo);
-        Diary diary = diaryService.findOneService(diaryNo);
+        Diary diary = diaryService.findOneService(diaryNo, request, response);
+
         log.info("find article {} ", diary);
 
         model.addAttribute("d", diary);
+        model.addAttribute("diaryNo", diaryNo);
+        model.addAttribute("diaryPage", diaryPage);
+        model.addAttribute("validate" ,diaryService.getUser(diaryNo));
+
         return "diary/diary-modify";
     }
 
@@ -128,27 +150,29 @@ public class DiaryController {
 
     }
 
-//    @PostMapping("/goodCheck/{diaryNo}")
-//    public String goodFirstUp(Good good) {
-//        log.info("GoodFirstUp controller {}", good);
-//
-//        boolean flag = diaryService.goodFirstUpService(good);
-//        return
-//    }
-
-
-
     // 좋아요 하려고
+    // redirect 할 때는 model이 리셋이되므로 RedirectAttribute로 넣어주어야 한다.
     @GetMapping("/goodCheck/{diaryNo}")
-    public String goodCheck(HttpSession session, @PathVariable Long diaryNo) {
+    public String goodCheck(HttpSession session, @PathVariable Long diaryNo, Model model, RedirectAttributes ra) {
         log.info("diaryGoodCheck controller {}", diaryNo);
 
         User user = (User) session.getAttribute("loginUser");
 
-        diaryService.goodCheckService(diaryNo, (long) user.getUserNo());
+        boolean goodCheck = diaryService.goodCheckService(diaryNo, (long) user.getUserNo());
+        ra.addFlashAttribute("goodCheck", goodCheck);
+        log.info("좋아요 누를 때 {}, {}, {}", diaryNo, (long) user.getUserNo(), goodCheck);
+
+
+//        Good good = diaryService.findGoodCheckService(diaryNo, userNo);
+//        log.info("좋아요 여부 뽑아오기 -컨트롤러 {},{}", diaryNo, userNo);
+//
+//        model.addAttribute("good", good);
 
         return "redirect:/diary/detail/" + diaryNo;
     }
+
+
+
 
 
 
