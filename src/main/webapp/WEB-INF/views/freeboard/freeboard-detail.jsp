@@ -4,7 +4,8 @@
 <html lang="ko">
 <head>
     <title>Title</title>
-
+    <!-- fontawesome css: https://fontawesome.com -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
     <!-- bootstrap css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -19,6 +20,11 @@
     <!-- 상단바 css -->
     <link href="/css/topbar.css" rel="stylesheet">
 
+    <style>
+        #good-check {
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
@@ -55,7 +61,12 @@
                 <div class="card">
                     <!-- 댓글 내용 헤더 -->
                     <div class="card-header text-white m-0 bg-warning bg-opacity-50">
-                        <div class="float-left  text-black">댓글 (<span id="commentCnt">0</span>)</div>
+                        <div class="float-left text-black" id="good-comment-area">
+                            <i class="far fa-heart fs-4" id="good-check"
+                               data-user-no="${user.userNo}"></i>&nbsp좋아요 (<span id="goodCnt">0</span>)
+
+                            &nbsp&nbsp댓글 (<span id="commentCnt">0</span>)
+                        </div>
                     </div>
 
                     <!-- 댓글 내용 바디 -->
@@ -163,6 +174,13 @@
 
 <!-- 게시글 상세보기 관련 script -->
 <script>
+
+    const $goodCheck = document.getElementById('good-check');   // 좋아요 버튼
+    const goodList = $goodCheck.classList;  // 좋아요 버튼의 클래스 리스트
+
+    // 좋아요 요청 URL
+    const Good_URL = '/api/v1/good';
+
     // 목록으로 가지
     function toList() {
         // 목록 버튼
@@ -176,10 +194,13 @@
     function deleteEvent() {
         // 삭제하기 버튼
         const $delBtn = document.getElementById("del-btn");
-        $delBtn.onclick = e => {
-            if (!confirm("삭제하시겠습니까?")) return;
-            console.log(${board.boardNo});
-            location.href = "/freeboard/delete?boardNo=${board.boardNo}&pageNum=${page.pageNum}&amount=${page.amount}";
+
+        if ($delBtn !== null) {
+            $delBtn.onclick = e => {
+                if (!confirm("삭제하시겠습니까?")) return;
+                console.log(${board.boardNo});
+                location.href = "/freeboard/delete?boardNo=${board.boardNo}&pageNum=${page.pageNum}&amount=${page.amount}";
+            }
         }
     }
 
@@ -187,18 +208,115 @@
     function editEvent() {
         // 수정하기 버튼
         const $editBtn = document.getElementById("edit-btn");
-        $editBtn.onclick = e => {
-            location.href = "/freeboard/edit?boardNo=${board.boardNo}&pageNum=${page.pageNum}&amount=${page.amount}";
+        if ($editBtn !== null) {
+            $editBtn.onclick = e => {
+                location.href = "/freeboard/edit?boardNo=${board.boardNo}&pageNum=${page.pageNum}&amount=${page.amount}";
+            }
         }
     }
 
     // 로그인 여부 메시지
     function alertServerMessage() {
         const msg = '${msg}';
-        console.log('msg : ', msg)
         if (msg === 'no-match') {
             alert('로그인 정보가 맞지 않습니다.');
         }
+    }
+
+    // 좋아요 여부 확인
+    function goodOrNot() {
+        <c:forEach var="b" items="${boardList}">
+
+        console.log('${b}');
+
+        if ('${b.userNo}' === '${user.userNo}') {
+            goodList.replace('far', 'fas'); // 엄지 체크
+        }
+        </c:forEach>
+    }
+
+    // 좋아요 수 요청 함수
+    function getGoodCount(){
+        fetch(Good_URL+'?boardNo=${board.boardNo}')
+            .then(res => res.text())
+            .then(cnt => {
+                // 댓글 수 배치
+                console.log(cnt);
+                document.getElementById('goodCnt').textContent = cnt;
+            })
+    }
+
+    // 좋아요 이벤트
+    function goodCheckEvent() {
+        $goodCheck.onclick = e => {
+
+            if ($goodCheck.dataset.userNo === '') { // 로그인 안돼있으면
+                alert("로그인 후 이용 가능한 서비스 입니다.");
+                return;
+            }
+
+            // 로그인 돼있으면 아래 실행
+            if (goodList.contains('far')) {  // 빈 엄지이면
+                console.log('좋아요 눌러줘');
+                goodCheck();
+                goodList.replace('far', 'fas'); // 빈 좋아요를 채워진 엄지로 변경
+            } else if (goodList.contains('fas')) {    // 채워진 엄지이면
+                console.log('좋아요 풀어줘');
+                goodUnCheck();
+                goodList.replace('fas', 'far');   // 빈 엄지로 변경
+            }
+        };
+    }
+
+    // 좋아요 체크 처리 요청
+    function goodCheck() {
+        // 서버로 전송할 데이터들
+        const replyData = {
+            userNo: $goodCheck.dataset.userNo,
+            boardNo: ${board.boardNo},
+            goodCheck: 'true'
+        };
+
+        // POST요청을 위한 요청 정보 객체
+        const reqInfo = {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(replyData)
+        };
+
+        fetch(Good_URL, reqInfo)
+            .then(res => res.text())
+            .then(msg => {
+                console.log(msg);
+                getGoodCount(); // 좋아요 수 비동기로 가져오기
+            });
+    }
+
+    // 좋아요 취소 처리 요청
+    function goodUnCheck() {
+        // 서버로 전송할 데이터들
+        const replyData = {
+            userNo: $goodCheck.dataset.userNo,
+            boardNo: ${board.boardNo},
+        };
+
+        // POST요청을 위한 요청 정보 객체
+        const reqInfo = {
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(replyData)
+        };
+
+        fetch(Good_URL, reqInfo)
+            .then(res => res.text())
+            .then(msg => {
+                console.log(msg);
+                getGoodCount(); // 좋아요 수 비동기로 가져오기
+            })
     }
 
     (function () {
@@ -206,7 +324,13 @@
         toList();
         deleteEvent();
         editEvent();
-        // alertServerMessage();
+
+        // 좋아요 수 가져오기
+        getGoodCount();
+        // 좋아요 여부 확인
+        goodOrNot();
+        // 좋아요 이벤트
+        goodCheckEvent();
     })();
 </script>
 
@@ -224,7 +348,10 @@
 
     // 댓글 등록버튼 클릭
     function clickRegister() {
-        document.getElementById('commentAddBtn').onclick = commentRegisterEvent;
+        const $commentAddBtn = document.getElementById('commentAddBtn');
+        if ($commentAddBtn !== null ){
+            $commentAddBtn.onclick = commentRegisterEvent;
+        }
     }
 
     // 댓글 등록 요청 함수
@@ -460,7 +587,6 @@
     // 댓글 수정 비동기 처리
     function editComment() {
         const $modal = new bootstrap.Modal(document.getElementById('commentEditModal'));
-        console.log('모달은 ', $modal);
 
         document.getElementById('modalCommentEditBtn').onclick = e => {
             console.log('수정 버튼 클릭');
@@ -512,6 +638,8 @@
 
         // 댓글 수정 요청
         editComment();
+
+
     })();
 
 </script>

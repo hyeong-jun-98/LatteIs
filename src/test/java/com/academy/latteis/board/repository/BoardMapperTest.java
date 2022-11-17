@@ -1,11 +1,14 @@
 package com.academy.latteis.board.repository;
 
 import com.academy.latteis.board.domain.Board;
+import com.academy.latteis.board.dto.BoardGoodDTO;
 import com.academy.latteis.board.dto.ValidateUserDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -45,9 +48,9 @@ class BoardMapperTest {
         //given
 
         //when
-        Board board = mapper.findOne(342L);
+        List<BoardGoodDTO> boardList = mapper.findOne(336L);
         //then
-        System.out.println("board = " + board);
+        System.out.println("board = " + boardList);
     }
 
 }

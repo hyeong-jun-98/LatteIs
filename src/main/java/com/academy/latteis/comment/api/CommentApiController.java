@@ -15,7 +15,7 @@ import java.util.Map;
 @RequiredArgsConstructor    // 생성자 주입
 @Log4j2
 @RequestMapping("/api/v1/comment")
-@CrossOrigin
+@CrossOrigin    // CORS를 적용하는 어노테이션
 public class CommentApiController {
 
     private final CommentService commentService;
