@@ -2,6 +2,7 @@ package com.academy.latteis.board.service;
 
 import com.academy.latteis.board.domain.Board;
 import com.academy.latteis.board.dto.BoardConvertDTO;
+import com.academy.latteis.board.dto.BoardGoodDTO;
 import com.academy.latteis.board.dto.ValidateUserDTO;
 import com.academy.latteis.board.repository.BoardMapper;
 import com.academy.latteis.comment.repository.CommentMapper;
@@ -111,16 +112,16 @@ public class FreeBoardService {
     }
 
     // 게시글 상세보기
-    public Board findOneService(Long boardNo, HttpServletResponse response, HttpServletRequest request) {
+    public List<BoardGoodDTO> findOneService(Long boardNo, HttpServletResponse response, HttpServletRequest request) {
         log.info("findOne service start");
 
-        Board board = boardMapper.findOne(boardNo);
-
+        List<BoardGoodDTO> boardList = boardMapper.findOne(boardNo);
+        log.info("서비스에서 boardList - {}", boardList);
         // 해당 게시물 번호에 해당하는 쿠키가 있는지 확인
         // 쿠키가 없으면 조회수를 상승시켜주고 쿠키를 만들어서 클라이언트에 전송
         makeHit(boardNo, response, request);
 
-        return board;
+        return boardList;
     }
 
     // 조회수 상승 처리

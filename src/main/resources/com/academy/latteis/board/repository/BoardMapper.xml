@@ -11,6 +11,15 @@
         <result property="userNickname" column="user_nickname"/>
     </resultMap>
 
+    <!-- 좋아요 관련 Board dto -->
+    <resultMap id="boardGoodMap" type="com.academy.latteis.board.dto.BoardGoodDTO">
+        <result property="boardNo" column="board_no"/>
+        <result property="topicNo" column="topic_no"/>
+        <result property="userNickname" column="user_nickname"/>
+        <result property="userNo" column="user_No"/>
+        <result property="goodCheck" column="good_check"/>
+    </resultMap>
+
     <!-- BoardConvertDTO -->
     <resultMap id="boardConvertMap" type="com.academy.latteis.board.dto.BoardConvertDTO">
         <result property="boardNo" column="board_no"/>
@@ -46,10 +55,11 @@
         LIMIT #{start}, #{amount}
     </select>
 
-    <select id="findOne" resultMap="boardMap">
+    <select id="findOne" resultMap="boardGoodMap">
         select *
-        from board
-        where board_no = #{boardNo}
+        from board b left outer join board_good bg
+        on (b.board_no = bg.board_no)
+        where b.board_no = #{boardNo}
     </select>
 
     <select id="getTotalCount" resultType="int">

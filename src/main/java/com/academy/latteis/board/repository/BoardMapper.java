@@ -2,6 +2,7 @@ package com.academy.latteis.board.repository;
 
 import com.academy.latteis.board.domain.Board;
 import com.academy.latteis.board.dto.BoardConvertDTO;
+import com.academy.latteis.board.dto.BoardGoodDTO;
 import com.academy.latteis.board.dto.ValidateUserDTO;
 import com.academy.latteis.common.page.Page;
 import com.academy.latteis.common.search.Search;
@@ -19,7 +20,7 @@ public interface BoardMapper {
     List<BoardConvertDTO> findAll(Search search);
 
     // 게시글 상세보기
-    Board findOne(Long boardNo);
+    List<BoardGoodDTO> findOne(Long boardNo);
 
     // 전체 게시글 수 조회
     int getTotalCount(Search search);
