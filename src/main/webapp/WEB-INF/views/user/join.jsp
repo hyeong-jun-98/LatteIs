@@ -152,7 +152,7 @@
                 </div>
 
             </div>
-            <button id="join">회원가입</button>
+            <button id="join" type="button">회원가입</button>
         </form>
 
     </div>

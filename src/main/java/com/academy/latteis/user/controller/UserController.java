@@ -44,7 +44,8 @@ public class UserController {
         @PostMapping("/join")
         public String join(User user){
                 log.info(user);
-                boolean check = userService.saveUser(user);
+                String login = "latteis";
+                boolean check = userService.saveUser(user, login);
                 return check ? "/user/login" : "/";
 
         }
@@ -82,6 +83,8 @@ public class UserController {
         ) {
 
                 log.info("/member/sign-in POST - {}", inputData);
+                String login = "latteis";
+                inputData.setLogin(login);
 //        log.info("session timeout : {}", session.getMaxInactiveInterval());
 
                 // 로그인 서비스 호출
