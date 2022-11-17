@@ -38,7 +38,7 @@
     </c:if>
     <c:if test="${loginUser != null}">
         <div class="nickname" style="cursor: pointer">
-            <div id="tomypage">${loginUser.userName}</div>
+            <div id="tomypage">${loginUser.userNickname}</div>
             <div id="logout">/로그아웃</div>
         </div>
     </c:if>
