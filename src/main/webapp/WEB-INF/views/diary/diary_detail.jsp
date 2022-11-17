@@ -66,13 +66,15 @@
 
             <input type="hidden" name="diaryNo" id="diaryNo" value="${d.diaryNo}">
 
+<%--            <input type="hidden" name="userNo" id="userNo" value="${loginUser.userNo}">--%>
+
             <div>
                 <h1 class="today-diary">${d.userNickname}의 일기</h1>
                 <div class="badge badge-primary custom-emotion">${d.emotion}</div>
                 <div class="badge badge-primary custom-show">${d.diaryShow}</div>
                 <div class="badge badge-primary custom-good">좋아요 : ${d.diaryGood}</div>
                 <div class="good-part">
-                    <buttom type="button" id="btnGood" class="badge badge-primary custom-good-bt">좋아요</buttom>
+                    <button type="button" id="btnGood" class="badge badge-primary custom-good-bt" onclick="location.href='/diary/goodCheck/${d.diaryNo}' ">좋아요</button>
                 </div>
             </div>
 
@@ -174,16 +176,20 @@
 
     // 추천
     $("#btnGood").click(function () {
-        if(confirm("해당 일기를 추천하시겠습니까?")) {
-            console.log(diaryNo);
-        }
+
+            like_func();
+
+
     })
 
     // 좋아요 구현 가보자!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     function like_func() {
         var frm_read = $('#write-form');
         var diaryNo = $('#diaryNo', frm_read).val();
+        // var userNo = $('#userNo', frm_read).val();
 
+
+        diaryNo.submit();
 
 
 

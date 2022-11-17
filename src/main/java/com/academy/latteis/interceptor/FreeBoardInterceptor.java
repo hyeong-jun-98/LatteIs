@@ -1,6 +1,5 @@
 package com.academy.latteis.interceptor;
 
-import com.academy.latteis.board.domain.Board;
 import com.academy.latteis.board.dto.ValidateUserDTO;
 import com.academy.latteis.common.page.Page;
 import lombok.extern.log4j.Log4j2;
@@ -11,12 +10,12 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static com.academy.latteis.util.LoginUtils.*;
+import static com.academy.latteis.util.LoginUtils.getCurrentMemberAccount;
+import static com.academy.latteis.util.LoginUtils.isLogin;
 
 @Configuration
 @Log4j2
@@ -74,13 +73,13 @@ public class FreeBoardInterceptor implements HandlerInterceptor {
             log.info("page  - {}", page);
 
             // 수정하려는 게시글의 계정명 정보와 세션에 저장된 계정명 정보가 일치하지 않으면 리스트로 돌려보내라
-            if (!isMine(session, dto.getUserEmail())){
-                response.sendRedirect("/freeboard/detail/"+ boardNo + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount()+"&msg=no-match");
+            if (!isMine(session, dto.getUserEmail())) {
+                response.sendRedirect("/freeboard/detail/" + boardNo + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount() + "&msg=no-match");
             }
         }
     }
 
-    private static boolean isMine(HttpSession session, String account){
+    private static boolean isMine(HttpSession session, String account) {
         return account.equals(getCurrentMemberAccount(session));
     }
 }

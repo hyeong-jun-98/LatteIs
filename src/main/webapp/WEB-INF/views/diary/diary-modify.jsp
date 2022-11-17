@@ -59,7 +59,7 @@
 
 
             <div>
-                <h1 class="today-diary">(작성자)의 일기</h1>
+                <h1 class="today-diary">${d.userNickname}의 일기</h1>
             </div>
 
             <div class="mb-3">
