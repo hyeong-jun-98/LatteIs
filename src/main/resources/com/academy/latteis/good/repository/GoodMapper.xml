@@ -24,6 +24,13 @@
           and board_no = #{boardNo}
     </delete>
 
+    <!-- 게시글 삭제할 때, 해당 게시글 좋아요도 삭제 -->
+    <delete id="removeByBoardNo">
+        delete
+        from board_good
+        where board_no = #{boardNo}
+    </delete>
+
     <!-- 좋아요 체크 여부 -->
     <select id="goodOrNot" resultMap="boardGoodMap">
         select *

@@ -25,10 +25,10 @@
         SELECT COUNT(*)
         FROM user
         <if test="type=='user_nickname'">
-            WHERE user_nickname = #{value}
+            WHERE user_nickname = #{value} and login=#{login}
         </if>
         <if test="type=='user_email'">
-            WHERE user_email = #{value}
+            WHERE user_email = #{value} and login=#{login}
         </if>
     </select>
 
@@ -43,14 +43,14 @@
 
         UPDATE user
         SET session_id = #{sessionId}, limit_time = #{limitTime}
-        WHERE user_email = #{userEmail}
+        WHERE user_email = #{userEmail} and login = #{login}
 
     </update>
 
     <select id="findUserBySessionId" resultMap="userMap">
 
         SELECT * FROM user
-        WHERE session_id = #{sessionId}
+        WHERE session_id = #{sessionId} and login=#{login}
 
     </select>
 

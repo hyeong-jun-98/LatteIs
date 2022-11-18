@@ -16,7 +16,7 @@
             crossorigin="anonymous"></script>
 
     <!-- 상세보기 css -->
-    <link href="/css/freeboard/freeboard-detail.css" rel="stylesheet"/>
+    <link href="/css/board/board-detail.css" rel="stylesheet"/>
     <!-- 상단바 css -->
     <link href="/css/topbar.css" rel="stylesheet">
 
@@ -382,7 +382,6 @@
         fetch(URL, reqInfo).then(res => res.text())
             .then(msg => {
                 if (msg === 'insert-success') {
-                    alert('댓글 등록 성공');
                     // 댓글 입력 창 초기화
                     $writerInput.value = '${user.userNickname}';
                     $contentInput.value = '';
@@ -564,7 +563,6 @@
             .then(res => res.text())
             .then(msg => {
                 if (msg === 'del-success') {
-                    alert('댓글 삭제 성공');
                     showComment();  // 댓글 새로 불러오기
                 } else {
                     alert('삭제 실패');
@@ -613,7 +611,6 @@
                 .then(res => res.text())
                 .then(msg => {
                     if (msg === 'edit-success') {
-                        alert('수정 성공');
                         $modal.hide();   // 모달창 닫기
                         showComment();  // 댓글 새로 불러오기
                     } else {
