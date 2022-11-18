@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.servlet.http.HttpSession;
+
 // 다양한 인터셉터들을 관리하는 설정 클래스
 @Configuration
 @RequiredArgsConstructor
@@ -29,7 +31,9 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
         // 애프터 로그인 인터셉터 설정
         registry.addInterceptor(afterLoginInterceptor)
-                .addPathPatterns("/user/login", "/user/join");
+                .addPathPatterns("/user/login", "/user/join", "/");
+
+
 
         // 자동 로그인 인터셉터 설정
         registry.addInterceptor(autoLoginInterceptor)

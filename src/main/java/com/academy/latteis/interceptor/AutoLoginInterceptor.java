@@ -3,6 +3,8 @@ package com.academy.latteis.interceptor;
 import com.academy.latteis.user.domain.User;
 import com.academy.latteis.user.repository.UserMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -14,6 +16,7 @@ import static com.academy.latteis.util.LoginUtils.*;
 
 @Configuration
 @RequiredArgsConstructor
+@Log4j2
 public class AutoLoginInterceptor implements HandlerInterceptor {
 
     private final UserMapper userMapper;
@@ -24,6 +27,8 @@ public class AutoLoginInterceptor implements HandlerInterceptor {
 
         //1. 자동로그인 쿠키 탐색
         Cookie c = getAutoLoginCookie(request);
+        User usercheck = (User)request.getSession().getAttribute("loginUser");
+//        log.info("로그인 값 탐색 {}", usercheck);
 
         //2. 자동로그인 쿠키가 발견될 경우 쿠키값을 읽어서 세션아이디를 확인
         if (c != null) {
@@ -34,7 +39,7 @@ public class AutoLoginInterceptor implements HandlerInterceptor {
 
             if (user != null) {
                 // 4. 세션에 해당 회원정보를 저장
-                request.getSession().setAttribute(LOGIN_FLAG, user);
+                request.getSession().setAttribute(LOGIN_FLAG, usercheck.getLogin());
             }
         }
         return true;

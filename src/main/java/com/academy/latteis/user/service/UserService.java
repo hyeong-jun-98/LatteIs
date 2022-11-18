@@ -42,6 +42,7 @@ public class UserService {
         Map<String, Object> checkMap = new HashMap<>();
         checkMap.put("type", type);
         checkMap.put("value", value);
+        checkMap.put("login", "latteis");
 
         return userMapper.isDuplicate(checkMap) == 1;
     }
@@ -80,6 +81,7 @@ public class UserService {
         // 1. 자동로그인 쿠키 생성 - 쿠키의 값으로 현재 세션의 아이디를 저장
         String session_id = session.getId();
         Cookie c = new Cookie(LOGIN_COOKIE, session_id);
+        User user = (User)session.getAttribute("loginUser");
         // 2. 쿠키 설정 (수명, 사용 경로)
         int limitTime = 60 * 60 * 24 * 90; // 90일에 대한 초
         c.setMaxAge(limitTime);
@@ -92,7 +94,7 @@ public class UserService {
         long nowTime = System.currentTimeMillis();
         Date limitDate = new Date(nowTime + ((long) limitTime * 1000));
 
-        AutoLoginDTO dto = new AutoLoginDTO(user_email, session_id, limitDate);
+        AutoLoginDTO dto = new AutoLoginDTO(user_email, session_id, limitDate, user.getLogin());
 
         userMapper.saveAutoLoginValue(dto);
     }
@@ -102,12 +104,14 @@ public class UserService {
 
         //1. 자동로그인 쿠키를 불러온 뒤 수명을 0초로 세팅해서 클라이언트에 돌려보낸다
         Cookie c = getAutoLoginCookie(request);
+        User user = (User) request.getSession().getAttribute("loginUser");
+        log.info("유저 로그인 탐색 {}", user);
         if (c != null) {
             c.setMaxAge(0);
             response.addCookie(c);
 
             //2. 데이터베이스 처리
-            AutoLoginDTO dto = new AutoLoginDTO(user_email, "none", new Date());
+            AutoLoginDTO dto = new AutoLoginDTO(user_email, "none", new Date(), user.getLogin());
             userMapper.saveAutoLoginValue(dto);
         }
     }
