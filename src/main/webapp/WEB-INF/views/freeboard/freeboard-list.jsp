@@ -172,9 +172,11 @@
     // 글 작성 폼으로 이동
     function writeForm() {
         const $btnWrite = document.getElementById("btn-write");
-        $btnWrite.addEventListener("click", function () {
-            location.href = "/freeboard/write";
-        });
+        if ($btnWrite !== null){
+            $btnWrite.addEventListener("click", function () {
+                location.href = "/freeboard/write";
+            });
+        }
     }
 
     // 게시글 상세보기
