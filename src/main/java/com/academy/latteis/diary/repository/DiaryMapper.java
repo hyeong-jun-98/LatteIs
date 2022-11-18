@@ -24,6 +24,9 @@ public interface DiaryMapper {
     //  일기장 페이징 처리
     List <Diary> findAll(DiaryPage diaryPage);
 
+    // 공개된 일기 페이징 처리 후 나옇
+    List <Diary> findPublicList(DiaryPage page);
+
     // 일기 상세 조회
     Diary findOne(Long diaryNo);
 
@@ -59,8 +62,7 @@ public interface DiaryMapper {
     // 일기 작성자로 userNo 가져오기
     ValidateDiaryUserDTO findUserByDiaryNo (Long diaryNo);
 
-    // 일기 좋아요 체크여부 가져오기
-    Good findGoodCheck(Long diaryNo, Long userNo);
+
 
 
 

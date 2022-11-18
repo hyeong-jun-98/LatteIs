@@ -14,6 +14,16 @@
         <result property="userNickname" column="user_nickname" />
     </resultMap>
 
+    <resultMap id="userMap" type="com.academy.latteis.user.domain.User">
+        <id property="userNo" column="user_no" />
+        <result property="userNickname" column="user_nickname" />
+        <result property="userName" column="user_name" />
+        <result property="userEmail" column="user_email" />
+        <result property="password" column="password" />
+        <result property="userYear" column="user_year" />
+        <result property="login" column="login" />
+    </resultMap>
+
     
 
 
@@ -33,6 +43,12 @@
         select * from diary
                  order by diary_no desc
                  limit #{start}, #{amount}
+    </select>
+
+<!--    공개된 일기 리스트-->
+    <select id="findPublicList" resultMap="diaryMap">
+        select * from diary where diary_show = '공개' order by diary_no desc
+        limit #{start}, #{amount}
     </select>
 
 <!--    일기 상세보기-->
@@ -97,9 +113,14 @@
     </update>
 
 <!--일기 작성자로 userNo 가져오기-->
-<select id="findNo">
-    select user_no
-    from user where user_nickname = #{userNickname}
+<select id="findUserByDiaryNo" resultType="com.academy.latteis.diary.dto.ValidateDiaryUserDTO">
+    SELECT user_email AS userEmail, auth
+    FROM user
+    WHERE user_nickname = (
+        SELECT user_nickname
+        FROM diary
+        WHERE diary_no = #{diaryNo}
+    )
 </select>
 
 

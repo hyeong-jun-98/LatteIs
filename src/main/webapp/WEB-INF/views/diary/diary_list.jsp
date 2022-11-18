@@ -83,7 +83,7 @@
     <div class="container px-lg-5">
         <div class="p-4 p-lg-5 rounded-3 text-center list-title">
             <div class="m-4 m-lg-5">
-                <h1 class="display-5 fw-bold custom-Mylist diary-header">나의 일기장</h1>
+                <h1 class="display-5 fw-bold custom-Mylist diary-header">모두의 일기장</h1>
                 <a class="btn btn-primary btn-lg custom-gotoWrite diary-header" href="/diary/write" style="color: black">일기 작성하러 가기</a>
             </div>
         </div>
@@ -120,7 +120,7 @@
 
 
     <!--글 하나하나-->
-    <c:forEach var="d" items="${dList}">
+    <c:forEach var="d" items="${dPList}">
         <div class="lg:w-1/4 md:w-1/2 w-full p-5 articles margin" data-diary-num="${d.diaryNo}">
             <a href="#" style="color: black">
                 <div class="hover:shadow-2x1 card shadow-lg w-full h-full break-all">

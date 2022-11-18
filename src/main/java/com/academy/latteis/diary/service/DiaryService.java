@@ -52,6 +52,18 @@ public class DiaryService {
         return findDataMap;
     }
 
+    // 공개된 일기 목록 with paging
+    public Map <String, Object> findPublicList (DiaryPage diaryPage) {
+        Map <String, Object> findDataMap = new HashMap<>();
+
+        List <Diary> diaryPublicList = diaryMapper.findPublicList(diaryPage);
+        processConverting(diaryPublicList);
+        findDataMap.put("dPList", diaryPublicList);
+        findDataMap.put("tc", diaryMapper.getTotalCount());
+
+        return findDataMap;
+    }
+
     // 날짜변환
     private void processConverting(List<Diary> diaryList) {
         for (Diary d : diaryList) {
@@ -137,9 +149,13 @@ public class DiaryService {
         return flag;
     }
 
-    // 게시글 번호로 글쓴이 회원정보 가져오기
+    // 닉네임으로 글쓴이 유저번호 가져오기
     public ValidateDiaryUserDTO getUser(Long diaryNo) {
-        log.info("서비스에서 계정정보는 {}", diaryMapper.findUserByDiaryNo(diaryNo));
+        log.info("서비스에서 diaryNo {}", diaryNo);
+
+      diaryMapper.findUserByDiaryNo(diaryNo);
+
+
         return diaryMapper.findUserByDiaryNo(diaryNo);
     }
 

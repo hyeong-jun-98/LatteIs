@@ -2,6 +2,8 @@ package com.academy.latteis.diary.repository;
 
 import com.academy.latteis.diary.domain.Diary;
 import com.academy.latteis.diary.domain.Good;
+import com.academy.latteis.diary.dto.ValidateDiaryUserDTO;
+import com.academy.latteis.user.domain.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,7 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class DiaryMapperTest {
 
-    @Autowired DiaryMapper mapper;
+    @Autowired
+    DiaryMapper mapper;
 
     // 수정
     @Test
@@ -29,7 +32,7 @@ class DiaryMapperTest {
     // 삽입
     @Test
     void insertTest() {
-        Diary diary= new Diary();
+        Diary diary = new Diary();
 
         diary.setUserNickname("HJ");
         diary.setDiaryContent("테슽");
@@ -53,7 +56,6 @@ class DiaryMapperTest {
         System.out.println(goodCheck);
 
     }
-
 
 
     // 일기 좋아요 체크 (전과 0)
@@ -123,6 +125,7 @@ class DiaryMapperTest {
         Good good = new Good();
 //        good.setGoodCheck();
     }
+
 
 
 }

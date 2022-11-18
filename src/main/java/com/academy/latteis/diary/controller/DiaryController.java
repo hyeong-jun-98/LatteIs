@@ -4,6 +4,7 @@ import com.academy.latteis.common.page.DiaryPage;
 import com.academy.latteis.common.page.DiaryPageMaker;
 import com.academy.latteis.diary.domain.Diary;
 import com.academy.latteis.diary.domain.Good;
+import com.academy.latteis.diary.dto.ValidateDiaryUserDTO;
 import com.academy.latteis.diary.service.DiaryService;
 import com.academy.latteis.user.domain.User;
 import com.academy.latteis.util.LoginUtils;
@@ -40,20 +41,37 @@ public class DiaryController {
 //    }
 
     // 일기 목록 요청
-    @GetMapping("/list")
-    public String list(DiaryPage diaryPage, Model model, @ModelAttribute("msg") String msg) {
-        Map <String, Object> diaryMap = diaryService.findAllService(diaryPage);
+//    @GetMapping("/list")
+//    public String list(DiaryPage diaryPage, Model model, @ModelAttribute("msg") String msg) {
+//        Map <String, Object> diaryMap = diaryService.findAllService(diaryPage);
+//
+//
+//        DiaryPageMaker pm = new DiaryPageMaker(
+//                new DiaryPage(diaryPage.getPageNum(), diaryPage.getAmount())
+//                , (Integer) diaryMap.get("tc"));
+//
+//        model.addAttribute("dList", diaryMap.get("dList"));
+//        model.addAttribute("pm", pm);
+//        model.addAttribute("diaryPage", "diaryPage");
+//        return "diary/diary_list";
+//    }
+
+    // 일기 공개 목록 요청
+    @GetMapping("list")
+    public String publicList(DiaryPage diaryPage, Model model) {
+        Map<String, Object> diaryPublicMap = diaryService.findPublicList(diaryPage);
 
         DiaryPageMaker pm = new DiaryPageMaker(
                 new DiaryPage(diaryPage.getPageNum(), diaryPage.getAmount())
-                , (Integer) diaryMap.get("tc"));
+                , (Integer) diaryPublicMap.get("tc"));
 
-        model.addAttribute("dList", diaryMap.get("dList"));
+        model.addAttribute("dPList", diaryPublicMap.get("dPList"));
         model.addAttribute("pm", pm);
         model.addAttribute("diaryPage", "diaryPage");
-        return "diary/diary_list";
-    }
 
+        return "diary/diary_list";
+
+    }
     // 일기 작성 화면 요청
     @GetMapping("/write")
     public String DiaryWrite(HttpSession session, Model model) {
@@ -105,11 +123,14 @@ public class DiaryController {
 
     // 일기 삭제 확인
     @GetMapping("delete")
-    public String delete(@ModelAttribute("diaryPage") DiaryPage diaryPage, Long diaryNo, Model model) {
+    public String delete(@ModelAttribute("diaryPage") DiaryPage diaryPage, Long diaryNo, Model model, HttpSession session) {
         log.info("controller request {}", diaryNo);
 
+
         model.addAttribute("diaryNo", diaryNo);
+
         model.addAttribute("validate", diaryService.getUser(diaryNo));
+
 
         return  "diary/process-delete";
     }
@@ -127,16 +148,19 @@ public class DiaryController {
 
     // 수정 화면 요청
     @GetMapping("/modify")
-    public String modify(Long diaryNo, Model model, HttpServletRequest request, HttpServletResponse response, DiaryPage diaryPage) {
+    public String modify(Long diaryNo, Model model, HttpServletRequest request, HttpServletResponse response, DiaryPage diaryPage, HttpSession session) {
         log.info("controller diary/modify Get {}", diaryNo);
         Diary diary = diaryService.findOneService(diaryNo, request, response);
 
         log.info("find article {} ", diary);
 
+
+
         model.addAttribute("d", diary);
         model.addAttribute("diaryNo", diaryNo);
         model.addAttribute("diaryPage", diaryPage);
-        model.addAttribute("validate" ,diaryService.getUser(diaryNo));
+        model.addAttribute("validate", diaryService.getUser(diaryNo));
+        log.info("validate {} ", diaryService.getUser(diaryNo));
 
         return "diary/diary-modify";
     }

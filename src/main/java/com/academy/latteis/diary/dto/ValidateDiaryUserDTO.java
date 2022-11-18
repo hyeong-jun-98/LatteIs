@@ -8,5 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 public class ValidateDiaryUserDTO {
     private String userEmail;
+
     private Auth auth;
 }
