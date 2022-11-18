@@ -14,6 +14,9 @@ public interface GoodMapper {
     // 좋아요 여부 확인
     BoardGood goodOrNot(BoardGood boardGood);
 
+    // 좋아요 전체 삭제
+    boolean removeByBoardNo(Long boardNo);
+
     // 좋아요 수
     int goodCnt(Long boardNo);
 }
