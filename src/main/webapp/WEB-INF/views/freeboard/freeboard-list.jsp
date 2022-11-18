@@ -15,7 +15,7 @@
     <%--  topbar  --%>
     <link href="/css/topbar.css" rel="stylesheet">
     <!-- freeboard-list css -->
-    <link href="/css/freeboard/freeboard-list.css" rel="stylesheet">
+    <link href="/css/board/board-list.css" rel="stylesheet">
 
     <style>
         @font-face {
@@ -31,8 +31,6 @@
             overflow: visible;
             font-family: KyoboHand;
         }
-
-
     </style>
 </head>
 <body>
@@ -41,7 +39,9 @@
 
 <%-- 글 목록 영역 --%>
 <div class="wrap">
-    <div class="freeboard-list">
+    <div class="board-list">
+
+        <h1 class="main-title">자유게시판</h1>
 
         <div class="top-section">
             <div class="search">

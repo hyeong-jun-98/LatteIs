@@ -16,7 +16,7 @@
             crossorigin="anonymous"></script>
 
     <!-- 상세보기 css -->
-    <link href="/css/freeboard/freeboard-detail.css" rel="stylesheet"/>
+    <link href="/css/board/board-detail.css" rel="stylesheet"/>
     <!-- 상단바 css -->
     <link href="/css/topbar.css" rel="stylesheet">
 
