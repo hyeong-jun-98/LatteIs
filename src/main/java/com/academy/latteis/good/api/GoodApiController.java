@@ -16,7 +16,7 @@ public class GoodApiController {
     private final GoodService goodService;
 
     // 좋아요 체크 요청 처리
-    @PostMapping
+    @PostMapping("")
     public String goodCheck(@RequestBody BoardGood boardGood) {
         log.info("/api/v1/good POST!! - {}", boardGood);
 
@@ -26,7 +26,7 @@ public class GoodApiController {
     }
 
     // 좋아요 요청 처리
-    @DeleteMapping
+    @DeleteMapping("")
     public String goodUnCheck(@RequestBody BoardGood boardGood) {
         log.info("/api/v1/good DELETE! - {}", boardGood);
 
@@ -36,7 +36,7 @@ public class GoodApiController {
     }
 
     // 좋아요 수 가져오기
-    @GetMapping
+    @GetMapping("")
     public int getGoodCount(Long boardNo) {
         log.info("/api/v1/good GET! - {}", boardNo);
 

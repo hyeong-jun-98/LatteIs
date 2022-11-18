@@ -1,52 +1,55 @@
 .wrap {
     width: 60%;
-    margin: 0 auto;
+    margin: 200px auto 100px;
 }
-.freeboard-list{
-    margin-top: 200px;
-    margin-bottom: 100px;
+.board-list{
     font-size: 20px;
+}
+.board-list .main-title {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 20px;
 }
 
 /* 검색창 */
-.freeboard-list .top-section {
+.board-list .top-section {
     display: flex;
     justify-content: space-between;
 }
-.freeboard-list .top-section .search {
+.board-list .top-section .search {
     flex: 4;
 }
-.freeboard-list .top-section .amount {
+.board-list .top-section .amount {
     flex: 4;
 }
-.freeboard-list .top-section .search form {
+.board-list .top-section .search form {
     display: flex;
 }
-.freeboard-list .top-section .search form #search-type {
+.board-list .top-section .search form #search-type {
     flex: 1;
     margin-right: 10px;
 }
-.freeboard-list .top-section .search form input[name=keyword] {
+.board-list .top-section .search form input[name=keyword] {
     flex: 3;
 }
 
 /* 목록 개수별 보기 스타일 */
-.freeboard-list .amount {
+.board-list .amount {
     display: flex;
     /* background: skyblue; */
     justify-content: flex-end;
 }
-.freeboard-list .amount {
+.board-list .amount {
     list-style: none;
 }
-.freeboard-list .amount li {
+.board-list .amount li {
     width: 8%;
     margin-right: 10px;
 }
-.freeboard-list .amount li a {
+.board-list .amount li a {
     width: 100%;
 }
-.freeboard-list .amount li a.active {
+.board-list .amount li a.active {
     color: #000 !important;
     background-color: #ffc107 !important;
     border-color: #ffc107 !important;

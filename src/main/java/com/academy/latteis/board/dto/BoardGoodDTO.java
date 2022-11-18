@@ -22,6 +22,5 @@ public class BoardGoodDTO {
     private Long topicNo;
 
     // good
-    private String goodCheck;
     private String userNo;
 }

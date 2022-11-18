@@ -8,13 +8,12 @@
         <result property="boardGoodNo" column="board_good_no"/>
         <result property="userNo" column="user_no"/>
         <result property="boardNo" column="board_no"/>
-        <result property="goodCheck" column="good_check"/>
     </resultMap>
 
     <!-- 좋아요 체크 -->
     <insert id="check">
-        insert into board_good(user_no, board_no, good_check)
-        values (#{userNo}, #{boardNo}, #{goodCheck})
+        insert into board_good(user_no, board_no)
+        values (#{userNo}, #{boardNo})
     </insert>
 
     <!-- 좋아요 취소 -->
@@ -23,6 +22,13 @@
         from board_good
         where user_no = #{userNo}
           and board_no = #{boardNo}
+    </delete>
+
+    <!-- 게시글 삭제할 때, 해당 게시글 좋아요도 삭제 -->
+    <delete id="removeByBoardNo">
+        delete
+        from board_good
+        where board_no = #{boardNo}
     </delete>
 
     <!-- 좋아요 체크 여부 -->

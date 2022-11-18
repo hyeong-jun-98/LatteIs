@@ -4,6 +4,7 @@ import com.academy.latteis.common.page.DiaryPage;
 
 import com.academy.latteis.diary.domain.Diary;
 import com.academy.latteis.diary.domain.Good;
+import com.academy.latteis.diary.dto.ValidateDiaryUserDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -56,8 +57,10 @@ public interface DiaryMapper {
     boolean goodDown(Long diaryNo);
 
     // 일기 작성자로 userNo 가져오기
-    String findNo (String userNickname);
+    ValidateDiaryUserDTO findUserByDiaryNo (Long diaryNo);
 
+    // 일기 좋아요 체크여부 가져오기
+    Good findGoodCheck(Long diaryNo, Long userNo);
 
 
 

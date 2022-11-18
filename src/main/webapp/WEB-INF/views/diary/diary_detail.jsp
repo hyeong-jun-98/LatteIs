@@ -74,7 +74,15 @@
                 <div class="badge badge-primary custom-show">${d.diaryShow}</div>
                 <div class="badge badge-primary custom-good">좋아요 : ${d.diaryGood}</div>
                 <div class="good-part">
+
+                    <%--       false 일 때       --%>
+                    <c:if test="${!goodCheck}">
                     <button type="button" id="btnGood" class="badge badge-primary custom-good-bt" onclick="location.href='/diary/goodCheck/${d.diaryNo}' ">좋아요</button>
+                    </c:if>
+                        <%--      true일 때        --%>
+                    <c:if test="${goodCheck}">
+                        <button type="button" id="btnGood" class="badge badge-primary custom-good-bt" onclick="location.href='/diary/goodCheck/${d.diaryNo}' ">좋아요취소</button>
+                    </c:if>
                 </div>
             </div>
 
@@ -98,8 +106,10 @@
 
             <div class="d-grid gap-2 btn-list">
                 <button id="to-list" class="btn btn-warning custom-button" type="button">목록</button>
-                <button id="btn-update" class="btn btn-warning custom-button" type="button">수정</button>
-                <button id="btn-delete" class="btn btn-warning custom-button" type="button">삭제</button>
+                <c:if test="${loginUser.userNickname == d.userNickname}">
+                    <button id="btn-update" class="btn btn-warning custom-button" type="button">수정</button>
+                    <button id="btn-delete" class="btn btn-warning custom-button" type="button">삭제</button>
+                </c:if>
             </div>
 
         </form>
@@ -179,21 +189,17 @@
 
             like_func();
 
-
     })
 
     // 좋아요 구현 가보자!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     function like_func() {
-        var frm_read = $('#write-form');
-        var diaryNo = $('#diaryNo', frm_read).val();
-        // var userNo = $('#userNo', frm_read).val();
 
-
+        console.log("${goodCheck}");
         diaryNo.submit();
 
 
-
     }
+
 
 
 

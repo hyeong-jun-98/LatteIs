@@ -7,6 +7,7 @@ import com.academy.latteis.board.dto.ValidateUserDTO;
 import com.academy.latteis.board.repository.BoardMapper;
 import com.academy.latteis.comment.repository.CommentMapper;
 import com.academy.latteis.common.search.Search;
+import com.academy.latteis.good.repository.GoodMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ public class FreeBoardService {
 
     private final BoardMapper boardMapper;
     private final CommentMapper commentMapper;
+    private final GoodMapper goodMapper;
 
     // 게시글 작성
     public boolean writeService(Board board) {
@@ -146,6 +148,9 @@ public class FreeBoardService {
 
         // 댓글 먼저 모두 삭제
         commentMapper.removeByBoardNo(boardNo);
+
+        // 좋아요도 삭제
+        goodMapper.removeByBoardNo(boardNo);
 
         // 원본 게시물 삭제
         boolean flag = boardMapper.remove(boardNo);

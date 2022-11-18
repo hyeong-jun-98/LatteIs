@@ -20,15 +20,14 @@ class GoodMapperTest {
     void goodInsertTest() {
         //given
         BoardGood boardGood = new BoardGood();
-        boardGood.setUserNo(3L);
-        boardGood.setBoardNo(336L);
-        boardGood.setGoodCheck("true");
+        boardGood.setUserNo(20L);
+        boardGood.setBoardNo(334L);
         System.out.println(boardGood);
         //when
         boolean check = mapper.check(boardGood);
         //then
         if (check) {
-            int cnt = mapper.goodCnt(336L);
+            int cnt = mapper.goodCnt(334L);
             assertEquals(1, cnt);
         }
     }

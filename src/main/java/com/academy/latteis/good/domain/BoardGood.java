@@ -9,5 +9,4 @@ public class BoardGood {
     private Long boardGoodNo;
     private Long userNo;
     private Long boardNo;
-    private String goodCheck;
 }

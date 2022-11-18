@@ -1,17 +1,20 @@
 package com.academy.latteis.diary.service;
 
 
+import com.academy.latteis.diary.domain.Good;
+import com.academy.latteis.diary.dto.ValidateDiaryUserDTO;
 import com.academy.latteis.common.page.DiaryPage;
 
 import com.academy.latteis.diary.domain.Diary;
-import com.academy.latteis.diary.domain.Good;
 import com.academy.latteis.diary.repository.DiaryMapper;
-import com.academy.latteis.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -37,9 +40,9 @@ public class DiaryService {
     // 일기장 목록 with paging
     public Map<String, Object> findAllService(DiaryPage diaryPage) {
 
-        Map <String, Object> findDataMap  = new HashMap<>();
+        Map<String, Object> findDataMap = new HashMap<>();
 
-        List <Diary> diaryList = diaryMapper.findAll(diaryPage);
+        List<Diary> diaryList = diaryMapper.findAll(diaryPage);
 
         // 목록 중간 데이터 중간처리
         processConverting(diaryList);
@@ -65,8 +68,10 @@ public class DiaryService {
 
     // 일기장 상세화면
     @Transactional
-    public Diary findOneService(Long diaryNo) {
+    public Diary findOneService(Long diaryNo, HttpServletRequest request, HttpServletResponse response) {
         Diary diary = diaryMapper.findOne(diaryNo);
+
+
         return diary;
     }
 
@@ -80,7 +85,7 @@ public class DiaryService {
     }
 
     // 일기 수정
-    public boolean modifyService (Diary diary) {
+    public boolean modifyService(Diary diary) {
         log.info("modify service {}", diary);
 
         return diaryMapper.modify(diary);
@@ -93,63 +98,60 @@ public class DiaryService {
 //
 
         //1. 현재 추천상태를 확인한다.
-        boolean flag = false;
+        // check가 false, true, null 3개 중 하나가 들어옴
         String check = diaryMapper.goodCheck(diaryNo, userNo);
+        log.info("service goodcheck - {}", check);
+
+        // flag 기본 값은 false.
+        boolean flag = false;
+
+        // check가 null이면 건너뛰어
+        if (check != null) {
+            // check가 true일 경우에는 flag가 true로 바뀐다.
+            // check가 false인 경우 flag는 그대로 false다.
+            flag = check.equals("true");
+        }
 
 
-        // true면 boolean 타입의 true로 바꿔줌
-        if(check == null) {
-            diaryMapper.goodFirstUp(diaryNo, userNo);
+        // flag가 false or null 인 경우 실행
+        if (!flag) {
+            log.info("goodcheck service if문 작동");
+
+            if (check == null) {
+                diaryMapper.goodFirstUp(diaryNo, userNo);
+            }
             diaryMapper.goodUpCheck(diaryNo, userNo);
             diaryMapper.goodUp(diaryNo);
-        } else {
-            flag = check.equals("true");
+            flag = true;
+            log.info("if 작동 후 flag 상태 {}", flag);
 
-            if (flag) { //추천상태면
-                diaryMapper.goodDownCheck(diaryNo, userNo);
-                diaryMapper.goodDown(diaryNo);
-            } else {   // 추천상태가 아니면
-                diaryMapper.goodUpCheck(diaryNo, userNo);
-                diaryMapper.goodUp(diaryNo);
-            }
+            // flag가 true일 경우
+        } else {
+            log.info("goodcheck service else문 작동");
+
+            diaryMapper.goodDownCheck(diaryNo, userNo);
+            diaryMapper.goodDown(diaryNo);
+            flag = false;
 
         }
         return flag;
     }
 
+    // 게시글 번호로 글쓴이 회원정보 가져오기
+    public ValidateDiaryUserDTO getUser(Long diaryNo) {
+        log.info("서비스에서 계정정보는 {}", diaryMapper.findUserByDiaryNo(diaryNo));
+        return diaryMapper.findUserByDiaryNo(diaryNo);
+    }
 
-//    // 일기 추천 체크 (누르지 않은 상태)
-//    // false -> true : 좋아요를 눌렀을 때 true로 변신!
-//    public boolean diaryGoodUpCheck(Long diaryNo, Long userNo) {
-//        log.info("diaryGoodUpCheck service {}, {}", diaryNo, userNo);
+//    // 좋아요 여부 가져오기
+//    public Good findGoodCheckService(Long diaryNo, Long userNo) {
 //
-//        return diaryMapper.goodUpCheck(diaryNo, userNo);
+//        log.info("좋아요 여부 뽑아오기 -서비스 {},{}", diaryNo, userNo);
+//
+//        Good good = diaryMapper.findGoodCheck(diaryNo, userNo);
+//
+//        return good;
 //    }
-//
-//    // 일이 추천 체크 (누른 상태)
-//    // true -> false : 좋아요를 눌렀을 때 false로 변신!
-//    public boolean diaryGoodDownCheck(Long diaryNo, Long userNo) {
-//        log.info("diaryGoodDownCheck service {}, {}", diaryNo, userNo);
-//
-//        return diaryMapper.goodDownCheck(diaryNo, userNo);
-//    }
-//
-//
-//    // 일기 추천 + 1
-//    public boolean diaryGoodUp (Long diaryNo) {
-//        log.info("diaryGoodUp service {}", diaryNo);
-//
-//        return diaryMapper.goodUp(diaryNo);
-//    }
-//
-//    // 일기 추천 - 1
-//    public boolean diaryGoodDown (Long diaryNo) {
-//        log.info("diaryGoodDown service {}", diaryNo);
-//
-//        return diaryMapper.goodDown(diaryNo);
-//    }
-
-
 
 
 }
