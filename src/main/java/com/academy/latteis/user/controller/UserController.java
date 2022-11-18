@@ -1,7 +1,9 @@
 package com.academy.latteis.user.controller;
 
+import com.academy.latteis.user.domain.SNSLogin;
 import com.academy.latteis.user.domain.User;
 import com.academy.latteis.user.dto.LoginDTO;
+import com.academy.latteis.user.service.KakaoService;
 import com.academy.latteis.user.service.LoginFlag;
 import com.academy.latteis.user.service.UserService;
 import com.academy.latteis.common.page.Page;
@@ -31,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
 
         private final UserService userService;
+        private final KakaoService kakaoService;
         // 로그인 화면 요청
 //        @GetMapping("/login")
 //        public String loginform() {
@@ -47,7 +50,6 @@ public class UserController {
                 String login = "latteis";
                 boolean check = userService.saveUser(user, login);
                 return check ? "/user/login" : "/";
-
         }
 
         @GetMapping("/check")
@@ -66,6 +68,7 @@ public class UserController {
                 // 여기 안에는 이 페이지로 진입할 때 어디에서 왔는지 URI정보가 들어있음.
                 String referer = request.getHeader("Referer");
                 log.info("referer: {}", referer);
+                request.getSession().setAttribute("referer", referer);
 
 
                 request.getSession().setAttribute("redirectURI", referer);
@@ -80,10 +83,16 @@ public class UserController {
                 , Model model
                 , HttpSession session // 세션정보 객체
                 , HttpServletResponse response
+                            ,HttpServletRequest request
         ) {
 
                 log.info("/member/sign-in POST - {}", inputData);
+
                 String login = "latteis";
+                String referer = (String) session.getAttribute("referer");
+                log.info("referer 테스트 - {}", referer);
+                String url[] = referer.split("4");
+                log.info("자르기 테스트 - {}",url[1]);
                 inputData.setLogin(login);
 //        log.info("session timeout : {}", session.getMaxInactiveInterval());
 
@@ -93,7 +102,7 @@ public class UserController {
                 if (flag == LoginFlag.SUCCESS) {
                         log.info("login success!!");
                         String redirectURI = (String) session.getAttribute("redirectURI");
-                        return "redirect:/";
+                        return "redirect:"+url[1];
                 }
                 model.addAttribute("loginMsg", flag);
                 return "/user/login";

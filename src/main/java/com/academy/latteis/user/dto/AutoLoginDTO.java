@@ -12,4 +12,5 @@ public class AutoLoginDTO {
     private String userEmail;
     private String sessionId;
     private Date limitTime;
+    private String login;
 }
