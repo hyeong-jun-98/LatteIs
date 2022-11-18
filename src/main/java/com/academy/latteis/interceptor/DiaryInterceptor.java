@@ -3,6 +3,7 @@ package com.academy.latteis.interceptor;
 
 import com.academy.latteis.board.dto.ValidateUserDTO;
 import com.academy.latteis.common.page.DiaryPage;
+import com.academy.latteis.diary.dto.ValidateDiaryUserDTO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -64,7 +65,7 @@ public class DiaryInterceptor implements HandlerInterceptor {
             // 컨트롤러 메소드를 처리한 후 모델에 담긴 데이터의 맵
             Map<String, Object> modelMap = modelAndView.getModel();
 
-            ValidateUserDTO dto = (ValidateUserDTO) modelMap.get("validate");
+            ValidateDiaryUserDTO dto = (ValidateDiaryUserDTO) modelMap.get("validate");
             Long diaryNo = (Long) modelMap.get("diaryNo");
             DiaryPage diaryPage = (DiaryPage) modelMap.get("diaryPage");
 
