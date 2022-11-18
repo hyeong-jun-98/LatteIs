@@ -4,6 +4,7 @@ import com.academy.latteis.interceptor.AfterLoginInterceptor;
 import com.academy.latteis.interceptor.AutoLoginInterceptor;
 
 
+import com.academy.latteis.interceptor.DiaryInterceptor;
 import com.academy.latteis.interceptor.FreeBoardInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     private final FreeBoardInterceptor freeBoardInterceptor;
     private final AfterLoginInterceptor afterLoginInterceptor;
     private final AutoLoginInterceptor autoLoginInterceptor;
+    private final DiaryInterceptor diaryInterceptor;
 
     // 인터셉터 설정 추가 메서드
     @Override
@@ -28,6 +30,11 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(freeBoardInterceptor)
                 .addPathPatterns("/freeboard/*")
                 .excludePathPatterns("/freeboard/list", "/freeboard/content");
+
+        // 일기장 인터셉터 설정
+        registry.addInterceptor(diaryInterceptor)
+                .addPathPatterns("/diary/*")
+                .excludePathPatterns("/diary/list", "/diary/detail");
 
         // 애프터 로그인 인터셉터 설정
         registry.addInterceptor(afterLoginInterceptor)
