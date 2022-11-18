@@ -133,9 +133,11 @@
             </nav>
 
             <!-- 글쓰기 버튼 영역 -->
-            <div class="btn-write">
-                <button id="btn-write" type="button" class="btn btn-warning">글쓰기</button>
-            </div>
+            <c:if test="${not empty loginUser}">
+                <div class="btn-write">
+                    <button id="btn-write" type="button" class="btn btn-warning">글쓰기</button>
+                </div>
+            </c:if>
         </div>
     </div>
 </div>
