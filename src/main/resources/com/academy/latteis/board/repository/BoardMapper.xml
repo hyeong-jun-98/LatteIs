@@ -17,7 +17,6 @@
         <result property="topicNo" column="topic_no"/>
         <result property="userNickname" column="user_nickname"/>
         <result property="userNo" column="user_No"/>
-        <result property="goodCheck" column="good_check"/>
     </resultMap>
 
     <!-- BoardConvertDTO -->

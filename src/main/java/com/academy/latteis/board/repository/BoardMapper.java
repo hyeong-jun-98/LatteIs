@@ -4,7 +4,6 @@ import com.academy.latteis.board.domain.Board;
 import com.academy.latteis.board.dto.BoardConvertDTO;
 import com.academy.latteis.board.dto.BoardGoodDTO;
 import com.academy.latteis.board.dto.ValidateUserDTO;
-import com.academy.latteis.common.page.Page;
 import com.academy.latteis.common.search.Search;
 import org.apache.ibatis.annotations.Mapper;
 
