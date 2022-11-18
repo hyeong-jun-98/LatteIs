@@ -25,7 +25,7 @@ public class LoginUtils {
     }
 
 
-    // 로그인한 사용자 계정 가져오기
+    // 로그인한 사용자 닉네임 가져오기
     public static String getCurrentMemberNickname(HttpSession session) {
         User user = (User) session.getAttribute(LOGIN_FLAG);
         return user.getUserNickname();
@@ -34,10 +34,10 @@ public class LoginUtils {
 
 
     // 로그인한 사용자 권한 가져오기
-//    public static String getCurrentMemberAuth(HttpSession session) {
-//        User user = (User) session.getAttribute(LOGIN_FLAG);
-//        return user.getAuth().toString();
-//    }
+    public static String getCurrentMemberAuth(HttpSession session) {
+        User user = (User) session.getAttribute(LOGIN_FLAG);
+        return user.getAuth().toString();
+    }
 
     // 자동 로그인 쿠키 가져오기
     public static Cookie getAutoLoginCookie(HttpServletRequest request) {

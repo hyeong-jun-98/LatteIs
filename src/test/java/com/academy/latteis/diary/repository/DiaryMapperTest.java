@@ -52,8 +52,6 @@ class DiaryMapperTest {
         String goodCheck = mapper.goodCheck(diaryNo, userNo);
         System.out.println(goodCheck);
 
-
-
     }
 
 
@@ -115,6 +113,16 @@ class DiaryMapperTest {
         assertTrue(flag);
     }
 
+
+    // 좋아요 여부 뽑아오기
+    @Test
+    void findGoodCheck() {
+        Long diaryNo = 22L;
+        Long userNo = 9L;
+
+        Good good = new Good();
+//        good.setGoodCheck();
+    }
 
 
 }

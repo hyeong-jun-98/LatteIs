@@ -14,6 +14,9 @@
         <result property="userNickname" column="user_nickname" />
     </resultMap>
 
+    
+
+
 <!--    // 일기 작성-->
     <insert id="save">
         insert into diary
@@ -99,5 +102,11 @@
     from user where user_nickname = #{userNickname}
 </select>
 
+
+    
+<!--&lt;!&ndash;    좋아요 이력을 가져오기&ndash;&gt;-->
+<!--    <select id="findGoodCheck" resultMap="goodMap">-->
+<!--        select * from good where diary_no = #{diaryNo} and user_no = #{userNo}-->
+<!--    </select>-->
 
 </mapper>
