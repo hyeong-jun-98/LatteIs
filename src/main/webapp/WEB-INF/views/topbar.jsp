@@ -46,7 +46,9 @@
 <script>
     //페이지에 해당하는 탑바 색 바꾸기
     function changeFont() {
-        var page = "${page}";
+
+        var page = "${topbar}";
+        console.log("페이지" + page);
         const $pencil = document.getElementById("fiximg");
         if (page != null) {
             switch (page) {
