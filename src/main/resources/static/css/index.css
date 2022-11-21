@@ -1,0 +1,370 @@
+@font-face {
+    font-family: 'KyoboHand';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+body{
+    background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: visible;
+    font-family: KyoboHand;
+}
+.main{
+    width: 100%;
+}
+
+.title{
+    width: 100%;
+    font-size: 150px;
+    line-height: 400px;
+    text-align: center;
+    margin-top: 200px;
+}
+.today{
+    width: 60%;
+    height: 600px;
+    margin: auto;
+    margin-bottom: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-around;
+}
+.today > div{
+    width: 40%;
+    height: 40%;
+    background: white;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 250px;
+    font-size: 30px;
+}
+.today .keyword div{
+    margin: auto;
+    height: 50%;
+    line-height: 100px;
+}
+.today .keyword div:first-child{
+    margin-top: 30px;
+}
+.today .keyword div:last-child{
+    line-height: 0;
+    color: red;
+}
+/*키워드 메인*/
+.keyword_main{
+    margin:auto;
+    width: 100%;
+    height: 30%;
+    position: relative;
+}
+.keyword_main::before{
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/dl/22/0/4/6/9/3/8/JnKXS/2730046938_138591661.jpg");
+    opacity: 0.4;
+    padding-top: 5%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+.keyword_main .keyword_content{
+    margin: auto;
+    width: 90%;
+    height: 90%;
+    /*background: gray;*/
+    display: flex;
+    justify-content: space-around;
+    padding: 10% 0;
+    position: relative;
+
+}
+.keyword_picture{
+    width: 40%;
+    background: white;
+    border-radius: 20px;
+    margin-top: 2%;
+    overflow: hidden;
+}
+.keyword_picture div{
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    display: none;
+}
+.keyword_picture div:nth-child(1){
+    background-image: url("/img/freeboard_list.PNG");
+    display: block;
+}
+.keyword_picture div:nth-child(2){
+     background-image: url("/img/freeboard_detail1.PNG");
+}
+.keyword_picture div:nth-child(3){
+    background-image: url("/img/freeboard_detail2.PNG");
+}
+
+.keyword_describe{
+    width: 50%;
+    /*background: white;*/
+}
+.keyword_describe div:first-child{
+    margin-top: 5%;
+    font-size: 70px;
+}
+.keyword_describe div:last-child{
+    margin-top: 10%;
+    font-size: 40px;
+}
+/*세대별 메인*/
+.age_main{
+    margin:auto;
+    width: 100%;
+    height: 30%;
+    position: relative;
+}
+.age_main::before{
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCeLTlt_Sb1PXIP0-qaPUuDfHrp9XhF2-Lkg&usqp=CAU");
+    opacity: 0.4;
+    padding-top: 5%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+.age_main .age_content{
+    margin: auto;
+    width: 90%;
+    height: 90%;
+    /*background: gray;*/
+    display: flex;
+    justify-content: space-around;
+    padding: 5% 0;
+    position: relative;
+
+}
+.age_picture{
+    width: 40%;
+    background: white;
+    border-radius: 20px;
+    margin-top: 5%;
+    overflow: hidden;
+}
+.age_picture div{
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    display: none;
+}
+.age_picture div:nth-child(1){
+    background-image: url("/img/freeboard_list.PNG");
+    display: block;
+}
+.age_picture div:nth-child(2){
+    background-image: url("/img/freeboard_detail1.PNG");
+}
+.age_picture div:nth-child(3){
+    background-image: url("/img/freeboard_detail2.PNG");
+}
+.age_describe{
+    width: 50%;
+    /*background: white;*/
+}
+.age_describe div:first-child{
+    margin-top: 10%;
+    font-size: 70px;
+}
+.age_describe div:last-child{
+    margin-top: 20%;
+    font-size: 40px;
+}
+/*스무고개 메인*/
+.quiz_main{
+    margin:auto;
+    width: 100%;
+    height: 30%;
+    position: relative;
+}
+.quiz_main::before{
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("https://www.popco.net/zboard/data/com_freeboard/2015/12/08/108671684756662aa2bbc66.jpg");
+    opacity: 0.4;
+    padding-top: 5%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+.quiz_main .quiz_content{
+    margin: auto;
+    width: 90%;
+    height: 90%;
+    /*background: gray;*/
+    display: flex;
+    justify-content: space-around;
+    padding: 5% 0;
+    position: relative;
+
+
+}
+.quiz_picture{
+    width: 40%;
+    background: white;
+    border-radius: 20px;
+    margin-top: 5%;
+    overflow: hidden;
+}
+.quiz_picture div{
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    display: none;
+}
+.quiz_picture div:nth-child(1){
+    background-image: url("/img/freeboard_list.PNG");
+    display: block;
+}
+.quiz_picture div:nth-child(2){
+    background-image: url("/img/freeboard_detail1.PNG");
+}
+.quiz_picture div:nth-child(3){
+    background-image: url("/img/freeboard_detail2.PNG");
+}
+.quiz_describe{
+    width: 50%;
+    /*background: white;*/
+}
+.quiz_describe div:first-child{
+    margin-top: 10%;
+    font-size: 70px;
+}
+.quiz_describe div:last-child{
+    margin-top: 20%;
+    font-size: 40px;
+}
+/*일기 메인*/
+.diary_main{
+    margin:auto;
+    width: 100%;
+    height: 30%;
+    position: relative;
+}
+.diary_main::before{
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("https://dispatch.cdnser.be/wp-content/uploads/2018/04/ally_2018-04-06_03-24-00_061588-1024x538.jpg");
+    opacity: 0.4;
+    padding-top: 5%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+.diary_main .diary_content{
+    margin: auto;
+    width: 90%;
+    height: 90%;
+    /*background: gray;*/
+    display: flex;
+    justify-content: space-around;
+    padding: 5% 0;
+    position: relative;
+
+}
+.diary_picture{
+    width: 40%;
+    background: white;
+    border-radius: 20px;
+    margin-top: 5%;
+    overflow: hidden;
+    position: relative;
+}
+.diary_picture div{
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    display: none;
+}
+.diary_picture div:nth-child(1){
+    background-image: url("/img/freeboard_list.PNG");
+    display: block;
+}
+.diary_picture div:nth-child(2){
+    background-image: url("/img/freeboard_detail1.PNG");
+}
+.diary_picture div:nth-child(3){
+    background-image: url("/img/freeboard_detail2.PNG");
+}
+.diary_describe{
+    width: 50%;
+    /*background: white;*/
+}
+.diary_describe div:first-child{
+    margin-top: 10%;
+    font-size: 70px;
+}
+.diary_describe div:last-child{
+    margin-top: 20%;
+    font-size: 40px;
+}
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 55%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: black;
+    font-weight: bold;
+    font-size: 40px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 58%;
+    border-radius: 3px 0 0 3px;
+}
+.age_picture .next{
+    right: 3%;
+}
+.diary_picture .next{
+    right: 3%;
+}
+
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+a{
+    text-decoration: none;
+}
+
+

@@ -68,7 +68,6 @@ public class DiaryController {
         model.addAttribute("dPList", diaryPublicMap.get("dPList"));
         model.addAttribute("pm", pm);
         session.setAttribute("topbar", "diary");
-
         return "diary/diary_list";
     }
 
@@ -95,10 +94,8 @@ public class DiaryController {
 
         model.addAttribute("dMList", diaryMyMap.get("dMList"));
         model.addAttribute("pm", pm);
-        model.addAttribute("diaryPage", "diaryPage");
-
-
-        return "diary/diary_myList";
+        session.setAttribute("topbar", "page");
+        return "diary/diary_list";
     }
 
 

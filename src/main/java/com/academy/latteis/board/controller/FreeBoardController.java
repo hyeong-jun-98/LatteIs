@@ -30,7 +30,7 @@ public class FreeBoardController {
 
     // 게시글 목록 요청
     @GetMapping("/list")
-    public String list(Search search, Model model, @ModelAttribute("msg") String msg) {
+    public String list(Search search, Model model, @ModelAttribute("msg") String msg, HttpSession session) {
         log.info("controller request /freeboard/list GET! - page: {}", search);
 
         Map<String, Object> boardMap = freeBoardService.findAllService(search);
@@ -42,7 +42,7 @@ public class FreeBoardController {
         model.addAttribute("boardList", boardMap.get("boardList"));
         model.addAttribute("pm", pm);
         model.addAttribute("search", search);
-        model.addAttribute("page", "free");
+        session.setAttribute("topbar", "free");
 
         return "freeboard/freeboard-list";
     }
