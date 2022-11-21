@@ -41,24 +41,8 @@ public class DiaryController {
 //    }
 
     // 일기 목록 요청
-//    @GetMapping("/list")
-//    public String list(DiaryPage diaryPage, Model model, @ModelAttribute("msg") String msg) {
-//        Map <String, Object> diaryMap = diaryService.findAllService(diaryPage);
-//
-//
-//        DiaryPageMaker pm = new DiaryPageMaker(
-//                new DiaryPage(diaryPage.getPageNum(), diaryPage.getAmount())
-//                , (Integer) diaryMap.get("tc"));
-//
-//        model.addAttribute("dList", diaryMap.get("dList"));
-//        model.addAttribute("pm", pm);
-//        model.addAttribute("diaryPage", "diaryPage");
-//        return "diary/diary_list";
-//    }
-
-    // 일기 공개 목록 요청  [public]
     @GetMapping("/list")
-    public String publicList(DiaryPage diaryPage, Model model) {
+    public String publicList(DiaryPage diaryPage, Model model, HttpSession session) {
         Map<String, Object> diaryPublicMap = diaryService.findPublicList(diaryPage);
 
         DiaryPageMaker pm = new DiaryPageMaker(
@@ -67,8 +51,7 @@ public class DiaryController {
 
         model.addAttribute("dPList", diaryPublicMap.get("dPList"));
         model.addAttribute("pm", pm);
-        model.addAttribute("diaryPage", "diaryPage");
-
+        session.setAttribute("topbar", "diary");
         return "diary/diary_list";
     }
 
@@ -219,7 +202,6 @@ public class DiaryController {
         log.info("좋아요 누를 때 {}, {}, {}", diaryNo, (long) loginUser.getUserNo(), goodCheck);
 
         model.addAttribute("loginUser", loginUser);
-
 //        Good good = diaryService.findGoodCheckService(diaryNo, userNo);
 //        log.info("좋아요 여부 뽑아오기 -컨트롤러 {},{}", diaryNo, userNo);
 //
