@@ -58,7 +58,7 @@ public class DiaryController {
 
     // 일기 공개 목록 요청  [public]
     @GetMapping("/list")
-    public String publicList(DiaryPage diaryPage, Model model) {
+        public String publicList(DiaryPage diaryPage, Model model, HttpSession session) {
         Map<String, Object> diaryPublicMap = diaryService.findPublicList(diaryPage);
 
         DiaryPageMaker pm = new DiaryPageMaker(
@@ -67,7 +67,7 @@ public class DiaryController {
 
         model.addAttribute("dPList", diaryPublicMap.get("dPList"));
         model.addAttribute("pm", pm);
-        model.addAttribute("diaryPage", "diaryPage");
+        session.setAttribute("topbar", "diary");
 
         return "diary/diary_list";
     }
