@@ -41,7 +41,7 @@ public class DiaryController {
 
     // 일기 목록 요청
     @GetMapping("/list")
-    public String list(DiaryPage diaryPage, Model model, @ModelAttribute("msg") String msg) {
+    public String list(DiaryPage diaryPage, Model model, @ModelAttribute("msg") String msg, HttpSession session) {
         Map <String, Object> diaryMap = diaryService.findAllService(diaryPage);
 
         DiaryPageMaker pm = new DiaryPageMaker(
@@ -50,7 +50,7 @@ public class DiaryController {
 
         model.addAttribute("dList", diaryMap.get("dList"));
         model.addAttribute("pm", pm);
-        model.addAttribute("diaryPage", "diaryPage");
+        session.setAttribute("topbar", "diary");
         return "diary/diary_list";
     }
 

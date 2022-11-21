@@ -13,6 +13,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model, HttpSession session){
+        session.setAttribute("topbar", "home");
         log.info("LatteIs에 오신 걸 환영합니다!!");
         return "index";
     }
