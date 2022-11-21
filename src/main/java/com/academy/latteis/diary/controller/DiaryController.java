@@ -58,7 +58,7 @@ public class DiaryController {
 
     // 일기 공개 목록 요청  [public]
     @GetMapping("/list")
-    public String publicList(DiaryPage diaryPage, Model model, HttpSession session) {
+        public String publicList(DiaryPage diaryPage, Model model, HttpSession session) {
         Map<String, Object> diaryPublicMap = diaryService.findPublicList(diaryPage);
 
         DiaryPageMaker pm = new DiaryPageMaker(
@@ -145,7 +145,8 @@ public class DiaryController {
 
         model.addAttribute("d", diary);
         model.addAttribute("diaryPage", diaryPage);
-        model.addAttribute("loginUser", loginUser);
+        model.addAttribute("user", loginUser);
+
 
         return "diary/diary_detail";
     }
@@ -211,6 +212,7 @@ public class DiaryController {
         log.info("diaryGoodCheck controller {}", diaryNo);
 
         User loginUser = (User) session.getAttribute("loginUser");
+
 
         boolean goodCheck = diaryService.goodCheckService(diaryNo, (long) loginUser.getUserNo());
         ra.addFlashAttribute("goodCheck", goodCheck);
