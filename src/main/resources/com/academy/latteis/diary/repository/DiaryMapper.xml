@@ -51,6 +51,14 @@
         limit #{start}, #{amount}
     </select>
 
+<!--    내가 쓴 일기 리스트-->
+    <select id="findMyList" resultMap="diaryMap">
+        select * from diary where user_nickname = #{userNickname} order by diary_no desc
+        limit #{dp.start}, #{dp.amount}
+    </select>
+
+
+
 <!--    일기 상세보기-->
     <select id="findOne" resultMap="diaryMap">
         select * from diary where diary_no = #{diary_no}
@@ -112,7 +120,7 @@
         where diary_no = #{diaryNo}
     </update>
 
-<!--일기 작성자로 userNo 가져오기-->
+<!--일기장으로 유저정보 가져오기-->
 <select id="findUserByDiaryNo" resultType="com.academy.latteis.diary.dto.ValidateDiaryUserDTO">
     SELECT user_email AS userEmail, auth
     FROM user

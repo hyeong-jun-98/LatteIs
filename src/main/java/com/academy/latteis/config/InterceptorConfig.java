@@ -34,7 +34,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
         // 일기장 인터셉터 설정
         registry.addInterceptor(diaryInterceptor)
                 .addPathPatterns("/diary/*")
-                .excludePathPatterns("/diary/list", "/diary/detail");
+                .excludePathPatterns("/diary/list", "/diary/detail", "/diary/myList");
 
         // 애프터 로그인 인터셉터 설정
         registry.addInterceptor(afterLoginInterceptor)

@@ -126,6 +126,18 @@ class DiaryMapperTest {
 //        good.setGoodCheck();
     }
 
+//    // 내가 쓴 일기
+//    @Test
+//    void findMyList() {
+//
+//        String userNickname = "IUUI";
+//
+//        Diary diary = new Diary();
+//        boolean flag = mapper.findMyList(userNickname);
+//        assertEquals();
+//
+//    }
+
 
 
 }
