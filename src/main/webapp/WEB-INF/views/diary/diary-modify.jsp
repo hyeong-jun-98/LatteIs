@@ -42,6 +42,7 @@
 
     <!-- bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- custom css -->
     <link rel="stylesheet" href="/css/main-write.css">
     <link rel="stylesheet" href="/css/custom-write.css">
@@ -81,8 +82,9 @@
                 </select>
             </div>
             <div class="mb-3">
-                <textarea name="diaryContent" class="form-control" id="exampleFormControlTextarea1" rows="10" placeholder="내용" style="height: 210px">${d.diaryContent}</textarea>
+                <textarea name="diaryContent" class="form-control" id="exampleFormControlTextarea1" rows="10" placeholder="내용" style="height: 210px" maxlength="100">${d.diaryContent}</textarea>
             </div>
+            <div id="test_cnt">(0 / 100)</div>
 
             <div class="d-grid gap-2 btn-list">
                 <button id="reg-btn" class="btn btn-dark custom-button" type="submit">일기 수정</button>
@@ -96,6 +98,20 @@
     <%--    <%@ include file="../include/footer.jsp" %>--%>
 </div>
 <script>
+    // 글자 수 제한
+    $(document).ready(function() {
+        $('#exampleFormControlTextarea1').on('keyup', function() {
+            $('#test_cnt').html("("+$(this).val().length+" / 100)");
+
+            // 글자 수 보여주기
+            if($(this).val().length >= 100) {
+                $(this).val($(this).val().substring(0, 100));
+                $('#test_cnt').html("(100 / 100)");
+                alert('100자 아래로 써주세요');
+            }
+        });
+    });
+
     //목록버튼 이벤트
     const $toList = document.getElementById('to-list');
     $toList.onclick = e => {
@@ -131,6 +147,8 @@
     (function () {
         selectedOption();
     })();
+
+
 
 
 

@@ -73,6 +73,8 @@
                 <div class="badge badge-primary custom-emotion">${d.emotion}</div>
                 <div class="badge badge-primary custom-show">${d.diaryShow}</div>
                 <div class="badge badge-primary custom-good">좋아요 : ${d.diaryGood}</div>
+
+                <c:if test="${user.userNickname != null}">
                 <div class="good-part">
 
                     <%--       false 일 때       --%>
@@ -84,6 +86,12 @@
                         <button type="button" id="btnGood" class="badge badge-primary custom-good-bt" onclick="location.href='/diary/goodCheck/${d.diaryNo}' ">좋아요취소</button>
                     </c:if>
                 </div>
+                </c:if>
+                <c:if test="${user.userNickname == null}">
+                    <div>
+
+                    </div>
+                </c:if>
             </div>
 
 
@@ -186,6 +194,7 @@
 
     // 추천
     $("#btnGood").click(function () {
+
 
             like_func();
 

@@ -144,7 +144,8 @@ public class DiaryController {
 
         model.addAttribute("d", diary);
         model.addAttribute("diaryPage", diaryPage);
-        model.addAttribute("loginUser", loginUser);
+        model.addAttribute("user", loginUser);
+
 
         return "diary/diary_detail";
     }
@@ -183,8 +184,6 @@ public class DiaryController {
 
         log.info("find article {} ", diary);
 
-
-
         model.addAttribute("d", diary);
         model.addAttribute("diaryNo", diaryNo);
         model.addAttribute("diaryPage", diaryPage);
@@ -210,6 +209,7 @@ public class DiaryController {
         log.info("diaryGoodCheck controller {}", diaryNo);
 
         User loginUser = (User) session.getAttribute("loginUser");
+
 
         boolean goodCheck = diaryService.goodCheckService(diaryNo, (long) loginUser.getUserNo());
         ra.addFlashAttribute("goodCheck", goodCheck);

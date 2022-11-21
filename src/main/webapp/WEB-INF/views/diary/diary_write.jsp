@@ -53,6 +53,8 @@
 
     <!-- bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <!-- custom css -->
     <link rel="stylesheet" href="/css/main-write.css">
     <link rel="stylesheet" href="/css/custom-write.css">
@@ -90,9 +92,9 @@
                 </select>
             </div>
             <div class="mb-3">
-
-                <textarea name="diaryContent" class="form-control" id="exampleFormControlTextarea1" rows="10" placeholder="내용"></textarea>
+                <textarea name="diaryContent" class="form-control" id="exampleFormControlTextarea1" rows="10" placeholder="내용" maxlength="100"></textarea>
             </div>
+            <div id="test_cnt">(0 / 100)</div>
 
             <div class="d-grid gap-2">
                 <button id="reg-btn" class="btn btn-dark custom-button" type="button">일기 작성</button>
@@ -134,13 +136,30 @@
 
     }
 */
+
+$(document).ready(function() {
+    $('#exampleFormControlTextarea1').on('keyup', function() {
+        $('#test_cnt').html("("+$(this).val().length+" / 100)");
+
+        if($(this).val().length >= 100) {
+            $(this).val($(this).val().substring(0, 100));
+            $('#test_cnt').html("(100 / 100)");
+            alert('100자 아래로 써주세요');
+        }
+    });
+});
+
+
+
+
     // 게시물 입력값 검증
     const $regBtn = document.getElementById('reg-btn');
-
     $regBtn.onclick = e => {
-        // 필수 입력값을 잘 채웠으면 폼을 서브밋한다.
-        const $form = document.getElementById('write-form');
-        $form.submit();
+
+            // 필수 입력값을 잘 채웠으면 폼을 서브밋한다.
+            const $form = document.getElementById('write-form');
+            $form.submit();
+
     };
 
 
