@@ -22,10 +22,10 @@
                 연령대별 추억 공유
             </div>
             <div id="subcatec">
-                <div><span></span><div id="subc1">00년대</div></div>
-                <div><span></span><div id="subc2">90년대</div></div>
-                <div><span></span><div id="subc3">80년대</div></div>
-                <div><span></span><div id="subc4">70년대</div></div>
+                <div><span></span><div id="subc00">00년대</div></div>
+                <div><span></span><div id="subc90">90년대</div></div>
+                <div><span></span><div id="subc80">80년대</div></div>
+                <div><span></span><div id="subc70">70년대</div></div>
             </div>
         </div>
 
@@ -101,9 +101,38 @@
     function toGenerationList(){
         const $generation = document.getElementById('generation');
         $generation.onclick = e =>{
-            location.href = '/generation/list';
+            location.href = '/generation/list?generation=9999';
         }
     }
+    // 연령대별 게시판 이동
+    function to00List(){
+        const $subc00 = document.getElementById('subc00');
+        $subc00.onclick = e =>{
+            location.href = '/generation/list?generation=2000';
+        }
+    }
+    // 연령대별 게시판 이동
+    function to90List(){
+        const $subc90 = document.getElementById('subc90');
+        $subc90.onclick = e =>{
+            location.href = '/generation/list?generation=1990';
+        }
+    }
+    // 연령대별 게시판 이동
+    function to80List(){
+        const $subc80 = document.getElementById('subc80');
+        $subc80.onclick = e =>{
+            location.href = '/generation/list?generation=1980';
+        }
+    }
+    // 연령대별 게시판 이동
+    function to70List(){
+        const $subc70 = document.getElementById('subc70');
+        $subc70.onclick = e =>{
+            location.href = '/generation/list?generation=1970';
+        }
+    }
+
 
     // 목록으로 가지
     function toList() {
@@ -207,6 +236,10 @@
         changeFont();
         hover();
         toGenerationList();
+        to00List();
+        to90List();
+        to80List();
+        to70List();
         toList();
         toDiary();
         <c:if test="${loginUser == null}">
