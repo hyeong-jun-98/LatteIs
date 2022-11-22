@@ -91,7 +91,7 @@ public class DiaryController {
         model.addAttribute("dMList", diaryMyMap.get("dMList"));
         model.addAttribute("pm", pm);
         session.setAttribute("topbar", "page");
-        return "diary/diary_list";
+        return "diary/diary_myList";
     }
 
     // 베스트 일기 리스트 [Best]
