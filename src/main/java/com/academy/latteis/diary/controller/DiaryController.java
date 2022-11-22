@@ -41,8 +41,24 @@ public class DiaryController {
 //    }
 
     // 일기 목록 요청
+//    @GetMapping("/list")
+//    public String list(DiaryPage diaryPage, Model model, @ModelAttribute("msg") String msg) {
+//        Map <String, Object> diaryMap = diaryService.findAllService(diaryPage);
+//
+//
+//        DiaryPageMaker pm = new DiaryPageMaker(
+//                new DiaryPage(diaryPage.getPageNum(), diaryPage.getAmount())
+//                , (Integer) diaryMap.get("tc"));
+//
+//        model.addAttribute("dList", diaryMap.get("dList"));
+//        model.addAttribute("pm", pm);
+//        model.addAttribute("diaryPage", "diaryPage");
+//        return "diary/diary_list";
+//    }
+
+    // 일기 공개 목록 요청  [public]
     @GetMapping("/list")
-    public String publicList(DiaryPage diaryPage, Model model, HttpSession session) {
+        public String publicList(DiaryPage diaryPage, Model model, HttpSession session) {
         Map<String, Object> diaryPublicMap = diaryService.findPublicList(diaryPage);
 
         DiaryPageMaker pm = new DiaryPageMaker(
@@ -52,6 +68,7 @@ public class DiaryController {
         model.addAttribute("dPList", diaryPublicMap.get("dPList"));
         model.addAttribute("pm", pm);
         session.setAttribute("topbar", "diary");
+
         return "diary/diary_list";
     }
 
@@ -65,22 +82,40 @@ public class DiaryController {
         log.info("로그인 정보 {}", loginUser);
         log.info("로그인 한 사람 닉네임 : {}", userNickname);
 
-
-
         Map<String, Object > diaryMyMap = diaryService.findMyListService(diaryPage, userNickname);
 
         DiaryPageMaker pm = new DiaryPageMaker(
                 new DiaryPage(diaryPage.getPageNum(), diaryPage.getAmount())
                 , (Integer) diaryMyMap.get("tc"));
 
-
-
-
         model.addAttribute("dMList", diaryMyMap.get("dMList"));
         model.addAttribute("pm", pm);
         session.setAttribute("topbar", "page");
         return "diary/diary_list";
     }
+
+    // 베스트 일기 리스트 [Best]
+    @GetMapping("/bestList")
+    public String diaryBestList(HttpSession session, DiaryPage diaryPage, Model model) {
+
+//        User loginUser = (User) session.getAttribute("loginUser");
+//        String userNickname = loginUser.getUserNickname();
+
+        Map <String, Object> diaryBestMap = diaryService.findBestDiaryService(diaryPage);
+
+        DiaryPageMaker pm = new DiaryPageMaker(
+                new DiaryPage(diaryPage.getPageNum(), diaryPage.getAmount())
+                , (Integer) diaryBestMap.get("tc"));
+
+        model.addAttribute("dBList", diaryBestMap.get("dBList"));
+        model.addAttribute("pm", pm);
+        session.setAttribute("topbar", "page");
+
+        return "diary/diary_bestList";
+    }
+
+
+
 
 
 
@@ -128,7 +163,8 @@ public class DiaryController {
 
         model.addAttribute("d", diary);
         model.addAttribute("diaryPage", diaryPage);
-        model.addAttribute("loginUser", loginUser);
+        model.addAttribute("user", loginUser);
+
 
         return "diary/diary_detail";
     }
@@ -141,6 +177,7 @@ public class DiaryController {
 
 
         model.addAttribute("diaryNo", diaryNo);
+
         model.addAttribute("validate", diaryService.getUser(diaryNo));
 
 
@@ -194,11 +231,13 @@ public class DiaryController {
 
         User loginUser = (User) session.getAttribute("loginUser");
 
+
         boolean goodCheck = diaryService.goodCheckService(diaryNo, (long) loginUser.getUserNo());
         ra.addFlashAttribute("goodCheck", goodCheck);
         log.info("좋아요 누를 때 {}, {}, {}", diaryNo, (long) loginUser.getUserNo(), goodCheck);
 
         model.addAttribute("loginUser", loginUser);
+
 //        Good good = diaryService.findGoodCheckService(diaryNo, userNo);
 //        log.info("좋아요 여부 뽑아오기 -컨트롤러 {},{}", diaryNo, userNo);
 //

@@ -56,6 +56,13 @@
         select * from diary where user_nickname = #{userNickname} order by diary_no desc
         limit #{dp.start}, #{dp.amount}
     </select>
+    
+<!--    베스트 일기 리스트-->
+    <select id="findBestDiary" resultMap="diaryMap">
+        select * from diary where diary_show = '공개' and diary_good >= 10 order by diary_good desc
+        limit #{start}, #{amount}
+    </select>
+    
 
 
 
