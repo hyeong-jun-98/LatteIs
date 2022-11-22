@@ -26,35 +26,57 @@ import java.util.Map;
 @Service
 @Log4j2
 @RequiredArgsConstructor
-public class FreeBoardService {
+public class BoardService {
 
     private final BoardMapper boardMapper;
     private final CommentMapper commentMapper;
     private final GoodMapper goodMapper;
 
     // 게시글 작성
-    public boolean writeService(Board board) {
+    public boolean writeFreeService(Board board) {
         log.info("save service start - {}", board);
 
         // 게시물 내용 DB에 저장
-        boolean flag = boardMapper.write(board);
+        boolean flag = boardMapper.writeFree(board);
+
+        return flag;
+    }
+    public boolean writeGenerationService(Board board) {
+        log.info("save service start - {}", board);
+
+        // 게시물 내용 DB에 저장
+        boolean flag = boardMapper.writeGeneration(board);
 
         return flag;
     }
 
     // 게시글 전체 조회
-    public Map<String, Object> findAllService(Search search) {
+    public Map<String, Object> findAllFreeService(Search search) {
         log.info("findAll service start");
 
         Map<String, Object> findDataMap = new HashMap<>();
 
-        List<BoardConvertDTO> boardList = boardMapper.findAll(search);
+        List<BoardConvertDTO> boardList = boardMapper.findAllFree(search);
 
         // 목록 중간 데이터 처리
         processConverting(boardList);
 
         findDataMap.put("boardList", boardList);
-        findDataMap.put("totalCount", boardMapper.getTotalCount(search));
+        findDataMap.put("totalCount", boardMapper.getTotalCountFree(search));
+        return findDataMap;
+    }
+    public Map<String, Object> findAllGenerationService(Search search, Long generation) {
+        log.info("findAll service start");
+
+        Map<String, Object> findDataMap = new HashMap<>();
+
+        List<BoardConvertDTO> boardList = boardMapper.findAllGeneration(search, generation);
+
+        // 목록 중간 데이터 처리
+        processConverting(boardList);
+
+        findDataMap.put("boardList", boardList);
+        findDataMap.put("totalCount", boardMapper.getTotalCountGeneration(search));
         return findDataMap;
     }
 
@@ -115,10 +137,10 @@ public class FreeBoardService {
 
     // 게시글 상세보기
     public List<BoardGoodDTO> findOneService(Long boardNo, HttpServletResponse response, HttpServletRequest request) {
-        log.info("findOne service start");
+        log.info("findOne service start- {}", boardNo);
 
         List<BoardGoodDTO> boardList = boardMapper.findOne(boardNo);
-        log.info("서비스에서 boardList - {}", boardList);
+        log.info("findOne service end- {}", boardNo);
         // 해당 게시물 번호에 해당하는 쿠키가 있는지 확인
         // 쿠키가 없으면 조회수를 상승시켜주고 쿠키를 만들어서 클라이언트에 전송
         makeHit(boardNo, response, request);
@@ -166,7 +188,6 @@ public class FreeBoardService {
 
     // 게시글 번호로 작성자 회원정보 가져오기
     public ValidateUserDTO getUser(Long boardNo){
-        log.info("서비스에서 계정정보는 {}", boardMapper.findUserByBoardNo(boardNo));
         return boardMapper.findUserByBoardNo(boardNo);
     }
 

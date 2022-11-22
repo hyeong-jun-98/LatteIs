@@ -46,7 +46,7 @@ public class FreeBoardInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
         // postHandle이 작동해야 하는 URI 목록
-        List<String> uriList = Arrays.asList("/freeboard/edit", "/freeboard/delete");
+        List<String> uriList = Arrays.asList("/freeboard/edit", "/freeboard/delete", "/generation/edit", "/generation/delete");
 
         // 현재 요청 URI 정보 알아내기
         String requestURI = request.getRequestURI();
@@ -67,11 +67,6 @@ public class FreeBoardInterceptor implements HandlerInterceptor {
             ValidateUserDTO dto = (ValidateUserDTO) modelMap.get("validate");
             Long boardNo = (Long) modelMap.get("boardNo");
             Page page = (Page) modelMap.get("page");
-
-            log.info("세션 정보는 - {}", getCurrentMemberAccount(session));
-            log.info("계정 정보는 - {}", dto.getUserEmail());
-            log.info("boardNo  - {}", boardNo);
-            log.info("page  - {}", page);
 
             // 수정하려는 게시글의 계정명 정보와 세션에 저장된 계정명 정보가 일치하지 않으면 리스트로 돌려보내라
             if (!isMine(session, dto.getUserEmail())) {

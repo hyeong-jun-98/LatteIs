@@ -6,6 +6,7 @@ import com.academy.latteis.board.dto.BoardGoodDTO;
 import com.academy.latteis.board.dto.ValidateUserDTO;
 import com.academy.latteis.common.search.Search;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,16 +14,22 @@ import java.util.List;
 public interface BoardMapper {
 
     // 게시글 작성
-    boolean write(Board board);
+    boolean writeFree(Board board);
+
+    boolean writeGeneration(Board board);
 
     // 게시글 전체 조회
-    List<BoardConvertDTO> findAll(Search search);
+    List<BoardConvertDTO> findAllFree(Search search);
+
+    List<BoardConvertDTO> findAllGeneration(@Param("search") Search search, @Param("generation") Long generation);
 
     // 게시글 상세보기
     List<BoardGoodDTO> findOne(Long boardNo);
 
     // 전체 게시글 수 조회
-    int getTotalCount(Search search);
+    int getTotalCountFree(Search search);
+
+    int getTotalCountGeneration(Search search);
 
     // 게시글 삭제
     boolean remove(Long boardNo);

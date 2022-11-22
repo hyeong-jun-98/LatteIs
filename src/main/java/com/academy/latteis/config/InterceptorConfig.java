@@ -28,8 +28,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // 게시판 인터셉터 설정
         registry.addInterceptor(freeBoardInterceptor)
-                .addPathPatterns("/freeboard/*")
-                .excludePathPatterns("/freeboard/list", "/freeboard/content");
+                .addPathPatterns("/freeboard/*", "/generation/*")
+                .excludePathPatterns("/freeboard/list", "/freeboard/content", "/generation/list", "/generation/content");
 
         // 일기장 인터셉터 설정
         registry.addInterceptor(diaryInterceptor)
@@ -40,11 +40,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(afterLoginInterceptor)
                 .addPathPatterns("/user/login", "/user/join", "/");
 
-
-
         // 자동 로그인 인터셉터 설정
         registry.addInterceptor(autoLoginInterceptor)
                 .addPathPatterns("/**");
-
     }
 }

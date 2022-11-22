@@ -27,7 +27,7 @@ body{
     background: #fff !important;
 }
 .content-container .main-title {
-    font-size: 24px;
+    font-size: 30px;
     font-weight: 700;
     text-align: center;
     border-bottom: 2px solid rgb(75, 73, 73);
@@ -35,6 +35,12 @@ body{
     width: fit-content;
     margin: 20px auto 30px;
 }
+.content-container .board-no-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #808080;
+}
+
 .content-container .main-content {
     border: 2px solid #ccc;
     border-radius: 20px;

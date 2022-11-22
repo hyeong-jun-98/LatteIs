@@ -19,6 +19,10 @@
 
         <div id="generation">
             연령대별 추억 공유
+            <a href="#" id="2000">2000년대 게시판</a>
+            <a href="#" id="1990">1990년대 게시판</a>
+            <a href="#" id="1980">1980년대 게시판</a>
+            <a href="#" id="1970">1970년대 게시판</a>
         </div>
 
         <div id="list">
@@ -74,11 +78,40 @@
         }
     }
 
-    // 연령대별 게시판 이동
-    function toGenerationList(){
+    // 전체 연령대별  게시판 이동
+    function toGenerationList() {
         const $generation = document.getElementById('generation');
-        $generation.onclick = e =>{
-            location.href = '/generation/list';
+        $generation.onclick = e => {
+            if (!e.target.matches('div')) return;    // div일때만 전체 리스트로..
+            location.href = '/generation/list?generation=9999';
+        }
+    }
+    // 00년대 게시판 이동
+    function to00List(){
+        const $2000 = document.getElementById('2000');
+        $2000.onclick = e =>{
+            location.href='/generation/list?generation=2000';
+        }
+    }
+    // 90년대 게시판 이동
+    function to90List(){
+        const $1990 = document.getElementById('1990');
+        $1990.onclick = e =>{
+            location.href='/generation/list?generation=1990';
+        }
+    }
+    // 80년대 게시판 이동
+    function to80List(){
+        const $1980 = document.getElementById('1980');
+        $1980.onclick = e =>{
+            location.href='/generation/list?generation=1980';
+        }
+    }
+    // 70년대 게시판 이동
+    function to70List(){
+        const $1970 = document.getElementById('1970');
+        $1970.onclick = e =>{
+            location.href='/generation/list?generation=1970';
         }
     }
 
@@ -161,6 +194,10 @@
         changeFont();
         hover();
         toGenerationList();
+        to00List(); // 00년대 게시판으로
+        to90List(); // 90년대 게시판으로
+        to80List(); // 80년대 게시판으로
+        to70List(); // 70년대 게시판으로
         toList();
         toDiary();
         <c:if test="${loginUser == null}">
