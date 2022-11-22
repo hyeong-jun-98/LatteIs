@@ -56,9 +56,9 @@ public class DiaryController {
 //        return "diary/diary_list";
 //    }
 
-    // 일기 공개 목록 요청
-    @GetMapping("list")
-    public String publicList(DiaryPage diaryPage, Model model) {
+    // 일기 공개 목록 요청  [public]
+    @GetMapping("/list")
+        public String publicList(DiaryPage diaryPage, Model model, HttpSession session) {
         Map<String, Object> diaryPublicMap = diaryService.findPublicList(diaryPage);
 
         DiaryPageMaker pm = new DiaryPageMaker(
@@ -67,11 +67,59 @@ public class DiaryController {
 
         model.addAttribute("dPList", diaryPublicMap.get("dPList"));
         model.addAttribute("pm", pm);
-        model.addAttribute("diaryPage", "diaryPage");
+        session.setAttribute("topbar", "diary");
 
         return "diary/diary_list";
-
     }
+
+    // 내가 쓴 일기 리스트 [My]
+    @GetMapping("/myList")
+    public String diaryMyList(HttpSession session, Model model, DiaryPage diaryPage) {
+
+        User loginUser = (User) session.getAttribute("loginUser");
+        String userNickname = loginUser.getUserNickname();
+
+        log.info("로그인 정보 {}", loginUser);
+        log.info("로그인 한 사람 닉네임 : {}", userNickname);
+
+        Map<String, Object > diaryMyMap = diaryService.findMyListService(diaryPage, userNickname);
+
+        DiaryPageMaker pm = new DiaryPageMaker(
+                new DiaryPage(diaryPage.getPageNum(), diaryPage.getAmount())
+                , (Integer) diaryMyMap.get("tc"));
+
+        model.addAttribute("dMList", diaryMyMap.get("dMList"));
+        model.addAttribute("pm", pm);
+        session.setAttribute("topbar", "page");
+        return "diary/diary_list";
+    }
+
+    // 베스트 일기 리스트 [Best]
+    @GetMapping("/bestList")
+    public String diaryBestList(HttpSession session, DiaryPage diaryPage, Model model) {
+
+//        User loginUser = (User) session.getAttribute("loginUser");
+//        String userNickname = loginUser.getUserNickname();
+
+        Map <String, Object> diaryBestMap = diaryService.findBestDiaryService(diaryPage);
+
+        DiaryPageMaker pm = new DiaryPageMaker(
+                new DiaryPage(diaryPage.getPageNum(), diaryPage.getAmount())
+                , (Integer) diaryBestMap.get("tc"));
+
+        model.addAttribute("dBList", diaryBestMap.get("dBList"));
+        model.addAttribute("pm", pm);
+        session.setAttribute("topbar", "page");
+
+        return "diary/diary_bestList";
+    }
+
+
+
+
+
+
+
     // 일기 작성 화면 요청
     @GetMapping("/write")
     public String DiaryWrite(HttpSession session, Model model) {
@@ -89,11 +137,11 @@ public class DiaryController {
         log.info("/write POST - param: {}", diary);
 
         // 세션에 담아둔 로그인 정보 뽑기
-        User loginUSer = (User) session.getAttribute("loginUser");
-        log.info("로그인 한 사람 닉네임 : {}", loginUSer.getUserNickname());
+        User loginUser = (User) session.getAttribute("loginUser");
+        log.info("로그인 한 사람 닉네임 : {}", loginUser.getUserNickname());
 
         // 세션에서 닉네임 뽑기
-        diary.setUserNickname(loginUSer.getUserNickname());
+        diary.setUserNickname(loginUser.getUserNickname());
 
        boolean flag = diaryService.saveService(diary);
 
@@ -115,14 +163,15 @@ public class DiaryController {
 
         model.addAttribute("d", diary);
         model.addAttribute("diaryPage", diaryPage);
-        model.addAttribute("loginUser", loginUser);
+        model.addAttribute("user", loginUser);
+
 
         return "diary/diary_detail";
     }
 
 
     // 일기 삭제 확인
-    @GetMapping("delete")
+    @GetMapping("/delete")
     public String delete(@ModelAttribute("diaryPage") DiaryPage diaryPage, Long diaryNo, Model model, HttpSession session) {
         log.info("controller request {}", diaryNo);
 
@@ -180,12 +229,14 @@ public class DiaryController {
     public String goodCheck(HttpSession session, @PathVariable Long diaryNo, Model model, RedirectAttributes ra) {
         log.info("diaryGoodCheck controller {}", diaryNo);
 
-        User user = (User) session.getAttribute("loginUser");
+        User loginUser = (User) session.getAttribute("loginUser");
 
-        boolean goodCheck = diaryService.goodCheckService(diaryNo, (long) user.getUserNo());
+
+        boolean goodCheck = diaryService.goodCheckService(diaryNo, (long) loginUser.getUserNo());
         ra.addFlashAttribute("goodCheck", goodCheck);
-        log.info("좋아요 누를 때 {}, {}, {}", diaryNo, (long) user.getUserNo(), goodCheck);
+        log.info("좋아요 누를 때 {}, {}, {}", diaryNo, (long) loginUser.getUserNo(), goodCheck);
 
+        model.addAttribute("loginUser", loginUser);
 
 //        Good good = diaryService.findGoodCheckService(diaryNo, userNo);
 //        log.info("좋아요 여부 뽑아오기 -컨트롤러 {},{}", diaryNo, userNo);

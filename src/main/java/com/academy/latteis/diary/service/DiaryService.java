@@ -7,6 +7,7 @@ import com.academy.latteis.common.page.DiaryPage;
 
 import com.academy.latteis.diary.domain.Diary;
 import com.academy.latteis.diary.repository.DiaryMapper;
+import com.academy.latteis.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -61,8 +62,48 @@ public class DiaryService {
         findDataMap.put("dPList", diaryPublicList);
         findDataMap.put("tc", diaryMapper.getTotalCount());
 
+
         return findDataMap;
     }
+
+
+    // 내가 쓴 일기 목록 with paging
+    public Map <String, Object> findMyListService(DiaryPage diaryPage, String userNickname) {
+        Map <String, Object> findDataMap = new HashMap<>();
+
+//        User loginUser = (User) session.getAttribute("loginUser");
+//        userNickname = loginUser.getUserNickname();
+
+        log.info("나의 잃기 페이징 {}", diaryPage);
+        log.info("나의 잃기 서비스 닉네임 {}", userNickname);
+        List <Diary> diaryMyList = diaryMapper.findMyList(diaryPage, userNickname);
+
+        processConverting(diaryMyList);
+        findDataMap.put("dMList", diaryMyList);
+        findDataMap.put("tc", diaryMapper.getTotalCount());
+
+        return findDataMap;
+    }
+
+
+    // 베스트 일기 목록 with paging
+    public Map <String, Object> findBestDiaryService (DiaryPage diaryPage) {
+        Map <String, Object> findDataMap = new HashMap<>();
+
+        log.info("베스트 일기 페이징 {}", diaryPage);
+
+        List <Diary> diaryBestList = diaryMapper.findBestDiary(diaryPage);
+
+        processConverting(diaryBestList);
+        findDataMap.put("dBList", diaryBestList);
+        findDataMap.put("tc", diaryMapper.getTotalCount());
+
+        return findDataMap;
+    }
+
+
+
+
 
     // 날짜변환
     private void processConverting(List<Diary> diaryList) {

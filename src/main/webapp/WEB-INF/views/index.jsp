@@ -19,255 +19,10 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
-    <style>
-        @font-face {
-            font-family: 'KyoboHand';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
-            font-weight: bold;
-            font-style: normal;
-        }
-        body{
-            background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
-            background-repeat: no-repeat;
-            background-size: cover;
-            overflow: visible;
-            font-family: KyoboHand;
-        }
-        .main{
-            width: 100%;
-        }
+    <link href="/css/index.css" rel="stylesheet">
 
-        .title{
-            width: 100%;
-            font-size: 150px;
-            line-height: 400px;
-            text-align: center;
-            margin-top: 200px;
-        }
-        .today{
-            width: 60%;
-            height: 600px;
-            margin: auto;
-            margin-bottom: 200px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            align-content: space-around;
-        }
-        .today > div{
-            width: 40%;
-            height: 40%;
-            background: white;
-            border-radius: 20px;
-            text-align: center;
-            line-height: 250px;
-            font-size: 30px;
-        }
-        .today .keyword div{
-            margin: auto;
-            height: 50%;
-            line-height: 100px;
-        }
-        .today .keyword div:first-child{
-            margin-top: 30px;
-        }
-        .today .keyword div:last-child{
-            line-height: 0;
-            color: red;
-        }
-        /*키워드 메인*/
-        .keyword_main{
-            margin:auto;
-            width: 100%;
-            height: 1000px;
-            position: relative;
-        }
-        .keyword_main::before{
-            content: "";
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            background-image: url("https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/dl/22/0/4/6/9/3/8/JnKXS/2730046938_138591661.jpg");
-            opacity: 0.4;
-            padding-top: 5%;
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            right: 0px;
-            bottom: 0px;
-        }
-        .keyword_main .keyword_content{
-            margin: auto;
-            width: 90%;
-            height: 90%;
-            /*background: gray;*/
-            display: flex;
-            justify-content: space-around;
-            padding: 5% 0;
-            position: relative;
+<%--    <link rel="stylesheet" href="css/animations.css">--%>
 
-        }
-        .keyword_picture{
-            width: 40%;
-            background: white;
-            border-radius: 20px;
-        }
-        .keyword_describe{
-            width: 50%;
-            /*background: white;*/
-        }
-        .keyword_describe div:first-child{
-            margin-top: 10%;
-            font-size: 70px;
-        }
-        .keyword_describe div:last-child{
-            margin-top: 10%;
-            font-size: 40px;
-        }
-        /*세대별 메인*/
-        .age_main{
-            margin:auto;
-            width: 100%;
-            height: 1000px;
-            position: relative;
-        }
-        .age_main::before{
-            content: "";
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCeLTlt_Sb1PXIP0-qaPUuDfHrp9XhF2-Lkg&usqp=CAU");
-            opacity: 0.4;
-            padding-top: 5%;
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            right: 0px;
-            bottom: 0px;
-        }
-        .age_main .age_content{
-            margin: auto;
-            width: 90%;
-            height: 90%;
-            /*background: gray;*/
-            display: flex;
-            justify-content: space-around;
-            padding: 5% 0;
-            position: relative;
-
-        }
-        .age_picture{
-            width: 40%;
-            background: white;
-            border-radius: 20px;
-        }
-        .age_describe{
-            width: 50%;
-            /*background: white;*/
-        }
-        .age_describe div:first-child{
-            margin-top: 10%;
-            font-size: 70px;
-        }
-        .age_describe div:last-child{
-            margin-top: 20%;
-            font-size: 40px;
-        }
-        /*스무고개 메인*/
-        .quiz_main{
-            margin:auto;
-            width: 100%;
-            height: 1000px;
-            position: relative;
-        }
-        .quiz_main::before{
-            content: "";
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            background-image: url("https://www.popco.net/zboard/data/com_freeboard/2015/12/08/108671684756662aa2bbc66.jpg");
-            opacity: 0.4;
-            padding-top: 5%;
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            right: 0px;
-            bottom: 0px;
-        }
-        .quiz_main .quiz_content{
-            margin: auto;
-            width: 90%;
-            height: 90%;
-            /*background: gray;*/
-            display: flex;
-            justify-content: space-around;
-            padding: 5% 0;
-            position: relative;
-
-        }
-        .quiz_picture{
-            width: 40%;
-            background: white;
-            border-radius: 20px;
-        }
-        .quiz_describe{
-            width: 50%;
-            /*background: white;*/
-        }
-        .quiz_describe div:first-child{
-            margin-top: 10%;
-            font-size: 70px;
-        }
-        .quiz_describe div:last-child{
-            margin-top: 20%;
-            font-size: 40px;
-        }
-        /*일기 메인*/
-        .diary_main{
-            margin:auto;
-            width: 100%;
-            height: 1000px;
-            position: relative;
-        }
-        .diary_main::before{
-            content: "";
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            background-image: url("https://dispatch.cdnser.be/wp-content/uploads/2018/04/ally_2018-04-06_03-24-00_061588-1024x538.jpg");
-            opacity: 0.4;
-            padding-top: 5%;
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            right: 0px;
-            bottom: 0px;
-        }
-        .diary_main .diary_content{
-            margin: auto;
-            width: 90%;
-            height: 90%;
-            /*background: gray;*/
-            display: flex;
-            justify-content: space-around;
-            padding: 5% 0;
-            position: relative;
-
-        }
-        .diary_picture{
-            width: 40%;
-            background: white;
-            border-radius: 20px;
-        }
-        .diary_describe{
-            width: 50%;
-            /*background: white;*/
-        }
-        .diary_describe div:first-child{
-            margin-top: 10%;
-            font-size: 70px;
-        }
-        .diary_describe div:last-child{
-            margin-top: 20%;
-            font-size: 40px;
-        }
-    </style>
 </head>
 <body>
     <%@include file="topbar.jsp"%>
@@ -288,7 +43,13 @@
     </div>
     <div class="keyword_main">
         <div class="keyword_content">
-            <div class="keyword_picture"></div>
+            <div class="keyword_picture">
+                <div id="keyp1" class="keySlides"></div>
+                <div id="keyp2" class="keySlides"></div>
+                <div id="keyp3" class="keySlides"></div>
+                <a class="prev" onclick="plusKeySlides(-1)">❮</a>
+                <a class="next" onclick="plusKeySlides(1)">❯</a>
+            </div>
             <div class="keyword_describe">
                 <div>
                     추억의 키워드로 자신의 추억을 공유해보세요!
@@ -309,12 +70,24 @@
                     70,80,90,00년대별로 나눠진 게시판에서 자신 세대의 추억을 다른 사용자들과 공유해보세요!
                 </div>
             </div>
-            <div class="age_picture"></div>
+            <div class="age_picture">
+                <div id="agep1" class="ageSlides"></div>
+                <div id="agep2" class="ageSlides"></div>
+                <div id="agep3" class="ageSlides"></div>
+                <a class="prev" onclick="plusAgeSlides(-1)">❮</a>
+                <a class="next" onclick="plusAgeSlides(1)">❯</a>
+            </div>
         </div>
     </div>
     <div class="quiz_main">
         <div class="quiz_content">
-            <div class="quiz_picture"></div>
+            <div class="quiz_picture">
+                <div id="quizp1" class="quizSlides"></div>
+                <div id="quizp2" class="quizSlides"></div>
+                <div id="quizp3" class="quizSlides"></div>
+                <a class="prev" onclick="plusQuizSlides(-1)">❮</a>
+                <a class="next" onclick="plusQuizSlides(1)">❯</a>
+            </div>
             <div class="quiz_describe">
                 <div>
                     추억의 단어들로 퀴즈를 진행 해보세요!
@@ -335,9 +108,124 @@
                     짧은 일기들로 자신만의 새로운 추억을 기록하고 공유하세요!
                 </div>
             </div>
-            <div class="diary_picture"></div>
+            <div class="diary_picture">
+                <div id="diaryp1" class="diarySlides"></div>
+                <div id="diaryp2" class="diarySlides"></div>
+                <div id="diaryp3" class="diarySlides"></div>
+                <a class="prev" onclick="plusDiarySlides(-1)">❮</a>
+                <a class="next" onclick="plusDiarySlides(1)">❯</a>
+            </div>
         </div>
     </div>
 </body>
+<script>
+    let keySlideIndex = 1;
+    let ageSlideIndex = 1;
+    let quizSlideIndex = 1;
+    let diarySlideIndex = 1;
+
+    // showSlides(keySlideIndex);
+
+    // Next/previous controls
+    function plusKeySlides(n) {
+        showKeySlides(keySlideIndex += n);
+        if(n==1) {
+            document.getElementById("keyp" + keySlideIndex).className = 'keySlides animate__animated animate__fadeInRight';
+        }else{
+            document.getElementById("keyp" + keySlideIndex).className = 'keySlides animate__animated animate__fadeInLeft';
+        }
+    }
+
+    function showKeySlides(n) {
+        let i;
+        let slides;
+        slides = document.getElementsByClassName("keySlides");
+        if (n > slides.length) {keySlideIndex = 1}
+        if (n < 1) {keySlideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[keySlideIndex-1].style.display = "block";
+    }
+
+    function plusAgeSlides(n) {
+        showAgeSlides(ageSlideIndex += n);
+        if(n==1) {
+            document.getElementById("agep" + ageSlideIndex).className = 'ageSlides animate__animated animate__fadeInRight';
+        }else{
+            document.getElementById("agep" + ageSlideIndex).className = 'ageSlides animate__animated animate__fadeInLeft';
+        }
+    }
+    function showAgeSlides(n) {
+        let i;
+        let slides;
+        slides = document.getElementsByClassName("ageSlides");
+        if (n > slides.length) {ageSlideIndex = 1}
+        if (n < 1) {ageSlideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[ageSlideIndex-1].style.display = "block";
+    }
+
+    function plusQuizSlides(n) {
+        showQuizSlides(quizSlideIndex += n);
+        if(n==1) {
+            document.getElementById("quizp" + quizSlideIndex).className = 'quizSlides animate__animated animate__fadeInRight';
+        }else{
+            document.getElementById("quizp" + quizSlideIndex).className = 'quizSlides animate__animated animate__fadeInLeft';
+        }
+    }
+    function showQuizSlides(n) {
+        let i;
+        let slides;
+        slides = document.getElementsByClassName("quizSlides");
+        if (n > slides.length) {quizSlideIndex = 1}
+        if (n < 1) {quizSlideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[quizSlideIndex-1].style.display = "block";
+    }
+
+    function plusDiarySlides(n) {
+        showDiarySlides(diarySlideIndex += n);
+        if(n==1) {
+            document.getElementById("diaryp" + diarySlideIndex).className = 'diarySlides animate__animated animate__fadeInRight';
+        }else{
+            document.getElementById("diaryp" + diarySlideIndex).className = 'diarySlides animate__animated animate__fadeInLeft';
+        }
+    }
+    function showDiarySlides(n) {
+        let i;
+        let slides;
+        slides = document.getElementsByClassName("diarySlides");
+        if (n > slides.length) {diarySlideIndex = 1}
+        if (n < 1) {diarySlideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[diarySlideIndex-1].style.display = "block";
+    }
+
+    // Thumbnail image controls
+    // function currentSlide(n) {
+    //     showSlides(keySlideIndex = n);
+    // }
+
+    // function showSlides(n){
+    //     let i;
+    //     let slides;
+    //     slides = document.getElementsByClassName("keySlides");
+    //     if (n > slides.length) {keySlideIndex = 1}
+    //     if (n < 1) {keySlideIndex = slides.length}
+    //     for (i = 0; i < slides.length; i++) {
+    //         slides[i].style.display = "none";
+    //     }
+    //     slides[keySlideIndex-1].style.display = "block";
+    // }
+
+
+</script>
 
 </html>

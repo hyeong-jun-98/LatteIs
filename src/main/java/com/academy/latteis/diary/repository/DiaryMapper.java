@@ -6,6 +6,7 @@ import com.academy.latteis.diary.domain.Diary;
 import com.academy.latteis.diary.domain.Good;
 import com.academy.latteis.diary.dto.ValidateDiaryUserDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -25,7 +26,13 @@ public interface DiaryMapper {
     List <Diary> findAll(DiaryPage diaryPage);
 
     // 공개된 일기 페이징 처리 후 나옇
-    List <Diary> findPublicList(DiaryPage page);
+    List <Diary> findPublicList(DiaryPage diaryPage);
+
+    // 내가 쓴 일기 페이징 처리 후 나열
+    List <Diary> findMyList(@Param("dp") DiaryPage diaryPage, @Param("userNickname") String userNickname);
+
+    // 베스트 일기 페이징 처리 후 나열
+    List<Diary> findBestDiary (DiaryPage diaryPage);
 
     // 일기 상세 조회
     Diary findOne(Long diaryNo);

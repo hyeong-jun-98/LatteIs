@@ -8,6 +8,7 @@
     position: fixed;
     top: 0;
     z-index: 100;
+    padding-bottom: 0;
 }
 .icon{
     width: 80px;
@@ -31,6 +32,7 @@
     height: 150px;
     margin-top: -30px;
     display: flex;
+
 }
 .category div{
     width: 200px;
@@ -42,8 +44,14 @@
     margin-top: 0;
     margin-bottom: 0;
 }
-.category div:hover{
+.category >div:hover{
     color: white;
+}
+.category >div:hover > #subcatec{
+    color: black;
+}
+.category >div:hover > #subcated{
+    color: black;
 }
 
 .login{
@@ -78,6 +86,99 @@
     background-size: cover;
     top:58px;
     display: none;
+}
+#category #generationcate #subcatec >div{
+    margin: 0;
+    font-size: 20px;
+    background: rgba(0,0,0,0.1);
+    display: flex;
+    text-align: center;
+}
+.category #subcatec{
+    overflow: hidden;
+    height: 0px;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+#subcatec span{
+    background: url("/img/images-removebg-preview.png");
+    width: 25px;
+    height: 25px;
+    background-size: 100% 100%;
+    margin-top: 35px;
+    margin-left: 50px;
+    visibility: hidden;
+}
+#subcatec > div{
+    height: 100px;
+}
+#subcatec div div{
+    width: 60%;
+    margin-left: 0;
+    text-align: left;
+    line-height: 100px;
+}
+#subcatec >div:hover span{
+    visibility: visible;
+}
+#subcatec >div:hover div{
+    color: white;
+}
+#category #diarycate #subcated >div{
+    margin: 0;
+    font-size: 20px;
+    background: rgba(0,0,0,0.1);
+    display: flex;
+    text-align: center;
+}
+.category #subcated{
+    overflow: hidden;
+    height: 0px;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+#subcated span{
+    background: url("/img/images-removebg-preview.png");
+    width: 25px;
+    height: 25px;
+    background-size: 100% 100%;
+    margin-top: 35px;
+    margin-left: 50px;
+    visibility: hidden;
+}
+#subcated > div{
+    height: 100px;
+}
+#subcated div div{
+    width: 60%;
+    margin-left: 0;
+    text-align: left;
+    line-height: 100px;
+}
+#subcated >div:hover span{
+    visibility: visible;
+}
+#subcated >div:hover div{
+    color: white;
+}
+
+
+
+@keyframes slided {
+    from{
+        height: 0px;
+    }
+    to{
+        height: 300px;
+    }
+}
+@keyframes slidec {
+    from{
+        height: 0px;
+    }
+    to{
+        height: 400px;
+    }
 }
 /*.category #img:first-child{*/
 /*    !*left: 300px;*!*/
