@@ -91,7 +91,7 @@ public class DiaryController {
         model.addAttribute("dMList", diaryMyMap.get("dMList"));
         model.addAttribute("pm", pm);
         session.setAttribute("topbar", "page");
-        return "diary/diary_list";
+        return "diary/diary_myList";
     }
 
     // 베스트 일기 리스트 [Best]
@@ -122,8 +122,9 @@ public class DiaryController {
 
     // 일기 작성 화면 요청
     @GetMapping("/write")
-    public String DiaryWrite(HttpSession session, Model model) {
+    public String DiaryWrite(HttpSession session, Model model, HttpServletRequest request) {
 
+        session.setAttribute("referer", request.getHeader("Referer"));
         User loginUser = (User) session.getAttribute("loginUser");
         model.addAttribute("loginUser", loginUser);
 
@@ -140,12 +141,16 @@ public class DiaryController {
         User loginUser = (User) session.getAttribute("loginUser");
         log.info("로그인 한 사람 닉네임 : {}", loginUser.getUserNickname());
 
+        String referer = (String) session.getAttribute("referer");
+        log.info("referer 테스트 - {}", referer);
+        String url[] = referer.split("4");
+        log.info("자르기 테스트 - {}",url[1]);
         // 세션에서 닉네임 뽑기
         diary.setUserNickname(loginUser.getUserNickname());
 
        boolean flag = diaryService.saveService(diary);
 
-        return flag ? "redirect:/diary/list" : "redirect:/";
+        return flag ? "redirect:"+url[1] : "redirect:/";
     }
 
     // 일기 상세화면

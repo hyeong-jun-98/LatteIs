@@ -18,10 +18,14 @@ public interface BoardMapper {
 
     boolean writeGeneration(Board board);
 
+    boolean writeKeyword(Board board);
+
     // 게시글 전체 조회
     List<BoardConvertDTO> findAllFree(Search search);
 
     List<BoardConvertDTO> findAllGeneration(@Param("search") Search search, @Param("generation") Long generation);
+
+    List<BoardConvertDTO> findAllKeyword(@Param("search") Search search, @Param("topicNo") Long topicNo);
 
     // 게시글 상세보기
     List<BoardGoodDTO> findOne(Long boardNo);

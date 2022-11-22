@@ -50,6 +50,11 @@
             (writer, title, content, user_nickname, generation)
         values (#{writer}, #{title}, #{content}, #{userNickname}, #{generation})
     </insert>
+    <insert id="writeKeyword">
+        insert into board
+            (writer, title, content, user_nickname, topic_no)
+        values (#{writer}, #{title}, #{content}, #{userNickname}, #{topicNo})
+    </insert>
 
     <!-- 자유게시판 목록 가져오기 -->
     <select id="findAllFree" resultMap="boardConvertMap">
@@ -73,6 +78,21 @@
         </if>
         <if test="generation == 9999">WHERE generation IS NOT NULL</if>
 
+        <if test="search.type == 'title'">AND title LIKE CONCAT('%', #{search.keyword}, '%')</if>
+        <if test="search.type == 'writer'">AND writer LIKE CONCAT('%', #{search.keyword}, '%')</if>
+        <if test="search.type == 'content'">AND content LIKE CONCAT('%', #{search.keyword}, '%')</if>
+        <if test="search.type == 'tc'">
+            AND title LIKE CONCAT('%', #{search.keyword}, '%')
+            OR content LIKE CONCAT('%', #{search.keyword}, '%')
+        </if>
+        ORDER BY board_no DESC
+        LIMIT #{search.start}, #{search.amount}
+    </select>
+
+    <!-- 키워드 게시판 목록 가져오기 -->
+    <select id="findAllKeyword" resultMap="boardConvertMap">
+        SELECT *
+        FROM board WHERE topic_no = #{topicNo}
         <if test="search.type == 'title'">AND title LIKE CONCAT('%', #{search.keyword}, '%')</if>
         <if test="search.type == 'writer'">AND writer LIKE CONCAT('%', #{search.keyword}, '%')</if>
         <if test="search.type == 'content'">AND content LIKE CONCAT('%', #{search.keyword}, '%')</if>
