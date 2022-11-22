@@ -176,7 +176,8 @@ public class BoardService {
             boardMapper.upHit(boardNo); // 조회수 상승 시키고
             Cookie cookie = new Cookie("b"+boardNo, String.valueOf(boardNo));   // 쿠키 생성
             cookie.setMaxAge(60);   // 쿠키 수명을 1분으로 설정
-            cookie.setPath("/freeboard/detail");   // 쿠키 작동 범위
+            cookie.setPath("/**/detail");   // 쿠키 작동 범위
+//            cookie.setPath("/generation/detail");   // 쿠키 작동 범위
 
             response.addCookie(cookie);   // 클라이언트에게 쿠키 전송
         }

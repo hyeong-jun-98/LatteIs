@@ -16,6 +16,9 @@
     <%--  topbar  --%>
     <link href="/css/topbar.css" rel="stylesheet">
 
+    <!--제이쿼리-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
     <style>
         @font-face {
             font-family: 'KyoboHand';
@@ -23,27 +26,19 @@
             font-weight: bold;
             font-style: normal;
         }
-        body{
+
+        body {
             background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
             background-repeat: no-repeat;
             background-size: cover;
             overflow: visible;
             font-family: KyoboHand;
         }
-
-        /*.wrap {*/
-        /*    width: 50%;*/
-        /*    margin: 0 auto;*/
-        /*}*/
-        /*.write-container{*/
-        /*    margin-top: 200px;*/
-        /*}*/
-
     </style>
 </head>
 <body>
 
-<%@include file="../topbar.jsp"%>
+<%@include file="../topbar.jsp" %>
 
 
 <div class="wrap">
@@ -57,11 +52,13 @@
 
             <div class="mb-3">
                 <label for="writer-input" class="form-label">작성자</label>
-                <input type="text" class="form-control" id="writer-input" placeholder="이름" name="writer" maxlength="20" value="${loginUser.userNickname}" readonly>
+                <input type="text" class="form-control" id="writer-input" placeholder="이름"
+                       name="writer" value="${loginUser.userNickname}" readonly>
             </div>
             <div class="mb-3">
                 <label for="title-input" class="form-label">글제목</label>
-                <input type="text" class="form-control" id="title-input" placeholder="제목" name="title">
+                <textarea type="text" class="form-control" id="title-input" placeholder="제목"
+                          name="title" maxlength="200" rows="1"  oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">내용</label>
@@ -78,9 +75,33 @@
 </div>
 
 <script>
+    // 제목 글자수 제한
+    $(document).ready(function() {
+
+        // 엔터키 못치게
+        $('#title-input').keypress(function(e) {
+            if (e.keyCode == 13)
+                e.preventDefault();
+        });
+
+        $('#title-input').on('keyup', function(e) {
+            if($(this).val().length > 100) {
+                alert('제목을 100자 이내로 입력하세요.');
+                $(this).val($(this).val().substring(0, 100));
+            }
+        });
+    });
+
     // 글 작성 이벤트
     function writeEvent() {
         document.getElementById("reg-btn").addEventListener("click", function () {
+            if (document.getElementById('title-input').value === ''){
+                alert('제목을 입력해주세요');
+                return;
+            } else if(document.querySelector('.main-content').value===''){
+                alert('글 내용을 작성해주세요.');
+                return;
+            }
             const $form = document.getElementById("write-form");
             $form.action = "/freeboard/write";
             $form.method = "post";
