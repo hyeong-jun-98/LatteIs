@@ -49,6 +49,10 @@ public class BoardService {
 
         return flag;
     }
+    public boolean writeKeywordService(Board board){
+        boolean flag = boardMapper.writeKeyword(board);
+        return flag;
+    }
 
     // 게시글 전체 조회
     public Map<String, Object> findAllFreeService(Search search) {
@@ -71,6 +75,21 @@ public class BoardService {
         Map<String, Object> findDataMap = new HashMap<>();
 
         List<BoardConvertDTO> boardList = boardMapper.findAllGeneration(search, generation);
+
+        // 목록 중간 데이터 처리
+        processConverting(boardList);
+
+        findDataMap.put("boardList", boardList);
+        findDataMap.put("totalCount", boardMapper.getTotalCountGeneration(search));
+        return findDataMap;
+    }
+
+    public Map<String, Object> findAllKeywordService(Search search, Long topicNo) {
+        log.info("findAll service start");
+
+        Map<String, Object> findDataMap = new HashMap<>();
+
+        List<BoardConvertDTO> boardList = boardMapper.findAllKeyword(search, topicNo);
 
         // 목록 중간 데이터 처리
         processConverting(boardList);

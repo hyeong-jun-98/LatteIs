@@ -67,6 +67,12 @@
         const $pencil = document.getElementById("fiximg");
         if (page != null) {
             switch (page) {
+                case 'keyword':
+                    document.getElementById('keyword').style.color = "white";
+                    $pencil.style.left = "325px";
+                    $pencil.style.display = "block";
+                    // document.getElementById('diary').style.background="rgba(0,0,0,0.3)";
+                    break;
                 case 'diary':
                     document.getElementById('diary').style.color = "white";
                     $pencil.style.left = "1440px";
@@ -94,6 +100,14 @@
         const $toHome = document.getElementById('home');
         $toHome.onclick = e => {
             location.href = "/";
+        }
+    }
+
+    //키워드 게시판 이동
+    function toKeyword(){
+        const $keyword = document.getElementById('keyword');
+        $keyword.onclick = e =>{
+            location.href = '/keyword/list';
         }
     }
 
@@ -251,6 +265,7 @@
         changeFont();
         hover();
         toGenerationList();
+        toKeyword();
         to00List();
         to90List();
         to80List();

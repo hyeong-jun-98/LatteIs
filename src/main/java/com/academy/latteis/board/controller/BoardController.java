@@ -22,7 +22,7 @@ import java.util.Map;
 @Controller
 @Log4j2
 @RequiredArgsConstructor
-@RequestMapping(value = {"/freeboard", "/generation"})
+@RequestMapping(value = {"/freeboard", "/generation", "/keyword"})
 public class BoardController {
 
     private final BoardService boardService;
@@ -36,13 +36,14 @@ public class BoardController {
         log.info("controller request {} GET! - page: {}", uri, search);
 
         Map<String, Object> boardMap;
-        String toGeneration = null;
+        String where = null;
 
         if (uri.equals("/freeboard/list")) {     // 자유게시판 목록 요청이면
             boardMap = boardService.findAllFreeService(search);
             //탑바 고정 세션
             session.setAttribute("topbar", "free");
-        } else {    // 연령대별 게시판 목록 요청이면
+            where = "freeboard/freeboard-list";
+        } else if(uri.equals("/generation/list")){    // 연령대별 게시판 목록 요청이면
             boardMap = boardService.findAllGenerationService(search, generation);
             // 세션 정보 생성
             session.setAttribute("sessionGeneration", generation);     // 게시판의 generation 정보를 세션에 담아둠
@@ -52,16 +53,22 @@ public class BoardController {
             session.setAttribute("topbar", "generation");
 
             if (generation == 9999) {   // 전체 연령대 게시판
-                toGeneration = "generationboard/generation-list";
+                where = "generationboard/generation-list";
             } else if (generation == 2000) {    // 2000년대 게시판 요청일 때
-                toGeneration = "generationboard/00-list";
+                where = "generationboard/00-list";
             } else if (generation == 1990) {      // 1990년대 게시판 요청일 때
-                toGeneration = "generationboard/90-list";
+                where = "generationboard/90-list";
             } else if (generation == 1980) {      // 1980년대 게시판 요청일 때
-                toGeneration = "generationboard/80-list";
+                where = "generationboard/80-list";
             } else if (generation == 1970) {       // 1970년대 게시판 요청일 때
-                toGeneration = "generationboard/70-list";
+                where = "generationboard/70-list";
             }
+        } else{
+            long topicNo =1;
+            boardMap = boardService.findAllKeywordService(search, topicNo);
+            session.setAttribute("topbar", "keyword");
+            where = "keywordboard/keyword-list";
+            session.setAttribute("keyword", "1");
         }
 
         // 페이지 정보 생성
@@ -73,8 +80,7 @@ public class BoardController {
 
 //        model.addAttribute("generation", generation);
 //        model.addAttribute("page", "free");
-
-        return uri.equals("/freeboard/list") ? "freeboard/freeboard-list" : toGeneration;
+        return where;
     }
 
     // 게시글 상세보기
@@ -98,8 +104,15 @@ public class BoardController {
     public String write(HttpServletRequest request) {
         String uri = request.getRequestURI();
         log.info("controller request {} GET!", uri);
-
-        return uri.equals("/freeboard/write") ? "freeboard/freeboard-write" : "generationboard/generation-write";
+        String where=null;
+        if(uri.equals("/freeboard/write")){
+            where = "freeboard/freeboard-write";
+        } else if(uri.equals("/generation/write")){
+            where = "generationboard/generation-write";
+        } else{
+            where = "keywordboard/keyword-write";
+        }
+        return where;
     }
 
     // 게시글 작성 요청 처리
@@ -117,6 +130,14 @@ public class BoardController {
             if (flag) ra.addFlashAttribute("msg", "write-success");
             return flag ? "redirect:/generation/list?generation=" + session.getAttribute("sessionGeneration")
                     : "redirect:/generation/list?generation=" + session.getAttribute("sessionGeneration");
+        }
+        //키워드 글 작성
+        if (uri.equals("/keyword/write")){
+            log.info(request.getSession().getAttribute("keyword"));
+            board.setTopicNo(Long.parseLong((String) request.getSession().getAttribute("keyword")));
+            flag = boardService.writeKeywordService(board);
+            if (flag) ra.addFlashAttribute("msg", "write-success");
+            return flag ? "redirect:/keyword/list" : "redirect:/list";
         }
 
         // 자유게시판 게시글 작성이면
