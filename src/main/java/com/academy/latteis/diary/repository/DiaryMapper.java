@@ -31,6 +31,9 @@ public interface DiaryMapper {
     // 내가 쓴 일기 페이징 처리 후 나열
     List <Diary> findMyList(@Param("dp") DiaryPage diaryPage, @Param("userNickname") String userNickname);
 
+    // 베스트 일기 페이징 처리 후 나열
+    List<Diary> findBestDiary (DiaryPage diaryPage);
+
     // 일기 상세 조회
     Diary findOne(Long diaryNo);
 

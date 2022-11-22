@@ -81,22 +81,40 @@ public class DiaryController {
         log.info("로그인 정보 {}", loginUser);
         log.info("로그인 한 사람 닉네임 : {}", userNickname);
 
-
-
         Map<String, Object > diaryMyMap = diaryService.findMyListService(diaryPage, userNickname);
 
         DiaryPageMaker pm = new DiaryPageMaker(
                 new DiaryPage(diaryPage.getPageNum(), diaryPage.getAmount())
                 , (Integer) diaryMyMap.get("tc"));
 
-
-
-
         model.addAttribute("dMList", diaryMyMap.get("dMList"));
         model.addAttribute("pm", pm);
         session.setAttribute("topbar", "page");
         return "diary/diary_list";
     }
+
+    // 베스트 일기 리스트 [Best]
+    @GetMapping("/bestList")
+    public String diaryBestList(HttpSession session, DiaryPage diaryPage, Model model) {
+
+//        User loginUser = (User) session.getAttribute("loginUser");
+//        String userNickname = loginUser.getUserNickname();
+
+        Map <String, Object> diaryBestMap = diaryService.findBestDiaryService(diaryPage);
+
+        DiaryPageMaker pm = new DiaryPageMaker(
+                new DiaryPage(diaryPage.getPageNum(), diaryPage.getAmount())
+                , (Integer) diaryBestMap.get("tc"));
+
+        model.addAttribute("dBList", diaryBestMap.get("dBList"));
+        model.addAttribute("pm", pm);
+        session.setAttribute("topbar", "page");
+
+        return "diary/diary_bestList";
+    }
+
+
+
 
 
 
