@@ -86,6 +86,25 @@ public class DiaryService {
     }
 
 
+    // 베스트 일기 목록 with paging
+    public Map <String, Object> findBestDiaryService (DiaryPage diaryPage) {
+        Map <String, Object> findDataMap = new HashMap<>();
+
+        log.info("베스트 일기 페이징 {}", diaryPage);
+
+        List <Diary> diaryBestList = diaryMapper.findBestDiary(diaryPage);
+
+        processConverting(diaryBestList);
+        findDataMap.put("dBList", diaryBestList);
+        findDataMap.put("tc", diaryMapper.getTotalCount());
+
+        return findDataMap;
+    }
+
+
+
+
+
     // 날짜변환
     private void processConverting(List<Diary> diaryList) {
         for (Diary d : diaryList) {
