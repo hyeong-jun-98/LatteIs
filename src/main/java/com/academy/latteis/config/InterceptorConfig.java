@@ -5,20 +5,18 @@ import com.academy.latteis.interceptor.AutoLoginInterceptor;
 
 
 import com.academy.latteis.interceptor.DiaryInterceptor;
-import com.academy.latteis.interceptor.FreeBoardInterceptor;
+import com.academy.latteis.interceptor.BoardInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import javax.servlet.http.HttpSession;
 
 // 다양한 인터셉터들을 관리하는 설정 클래스
 @Configuration
 @RequiredArgsConstructor
 public class InterceptorConfig implements WebMvcConfigurer {
 
-    private final FreeBoardInterceptor freeBoardInterceptor;
+    private final BoardInterceptor boardInterceptor;
     private final AfterLoginInterceptor afterLoginInterceptor;
     private final AutoLoginInterceptor autoLoginInterceptor;
     private final DiaryInterceptor diaryInterceptor;
@@ -27,7 +25,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 게시판 인터셉터 설정
-        registry.addInterceptor(freeBoardInterceptor)
+        registry.addInterceptor(boardInterceptor)
                 .addPathPatterns("/freeboard/*", "/generation/*")
                 .excludePathPatterns("/freeboard/list", "/freeboard/content", "/generation/list", "/generation/content");
 

@@ -40,7 +40,6 @@ body{
     margin-bottom: 20px;
     color: #808080;
 }
-
 .content-container .main-content {
     border: 2px solid #ccc;
     border-radius: 20px;
@@ -55,6 +54,12 @@ body{
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+}
+
+/* textarea - 제목, 내용 */
+textarea {
+    resize: none;
+    overflow:hidden;
 }
 
 /* 하단 버튼 스타일 */
