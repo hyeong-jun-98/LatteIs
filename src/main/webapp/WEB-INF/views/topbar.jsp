@@ -69,7 +69,7 @@
             switch (page) {
                 case 'diary':
                     document.getElementById('diary').style.color = "white";
-                    $pencil.style.left = "1355px";
+                    $pencil.style.left = "1440px";
                     $pencil.style.display = "block";
                     // document.getElementById('diary').style.background="rgba(0,0,0,0.3)";
                     break;
@@ -81,7 +81,7 @@
                     break;
                 case 'generation':
                     document.getElementById('generation').style.color = "white";
-                    $pencil.style.left = "860px";
+                    $pencil.style.left = "585px";
                     $pencil.style.display = "block";
                     // document.getElementById('list').style.background="rgba(0,0,0,0.3)";
                     break;
@@ -144,12 +144,26 @@
 
     }
 
+
     function toDiary() {
         const $toDiary = document.getElementById('diary');
+        const $toMyDiary = document.getElementById('subd1');
+        const $toDiary2 = document.getElementById('subd2');
+        const $toBestDiary = document.getElementById('subd3');
         $toDiary.onclick = e => {
             location.href = "/diary/list";
         }
+        $toMyDiary.onclick = e =>{
+            location.href = "/diary/myList";
+        }
+        $toDiary2.onclick = e =>{
+            location.href = "/diary/list";
+        }
+        $toBestDiary.onclick = e =>{
+            location.href = "/diary/bestList";
+        }
     }
+
 
     function toLogin() {
         const $toLogin = document.getElementById("tologin");
@@ -157,6 +171,7 @@
             location.href = "/user/login";
         }
     }
+
 
     function logout() {
         const $logout = document.getElementById("logout");
