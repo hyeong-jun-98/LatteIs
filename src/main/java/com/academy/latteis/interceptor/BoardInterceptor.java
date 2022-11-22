@@ -19,7 +19,7 @@ import static com.academy.latteis.util.LoginUtils.isLogin;
 
 @Configuration
 @Log4j2
-public class FreeBoardInterceptor implements HandlerInterceptor {
+public class BoardInterceptor implements HandlerInterceptor {
 
     // 인터셉터 전처리 메소드
     // 리턴값이 true일 경우 컨트롤러 진입을 허용하고
@@ -68,9 +68,16 @@ public class FreeBoardInterceptor implements HandlerInterceptor {
             Long boardNo = (Long) modelMap.get("boardNo");
             Page page = (Page) modelMap.get("page");
 
-            // 수정하려는 게시글의 계정명 정보와 세션에 저장된 계정명 정보가 일치하지 않으면 리스트로 돌려보내라
-            if (!isMine(session, dto.getUserEmail())) {
-                response.sendRedirect("/freeboard/detail/" + boardNo + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount() + "&msg=no-match");
+            if (requestURI.contains("/freeboard")){
+                // 수정하려는 게시글의 계정명 정보와 세션에 저장된 계정명 정보가 일치하지 않으면 리스트로 돌려보내라
+                if (!isMine(session, dto.getUserEmail())) {
+                    response.sendRedirect("/freeboard/detail/" + boardNo + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount() + "&msg=no-match");
+                }
+            }else {
+                // 수정하려는 게시글의 계정명 정보와 세션에 저장된 계정명 정보가 일치하지 않으면 리스트로 돌려보내라
+                if (!isMine(session, dto.getUserEmail())) {
+                    response.sendRedirect("/generation/detail/" + boardNo + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount() + "&msg=no-match");
+                }
             }
         }
     }

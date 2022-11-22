@@ -71,9 +71,6 @@ public class BoardController {
         model.addAttribute("pm", pm);
         model.addAttribute("search", search);
 
-//        model.addAttribute("generation", generation);
-//        model.addAttribute("page", "free");
-
         return uri.equals("/freeboard/list") ? "freeboard/freeboard-list" : toGeneration;
     }
 

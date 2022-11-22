@@ -45,8 +45,8 @@
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput2" class="form-label">글제목</label>
-            <input type="text" class="form-control" id="exampleFormControlInput2"
-                   placeholder="제목" name="title" value="${board.title}" disabled>
+            <textarea type="text" class="form-control" id="exampleFormControlInput2"
+                      placeholder="제목" name="title" disabled>${board.title}</textarea>
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">내용</label>
