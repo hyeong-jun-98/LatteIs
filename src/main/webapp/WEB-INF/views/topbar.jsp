@@ -8,7 +8,7 @@
             Latte is...
         </div>
     </div>
-    <div class="category" style="cursor: pointer">
+    <div class="category" style="cursor: pointer" id="category">
         <div id="img">
         </div>
         <div id="fiximg">
@@ -17,8 +17,16 @@
             오늘의 키워드
         </div>
 
-        <div id="generation">
-            연령대별 추억 공유
+        <div id="generationcate">
+            <div id="generation">
+                연령대별 추억 공유
+            </div>
+            <div id="subcatec">
+                <div><span></span><div id="subc1">00년대</div></div>
+                <div><span></span><div id="subc2">90년대</div></div>
+                <div><span></span><div id="subc3">80년대</div></div>
+                <div><span></span><div id="subc4">70년대</div></div>
+            </div>
         </div>
 
         <div id="list">
@@ -28,9 +36,15 @@
         <div id="game">
             스무고개
         </div>
-
-        <div id="diary">
-            나의 한 줄 일기
+        <div id="diarycate">
+            <div id="diary">
+                일기
+            </div>
+            <div id="subcated">
+                <div><span></span><div id="subd1">나의 일기</div></div>
+                <div><span></span><div id="subd2">모두의 일기</div></div>
+                <div><span></span><div id="subd3">베스트 일기</div></div>
+            </div>
         </div>
     </div>
     <c:if test="${loginUser == null}">
@@ -43,6 +57,7 @@
         </div>
     </c:if>
 </div>
+
 <script>
     //페이지에 해당하는 탑바 색 바꾸기
     function changeFont() {
@@ -60,6 +75,12 @@
                     break;
                 case 'free':
                     document.getElementById('list').style.color = "white";
+                    $pencil.style.left = "860px";
+                    $pencil.style.display = "block";
+                    // document.getElementById('list').style.background="rgba(0,0,0,0.3)";
+                    break;
+                case 'generation':
+                    document.getElementById('generation').style.color = "white";
                     $pencil.style.left = "860px";
                     $pencil.style.display = "block";
                     // document.getElementById('list').style.background="rgba(0,0,0,0.3)";
@@ -122,6 +143,9 @@
         const $game = document.getElementById("game");
         const $diary = document.getElementById("diary");
         const $pencil = document.getElementById("img");
+        const $subcatec = document.getElementById("subcatec");
+        const $subcated = document.getElementById("subcated");
+
         $keyword.onmouseenter = e => {
             $pencil.style.left = "325px";
             $pencil.style.display = "block";
@@ -130,11 +154,20 @@
             $pencil.style.display = "none";
         }
         $generation.onmouseenter = e => {
-            $pencil.style.left = "565px";
+            $pencil.style.left = "585px";
             $pencil.style.display = "block";
+            $subcatec.style.animationName="slidec";
         }
         $generation.onmouseout = e => {
             $pencil.style.display = "none";
+            $subcatec.style.animationName="";
+        }
+        $subcatec.onmouseover = e =>{
+            $subcatec.style.height="400px";
+        }
+        $subcatec.onmouseleave = e =>{
+            $subcatec.style.height="0px";
+            $subcatec.style.animationName="";
         }
         $list.onmouseenter = e => {
             $pencil.style.left = "860px";
@@ -150,13 +183,24 @@
         $game.onmouseout = e => {
             $pencil.style.display = "none";
         }
-        $diary.onmouseenter = e => {
-            $pencil.style.left = "1355px";
+        $diary.onmouseover = e => {
+            $pencil.style.left = "1440px";
             $pencil.style.display = "block";
+            $subcated.style.animationName="slided";
         }
-        $diary.onmouseout = e => {
+        $diary.onmouseleave = e => {
             $pencil.style.display = "none";
+            $subcated.style.animationName="";
         }
+        $subcated.onmouseover = e =>{
+            $subcated.style.height="300px";
+        }
+        $subcated.onmouseleave = e =>{
+            $subcated.style.height="0px";
+            $subcated.style.animationName="";
+        }
+
+
     }
 
     (function () {
