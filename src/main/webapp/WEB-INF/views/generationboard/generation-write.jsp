@@ -16,6 +16,9 @@
     <%--  topbar  --%>
     <link href="/css/topbar.css" rel="stylesheet">
 
+    <!--제이쿼리-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
     <style>
         @font-face {
             font-family: 'KyoboHand';
@@ -75,7 +78,8 @@
             </div>
             <div class="mb-3">
                 <label for="title-input" class="form-label">글제목</label>
-                <input type="text" class="form-control" id="title-input" placeholder="제목" name="title">
+                <textarea type="text" class="form-control" id="title-input" placeholder="제목"
+                          name="title" maxlength="200" rows="1"  oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">내용</label>
@@ -92,9 +96,39 @@
 </div>
 
 <script>
+    // 제목 글자수 제한
+    $(document).ready(function() {
+
+        // 엔터키 못치게
+        $('#title-input').keypress(function(e) {
+            if (e.keyCode == 13)
+                e.preventDefault();
+        });
+
+        $('#title-input').on('keyup', function(e) {
+            if($(this).val().length > 100) {
+                alert('제목을 100자 이내로 입력하세요.');
+                $(this).val($(this).val().substring(0, 100));
+            }
+        });
+    });
+
     // 글 작성 이벤트
     function writeEvent() {
         document.getElementById("reg-btn").addEventListener("click", function () {
+            if (${sessionGeneration} === 9999){
+                if (document.querySelector('select').value === ""){
+                    alert('연대를 선택해주세요.');
+                    return;
+                }
+            }
+            if (document.getElementById('title-input').value === ''){
+                alert('제목을 입력해주세요');
+                return;
+            } else if(document.querySelector('.main-content').value===''){
+                alert('글 내용을 작성해주세요.');
+                return;
+            }
             const $form = document.getElementById("write-form");
             $form.action = "/generation/write";
             $form.method = "post";

@@ -114,8 +114,10 @@
 
     // 스크롤 높이 계산
     function scrollHeightCal() {
-        const $textarea = document.querySelector('#exampleFormControlTextarea1');
-        $textarea.style.height = $textarea.scrollHeight + 'px';
+        const $title = document.querySelector('#title-input');
+        const $content = document.querySelector('#exampleFormControlTextarea1');
+        $title.style.height = $title.scrollHeight + 'px';
+        $content.style.height = $content.scrollHeight + 'px';
     }
 
     (function () {

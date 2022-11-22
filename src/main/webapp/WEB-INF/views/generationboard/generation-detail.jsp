@@ -39,14 +39,14 @@
         <h2 class="board-no-title">${board.boardNo}번 게시물 - ${board.generation}년대</h2>
 
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">작성자</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1"
+            <label for="writer-input" class="form-label">작성자</label>
+            <input type="text" class="form-control" id="writer-input"
                    placeholder="이름" name="writer" value="${board.writer}" disabled>
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlInput2" class="form-label">글제목</label>
-            <input type="text" class="form-control" id="exampleFormControlInput2"
-                   placeholder="제목" name="title" value="${board.title}" disabled>
+            <label for="title-input" class="form-label">글제목</label>
+            <textarea type="text" class="form-control" id="title-input"
+                      placeholder="제목" name="title" disabled rows="1">${board.title}</textarea>
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">내용</label>
@@ -322,6 +322,12 @@
             })
     }
 
+    // 스크롤 높이 계산
+    function scrollHeightCal() {
+        const $textarea = document.getElementById('title-input');
+        $textarea.style.height = $textarea.scrollHeight + 'px';
+    }
+
     (function () {
 
         alertServerMessage();
@@ -335,6 +341,8 @@
         goodOrNot();
         // 좋아요 이벤트
         goodCheckEvent();
+        // 스크롤 높이 계산
+        scrollHeightCal();
     })();
 </script>
 
