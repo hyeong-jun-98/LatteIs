@@ -3,7 +3,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>자유게시판</title>
+    <title>연령대별 추억 공유</title>
+
     <!-- fontawesome css: https://fontawesome.com -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
     <!-- bootstrap css -->
@@ -24,24 +25,26 @@
             font-weight: bold;
             font-style: normal;
         }
-        body{
+
+        body {
             background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
             background-repeat: no-repeat;
             background-size: cover;
             overflow: visible;
             font-family: KyoboHand;
         }
+
+
     </style>
 </head>
 <body>
-
-<%@include file="../topbar.jsp"%>
+<%@include file="../topbar.jsp" %>
 
 <%-- 글 목록 영역 --%>
 <div class="wrap">
     <div class="board-list">
 
-        <h1 class="main-title">자유게시판</h1>
+        <h1 class="main-title">90년대 게시판</h1>
 
         <div class="top-section">
             <div class="search">
@@ -53,7 +56,8 @@
                         <option value="tc">제목+내용</option>
                     </select>
 
-                    <input type="text" class="form-control" name="keyword" value="${search.keyword}">
+                    <input type="text" class="form-control" name="keyword" value="">
+                    <input type="hidden" name="generation" value="${sessionGeneration}">
 
                     <button id="btn-search" class="btn btn-warning" type="button">
                         <i class="fas fa-search"></i>
@@ -65,11 +69,14 @@
             <!-- 한 페이지 당 보여질 게시글 수 => amount -->
             <ul class="amount">
                 <li data-amount="10"><a class="btn btn-outline-warning"
-                                        href="/freeboard/list?amount=10&type=${search.type}&keyword=${search.keyword}">10</a></li>
-                <li  data-amount="20"><a class="btn btn-outline-warning"
-                                         href="/freeboard/list?amount=20&type=${search.type}&keyword=${search.keyword}">20</a></li>
-                <li  data-amount="30"><a class="btn btn-outline-warning"
-                                         href="/freeboard/list?amount=30&type=${search.type}&keyword=${search.keyword}">30</a></li>
+                                        href="/generation/list?amount=10&type=${search.type}&keyword=${search.keyword}&generation=${sessionGeneration}">10</a>
+                </li>
+                <li data-amount="20"><a class="btn btn-outline-warning"
+                                        href="/generation/list?amount=20&type=${search.type}&keyword=${search.keyword}&generation=${sessionGeneration}">20</a>
+                </li>
+                <li data-amount="30"><a class="btn btn-outline-warning"
+                                        href="/generation/list?amount=30&type=${search.type}&keyword=${search.keyword}&generation=${sessionGeneration}">30</a>
+                </li>
             </ul>
 
         </div>
@@ -111,21 +118,26 @@
                 <ul class="pagination pagination-lg pagination-custom">
 
                     <c:if test="${pm.prev}">
-                        <li class="page-item"><a class="page-link"
-                                                 href="/freeboard/list?pageNum=${pm.beginPage - 1}&amount=${pm.page.amount}&type=${search.type}&keyword=${search.keyword}">prev</a>
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="/generation/list?pageNum=${pm.beginPage - 1}&amount=${pm.page.amount}
+                                &type=${search.type}&keyword=${search.keyword}&generation=${sessionGeneration}">prev</a>
                         </li>
                     </c:if>
 
                     <c:forEach var="n" begin="${pm.beginPage}" end="${pm.endPage}" step="1">
                         <li data-page-num="${n}" class="page-item">
                             <a class="page-link"
-                               href="/freeboard/list?pageNum=${n}&amount=${pm.page.amount}&type=${search.type}&keyword=${search.keyword}">${n}</a>
+                               href="/generation/list?pageNum=${n}&amount=${pm.page.amount}
+                               &type=${search.type}&keyword=${search.keyword}&generation=${sessionGeneration}">${n}</a>
                         </li>
                     </c:forEach>
 
                     <c:if test="${pm.next}">
-                        <li class="page-item"><a class="page-link"
-                                                 href="/freeboard/list?pageNum=${pm.endPage + 1}&amount=${pm.page.amount}&type=${search.type}&keyword=${search.keyword}">next</a>
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="/generation/list?pageNum=${pm.endPage + 1}&amount=${pm.page.amount}
+                               &type=${search.type}&keyword=${search.keyword}&generation=${sessionGeneration}">next</a>
                         </li>
                     </c:if>
 
@@ -142,18 +154,16 @@
     </div>
 </div>
 
-
 <script>
     // 게시글 검색
-    function search(){
+    function search() {
         const $btnSearch = document.getElementById('btn-search');
-        $btnSearch.onclick=e=>{
+        $btnSearch.onclick = e => {
             const $form = document.querySelector('form');
-            $form.method="get";
-            $form.action="/freeboard/list";
+            $form.method = "get";
+            $form.action = "/generation/list";
             $form.submit();
         }
-
     }
 
     // 성공 메시지
@@ -169,9 +179,9 @@
     // 글 작성 폼으로 이동
     function writeForm() {
         const $btnWrite = document.getElementById("btn-write");
-        if ($btnWrite !== null){
+        if ($btnWrite !== null) {
             $btnWrite.addEventListener("click", function () {
-                location.href = "/freeboard/write";
+                location.href = "/generation/write";
             });
         }
     }
@@ -183,7 +193,7 @@
             if (!e.target.matches('a')) return;
             const boardNo = e.target.parentNode.parentNode.firstElementChild.textContent;
             console.log(boardNo);
-            location.href = "/freeboard/detail/"
+            location.href = "/generation/detail/"
                 + boardNo + "?pageNum=${pm.page.pageNum}&amount=${pm.page.amount}"
             ;
         }
@@ -207,14 +217,15 @@
             }
         }
     }
+
     // 현재 amount에 active 스타일 부여
-    function appendAmountActive(){
+    function appendAmountActive() {
         // 현재 내 amount
         const curAmount = '${pm.page.amount}';
 
         const $ul = document.querySelector('.amount');
-        for (let $li of [...$ul.children]){
-            if (curAmount === $li.dataset.amount){
+        for (let $li of [...$ul.children]) {
+            if (curAmount === $li.dataset.amount) {
                 $li.firstChild.classList.add('active');
                 break;
             }
@@ -222,18 +233,17 @@
     }
 
     // 검색 조건 고정
-    function fixSearchOption(){
+    function fixSearchOption() {
         const $select = document.getElementById('search-type');
         // console.log($select);
-        for (let $opt of [...$select.children]){
+        for (let $opt of [...$select.children]) {
             console.log($opt.value);
-            if ($opt.value === '${search.type}'){
+            if ($opt.value === '${search.type}') {
                 $opt.setAttribute('selected', 'selected');
                 break;
             }
         }
     }
-
 
     (function () {
         alertServerMessage();
@@ -244,8 +254,6 @@
         search();
         fixSearchOption();
     })();
-
 </script>
-
 </body>
 </html>

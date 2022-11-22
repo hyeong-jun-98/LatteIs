@@ -19,6 +19,7 @@ public class Board {
     private Long good;
     private String img;
     private String userNickname;
+    private Long generation;
 
     // fk
     private Long topicNo;

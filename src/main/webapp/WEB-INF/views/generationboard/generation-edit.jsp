@@ -31,9 +31,10 @@
             <input type="hidden" name="pageNum" value="${page.pageNum}">
             <input type="hidden" name="amount" value="${page.amount}">
             <input type="hidden" name="boardNo" value="${board.boardNo}">
+            <input type="hidden" name="generation" value="${board.generation}">
 
-            <h1 class="main-title">자유게시판</h1>
-            <h2 class="board-no-title">${board.boardNo}번 게시물</h2>
+            <h1 class="main-title">연령대별 게시판</h1>
+            <h2 class="board-no-title">${board.boardNo}번 게시물 - ${board.generation}년대</h2>
 
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">작성자</label>
@@ -72,7 +73,7 @@
             if (!confirm("수정하시겠습니까?"))return;
             const $form = document.querySelector("form");
             $form.method="post";
-            $form.action="/freeboard/edit";
+            $form.action="/generation/edit";
             $form.submit();
         }
     }
@@ -82,7 +83,8 @@
         // 취소 버튼
         const $cancelBtn = document.getElementById('cancel-btn');
         $cancelBtn.onclick = e =>{
-            location.href = "/freeboard/detail/${board.boardNo}?pageNum=${page.pageNum}&amount=${page.amount}";
+            location.href = "/generation/detail/${board.boardNo}?pageNum=${page.pageNum}&amount=${page.amount}";
+        <%--&generation=${sessionGeneration}--%>
         }
     }
 

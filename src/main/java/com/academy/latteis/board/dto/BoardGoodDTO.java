@@ -17,10 +17,11 @@ public class BoardGoodDTO {
     private Long good;
     private String img;
     private String userNickname;
+    private Long generation;
 
     // fk
     private Long topicNo;
 
     // good
-    private String userNo;
+    private String userNo;  // 좋아요를 누가 눌렀냐..
 }

@@ -23,7 +23,8 @@
             font-weight: bold;
             font-style: normal;
         }
-        body{
+
+        body {
             background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
             background-repeat: no-repeat;
             background-size: cover;
@@ -31,33 +32,46 @@
             font-family: KyoboHand;
         }
 
-        /*.wrap {*/
-        /*    width: 50%;*/
-        /*    margin: 0 auto;*/
-        /*}*/
-        /*.write-container{*/
-        /*    margin-top: 200px;*/
-        /*}*/
-
     </style>
 </head>
 <body>
 
-<%@include file="../topbar.jsp"%>
+<%@include file="../topbar.jsp" %>
 
 
 <div class="wrap">
 
     <div class="content-container">
 
-        <h1 class="main-title">자유게시판</h1>
+        <h1 class="main-title">연령대별 게시판
+            <c:if test="${generation != 9999}">
+                - ${generation}년대
+            </c:if>
+        </h1>
 
         <form id="write-form" autocomplete="off" enctype="multipart/form-data">
             <input type="hidden" name="userNickname" value="${loginUser.userNickname}">
 
+            <c:if test="${sessionGeneration != 9999}">
+                <input type="text" name="generation" value="${sessionGeneration}">
+            </c:if>
+
+            <c:if test="${sessionGeneration == 9999}">
+                <div class="mb-3">
+                    <select name="generation">
+                        <option value="">연대 선택</option>
+                        <option value="2000">2000년대</option>
+                        <option value="1990">1990년대</option>
+                        <option value="1980">1980년대</option>
+                        <option value="1970">1970년대</option>
+                    </select>
+                </div>
+            </c:if>
+
             <div class="mb-3">
                 <label for="writer-input" class="form-label">작성자</label>
-                <input type="text" class="form-control" id="writer-input" placeholder="이름" name="writer" maxlength="20" value="${loginUser.userNickname}" readonly>
+                <input type="text" class="form-control" id="writer-input" placeholder="이름" name="writer" maxlength="20"
+                       value="${loginUser.userNickname}" readonly>
             </div>
             <div class="mb-3">
                 <label for="title-input" class="form-label">글제목</label>
@@ -82,7 +96,7 @@
     function writeEvent() {
         document.getElementById("reg-btn").addEventListener("click", function () {
             const $form = document.getElementById("write-form");
-            $form.action = "/freeboard/write";
+            $form.action = "/generation/write";
             $form.method = "post";
             $form.submit();
         });
@@ -93,7 +107,7 @@
         // 목록 버튼
         const $toList = document.getElementById('to-list');
         $toList.onclick = e => {
-            location.href = "/freeboard/list";
+            location.href = "/generation/list";
         }
     }
 

@@ -10,8 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 class BoardMapperTest {
 
@@ -27,7 +25,7 @@ class BoardMapperTest {
             board.setTitle("제목" + i);
             board.setWriter("길동이" + i);
             board.setContent("안녕하세용용이" + i);
-            mapper.write(board);
+            mapper.writeFree(board);
         }
     }
 

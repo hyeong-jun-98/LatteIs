@@ -35,8 +35,8 @@
 
     <div class="content-container">
 
-        <h1 class="main-title">자유게시판</h1>
-        <h2 class="board-no-title">${board.boardNo}번 게시물</h2>
+        <h1 class="main-title">연령대별 게시판</h1>
+        <h2 class="board-no-title">${board.boardNo}번 게시물 - ${board.generation}년대</h2>
 
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">작성자</label>
@@ -187,7 +187,7 @@
         // 목록 버튼
         const $toList = document.getElementById('to-list');
         $toList.onclick = e => {
-            location.href = "/freeboard/list?pageNum=${page.pageNum}&amount=${page.amount}";
+            location.href = "/generation/list?pageNum=${page.pageNum}&amount=${page.amount}&generation=${sessionGeneration}";
         }
     }
 
@@ -200,7 +200,7 @@
             $delBtn.onclick = e => {
                 if (!confirm("삭제하시겠습니까?")) return;
                 console.log(${board.boardNo});
-                location.href = "/freeboard/delete?boardNo=${board.boardNo}&pageNum=${page.pageNum}&amount=${page.amount}";
+                location.href = "/generation/delete?boardNo=${board.boardNo}&pageNum=${page.pageNum}&amount=${page.amount}";
             }
         }
     }
@@ -211,7 +211,7 @@
         const $editBtn = document.getElementById("edit-btn");
         if ($editBtn !== null) {
             $editBtn.onclick = e => {
-                location.href = "/freeboard/edit?boardNo=${board.boardNo}&pageNum=${page.pageNum}&amount=${page.amount}";
+                location.href = "/generation/edit?boardNo=${board.boardNo}&pageNum=${page.pageNum}&amount=${page.amount}";
             }
         }
     }
@@ -227,6 +227,10 @@
     // 좋아요 여부 확인
     function goodOrNot() {
         <c:forEach var="b" items="${boardList}">
+
+        console.log('${b}');
+        console.log('${b.userNo}');
+        console.log('${loginUser.userNo}');
 
         if ('${b.userNo}' === '${loginUser.userNo}' && $goodCheck.dataset.userNo !== '') {
             goodList.replace('far', 'fas'); // 엄지 체크
@@ -319,6 +323,7 @@
     }
 
     (function () {
+
         alertServerMessage();
         toList();
         deleteEvent();
@@ -519,7 +524,6 @@
 
     // 댓글 수정화면 열기, 삭제 처리 핸들러 정의
     function commentEditAndDelHandler(e) {
-
         const cno = e.target.parentElement.parentElement.parentElement.dataset.commentid;
 
         e.preventDefault();

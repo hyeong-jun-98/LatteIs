@@ -27,44 +27,89 @@
     </resultMap>
 
     <!-- 중복 쿼리문 재사용하기 -->
-    <sql id="search">
-        <if test="type == 'title'">WHERE title LIKE CONCAT('%', #{keyword}, '%')</if>
-        <if test="type == 'writer'">WHERE writer LIKE CONCAT('%', #{keyword}, '%')</if>
-        <if test="type == 'content'">WHERE content LIKE CONCAT('%', #{keyword}, '%')</if>
+    <sql id="searchInclude">
+        <if test="type == 'title'">AND title LIKE CONCAT('%', #{keyword}, '%')</if>
+        <if test="type == 'writer'">AND writer LIKE CONCAT('%', #{keyword}, '%')</if>
+        <if test="type == 'content'">AND content LIKE CONCAT('%', #{keyword}, '%')</if>
         <if test="type == 'tc'">
-            WHERE title LIKE CONCAT('%', #{keyword}, '%')
+            AND title LIKE CONCAT('%', #{keyword}, '%')
             OR content LIKE CONCAT('%', #{keyword}, '%')
         </if>
     </sql>
 
 
-    <insert id="write">
+    <!-- 자유게시판 게시글 작성 -->
+    <insert id="writeFree">
         insert into board
             (writer, title, content, user_nickname)
         values (#{writer}, #{title}, #{content}, #{userNickname})
     </insert>
+    <!-- 연령대별 게시판 게시글 작성 -->
+    <insert id="writeGeneration">
+        insert into board
+            (writer, title, content, user_nickname, generation)
+        values (#{writer}, #{title}, #{content}, #{userNickname}, #{generation})
+    </insert>
 
-    <select id="findAll" resultMap="boardConvertMap">
+    <!-- 자유게시판 목록 가져오기 -->
+    <select id="findAllFree" resultMap="boardConvertMap">
         SELECT *
         FROM board
+        WHERE generation IS NULL
 
-        <include refid="search"/>
+        <include refid="searchInclude"/>
 
         ORDER BY board_no DESC
         LIMIT #{start}, #{amount}
     </select>
 
+    <!-- 연령대별 게시판 목록 가져오기 -->
+    <select id="findAllGeneration" resultMap="boardConvertMap">
+        SELECT *
+        FROM board
+
+        <if test="generation == '2000' || generation == '1990' || generation == '1980'|| generation == '1970'">
+            WHERE generation = #{generation}
+        </if>
+        <if test="generation == 9999">WHERE generation IS NOT NULL</if>
+
+        <if test="search.type == 'title'">AND title LIKE CONCAT('%', #{search.keyword}, '%')</if>
+        <if test="search.type == 'writer'">AND writer LIKE CONCAT('%', #{search.keyword}, '%')</if>
+        <if test="search.type == 'content'">AND content LIKE CONCAT('%', #{search.keyword}, '%')</if>
+        <if test="search.type == 'tc'">
+            AND title LIKE CONCAT('%', #{search.keyword}, '%')
+            OR content LIKE CONCAT('%', #{search.keyword}, '%')
+        </if>
+        ORDER BY board_no DESC
+        LIMIT #{search.start}, #{search.amount}
+    </select>
+
+    <!-- 게시글 상세보기 -->
     <select id="findOne" resultMap="boardGoodMap">
         select *
-        from board b left outer join board_good bg
-        on (b.board_no = bg.board_no)
+        from board b
+                 left outer join board_good bg
+                                 on (b.board_no = bg.board_no)
         where b.board_no = #{boardNo}
     </select>
 
-    <select id="getTotalCount" resultType="int">
+    <!-- 자유게시판 전체 수 가져오기 -->
+    <select id="getTotalCountFree" resultType="int">
         SELECT COUNT(*)
         FROM board
-        <include refid="search"/>
+        WHERE generation IS NULL
+
+        <include refid="searchInclude"/>
+
+    </select>
+    <!-- 연령대별 게시판 전체 수 가져오기 -->
+    <select id="getTotalCountGeneration" resultType="int">
+        SELECT COUNT(*)
+        FROM board
+        WHERE generation IS NOT NULL
+
+        <include refid="searchInclude"/>
+
     </select>
 
     <!-- 게시글 삭제 -->
@@ -90,18 +135,12 @@
         WHERE board_no = #{boardNo}
     </update>
 
-<!--    <resultMap id="valMap" type="com.academy.latteis.board.dto.ValidateUserDTO">-->
-<!--        <result property="userEmail" column="user_email" />-->
-<!--    </resultMap>-->
-
     <!-- 게시글 번호에 맞는 계정 가져오기 -->
     <select id="findUserByBoardNo" resultType="com.academy.latteis.board.dto.ValidateUserDTO">
         SELECT user_email AS userEmail, auth
         FROM user
-        WHERE user_nickname = (
-            SELECT user_nickname
-            FROM board
-            WHERE board_no = #{boardNo}
-            )
+        WHERE user_nickname = (SELECT user_nickname
+                               FROM board
+                               WHERE board_no = #{boardNo})
     </select>
 </mapper>
