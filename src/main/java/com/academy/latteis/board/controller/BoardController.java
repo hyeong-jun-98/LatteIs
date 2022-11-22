@@ -30,7 +30,7 @@ public class BoardController {
     // 게시글 목록 요청
     @GetMapping("/list")
     public String list(Search search, Model model, @ModelAttribute("msg") String msg,
-                       HttpServletRequest request, Long generation) {
+                       HttpServletRequest request, Long generation, HttpSession session) {
 
         String uri = request.getRequestURI();
         log.info("controller request {} GET! - page: {}", uri, search);
@@ -40,13 +40,16 @@ public class BoardController {
 
         if (uri.equals("/freeboard/list")) {     // 자유게시판 목록 요청이면
             boardMap = boardService.findAllFreeService(search);
-
+            //탑바 고정 세션
+            session.setAttribute("topbar", "free");
         } else {    // 연령대별 게시판 목록 요청이면
             boardMap = boardService.findAllGenerationService(search, generation);
             // 세션 정보 생성
-            HttpSession session = request.getSession();
             session.setAttribute("sessionGeneration", generation);     // 게시판의 generation 정보를 세션에 담아둠
             log.info("리스트 세션 정보는 {}", session.getAttribute("sessionGeneration"));
+
+            //탑바 고정 세션
+            session.setAttribute("topbar", "generation");
 
             if (generation == 9999) {   // 전체 연령대 게시판
                 toGeneration = "generationboard/generation-list";
@@ -67,6 +70,7 @@ public class BoardController {
         model.addAttribute("boardList", boardMap.get("boardList"));
         model.addAttribute("pm", pm);
         model.addAttribute("search", search);
+
 //        model.addAttribute("generation", generation);
 //        model.addAttribute("page", "free");
 
