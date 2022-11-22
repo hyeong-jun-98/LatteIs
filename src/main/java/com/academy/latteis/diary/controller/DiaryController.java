@@ -109,7 +109,7 @@ public class DiaryController {
 
         model.addAttribute("dBList", diaryBestMap.get("dBList"));
         model.addAttribute("pm", pm);
-        session.setAttribute("topbar", "page");
+        session.setAttribute("topbar", "diary");
 
         return "diary/diary_bestList";
     }
