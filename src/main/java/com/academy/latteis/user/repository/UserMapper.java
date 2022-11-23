@@ -12,6 +12,7 @@ public interface UserMapper {
     // 회원 가입 기능
     boolean save(User user);
 
+
     // 중복체크 기능
     // 체크타입: 계정 or 이메일
     // 체크값: 중복검사대상 값

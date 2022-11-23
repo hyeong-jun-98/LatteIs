@@ -104,6 +104,10 @@ public class BoardService {
 
         List<BoardConvertDTO> boardList = boardMapper.findAllKeyword(search, topicNo);
 
+        for (BoardConvertDTO b : boardList) {
+            b.setGood((long) goodMapper.goodCnt(b.getBoardNo()));
+        }
+
         // 목록 중간 데이터 처리
         processConverting(boardList);
 

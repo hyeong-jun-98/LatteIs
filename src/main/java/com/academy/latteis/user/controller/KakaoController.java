@@ -49,6 +49,7 @@ public class KakaoController {
         // 로그인 처리
         if (userInfo != null) {
             User user = new User();
+
             user.setUserEmail(userInfo.getEmail());
             user.setUserName(userInfo.getNickName());
             session.setAttribute(LOGIN_FLAG, user);

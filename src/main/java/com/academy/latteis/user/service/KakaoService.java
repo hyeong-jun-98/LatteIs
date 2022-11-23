@@ -195,6 +195,7 @@ public class KakaoService implements OAuthService, OAuthValue {
         User checkUser = userMapper.findUser(user.getUserEmail(), login);
         if(checkUser != null){
             session.setAttribute("loginUser", checkUser);
+            log.info(session.getAttribute("loginUser"));
             session.setMaxInactiveInterval(60 * 60); // 1시간
             return true;
         }else return false;
@@ -203,5 +204,6 @@ public class KakaoService implements OAuthService, OAuthValue {
         user.setLogin(login);
         user.setPassword("kakao password");
         userMapper.save(user);
+
     }
 }

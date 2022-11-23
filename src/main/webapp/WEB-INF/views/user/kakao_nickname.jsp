@@ -175,7 +175,7 @@
       // 닉네임 중복 확인 검증
       else {
 
-        fetch('/user/check?type=user_nickname&value=' + $idInput.val())
+        fetch('/user/check?loginType=kakao&type=user_nickname&value=' + $idInput.val())
                 .then(res => res.text())
                 .then(flag => {
                   console.log('flag:', flag);

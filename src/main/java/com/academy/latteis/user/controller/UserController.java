@@ -54,9 +54,9 @@ public class UserController {
 
         @GetMapping("/check")
         @ResponseBody
-        public ResponseEntity<Boolean> check(String type, String value) {
-                log.info("/member/check?type={}&value={} GET!! ASYNC", type, value);
-                boolean flag = userService.checkSignUpValue(type, value);
+        public ResponseEntity<Boolean> check(String loginType, String type, String value) {
+                log.info("/member/check?loginType={}&type={}&value={} GET!! ASYNC",loginType, type, value);
+                boolean flag = userService.checkSignUpValue(loginType ,type, value);
                 return new ResponseEntity<>(flag, HttpStatus.OK);
         }
 

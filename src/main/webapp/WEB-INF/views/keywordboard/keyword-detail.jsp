@@ -20,11 +20,9 @@
     <!-- 상단바 css -->
     <link href="/css/topbar.css" rel="stylesheet">
 
-    <style>
-        #good-check {
-            cursor: pointer;
-        }
-    </style>
+    <!--제이쿼리-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
 </head>
 <body>
 
@@ -39,14 +37,14 @@
         <h2 class="board-no-title">${board.boardNo}번 게시물</h2>
 
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">작성자</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1"
+            <label for="writer-input" class="form-label">작성자</label>
+            <input type="text" class="form-control" id="writer-input"
                    placeholder="이름" name="writer" value="${board.writer}" disabled>
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlInput2" class="form-label">글제목</label>
-            <input type="text" class="form-control" id="exampleFormControlInput2"
-                   placeholder="제목" name="title" value="${board.title}" disabled>
+            <label for="title-input" class="form-label">글제목</label>
+            <textarea type="text" class="form-control" id="title-input"
+                      placeholder="제목" name="title" disabled rows="1">${board.title}</textarea>
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">내용</label>
@@ -134,21 +132,22 @@
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="newCommentContent" hidden>댓글 내용</label>
-                                        <textarea rows="3" id="newCommentContent" name="commentContent"
+                                        <textarea rows="5" id="newCommentContent" name="commentContent"
                                                   class="form-control"
                                                   placeholder="댓글을 입력해주세요."></textarea>
+                                        <div id="comment-cnt">(0 / 300)</div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
+                                        <button id="commentAddBtn" type="button"
+                                                class="btn btn-dark form-control">등록
+                                        </button>
                                         <label for="newCommentWriter" hidden>댓글 작성자</label>
                                         <input id="newCommentWriter" name="commentWriter" type="text"
                                                class="form-control" placeholder="작성자 이름" readonly
                                                value="${loginUser.userNickname}"
                                                style="margin-bottom: 6px;">
-                                        <button id="commentAddBtn" type="button"
-                                                class="btn btn-dark form-control">등록
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -227,6 +226,10 @@
     // 좋아요 여부 확인
     function goodOrNot() {
         <c:forEach var="b" items="${boardList}">
+
+        console.log('${b}');
+        console.log('${b.userNo}');
+        console.log('${loginUser.userNo}');
 
         if ('${b.userNo}' === '${loginUser.userNo}' && $goodCheck.dataset.userNo !== '') {
             goodList.replace('far', 'fas'); // 엄지 체크
@@ -318,7 +321,14 @@
             })
     }
 
+    // 스크롤 높이 계산
+    function scrollHeightCal() {
+        const $textarea = document.getElementById('title-input');
+        $textarea.style.height = $textarea.scrollHeight + 'px';
+    }
+
     (function () {
+
         alertServerMessage();
         toList();
         deleteEvent();
@@ -330,11 +340,32 @@
         goodOrNot();
         // 좋아요 이벤트
         goodCheckEvent();
+        // 스크롤 높이 계산
+        scrollHeightCal();
     })();
 </script>
 
 <!-- 댓글 관련 script -->
 <script>
+    // 댓글 글자수 제한
+    $(document).ready(function() {
+
+        // 엔터키 못치게
+        $('#newCommentContent').keypress(function(e) {
+            if (e.keyCode == 13)
+                e.preventDefault();
+        });
+
+        $('#newCommentContent').on('keyup', function(e) {
+            $('#comment-cnt').html("("+$(this).val().length+" / 300)");
+
+            if($(this).val().length > 300) {
+                alert('300자까지 입력할 수 있습니다..');
+                $(this).val($(this).val().substring(0, 300));
+                $('#comment-cnt').html("(300 / 300)");
+            }
+        });
+    });
 
     // 로그인한 계정의 닉네임
     const currNickname = '${loginUser.userNickname}';
@@ -359,6 +390,11 @@
         const $writerInput = document.getElementById('newCommentWriter');
         const $contentInput = document.getElementById('newCommentContent');
 
+        if ($contentInput.value === ''){
+            alert('댓글을 작성해주세요.');
+            return;
+        }
+
         // 서버로 전송할 데이터들
         const commentData = {
             commentWriter: $writerInput.value,
@@ -382,6 +418,7 @@
                     // 댓글 입력 창 초기화
                     $writerInput.value = '${loginUser.userNickname}';
                     $contentInput.value = '';
+                    document.getElementById('comment-cnt').textContent = '(0 / 300)';
                     // 댓글 목록 재요청
                     showComment(document.querySelector('.pagination').dataset.fp);
                 } else {
@@ -519,7 +556,6 @@
 
     // 댓글 수정화면 열기, 삭제 처리 핸들러 정의
     function commentEditAndDelHandler(e) {
-
         const cno = e.target.parentElement.parentElement.parentElement.dataset.commentid;
 
         e.preventDefault();

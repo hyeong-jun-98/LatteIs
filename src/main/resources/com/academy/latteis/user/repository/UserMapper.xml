@@ -21,6 +21,7 @@
         values (#{userNickname}, #{userName}, #{userEmail}, #{password}, #{userYear}, #{login})
     </insert>
 
+
     <select id="isDuplicate" resultType="int">
         SELECT COUNT(*)
         FROM user

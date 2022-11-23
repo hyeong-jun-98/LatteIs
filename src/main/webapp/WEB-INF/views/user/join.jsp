@@ -202,7 +202,7 @@
             // 닉네임 중복 확인 검증
             else {
 
-                fetch('/user/check?type=user_nickname&value=' + $idInput.val())
+                fetch('/user/check?loginType=latteis&type=user_nickname&value=' + $idInput.val())
                     .then(res => res.text())
                     .then(flag => {
                         console.log('flag:', flag);
@@ -302,7 +302,7 @@
             } else {
 
                 //이메일 중복확인 비동기 통신
-                fetch('/user/check?type=user_email&value=' + $emailInput.val())
+                fetch('/user/check?loginType=latteis&type=user_email&value=' + $emailInput.val())
                     .then(res => res.text())
                     .then(flag => {
                         //console.log(flag);

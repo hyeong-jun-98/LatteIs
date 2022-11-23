@@ -15,9 +15,10 @@
     <%--  topbar  --%>
     <link href="/css/topbar.css" rel="stylesheet">
 
-    <style>
+    <!--제이쿼리-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
-    </style>
 </head>
 
 <body>
@@ -31,19 +32,20 @@
             <input type="hidden" name="pageNum" value="${page.pageNum}">
             <input type="hidden" name="amount" value="${page.amount}">
             <input type="hidden" name="boardNo" value="${board.boardNo}">
+            <input type="hidden" name="generation" value="${board.generation}">
 
             <h1 class="main-title">키워드 게시판</h1>
             <h2 class="board-no-title">${board.boardNo}번 게시물</h2>
 
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">작성자</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="이름" name="writer"
+                <label for="writer-input" class="form-label">작성자</label>
+                <input type="text" class="form-control" id="writer-input" placeholder="이름" name="writer"
                        value="${board.writer}" readonly>
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput2" class="form-label">글제목</label>
-                <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="제목" name="title"
-                       value="${board.title}">
+                <label for="title-input" class="form-label">글제목</label>
+                <textarea type="text" class="form-control" id="title-input" placeholder="제목" name="title"
+                          rows="1" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'">${board.title}</textarea>
             </div>
 
             <div class="mb-3">
@@ -63,12 +65,36 @@
 </div>
 
 <script>
+    // 제목 글자수 제한
+    $(document).ready(function () {
+
+        // 엔터키 못치게
+        $('#title-input').keypress(function (e) {
+            if (e.keyCode == 13)
+                e.preventDefault();
+        });
+
+        $('#title-input').on('keyup', function (e) {
+            if ($(this).val().length > 100) {
+                alert('제목을 100자 이내로 입력하세요.');
+                $(this).val($(this).val().substring(0, 100));
+            }
+        });
+    });
 
     // 게시글 수정 완료
     function edit(){
         // 완료버튼
         const $editBtn = document.getElementById("apply-btn");
         $editBtn.onclick=e=>{
+            if (document.getElementById('title-input').value === '') {
+                alert('제목을 입력해주세요');
+                return;
+            } else if (document.querySelector('.main-content').value === '') {
+                alert('글 내용을 작성해주세요.');
+                return;
+            }
+
             if (!confirm("수정하시겠습니까?"))return;
             const $form = document.querySelector("form");
             $form.method="post";
@@ -88,8 +114,10 @@
 
     // 스크롤 높이 계산
     function scrollHeightCal(){
-        const $textarea = document.querySelector('#exampleFormControlTextarea1');
-        $textarea.style.height = $textarea.scrollHeight + 'px';
+        const $title = document.querySelector('#title-input');
+        const $content = document.querySelector('#exampleFormControlTextarea1');
+        $title.style.height = $title.scrollHeight + 'px';
+        $content.style.height = $content.scrollHeight + 'px';
     }
 
     (function(){
