@@ -39,8 +39,6 @@ public class KakaoController {
     @GetMapping(KAKAO_REDIRECT_URI)
     public String kakaoLogin(String code, HttpSession session, HttpServletRequest request) throws Exception {
         log.info("{} GET!! code - {}", KAKAO_REDIRECT_URI, code);
-        String referer=request.getHeader("Referer");
-        log.info("카카오 전 페이지 주소 {}", referer);
         // 인가코드를 통해 액세스토큰 발급받기
         // 우리서버에서 카카오서버로 통신을 해야함.
         String accessToken = kakaoService.getAccessToken(code);
@@ -62,7 +60,11 @@ public class KakaoController {
             return "redirect:/kakaoinfo";
         }
 
-        return "redirect:/user/login";
+        String referer = (String) session.getAttribute("referer");
+        log.info("referer 테스트 - {}", referer);
+        String url = referer.substring(referer.indexOf("/"));
+        log.info("자르기 테스트 - {}",url);
+        return "redirect:"+url;
     }
     @GetMapping("kakaoinfo")
     public String kakaoInfo(HttpServletRequest request){
@@ -74,9 +76,13 @@ public class KakaoController {
         log.info("true? false? {}", check);
         String referer = (String) session.getAttribute("referer");
         log.info("referer 테스트 - {}", referer);
-        String url[] = referer.split("4");
-        log.info("자르기 테스트 - {}",url[1]);
-        return check ? "redirect:"+url[1] : "/user/kakao_nickname";
+        if(referer !=null) {
+            String url = referer.substring(referer.indexOf("/"));
+            log.info("자르기 테스트 - {}",url);
+            return check ? "redirect:"+url : "/user/kakao_nickname";
+        }
+        return check ? "redirect:/" : "/user/kakao_nickname";
+
     }
     @PostMapping("/kakaonickname")
     public String kakaoNickname(HttpSession session, User user) throws Exception{
@@ -89,9 +95,9 @@ public class KakaoController {
         kakaoService.kakaoJoin(user, login);
         String referer = (String) session.getAttribute("referer");
         log.info("referer 테스트 - {}", referer);
-        String url[] = referer.split("4");
-        log.info("자르기 테스트 - {}",url[1]);
-        return "redirect:"+url[1];
+        String url = referer.substring(referer.indexOf("/"));
+        log.info("자르기 테스트 - {}",url);
+        return "redirect:"+url;
     }
 
     // 카카오 로그아웃

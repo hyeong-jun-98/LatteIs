@@ -91,8 +91,8 @@ public class UserController {
                 String login = "latteis";
                 String referer = (String) session.getAttribute("referer");
                 log.info("referer 테스트 - {}", referer);
-                String url[] = referer.split("4");
-                log.info("자르기 테스트 - {}",url[1]);
+                String url = referer.substring(referer.indexOf("/"));
+                log.info("자르기 테스트 - {}",url);
                 inputData.setLogin(login);
 //        log.info("session timeout : {}", session.getMaxInactiveInterval());
 
@@ -102,7 +102,7 @@ public class UserController {
                 if (flag == LoginFlag.SUCCESS) {
                         log.info("login success!!");
                         String redirectURI = (String) session.getAttribute("redirectURI");
-                        return "redirect:"+url[1];
+                        return "redirect:"+url;
                 }
                 model.addAttribute("loginMsg", flag);
                 return "/user/login";

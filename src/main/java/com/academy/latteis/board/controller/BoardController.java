@@ -150,35 +150,49 @@ public class BoardController {
     @GetMapping("/delete")
     public String remove(Long boardNo, Model model, @ModelAttribute("page") Page page, HttpServletRequest request) {
         log.info("controller request {} GET! - boardNo={}, generation={}", request.getRequestURI(), boardNo);
-
+        String uri = request.getRequestURI();
         model.addAttribute("boardNo", boardNo);
         model.addAttribute("validate", boardService.getUser(boardNo));
+        String where=  null;
+        if(uri.equals("/freeboard/delete")){
+            where = "freeboard/process-delete";
+        }else if(uri.equals("/generation/delete")){
+            where = "generationboard/process-delete";
+        }else{
+            where = "keywordboard/process-delete";
+        }
 
-        return request.getRequestURI().equals("/freeboard/delete") ? "freeboard/process-delete" : "generationboard/process-delete";
+        return where;
     }
 
     // 게시글 삭제 확정 요청
     @PostMapping("/delete")
     public String remove(Long boardNo, RedirectAttributes ra, @ModelAttribute("page") Page page, HttpServletRequest request) {
         String uri = request.getRequestURI();
+        String where = null;
         log.info("controller request {} POST! - {}", uri);
 
         boolean flag = boardService.removeService(boardNo);
         if (flag) ra.addFlashAttribute("msg", "delete-success");
 
         HttpSession session = request.getSession();
-        if (uri.equals("/generation/delete")) {
-            return flag ? "redirect:/generation/list?generation=" + session.getAttribute("sessionGeneration")
-                    : "redirect:/generation/list?generation=" + session.getAttribute("sessionGeneration");
+        if(uri.equals("/freeboard/delete")){
+            where = "redirect:/freeboard/list";
+        }else if(uri.equals("/generation/delete")){
+            where = "redirect:/generation/list?generation=" + session.getAttribute("sessionGeneration");
+        }else{
+            where = "redirect:/keywordboard/list";
         }
-        return flag ? "redirect:/freeboard/list" : "redirect:/freeboard/list";
+
+        return where;
     }
 
     // 게시글 수정 화면 요청
     @GetMapping("/edit")
     public String edit(Long boardNo, Model model, Page page, HttpServletResponse response, HttpServletRequest request) {
         log.info("controller request {} GET! -  boardNo={}", request.getRequestURI(), boardNo);
-
+        String uri = request.getRequestURI();
+        String where = null;
         List<BoardGoodDTO> boardList = boardService.findOneService(boardNo, response, request);
         BoardGoodDTO boardGoodDTO = boardList.get(0);
 
@@ -186,23 +200,32 @@ public class BoardController {
         model.addAttribute("boardNo", boardNo);
         model.addAttribute("page", page);
         model.addAttribute("validate", boardService.getUser(boardNo));
-
-        return request.getRequestURI().equals("/freeboard/edit") ? "freeboard/freeboard-edit" : "generationboard/generation-edit";
+        if(uri.equals("/freeboard/edit")){
+            where = "freeboard/freeboard-edit";
+        }else if(uri.equals("/generation/edit")){
+            where = "generationboard/generation-edit";
+        }else {
+            where = "keywordboard/keyword-edit";
+        }
+        return where;
     }
 
     // 게시글 수정 요청
     @PostMapping("/edit")
     public String edit(Board board, Page page, HttpServletRequest request) {
         String uri = request.getRequestURI();
+        String where = null;
         log.info("controller request {} POST!!", uri);
 
         HttpSession session = request.getSession();
         boolean flag = boardService.editService(board);
-        if (uri.equals("/generation/edit")) {
-            return flag ? "redirect:/generation/detail/" + board.getBoardNo() + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount()
-                    : "redirect:/generation/list";
+        if (uri.equals("/freeboard/edit")) {
+            where = "redirect:/freeboard/detail/" + board.getBoardNo() + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount();
+        }else if(uri.equals("/generation/edit")){
+            where = "redirect:/generation/detail/" + board.getBoardNo() + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount();
+        }else{
+            where = "redirect:/keywordboard/detail/" + board.getBoardNo() + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount();
         }
-        return flag ? "redirect:/freeboard/detail/" + board.getBoardNo() + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount()
-                : "redirect:/freeboard/list";
+        return where;
     }
 }
