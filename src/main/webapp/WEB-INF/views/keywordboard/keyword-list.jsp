@@ -65,11 +65,11 @@
             <!-- 한 페이지 당 보여질 게시글 수 => amount -->
             <ul class="amount">
                 <li data-amount="10"><a class="btn btn-outline-warning"
-                                        href="/freeboard/list?amount=10&type=${search.type}&keyword=${search.keyword}">10</a></li>
+                                        href="/keyword/list?amount=10&type=${search.type}&keyword=${search.keyword}">10</a></li>
                 <li  data-amount="20"><a class="btn btn-outline-warning"
-                                         href="/freeboard/list?amount=20&type=${search.type}&keyword=${search.keyword}">20</a></li>
+                                         href="/keyword/list?amount=20&type=${search.type}&keyword=${search.keyword}">20</a></li>
                 <li  data-amount="30"><a class="btn btn-outline-warning"
-                                         href="/freeboard/list?amount=30&type=${search.type}&keyword=${search.keyword}">30</a></li>
+                                         href="/keyword/list?amount=30&type=${search.type}&keyword=${search.keyword}">30</a></li>
             </ul>
 
         </div>
@@ -112,20 +112,20 @@
 
                     <c:if test="${pm.prev}">
                         <li class="page-item"><a class="page-link"
-                                                 href="/freeboard/list?pageNum=${pm.beginPage - 1}&amount=${pm.page.amount}&type=${search.type}&keyword=${search.keyword}">prev</a>
+                                                 href="/keyword/list?pageNum=${pm.beginPage - 1}&amount=${pm.page.amount}&type=${search.type}&keyword=${search.keyword}">prev</a>
                         </li>
                     </c:if>
 
                     <c:forEach var="n" begin="${pm.beginPage}" end="${pm.endPage}" step="1">
                         <li data-page-num="${n}" class="page-item">
                             <a class="page-link"
-                               href="/freeboard/list?pageNum=${n}&amount=${pm.page.amount}&type=${search.type}&keyword=${search.keyword}">${n}</a>
+                               href="/keyword/list?pageNum=${n}&amount=${pm.page.amount}&type=${search.type}&keyword=${search.keyword}">${n}</a>
                         </li>
                     </c:forEach>
 
                     <c:if test="${pm.next}">
                         <li class="page-item"><a class="page-link"
-                                                 href="/freeboard/list?pageNum=${pm.endPage + 1}&amount=${pm.page.amount}&type=${search.type}&keyword=${search.keyword}">next</a>
+                                                 href="/keyword/list?pageNum=${pm.endPage + 1}&amount=${pm.page.amount}&type=${search.type}&keyword=${search.keyword}">next</a>
                         </li>
                     </c:if>
 
@@ -183,7 +183,7 @@
             if (!e.target.matches('a')) return;
             const boardNo = e.target.parentNode.parentNode.firstElementChild.textContent;
             console.log(boardNo);
-            location.href = "/freeboard/detail/"
+            location.href = "/keyword/detail/"
                 + boardNo + "?pageNum=${pm.page.pageNum}&amount=${pm.page.amount}"
             ;
         }

@@ -35,7 +35,7 @@
 
     <div class="content-container">
 
-        <h1 class="main-title">자유게시판</h1>
+        <h1 class="main-title">키워드 게시판</h1>
         <h2 class="board-no-title">${board.boardNo}번 게시물</h2>
 
         <div class="mb-3">
@@ -187,7 +187,7 @@
         // 목록 버튼
         const $toList = document.getElementById('to-list');
         $toList.onclick = e => {
-            location.href = "/freeboard/list?pageNum=${page.pageNum}&amount=${page.amount}";
+            location.href = "/keyword/list?pageNum=${page.pageNum}&amount=${page.amount}";
         }
     }
 
@@ -200,7 +200,7 @@
             $delBtn.onclick = e => {
                 if (!confirm("삭제하시겠습니까?")) return;
                 console.log(${board.boardNo});
-                location.href = "/freeboard/delete?boardNo=${board.boardNo}&pageNum=${page.pageNum}&amount=${page.amount}";
+                location.href = "/keyword/delete?boardNo=${board.boardNo}&pageNum=${page.pageNum}&amount=${page.amount}";
             }
         }
     }
@@ -211,7 +211,7 @@
         const $editBtn = document.getElementById("edit-btn");
         if ($editBtn !== null) {
             $editBtn.onclick = e => {
-                location.href = "/freeboard/edit?boardNo=${board.boardNo}&pageNum=${page.pageNum}&amount=${page.amount}";
+                location.href = "/keyword/edit?boardNo=${board.boardNo}&pageNum=${page.pageNum}&amount=${page.amount}";
             }
         }
     }

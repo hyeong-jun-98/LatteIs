@@ -32,7 +32,7 @@
             <input type="hidden" name="amount" value="${page.amount}">
             <input type="hidden" name="boardNo" value="${board.boardNo}">
 
-            <h1 class="main-title">자유게시판</h1>
+            <h1 class="main-title">키워드 게시판</h1>
             <h2 class="board-no-title">${board.boardNo}번 게시물</h2>
 
             <div class="mb-3">
@@ -72,7 +72,7 @@
             if (!confirm("수정하시겠습니까?"))return;
             const $form = document.querySelector("form");
             $form.method="post";
-            $form.action="/freeboard/edit";
+            $form.action="/keyword/edit";
             $form.submit();
         }
     }
@@ -82,7 +82,7 @@
         // 취소 버튼
         const $cancelBtn = document.getElementById('cancel-btn');
         $cancelBtn.onclick = e =>{
-            location.href = "/freeboard/detail/${board.boardNo}?pageNum=${page.pageNum}&amount=${page.amount}";
+            location.href = "/keyword/detail/${board.boardNo}?pageNum=${page.pageNum}&amount=${page.amount}";
         }
     }
 

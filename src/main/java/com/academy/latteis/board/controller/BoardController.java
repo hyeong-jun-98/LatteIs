@@ -87,7 +87,8 @@ public class BoardController {
     @GetMapping("/detail/{boardNo}")
     public String getDetail(@PathVariable Long boardNo, Model model, Page page,
                             HttpServletResponse response, HttpServletRequest request, @ModelAttribute("msg") String msg) {
-
+        String url = request.getRequestURI();
+        String where = null;
         log.info("controller request {} GET! - {}", request.getRequestURI(), boardNo);
         List<BoardGoodDTO> boardList = boardService.findOneService(boardNo, response, request);
         BoardGoodDTO board = boardList.get(0);  // boardList에서 아무거나 하나 뽑음
@@ -96,7 +97,14 @@ public class BoardController {
         model.addAttribute("board", board);
         model.addAttribute("page", page);
 
-        return request.getRequestURI().equals("/freeboard/detail/" + boardNo) ? "freeboard/freeboard-detail" : "generationboard/generation-detail";
+        if(url.equals("/freeboard/detail/" + boardNo)){
+            where = "freeboard/freeboard-detail";
+        } else if (url.equals("/generation/detail/" + boardNo)) {
+            where = "generationboard/generation-detail";
+        }else{
+            where = "keywordboard/keyword-detail";
+        }
+        return where;
     }
 
     // 게시글 작성 화면
@@ -224,7 +232,7 @@ public class BoardController {
         }else if(uri.equals("/generation/edit")){
             where = "redirect:/generation/detail/" + board.getBoardNo() + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount();
         }else{
-            where = "redirect:/keywordboard/detail/" + board.getBoardNo() + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount();
+            where = "redirect:/keyword/detail/" + board.getBoardNo() + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount();
         }
         return where;
     }
