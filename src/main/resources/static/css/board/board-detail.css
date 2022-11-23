@@ -73,7 +73,7 @@ textarea {
 
 /* 댓글 스타일 적용*/
 #comments {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 #commentData{
     margin-bottom: 16px;
@@ -84,6 +84,10 @@ textarea {
 .row {
     justify-content: space-between;
 }
+.offset-md-1 {
+    margin-left: 0px;
+    width: 100%;
+}
 .offset-md-2 {
     display: flex;
     justify-content: end;
@@ -92,8 +96,16 @@ textarea {
 .bottom-line {
     border-bottom: 1px solid lightgray;
 }
+#commentAddBtn {
+    margin-bottom: 6px;
+}
 #commentEditBtn, #commentDelBtn {
     height: 30px;
+}
+
+/* 좋아요 체크 */
+#good-check {
+    cursor: pointer;
 }
 
 /* 페이지 버튼 스타일 */
