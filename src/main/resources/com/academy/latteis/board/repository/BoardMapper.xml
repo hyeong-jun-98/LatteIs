@@ -60,7 +60,7 @@
     <select id="findAllFree" resultMap="boardConvertMap">
         SELECT *
         FROM board
-        WHERE generation IS NULL
+        WHERE generation IS NULL and topic_no is null
 
         <include refid="searchInclude"/>
 
