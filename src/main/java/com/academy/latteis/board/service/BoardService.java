@@ -41,6 +41,7 @@ public class BoardService {
 
         return flag;
     }
+
     public boolean writeGenerationService(Board board) {
         log.info("save service start - {}", board);
 
@@ -49,7 +50,8 @@ public class BoardService {
 
         return flag;
     }
-    public boolean writeKeywordService(Board board){
+
+    public boolean writeKeywordService(Board board) {
         boolean flag = boardMapper.writeKeyword(board);
         return flag;
     }
@@ -62,6 +64,11 @@ public class BoardService {
 
         List<BoardConvertDTO> boardList = boardMapper.findAllFree(search);
 
+        // 반복문 돌려서 boardList 안에 있는 게시글에 각각 좋아요 정보를 넣어줌
+        for (BoardConvertDTO b : boardList) {
+            b.setGood((long) goodMapper.goodCnt(b.getBoardNo()));
+        }
+
         // 목록 중간 데이터 처리
         processConverting(boardList);
 
@@ -69,12 +76,18 @@ public class BoardService {
         findDataMap.put("totalCount", boardMapper.getTotalCountFree(search));
         return findDataMap;
     }
+
     public Map<String, Object> findAllGenerationService(Search search, Long generation) {
         log.info("findAll service start");
 
         Map<String, Object> findDataMap = new HashMap<>();
 
         List<BoardConvertDTO> boardList = boardMapper.findAllGeneration(search, generation);
+
+        // 반복문 돌려서 boardList 안에 있는 게시글에 각각 좋아요 정보를 넣어줌
+        for (BoardConvertDTO b : boardList) {
+            b.setGood((long) goodMapper.goodCnt(b.getBoardNo()));
+        }
 
         // 목록 중간 데이터 처리
         processConverting(boardList);
@@ -109,27 +122,27 @@ public class BoardService {
     }
 
     // 날짜 형식 초기화 메소드
-    private void convertDateFormat(BoardConvertDTO b){
+    private void convertDateFormat(BoardConvertDTO b) {
         Date date = b.getRegdate();
         SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd a hh:mm");
         b.setPrettierDate(sdf.format(date));
     }
 
     // 제목 단축 메소드
-    private void substringTitle(BoardConvertDTO b){
+    private void substringTitle(BoardConvertDTO b) {
         // 만약에 글제목이 10글자 이상이라면
         // 10글자만 보여주고 나머지는 ... 처리
         String title = b.getTitle();
-        if (title.length()> 10){
+        if (title.length() > 10) {
             String subStr = title.substring(0, 10);
             b.setShortTitle(subStr + "...");
-        }else {
+        } else {
             b.setShortTitle(title);
         }
     }
 
     // 신규 게시물 여부
-    private void checkNewPost(BoardConvertDTO b){
+    private void checkNewPost(BoardConvertDTO b) {
         // 게시물의 작성일자와 현재 시간을 비교해서 신규 게시물인지를 판단한다
 
         // 게시물의 작성시간
@@ -144,13 +157,13 @@ public class BoardService {
         // 신규 게시물 제한 시간
         long limitTime = 60 * 5 * 1000;
 
-        if (diff < limitTime){
+        if (diff < limitTime) {
             b.setNewPost(true);
         }
     }
 
     // 댓글 수 가져오기
-    private void setCommentCount(BoardConvertDTO b){
+    private void setCommentCount(BoardConvertDTO b) {
         b.setCommentCount(commentMapper.getCommentCount(b.getBoardNo()));
     }
 
@@ -168,16 +181,15 @@ public class BoardService {
     }
 
     // 조회수 상승 처리
-    private void makeHit(Long boardNo, HttpServletResponse response, HttpServletRequest request){
+    private void makeHit(Long boardNo, HttpServletResponse response, HttpServletRequest request) {
         // 먼저 쿠키를 조회함 => 해당 이름의 쿠키가 있으면 쿠키가 들어올 것이고, 없다면 null이 들어올 것임
-        Cookie foundCookie = WebUtils.getCookie(request, "b"+boardNo);
+        Cookie foundCookie = WebUtils.getCookie(request, "b" + boardNo);
 
-        if (foundCookie == null){   // 쿠키가 없다면~~
+        if (foundCookie == null) {   // 쿠키가 없다면~~
             boardMapper.upHit(boardNo); // 조회수 상승 시키고
-            Cookie cookie = new Cookie("b"+boardNo, String.valueOf(boardNo));   // 쿠키 생성
+            Cookie cookie = new Cookie("b" + boardNo, String.valueOf(boardNo));   // 쿠키 생성
             cookie.setMaxAge(60);   // 쿠키 수명을 1분으로 설정
-            cookie.setPath("/**/detail");   // 쿠키 작동 범위
-//            cookie.setPath("/generation/detail");   // 쿠키 작동 범위
+            cookie.setPath("/");   // 쿠키 작동 범위
 
             response.addCookie(cookie);   // 클라이언트에게 쿠키 전송
         }
@@ -207,7 +219,7 @@ public class BoardService {
     }
 
     // 게시글 번호로 작성자 회원정보 가져오기
-    public ValidateUserDTO getUser(Long boardNo){
+    public ValidateUserDTO getUser(Long boardNo) {
         return boardMapper.findUserByBoardNo(boardNo);
     }
 

@@ -238,8 +238,7 @@
         fetch(Good_URL + '?boardNo=${board.boardNo}')
             .then(res => res.text())
             .then(cnt => {
-                // 댓글 수 배치
-                console.log(cnt);
+                // 좋아요 수 배치
                 document.getElementById('goodCnt').textContent = cnt;
             })
     }
