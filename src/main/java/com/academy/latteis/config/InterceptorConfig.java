@@ -1,11 +1,8 @@
 package com.academy.latteis.config;
 
-import com.academy.latteis.interceptor.AfterLoginInterceptor;
-import com.academy.latteis.interceptor.AutoLoginInterceptor;
+import com.academy.latteis.interceptor.*;
 
 
-import com.academy.latteis.interceptor.DiaryInterceptor;
-import com.academy.latteis.interceptor.BoardInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -20,6 +17,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     private final AfterLoginInterceptor afterLoginInterceptor;
     private final AutoLoginInterceptor autoLoginInterceptor;
     private final DiaryInterceptor diaryInterceptor;
+    private final HomeInterceptor homeInterceptor;
 
     // 인터셉터 설정 추가 메서드
     @Override
@@ -36,8 +34,11 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
         // 애프터 로그인 인터셉터 설정
         registry.addInterceptor(afterLoginInterceptor)
-                .addPathPatterns("/user/login", "/user/join", "/");
+                .addPathPatterns("/user/login", "/user/join");
 
+        // 홈 화면 인터샙터 설정
+        registry.addInterceptor(homeInterceptor)
+                        .addPathPatterns("/");
         // 자동 로그인 인터셉터 설정
         registry.addInterceptor(autoLoginInterceptor)
                 .addPathPatterns("/","/**");

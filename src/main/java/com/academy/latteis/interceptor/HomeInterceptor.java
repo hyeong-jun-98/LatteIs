@@ -9,11 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import static com.academy.latteis.util.LoginUtils.*;
-
 @Configuration
 @Log4j2
-public class AfterLoginInterceptor implements HandlerInterceptor {
+public class HomeInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -23,7 +21,13 @@ public class AfterLoginInterceptor implements HandlerInterceptor {
         String redirect=null;
         log.info("인터셉터 유저 탐색 {}", user);
         if(user!=null) {
-            redirect = "/";
+            if (user.getUserNickname() == null && user.getUserEmail() != null) {
+                session.invalidate();
+                redirect = "/user/login";
+            }
+            else{
+                return true;
+            }
             response.sendRedirect(redirect);
             return false;
         }
