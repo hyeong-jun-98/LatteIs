@@ -62,6 +62,9 @@
         select * from diary where diary_show = '공개' and diary_good >= 4 order by diary_good desc
         limit #{start}, #{amount}
     </select>
+
+<!--    최고 베스트글 뽑아오기-->
+    
     
 
 
