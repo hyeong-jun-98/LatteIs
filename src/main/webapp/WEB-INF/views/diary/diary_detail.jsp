@@ -76,11 +76,11 @@
                 <c:if test="${user.userNickname != null}">
                 <div class="good-part">
                     <%--       false 일 때       --%>
-                    <c:if test="${!goodCheck}">
+                    <c:if test="${!goodCheckCT}">
                     <button type="button" id="btnGood" class="badge badge-primary custom-good-bt" onclick="location.href='/diary/goodCheck/${d.diaryNo}' ">좋아요</button>
                     </c:if>
                         <%--      true일 때        --%>
-                    <c:if test="${goodCheck}">
+                    <c:if test="${goodCheckCT}">
                         <button type="button" id="btnGood" class="badge badge-primary custom-good-bt" onclick="location.href='/diary/goodCheck/${d.diaryNo}' ">좋아요취소</button>
                     </c:if>
                 </div>

@@ -59,7 +59,7 @@
     
 <!--    베스트 일기 리스트-->
     <select id="findBestDiary" resultMap="diaryMap">
-        select * from diary where diary_show = '공개' and diary_good >= 10 order by diary_good desc
+        select * from diary where diary_show = '공개' and diary_good >= 4 order by diary_good desc
         limit #{start}, #{amount}
     </select>
     
