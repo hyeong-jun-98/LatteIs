@@ -46,4 +46,10 @@ public interface BoardMapper {
 
     // 게시물 번호로 게시글 작성자의 계정명과 권한 가져오기
     ValidateUserDTO findUserByBoardNo(Long boardNo);
+
+    // 파일 첨부 기능 처리
+    void addFile(String fileName);
+
+    // 게시물에 붙어있는 첨부파일 경로명 전부 조회
+    List<String> findFileNames(Long boardNo);
 }

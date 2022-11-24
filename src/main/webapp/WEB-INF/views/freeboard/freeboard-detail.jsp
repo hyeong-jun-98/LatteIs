@@ -21,8 +21,20 @@
     <link href="/css/topbar.css" rel="stylesheet">
 
     <!--제이쿼리-->
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
+    <style>
+        .uploaded-list {
+            display: flex;
+        }
+
+        .img-sizing {
+            display: block;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
 </head>
 <body>
 
@@ -51,6 +63,11 @@
             <p class="form-control main-content" id="exampleFormControlTextarea1">
                 ${board.content}
             </p>
+        </div>
+
+        <!-- 파일 첨부 영역 -->
+        <div class="form-group">
+            <ul class="uploaded-list"></ul>
         </div>
 
         <!-- 댓글 영역 -->
@@ -342,18 +359,18 @@
 <!-- 댓글 관련 script -->
 <script>
     // 댓글 글자수 제한
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         // 엔터키 못치게
-        $('#newCommentContent').keypress(function(e) {
+        $('#newCommentContent').keypress(function (e) {
             if (e.keyCode == 13)
                 e.preventDefault();
         });
 
-        $('#newCommentContent').on('keyup', function(e) {
-            $('#comment-cnt').html("("+$(this).val().length+" / 300)");
+        $('#newCommentContent').on('keyup', function (e) {
+            $('#comment-cnt').html("(" + $(this).val().length + " / 300)");
 
-            if($(this).val().length > 300) {
+            if ($(this).val().length > 300) {
                 alert('300자까지 입력할 수 있습니다..');
                 $(this).val($(this).val().substring(0, 300));
                 $('#comment-cnt').html("(300 / 300)");
@@ -384,7 +401,7 @@
         const $writerInput = document.getElementById('newCommentWriter');
         const $contentInput = document.getElementById('newCommentContent');
 
-        if ($contentInput.value === ''){
+        if ($contentInput.value === '') {
             alert('댓글을 작성해주세요.');
             return;
         }
@@ -652,9 +669,68 @@
 
         // 댓글 수정 요청
         editComment();
-
     })();
+</script>
 
+<!-- 파일업로드 관련 스크립트 -->
+<script>
+    $(document).ready(function(){
+
+        // 이미지 파일 판단
+        function isImageFile(originFileName){
+            //정규표현식
+            const pattern = /jpg$|gif$|png$/i;
+            return originFileName.match(pattern);
+        }
+
+        // 파일의 확장자에 따른 렌더링 처리
+        function checkExtType(fileName){
+            // 원본 파일명 추출
+            let originFileName = fileName.substring(fileName.indexOf("_") + 1);
+
+            // 확장자 추출 후 이미지인지 아닌지 확인
+            if (isImageFile(originFileName)) {  // 파일이 이미지라면
+                const $img = document.createElement('img');
+                $img.classList.add('img-sizing');
+                $img.setAttribute('src', '/loadFile?fileName=' + fileName);
+                $img.setAttribute('alt', originFileName);
+                $('.uploaded-list').append($img);
+
+            } else {    // 이미지가 아니라면 다운로드 링크를 생성
+                const $a = document.createElement('a');
+                $a.setAttribute('href', '/loadFile?fileName=' + fileName);
+
+                const $img = document.createElement('img');
+                $img.classList.add('img-sizing');
+                $img.setAttribute('src', '/img/file_icon.jpg');
+                $img.setAttribute('alt', originFileName);
+
+                $a.append($img);
+                $a.innerHTML += '<span>' + originFileName + '</span>';
+
+                $('.uploaded-list').append($a);
+            }
+        }
+
+        // 드롭한 파일을 화면에 보여주는 함수
+        function showFileData(fileNames){
+            for (let fileName of fileNames) {
+                checkExtType(fileName);
+            }
+        }
+
+        // 파일 목록 불러오기 함수
+        function showFileList(){
+            fetch('/freeboard/file/' + bno)
+                .then(res => res.json())
+                .then(fileNames => {
+                    showFileData(fileNames);
+                })
+        }
+
+        // 파일 목록 출력~!
+        showFileList();
+    })
 </script>
 </body>
 </html>
