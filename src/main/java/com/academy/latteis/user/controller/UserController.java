@@ -73,8 +73,8 @@ public class UserController {
 
                 request.getSession().setAttribute("redirectURI", referer);
 
-                model.addAttribute("kakaoAppKey", KAKAO_APP_KEY);
-                model.addAttribute("kakaoRedirect", KAKAO_REDIRECT_URI);
+                request.getSession().setAttribute("kakaoAppKey", KAKAO_APP_KEY);
+                request.getSession().setAttribute("kakaoRedirect", KAKAO_REDIRECT_URI);
 
         }
         //로그인요청

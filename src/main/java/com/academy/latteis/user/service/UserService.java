@@ -110,10 +110,11 @@ public class UserService {
         Cookie c = getAutoLoginCookie(request);
         User user = (User) request.getSession().getAttribute("loginUser");
         log.info("유저 로그인 탐색 {}", user);
+        log.info("쿠키 삭제 전 {}", c);
         if (c != null) {
             c.setMaxAge(0);
             response.addCookie(c);
-
+            log.info("쿠키 삭제 후 {}", c);
             //2. 데이터베이스 처리
             AutoLoginDTO dto = new AutoLoginDTO(user_email, "none", new Date(), user.getLogin());
             userMapper.saveAutoLoginValue(dto);

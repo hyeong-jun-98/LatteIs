@@ -51,7 +51,7 @@
     <select id="findUserBySessionId" resultMap="userMap">
 
         SELECT * FROM user
-        WHERE session_id = #{sessionId} and login=#{login}
+        WHERE session_id = #{sessionId}
 
     </select>
 
