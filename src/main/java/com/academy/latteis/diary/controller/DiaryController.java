@@ -2,6 +2,7 @@ package com.academy.latteis.diary.controller;
 
 import com.academy.latteis.common.page.DiaryPage;
 import com.academy.latteis.common.page.DiaryPageMaker;
+import com.academy.latteis.config.InterceptorConfig;
 import com.academy.latteis.diary.domain.Diary;
 import com.academy.latteis.diary.domain.Good;
 import com.academy.latteis.diary.dto.ValidateDiaryUserDTO;
@@ -159,16 +160,36 @@ public class DiaryController {
 
         log.info("/detail/{} GET!!", diaryNo);
 
-        Diary diary = diaryService.findOneService(diaryNo,request, response);
+        Diary diary = diaryService.findOneService(diaryNo, request, response);
         log.info("return data diary: {}", diary);
+
+
 
         User loginUser = (User) session.getAttribute("loginUser");
         log.info("로그인 유저 데이터 {}", loginUser);
 
+        boolean check = false;
 
+        if(loginUser != null) {
+            check = diaryService.goodCheck(diaryNo, (long) loginUser.getUserNo());
+        } else {
+            model.addAttribute("user", check);
+        }
+
+
+        log.info("상세화면 컨트롤러 좋아요 체크  {}", check);
+
+
+
+        model.addAttribute("goodCheckCT",check);
         model.addAttribute("d", diary);
         model.addAttribute("diaryPage", diaryPage);
         model.addAttribute("user", loginUser);
+
+
+        if(diary == null) {
+            return "error/error";
+        }
 
 
         return "diary/diary_detail";
@@ -239,6 +260,7 @@ public class DiaryController {
 
         boolean goodCheck = diaryService.goodCheckService(diaryNo, (long) loginUser.getUserNo());
         ra.addFlashAttribute("goodCheck", goodCheck);
+
         log.info("좋아요 누를 때 {}, {}, {}", diaryNo, (long) loginUser.getUserNo(), goodCheck);
 
         model.addAttribute("loginUser", loginUser);
