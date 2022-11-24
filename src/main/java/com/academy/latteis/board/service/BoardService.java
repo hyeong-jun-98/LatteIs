@@ -39,6 +39,15 @@ public class BoardService {
         // 게시물 내용 DB에 저장
         boolean flag = boardMapper.writeFree(board);
 
+        // 첨부파일 저장
+        List<String> fileNames = board.getFileNames();
+        if (fileNames != null && fileNames.size() > 0){
+            for (String fileName : fileNames) {
+                // 첨부파일 내용 DB에 저장
+                boardMapper.addFile(fileName);
+            }
+        }
+
         return flag;
     }
 
@@ -225,6 +234,11 @@ public class BoardService {
     // 게시글 번호로 작성자 회원정보 가져오기
     public ValidateUserDTO getUser(Long boardNo) {
         return boardMapper.findUserByBoardNo(boardNo);
+    }
+
+    // 첨부파일 목록 가져오기
+    public List<String> getFiles(Long boardNo){
+        return boardMapper.findFileNames(boardNo);
     }
 
 }
