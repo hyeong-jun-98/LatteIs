@@ -3,6 +3,7 @@ package com.academy.latteis.board.domain;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -17,10 +18,12 @@ public class Board {
     private Date regdate;
     private Long hit;
     private Long good;
-    private String img;
     private String userNickname;
     private Long generation;
 
     // fk
     private Long topicNo;
+
+    // 첨부파일들의 이름 목록
+    private List<String> fileNames;
 }

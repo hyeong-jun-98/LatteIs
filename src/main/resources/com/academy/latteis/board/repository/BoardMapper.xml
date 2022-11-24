@@ -163,4 +163,17 @@
                                FROM board
                                WHERE board_no = #{boardNo})
     </select>
+
+    <!-- 첨부파일 추가 -->
+    <insert id="addFile">
+        INSERT INTO file_upload (file_name, board_no)
+        VALUES (#{fileName}, last_insert_id())
+    </insert>
+
+    <!-- 첨부파일 경로명 조회 -->
+    <select id="findFileNames" resultType="string">
+        SELECT file_name
+        FROM file_upload
+        WHERE board_no = #{boardNo}
+    </select>
 </mapper>
