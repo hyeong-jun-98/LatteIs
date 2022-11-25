@@ -20,6 +20,11 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
+    <style>
+        .img-sizing:hover {
+            opacity: 0.5
+        }
+    </style>
 </head>
 <body>
 
@@ -183,7 +188,7 @@
             const formData = new FormData();
 
             // 4. 전송할 파일들을 전부 FormData 안에 포장
-            for (let file of $fileInput[0].files){
+            for (let file of $fileInput[0].files) {
                 formData.append('files', file);
             }
 
@@ -196,6 +201,20 @@
                 .then(res => res.json())
                 .then(fileNames => {
                     showFileData(fileNames);
+                })
+        })
+
+        // 파일 삭제 이벤트
+        $(document).on('click', 'img', function () {
+            const $img = $(this);   // 클릭한 이미지
+            const imgSrc = $img.attr("src");     // 이미지에 담긴 경로
+            const fileName = imgSrc.substring(imgSrc.indexOf('=') + 1);     // 이미지 이름
+
+            fetch(('/deleteFile?fileName=' + fileName), {
+                method: 'DELETE'
+            })
+                .then(function () {
+                    $img.remove();
                 })
         })
     });

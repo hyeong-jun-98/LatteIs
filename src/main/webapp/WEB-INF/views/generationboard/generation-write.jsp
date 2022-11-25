@@ -21,21 +21,9 @@
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
     <style>
-        @font-face {
-            font-family: 'KyoboHand';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
-            font-weight: bold;
-            font-style: normal;
+        .img-sizing:hover {
+            opacity: 0.5
         }
-
-        body {
-            background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
-            background-repeat: no-repeat;
-            background-size: cover;
-            overflow: visible;
-            font-family: KyoboHand;
-        }
-
     </style>
 </head>
 <body>
@@ -227,6 +215,20 @@
                 .then(res => res.json())
                 .then(fileNames => {
                     showFileData(fileNames);
+                })
+        })
+
+        // 파일 삭제 이벤트
+        $(document).on('click', 'img', function () {
+            const $img = $(this);   // 클릭한 이미지
+            const imgSrc = $img.attr("src");     // 이미지에 담긴 경로
+            const fileName = imgSrc.substring(imgSrc.indexOf('=') + 1);     // 이미지 이름
+
+            fetch(('/deleteFile?fileName=' + fileName), {
+                method: 'DELETE'
+            })
+                .then(function () {
+                    $img.remove();
                 })
         })
     });
