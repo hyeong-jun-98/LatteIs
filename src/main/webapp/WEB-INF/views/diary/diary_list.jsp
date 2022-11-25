@@ -214,7 +214,6 @@
         //상세보기 요청 이벤트
         const $table = document.querySelector("#article-container");
         // console.log($table);
-
         $table.addEventListener('click', e => {
 
             // console.log(e.target);

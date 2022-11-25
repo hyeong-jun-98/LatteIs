@@ -189,6 +189,7 @@
         }
     }
 
+
     //현재 위치한 페이지에 active 스타일 부여하기
     function appendPageActive() {
         // 현재 내가 보고있는 페이지 번호
