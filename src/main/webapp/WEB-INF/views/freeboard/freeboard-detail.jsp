@@ -49,15 +49,17 @@
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-            <p class="form-control main-content" id="exampleFormControlTextarea1">
+            <div class="form-control main-content" id="exampleFormControlTextarea1">
                 ${board.content}
-            </p>
+
+                <!-- 파일 첨부 영역 -->
+                <div class="form-group">
+                    <ul class="uploaded-list"></ul>
+                </div>
+            </div>
+
         </div>
 
-        <!-- 파일 첨부 영역 -->
-        <div class="form-group">
-            <ul class="uploaded-list"></ul>
-        </div>
 
         <!-- 댓글 영역 -->
         <div id="comments" class="row">
@@ -663,17 +665,17 @@
 
 <!-- 파일업로드 관련 스크립트 -->
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
 
         // 이미지 파일 판단
-        function isImageFile(originFileName){
+        function isImageFile(originFileName) {
             //정규표현식
             const pattern = /jpg$|gif$|png$/i;
             return originFileName.match(pattern);
         }
 
         // 파일의 확장자에 따른 렌더링 처리
-        function checkExtType(fileName){
+        function checkExtType(fileName) {
             // 원본 파일명 추출
             let originFileName = fileName.substring(fileName.indexOf("_") + 1);
 
@@ -702,14 +704,14 @@
         }
 
         // 드롭한 파일을 화면에 보여주는 함수
-        function showFileData(fileNames){
+        function showFileData(fileNames) {
             for (let fileName of fileNames) {
                 checkExtType(fileName);
             }
         }
 
         // 파일 목록 불러오기 함수
-        function showFileList(){
+        function showFileList() {
             fetch('/freeboard/file/' + bno)
                 .then(res => res.json())
                 .then(fileNames => {
