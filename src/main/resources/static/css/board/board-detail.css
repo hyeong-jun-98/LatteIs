@@ -76,6 +76,9 @@ body{
     width: 100px;
     height: 100px;
 }
+.img-sizing:hover {
+    opacity: 0.5
+}
 
 /* textarea - 제목, 내용 */
 textarea {
