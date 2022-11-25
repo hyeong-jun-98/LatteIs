@@ -33,15 +33,16 @@ public class BoardService {
     private final GoodMapper goodMapper;
 
     // 게시글 작성
+    @Transactional
     public boolean writeFreeService(Board board) {
-        log.info("save service start - {}", board);
+        log.info("save free service start - {}", board);
 
         // 게시물 내용 DB에 저장
         boolean flag = boardMapper.writeFree(board);
 
         // 첨부파일 저장
         List<String> fileNames = board.getFileNames();
-        if (fileNames != null && fileNames.size() > 0){
+        if (fileNames != null && fileNames.size() > 0) {
             for (String fileName : fileNames) {
                 // 첨부파일 내용 DB에 저장
                 boardMapper.addFile(fileName);
@@ -51,11 +52,21 @@ public class BoardService {
         return flag;
     }
 
+    @Transactional
     public boolean writeGenerationService(Board board) {
-        log.info("save service start - {}", board);
+        log.info("save generation service start - {}", board);
 
         // 게시물 내용 DB에 저장
         boolean flag = boardMapper.writeGeneration(board);
+
+        // 첨부파일 저장
+        List<String> fileNames = board.getFileNames();
+        if (fileNames != null && fileNames.size() > 0) {
+            for (String fileName : fileNames) {
+                // 첨부파일 내용 DB에 저장
+                boardMapper.addFile(fileName);
+            }
+        }
 
         return flag;
     }
@@ -237,7 +248,7 @@ public class BoardService {
     }
 
     // 첨부파일 목록 가져오기
-    public List<String> getFiles(Long boardNo){
+    public List<String> getFiles(Long boardNo) {
         return boardMapper.findFileNames(boardNo);
     }
 

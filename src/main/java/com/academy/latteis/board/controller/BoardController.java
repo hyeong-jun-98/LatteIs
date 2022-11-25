@@ -202,7 +202,7 @@ public class BoardController {
         }else if(uri.equals("/generation/delete")){
             where = "redirect:/generation/list?generation=" + session.getAttribute("sessionGeneration");
         }else{
-            where = "redirect:/keywordboard/list";
+            where = "redirect:/keyword/list";
         }
 
         return where;
@@ -255,7 +255,7 @@ public class BoardController {
     @ResponseBody
     public ResponseEntity<List<String>> getFiles(@PathVariable Long boardNo){
         List<String> files = boardService.getFiles(boardNo);
-        log.info("/freeboard/file/{} GET! ASYNC - {}", boardNo, files);
+        log.info("/file/{} GET! ASYNC - {}", boardNo, files);
 
         return new ResponseEntity<>(files, HttpStatus.OK);
     }

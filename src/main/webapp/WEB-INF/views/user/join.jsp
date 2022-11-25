@@ -32,6 +32,7 @@
         border-radius: 20px;
         background: white;
         margin-top: 200px;
+        margin-bottom: 200px;
         padding: 40px;
     }
     .login_form{
@@ -253,11 +254,11 @@
             }
             //비밀번호 확인란 유효성검사
             else if ($("#reloginpw").val() !== $("#loginpw").val()) {
-                $('.check_repass').css('border-color', 'red');
+                $('#reloginpw').css('border-color', 'red');
                 $('.check_repass').html('<b class="c-red">위에랑 똑같이!!</b>');
                 checkArr[2] = false;
             } else {
-                $('.check_repass').css('border-color', 'green');
+                $('#reloginpw').css('border-color', 'green');
                 $('.check_repass').html('<b class="c-green">참 잘했어요</b>');
                 checkArr[2] = true;
             }
