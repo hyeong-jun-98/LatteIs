@@ -284,8 +284,9 @@
         </c:if>
         <c:if test="${loginUser != null}">
         logout();
+        toMyPage();
         </c:if>
         toHome();
-        toMyPage();
+
     })();
 </script>
