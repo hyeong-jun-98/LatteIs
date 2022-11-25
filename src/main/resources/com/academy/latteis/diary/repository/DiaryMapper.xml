@@ -64,7 +64,9 @@
     </select>
 
 <!--    최고 베스트글 뽑아오기-->
-    
+    <select id="findBestOne" resultMap="diaryMap">
+        select * from diary where diary_regdate = (select max(diary_regdate) from diary where diary_show = '공개' and diary_good = (select max(diary_good) from diary));
+    </select>
     
 
 

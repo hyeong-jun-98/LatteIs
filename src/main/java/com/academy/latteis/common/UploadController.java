@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -98,6 +99,22 @@ public class UploadController {
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // 서버에 있는 파일 삭제 요청처리
+    @DeleteMapping("/deleteFile")
+    public ResponseEntity<String> deleteFile(String fileName){
+        log.info("/deleteFile DELETE! - {}", fileName);
+        try {
+            File delFile = new File(UPLOAD_PATH + fileName);
+            if (!delFile.exists()) return new ResponseEntity<>(HttpStatus.OK);
+
+            delFile.delete();
+
+            return new ResponseEntity<>("file-del-success", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }

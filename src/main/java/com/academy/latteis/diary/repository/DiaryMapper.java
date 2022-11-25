@@ -37,6 +37,9 @@ public interface DiaryMapper {
     // 일기 상세 조회
     Diary findOne(Long diaryNo);
 
+    // 일기 베스트 하나 조회
+    Diary findBestOne();
+
     //일기 삭제
     boolean remove(Long diaryNo);
 

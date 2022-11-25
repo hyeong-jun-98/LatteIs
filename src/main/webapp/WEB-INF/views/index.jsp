@@ -38,19 +38,24 @@
             </div>
             <div>스무고개 랭킹</div>
             <div>베스트 게시글</div>
-            <div id="bestDiary">
-                <div>
-                    <div>베스트 일기</div>
-                    <div>Pikachu</div>
-                    <div style="color: grey">22년 11월 24일 오후 01:37</div>
-                    <div style="color: grey">좋아요 : 5</div>
-                </div>
-                <div>
-                    <div>오늘의 기분 : 좋음</div>
-                    <div>아이유 콘서트 가고싶다</div>
-                </div>
+            <%--            <c:forEach var="d" items="${dBOne}">--%>
+            <div id="bestDiary" data-diary-num="${dBOne.diaryNo}">
+                <a href="#" style="color: black">
+                    <div>
+                        <div>베스트 일기</div>
+                        <div>${dBOne.userNickname}</div>
+                        <div>${dBOne.prettierDate}</div>
+                        <div>좋아요 : ${dBOne.diaryGood}</div>
+                    </div>
+                    <div>
+                        <div>오늘의 기분 : ${dBOne.emotion}</div>
+                        <div>${dBOne.diaryContent}</div>
+                    </div>
+                </a>
             </div>
-        </div>
+        <%--            </c:forEach>--%>
+
+>>>>>>>>> Temporary merge branch 2
     </div>
     <div class="keyword_main">
         <div class="keyword_content">
@@ -240,6 +245,36 @@
     //     }
     //     slides[keySlideIndex-1].style.display = "block";
     // }
+
+    // 자세히 보기
+    function detailEvent() {
+        const $table = document.getElementById("bestDiary");
+        $table.addEventListener('click', e => {
+            //     // console.log(e.target);
+
+
+            location.href = '/diary/detail/' + ${dBOne.diaryNo};
+
+            //     if(!e.target.matches('#bestDiary *')){
+            //         // console.log('게시글 내부');
+            //         return;
+            //     }
+            //
+            //     const $targetDiv = e.target.closest('#bestDiary');
+            //     console.log($targetDiv);
+            //
+            //     let diaryNo = $targetDiv.dataset.diaryNum;
+            //     console.log('글 번호 : ' + diaryNo);
+
+
+            // })/
+
+        })
+    }
+
+    (function () {
+        detailEvent();
+    })();
 
 
 </script>

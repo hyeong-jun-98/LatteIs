@@ -115,8 +115,14 @@ public class DiaryController {
         return "diary/diary_bestList";
     }
 
-
-
+//    //일기 베스트 하나 뽑아오기
+//    @GetMapping("/")
+//    public String diaryBestOne (Model model, HttpSession session) {
+//
+//        session.setAttribute("topbar", "diary");
+//
+//        return "index";
+//    }
 
 
 
