@@ -143,6 +143,11 @@
     let quizSlideIndex = 1;
     let diarySlideIndex = 1;
 
+        const $todiary = document.getElementById("bestDiary");
+        $todiary.onclick = e =>{
+            location.href="/diary/list";
+        };
+
     // showSlides(keySlideIndex);
 
     // Next/previous controls
