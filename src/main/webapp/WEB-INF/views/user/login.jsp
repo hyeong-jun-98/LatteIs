@@ -66,8 +66,8 @@
             margin: 5px 0;
             background: white;
         }
-        .login_form .join :nth-child(2){
-            margin-bottom: 100px;
+        .login_form .join :nth-child(3){
+            margin-bottom: 50px;
         }
         .login_form .join a{
             margin-left: 25%;
@@ -118,6 +118,7 @@
             <div class="join">
                 <button id="login">로그인</button>
                 <button id="joinform">회원가입</button>
+                <button id="home">홈으로</button>
                 <a id="custom-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=${kakaoAppKey}&redirect_uri=http://localhost:8184${kakaoRedirect}&response_type=code">
                     <img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300"/>
                 </a>
@@ -152,7 +153,12 @@
     function joinform(){
         const $joingform = document.getElementById("joinform");
         $joingform.onclick = e => {
-            location.href= "join"
+            location.href= "join";
+        }
+    }
+    function home(){
+        document.getElementById("home").onclick = e =>{
+            location.href= "/";
         }
     }
 
@@ -161,6 +167,7 @@
     (function(){
         login();
         joinform();
+        home();
     })();
 </script>
 </html>

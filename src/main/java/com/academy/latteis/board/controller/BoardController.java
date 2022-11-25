@@ -191,7 +191,7 @@ public class BoardController {
         }else if(uri.equals("/generation/delete")){
             where = "redirect:/generation/list?generation=" + session.getAttribute("sessionGeneration");
         }else{
-            where = "redirect:/keywordboard/list";
+            where = "redirect:/keyword/list";
         }
 
         return where;

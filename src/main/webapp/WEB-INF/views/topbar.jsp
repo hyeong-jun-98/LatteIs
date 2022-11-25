@@ -261,6 +261,13 @@
 
     }
 
+    function toMyPage(){
+        const $tomypage = document.getElementById("tomypage");
+        $tomypage.onclick = e =>{
+            location.href="/user/mypage";
+        }
+    }
+
     (function () {
         changeFont();
         hover();
@@ -279,5 +286,6 @@
         logout();
         </c:if>
         toHome();
+        toMyPage();
     })();
 </script>

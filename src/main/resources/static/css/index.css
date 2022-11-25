@@ -53,6 +53,36 @@ body{
     line-height: 0;
     color: red;
 }
+.today #bestDiary{
+    padding: 40px;
+    display: table;
+}
+.today #bestDiary div{
+    margin-top: 10px;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: left;
+}
+.today #bestDiary>div{
+    width: 100%;
+    display: table-row;
+}
+.today #bestDiary > div:first-child{
+    border-bottom: black 2px solid;
+    margin-bottom: 10px;
+}
+.today #bestDiary div:first-child div:nth-child(2){
+    font-weight: bold;
+    font-size: 25px;
+}
+.today #bestDiary div:first-child div:nth-child(1){
+    font-weight: bold;
+    font-size: 35px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: black 2px solid;
+    padding-bottom: 10px;
+}
 /*키워드 메인*/
 .keyword_main{
     margin:auto;

@@ -38,7 +38,18 @@
             </div>
             <div>스무고개 랭킹</div>
             <div>베스트 게시글</div>
-            <div>베스트 일기</div>
+            <div id="bestDiary">
+                <div>
+                    <div>베스트 일기</div>
+                    <div>Pikachu</div>
+                    <div style="color: grey">22년 11월 24일 오후 01:37</div>
+                    <div style="color: grey">좋아요 : 5</div>
+                </div>
+                <div>
+                    <div>오늘의 기분 : 좋음</div>
+                    <div>아이유 콘서트 가고싶다</div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="keyword_main">
