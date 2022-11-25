@@ -38,8 +38,23 @@
             </div>
             <div>스무고개 랭킹</div>
             <div>베스트 게시글</div>
-            <div>베스트 일기</div>
-        </div>
+<%--            <c:forEach var="d" items="${dBOne}">--%>
+            <div id="bestDiary" data-diary-num="${dBOne.diaryNo}">
+                <div>
+                    <div>${dBOne.userNickname}</div>
+                    <div>${dBOne.prettierDate}</div>
+                    <div>좋아요 : ${dBOne.diaryGood}</div>
+                </div>
+                <div>
+                    <div>오늘의 기분 : ${dBOne.emotion}</div>
+                    <div>${dBOne.diaryContent}</div>
+                </div>
+            </div>
+<%--            </c:forEach>--%>
+
+
+<%--            data-diary-num="${d.diaryNo}"--%>
+
     </div>
     <div class="keyword_main">
         <div class="keyword_content">

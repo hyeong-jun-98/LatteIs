@@ -217,4 +217,12 @@ html > body {
     font-family: 'KyoboHand';
 }
 
+.today #bestDiary div{
+    font-size: 15px;
+    height: 30%;
+    line-height: 20px;
+}
+
+
+
 

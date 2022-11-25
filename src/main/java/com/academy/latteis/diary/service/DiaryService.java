@@ -101,9 +101,22 @@ public class DiaryService {
         return findDataMap;
     }
 
+    // 일기 베스트 하나 뽑아오기
+    public Map <String, Object> findBestOneService () {
+        Map <String, Object> findDataMap = new HashMap<>();
 
+        Diary diaryBestOne = diaryMapper.findBestOne();
 
+        processConvertingOne(diaryBestOne);
+        findDataMap.put("dBOne", diaryBestOne);
 
+        return findDataMap;
+
+    }
+    // 날짜 변환 하나
+    private void processConvertingOne(Diary diary) {
+            convertDateFormat(diary);
+    }
 
     // 날짜변환
     private void processConverting(List<Diary> diaryList) {
@@ -123,10 +136,11 @@ public class DiaryService {
     @Transactional
     public Diary findOneService(Long diaryNo, HttpServletRequest request, HttpServletResponse response) {
         Diary diary = diaryMapper.findOne(diaryNo);
-
-
         return diary;
     }
+
+
+
 
     // 일기 삭제
     @Transactional
