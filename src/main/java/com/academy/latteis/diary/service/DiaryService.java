@@ -143,8 +143,29 @@ public class DiaryService {
 
         return diaryMapper.modify(diary);
     }
+    // 일기 좋아요 체크
+    public boolean goodCheck(Long diaryNo, Long userNo) {
+        log.info("1. GoodCheck service {}, {}", diaryNo, userNo);
 
-    //일기 true false 확인
+        String check = diaryMapper.goodCheck(diaryNo, userNo);
+
+        // flag 기본 값은 false.
+        boolean flag = false;
+
+        // check가 null이면 건너뛰어
+        if (check != null) {
+            // check가 true일 경우에는 flag가 true로 바뀐다.
+            // check가 false인 경우 flag는 그대로 false다.
+            flag = check.equals("true");
+        }
+
+        return flag;
+    }
+
+
+
+
+    //일기 true false 확인 후 좋아요 추가
     public boolean goodCheckService(Long diaryNo, Long userNo) {
         log.info("diaryGoodCheck service {}, {}", diaryNo, userNo);
 

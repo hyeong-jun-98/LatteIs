@@ -93,11 +93,14 @@ public class BoardController {
         String where = null;
         log.info("controller request {} GET! - {}", request.getRequestURI(), boardNo);
         List<BoardGoodDTO> boardList = boardService.findOneService(boardNo, response, request);
-        BoardGoodDTO board = boardList.get(0);  // boardList에서 아무거나 하나 뽑음
-
-        model.addAttribute("boardList", boardList);
-        model.addAttribute("board", board);
-        model.addAttribute("page", page);
+        log.info("boardList {} ", boardList);
+        BoardGoodDTO board = null;
+        if(boardList.size() != 0) {
+          board = boardList.get(0);  // boardList에서 아무거나 하나 뽑음
+          model.addAttribute("board", board);
+          model.addAttribute("boardList", boardList);
+          model.addAttribute("page", page);
+        }
 
         if(url.equals("/freeboard/detail/" + boardNo)){
             where = "freeboard/freeboard-detail";
@@ -106,6 +109,14 @@ public class BoardController {
         }else{
             where = "keywordboard/keyword-detail";
         }
+
+        if(board == null) {
+            return "error/error";
+        }
+
+
+
+
         return where;
     }
 
