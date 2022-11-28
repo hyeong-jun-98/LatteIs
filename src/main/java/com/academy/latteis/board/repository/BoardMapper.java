@@ -50,6 +50,12 @@ public interface BoardMapper {
     // 파일 첨부 기능 처리
     void addFile(String fileName);
 
+    // 게시글 수정 시, 파일 추가
+    void addFileByEdit(String fileName, Long boardNo);
+
+    // 첨부파일 삭제 처리
+    void deleteFile(Long boardNo);
+
     // 게시물에 붙어있는 첨부파일 경로명 전부 조회
     List<String> findFileNames(Long boardNo);
 }
