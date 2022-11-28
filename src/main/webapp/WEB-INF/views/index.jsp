@@ -46,6 +46,7 @@
                     <div>${dBOne.userNickname}</div>
                     <div>${dBOne.prettierDate}</div>
                     <div>좋아요 : ${dBOne.diaryGood}</div>
+                    <div>조회수 : ${dBOne.diaryHit}</div>
                 </div>
                 <div>
                     <div>오늘의 기분 : ${dBOne.emotion}</div>

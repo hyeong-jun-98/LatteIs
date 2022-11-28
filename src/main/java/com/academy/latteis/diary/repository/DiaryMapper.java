@@ -72,7 +72,8 @@ public interface DiaryMapper {
     // 일기 작성자로 userNo 가져오기
     ValidateDiaryUserDTO findUserByDiaryNo (Long diaryNo);
 
-
+    // 조회수 UP
+    void hitUp (Long diaryNo);
 
 
 

@@ -30,7 +30,8 @@
         font-weight: bold;
         font-style: normal;
     }
-    body{
+
+    body {
         background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
         background-repeat: no-repeat;
         background-size: cover;
@@ -53,12 +54,14 @@
     .amount li a {
         width: 100%;
     }
+
     /* bottom-section style */
     .bottom-section nav {
         flex: 9;
         display: flex;
         justify-content: center;
     }
+
     .bottom-section button {
         font-size: 20px;
     }
@@ -66,6 +69,7 @@
     .pagination-custom li a {
         color: #000 !important;
     }
+
     .pagination-custom li.active a,
     .pagination-custom li:hover a {
         background: lightyellow !important;
@@ -74,13 +78,11 @@
     }
 
 
-
-
 </style>
 
 <body>
 <%--topbar--%>
-<%@include file="../topbar.jsp"%>
+<%@include file="../topbar.jsp" %>
 
 <!-- Header-->
 <header class="py-5">
@@ -88,7 +90,8 @@
         <div class="p-4 p-lg-5 rounded-3 text-center list-title">
             <div class="m-4 m-lg-5">
                 <h1 class="display-5 fw-bold custom-Mylist diary-header">모두의 일기장</h1>
-                <a class="btn btn-primary btn-lg custom-gotoWrite diary-header" href="/diary/write" style="color: black">일기 작성하러 가기</a>
+                <a class="btn btn-primary btn-lg custom-gotoWrite diary-header" href="/diary/write"
+                   style="color: black">일기 작성하러 가기</a>
             </div>
         </div>
     </div>
@@ -130,15 +133,19 @@
                 <div class="hover:shadow-2x1 card shadow-lg w-full h-full break-all hover">
                     <div class="card-body h-72 bg-white">
                         <div class="flex justify-between">
-                            <div>
-                            <p>${d.userNickname}</p>
-                            <p class="text-right text-sm text-gray-500 date">${d.prettierDate}</p>
-                            <p class="text-sm text-gray-500 date">좋아요 : ${d.diaryGood}</p>
-                            <!-- <p class="text-sm text-gray-500 text-right">조회수 </p> -->
+                            <div class="w-100">
+                                <p>${d.userNickname}</p>
+                                <p class=" text-sm text-gray-500 date">${d.prettierDate}</p>
 
-<%--                        <div class="divider my-0">--%>
+                                <div class="like-view">
+                                    <p class="text-sm text-gray-500 date">좋아요 : ${d.diaryGood}</p>
+                                    <p class="text-sm text-gray-500 date">조회수 : ${d.diaryHit} </p>
+                                </div>
+                                <!-- <p class="text-sm text-gray-500 text-right">조회수 </p> -->
 
-<%--                        </div>--%>
+                                    <%--                        <div class="divider my-0">--%>
+
+                                    <%--                        </div>--%>
                             </div>
                         </div>
                         <h2 class="card-title">오늘의 기분 : ${d.emotion}</h2>
@@ -168,7 +175,7 @@
 
             <c:forEach var="n" begin="${pm.beginPage}" end="${pm.endPage}" step="1">
                 <li data-page-num="${n}" class="page-item" style="color: black">
-                    <a class="page-link" href="/diary/list?pageNum=${n}&amount=${pm.diaryPage.amount}" >${n}</a>
+                    <a class="page-link" href="/diary/list?pageNum=${n}&amount=${pm.diaryPage.amount}">${n}</a>
                 </li>
             </c:forEach>
 
@@ -232,20 +239,22 @@
                 + "&amount=${pm.diaryPage.amount}";
         });
     }
-    function hover(){
+
+    function hover() {
         const $hover = document.getElementsByClassName("hover");
-        for(let i of $hover){
+        for (let i of $hover) {
             console.log(i);
-            i.onmouseover = e =>{
+            i.onmouseover = e => {
                 i.className = "hover:shadow-2x1 card shadow-lg w-full h-full break-all hover animate__animated animate__bounce";
                 console.log(i);
             }
-            i.onmouseout = e =>{
+            i.onmouseout = e => {
                 i.className = "hover:shadow-2x1 card shadow-lg w-full h-full break-all hover";
             }
         }
 
     }
+
     (function () {
         appendPageActive();
         detailEvent();
