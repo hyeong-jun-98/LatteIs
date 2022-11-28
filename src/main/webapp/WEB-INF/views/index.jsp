@@ -55,7 +55,7 @@
             </div>
         <%--            </c:forEach>--%>
 
->>>>>>>>> Temporary merge branch 2
+
     </div>
     <div class="keyword_main">
         <div class="keyword_content">
