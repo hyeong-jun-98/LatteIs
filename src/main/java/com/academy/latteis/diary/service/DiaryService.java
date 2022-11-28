@@ -12,7 +12,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.WebUtils;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -135,10 +137,26 @@ public class DiaryService {
     // 일기장 상세화면
     @Transactional
     public Diary findOneService(Long diaryNo, HttpServletRequest request, HttpServletResponse response) {
+        hitUpService(diaryNo, request, response);  // 조회수를 먼저 올리고 글을 불러와서 조회수 상승한 게 적용
         Diary diary = diaryMapper.findOne(diaryNo);
+
         return diary;
     }
 
+    // 조회수 처리
+    private void hitUpService(Long diaryNo, HttpServletRequest request, HttpServletResponse response) {
+        Cookie findCookie = WebUtils.getCookie(request, "d" + diaryNo); // 쿠키 가져오기
+
+        if (findCookie == null) {       // 쿠키가 없다면 -> 처음 들어온다면
+            diaryMapper.hitUp(diaryNo);     // 조회수 상승
+            Cookie cookie = new Cookie("d" + diaryNo, String.valueOf(diaryNo));     // 쿠키에 생성
+            cookie.setMaxAge(60);
+            cookie.setPath("/diary/detail");
+
+            log.info("쿠키 diaryNo = {}", cookie);
+            response.addCookie(cookie);
+        }
+    }
 
 
 
