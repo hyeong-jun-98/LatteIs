@@ -80,8 +80,6 @@ public class BoardController {
         model.addAttribute("pm", pm);
         model.addAttribute("search", search);
 
-//        model.addAttribute("generation", generation);
-//        model.addAttribute("page", "free");
         return where;
     }
 
@@ -113,9 +111,6 @@ public class BoardController {
         if(board == null) {
             return "error/error";
         }
-
-
-
 
         return where;
     }
@@ -235,7 +230,7 @@ public class BoardController {
     @PostMapping("/edit")
     public String edit(Board board, Page page, HttpServletRequest request) {
         String uri = request.getRequestURI();
-        String where = null;
+        String where;
         log.info("controller request {} POST!!", uri);
 
         HttpSession session = request.getSession();

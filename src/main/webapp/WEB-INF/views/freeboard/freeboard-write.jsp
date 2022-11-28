@@ -20,11 +20,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
-    <style>
-        .img-sizing:hover {
-            opacity: 0.5
-        }
-    </style>
 </head>
 <body>
 
@@ -79,6 +74,8 @@
 </div>
 
 <script>
+    // 첨부파일 관련 변수 선언
+    let deleteFileNames = [];     // 삭제할 이미지 이름을 담을 배열
 
     // 제목 글자수 제한
     $(document).ready(function () {
@@ -210,14 +207,37 @@
             const imgSrc = $img.attr("src");     // 이미지에 담긴 경로
             const fileName = imgSrc.substring(imgSrc.indexOf('=') + 1);     // 이미지 이름
 
-            fetch(('/deleteFile?fileName=' + fileName), {
-                method: 'DELETE'
-            })
-                .then(function () {
-                    $img.remove();
-                })
+            $img.remove();
+
+            // 삭제할 사진 이름 배열에 담기
+            deleteFileNames.push(fileName);
+
+            // 삭제한 사진에 해당하는 input 태그 삭제
+            const $input = document.getElementsByName('fileNames');
+            for (let item of $input) {
+                if (fileName === item.getAttribute('value')){
+                    console.log(item);
+                    item.remove();
+                }
+            }
         })
     });
+
+    // 파일 삭제 요청
+    function deleteFile() {
+        const reqInfo = {
+            method: 'DELETE'
+        };
+
+        for (let fileName of deleteFileNames) {
+            console.log(fileName);
+            fetch(('/deleteFile?fileName=' + fileName), reqInfo)
+                .then(res => res.text())
+                .then(msg2 => {
+                    console.log(msg2);
+                });
+        }
+    }
 
     // 글 작성 이벤트
     function writeEvent() {
