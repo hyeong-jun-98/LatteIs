@@ -176,4 +176,27 @@
         FROM file_upload
         WHERE board_no = #{boardNo}
     </select>
+
+    <select id="findBestFree" resultMap="boardGoodMap">
+        select * from board where board_no = (select board.board_no from board_good left join board on board_good.board_no = board.board_no where topic_no is null and generation is null group by board.board_no order by count(*) desc limit 1);
+    </select>
+
+    <select id="findBestKey" resultMap="boardGoodMap">
+        select * from board where board_no = (select board.board_no from board_good left join board on board_good.board_no = board.board_no where topic_no is not null group by board.board_no order by count(*) desc limit 1);
+    </select>
+    <select id="findBest00" resultMap="boardGoodMap">
+        select * from board where board_no = (select board.board_no from board_good left join board on board_good.board_no = board.board_no where board.generation is not null and generation='2000' group by generation, board.board_no order by count(*) desc limit 1);
+    </select>
+
+    <select id="findBest90" resultMap="boardGoodMap">
+        select * from board where board_no = (select board.board_no from board_good left join board on board_good.board_no = board.board_no where board.generation is not null and generation='1990' group by generation, board.board_no order by count(*) desc limit 1);
+    </select>
+
+    <select id="findBest80" resultMap="boardGoodMap">
+        select * from board where board_no = (select board.board_no from board_good left join board on board_good.board_no = board.board_no where board.generation is not null and generation='1980' group by generation, board.board_no order by count(*) desc limit 1);
+    </select>
+
+    <select id="findBest70" resultMap="boardGoodMap">
+        select * from board where board_no = (select board.board_no from board_good left join board on board_good.board_no = board.board_no where board.generation is not null and generation='1970' group by generation, board.board_no order by count(*) desc limit 1);
+    </select>
 </mapper>

@@ -15,7 +15,10 @@
     <link href="/css/styles.css" rel="stylesheet"/>
     <link href="/css/custom-list.css" rel="stylesheet"/>
     <link href="/css/topbar.css" rel="stylesheet">
-
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
 
 
 </head>
@@ -117,7 +120,7 @@
     <c:forEach var="d" items="${dBList}">
         <div class="lg:w-1/4 md:w-1/2 w-full p-5 articles margin" data-diary-num="${d.diaryNo}">
             <a href="#" style="color: black">
-                <div class="hover:shadow-2x1 card shadow-lg w-full h-full break-all">
+                <div class="hover:shadow-2x1 card shadow-lg w-full h-full break-all hover">
                     <div class="card-body h-72 bg-white">
                         <div class="flex justify-between">
                             <div>
@@ -179,6 +182,20 @@
 
 <script>
 
+    function hover(){
+        const $hover = document.getElementsByClassName("hover");
+        for(let i of $hover){
+            console.log(i);
+            i.onmouseover = e =>{
+                i.className = "hover:shadow-2x1 card shadow-lg w-full h-full break-all hover animate__animated animate__bounce";
+                console.log(i);
+            }
+            i.onmouseout = e =>{
+                i.className = "hover:shadow-2x1 card shadow-lg w-full h-full break-all hover";
+            }
+        }
+
+    }
     //현재 위치한 페이지에 active 스타일 부여하기
     function appendPageActive() {
 
@@ -227,7 +244,7 @@
     (function () {
         appendPageActive();
         detailEvent();
-
+        hover();
     })();
 
 

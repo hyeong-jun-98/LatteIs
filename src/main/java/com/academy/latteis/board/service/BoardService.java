@@ -203,6 +203,17 @@ public class BoardService {
 
         return boardList;
     }
+    public Map<String, Object> findBestBoard(){
+        Map <String, Object> findBest = new HashMap<>();
+        findBest.put("free", boardMapper.findBestFree());
+        findBest.put("key", boardMapper.findBestKey());
+        findBest.put("gene00", boardMapper.findBest00());
+        findBest.put("gene90", boardMapper.findBest90());
+        findBest.put("gene80", boardMapper.findBest80());
+        findBest.put("gene70", boardMapper.findBest70());
+
+        return findBest;
+    }
 
     // 조회수 상승 처리
     private void makeHit(Long boardNo, HttpServletResponse response, HttpServletRequest request) {
