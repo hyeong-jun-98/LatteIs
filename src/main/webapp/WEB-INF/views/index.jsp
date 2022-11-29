@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
 
     <!-- Core theme CSS (includes Bootstrap)-->
-<%--    <link href="/css/topbar.css" rel="stylesheet"/>--%>
+    <%--    <link href="/css/topbar.css" rel="stylesheet"/>--%>
 
     <%--  topbar  --%>
     <link href="/css/topbar.css" rel="stylesheet">
@@ -21,39 +21,39 @@
     />
     <link href="/css/index.css" rel="stylesheet">
 
-<%--    <link rel="stylesheet" href="css/animations.css">--%>
+    <%--    <link rel="stylesheet" href="css/animations.css">--%>
 
 </head>
 <body>
-    <%@include file="topbar.jsp"%>
+<%@include file="topbar.jsp" %>
 
-    <div class="main">
-        <div class="title animate__animated animate__fadeInDown">
-            Latte is...
+<div class="main">
+    <div class="title animate__animated animate__fadeInDown">
+        Latte is...
+    </div>
+    <div class="today">
+        <div class="keyword">
+            <div>오늘의 키워드</div>
+            <div>사탕</div>
         </div>
-        <div class="today">
-            <div class="keyword">
-                <a href="#" style="color: black">
-                    <div>오늘의 키워드</div>
-                    <div>사탕</div>
-                </a>
-                <div></div>
-            </div>
-            <div id="bestDiary" data-diary-num="${dBOne.diaryNo}">
-                <a href="#" style="color: black">
-                    <div>
-                        <div>베스트 일기</div>
-                        <div>${dBOne.userNickname}</div>
-                        <div>${dBOne.prettierDate}</div>
-                        <div>좋아요 : ${dBOne.diaryGood}</div>
-                    </div>
-                    <div>
-                        <div>오늘의 기분 : ${dBOne.emotion}</div>
-                        <div>${dBOne.diaryContent}</div>
-                    </div>
-                </a>
-                <div></div>
-            </div>
+        <div>스무고개 랭킹</div>
+        <div>베스트 게시글</div>
+        <%--            <c:forEach var="d" items="${dBOne}">--%>
+        <div id="bestDiary" data-diary-num="${dBOne.diaryNo}">
+            <a href="#" style="color: black">
+                <div>
+                    <div>베스트 일기</div>
+                    <div>${dBOne.userNickname}</div>
+                    <div>${dBOne.prettierDate}</div>
+                    <div>좋아요 : ${dBOne.diaryGood}</div>
+                    <div>조회수 : ${dBOne.diaryHit}</div>
+                </div>
+                <div>
+                    <div>오늘의 기분 : ${dBOne.emotion}</div>
+                    <div>${dBOne.diaryContent}</div>
+                </div>
+            </a>
+        </div>
             <div id="board">
                 <div>베스트 게시글</div>
                 <div>
@@ -171,9 +171,9 @@
     // Next/previous controls
     function plusKeySlides(n) {
         showKeySlides(keySlideIndex += n);
-        if(n==1) {
+        if (n == 1) {
             document.getElementById("keyp" + keySlideIndex).className = 'keySlides animate__animated animate__fadeInRight';
-        }else{
+        } else {
             document.getElementById("keyp" + keySlideIndex).className = 'keySlides animate__animated animate__fadeInLeft';
         }
     }
@@ -182,72 +182,91 @@
         let i;
         let slides;
         slides = document.getElementsByClassName("keySlides");
-        if (n > slides.length) {keySlideIndex = 1}
-        if (n < 1) {keySlideIndex = slides.length}
+        if (n > slides.length) {
+            keySlideIndex = 1
+        }
+        if (n < 1) {
+            keySlideIndex = slides.length
+        }
         for (i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
         }
-        slides[keySlideIndex-1].style.display = "block";
+        slides[keySlideIndex - 1].style.display = "block";
     }
 
     function plusAgeSlides(n) {
         showAgeSlides(ageSlideIndex += n);
-        if(n==1) {
+        if (n == 1) {
             document.getElementById("agep" + ageSlideIndex).className = 'ageSlides animate__animated animate__fadeInRight';
-        }else{
+        } else {
             document.getElementById("agep" + ageSlideIndex).className = 'ageSlides animate__animated animate__fadeInLeft';
         }
     }
+
     function showAgeSlides(n) {
         let i;
         let slides;
         slides = document.getElementsByClassName("ageSlides");
-        if (n > slides.length) {ageSlideIndex = 1}
-        if (n < 1) {ageSlideIndex = slides.length}
+        if (n > slides.length) {
+            ageSlideIndex = 1
+        }
+        if (n < 1) {
+            ageSlideIndex = slides.length
+        }
         for (i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
         }
-        slides[ageSlideIndex-1].style.display = "block";
+        slides[ageSlideIndex - 1].style.display = "block";
     }
 
     function plusQuizSlides(n) {
         showQuizSlides(quizSlideIndex += n);
-        if(n==1) {
+        if (n == 1) {
             document.getElementById("quizp" + quizSlideIndex).className = 'quizSlides animate__animated animate__fadeInRight';
-        }else{
+        } else {
             document.getElementById("quizp" + quizSlideIndex).className = 'quizSlides animate__animated animate__fadeInLeft';
         }
     }
+
     function showQuizSlides(n) {
         let i;
         let slides;
         slides = document.getElementsByClassName("quizSlides");
-        if (n > slides.length) {quizSlideIndex = 1}
-        if (n < 1) {quizSlideIndex = slides.length}
+        if (n > slides.length) {
+            quizSlideIndex = 1
+        }
+        if (n < 1) {
+            quizSlideIndex = slides.length
+        }
         for (i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
         }
-        slides[quizSlideIndex-1].style.display = "block";
+        slides[quizSlideIndex - 1].style.display = "block";
     }
 
     function plusDiarySlides(n) {
         showDiarySlides(diarySlideIndex += n);
-        if(n==1) {
+        if (n == 1) {
             document.getElementById("diaryp" + diarySlideIndex).className = 'diarySlides animate__animated animate__fadeInRight';
-        }else{
+        } else {
             document.getElementById("diaryp" + diarySlideIndex).className = 'diarySlides animate__animated animate__fadeInLeft';
         }
     }
+
     function showDiarySlides(n) {
         let i;
         let slides;
         slides = document.getElementsByClassName("diarySlides");
-        if (n > slides.length) {diarySlideIndex = 1}
-        if (n < 1) {diarySlideIndex = slides.length}
+        if (n > slides.length) {
+            diarySlideIndex = 1
+        }
+        if (n < 1) {
+            diarySlideIndex = slides.length
+        }
         for (i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
         }
-        slides[diarySlideIndex-1].style.display = "block";
+        slides[diarySlideIndex - 1].style.display = "block";
     }
 
     // Thumbnail image controls

@@ -223,6 +223,17 @@ html > body {
     line-height: 20px;
 }
 
+.inline {
+    display: inline;
+}
 
+.inline-right {
+     margin-left: 120px;
+}
+
+.like-view {
+    display: flex;
+    justify-content: space-between;
+}
 
 

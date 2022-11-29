@@ -170,6 +170,17 @@
         VALUES (#{fileName}, last_insert_id())
     </insert>
 
+    <!-- 게시글 수정 시, 파일 추가 -->
+    <insert id="addFileByEdit">
+        INSERT INTO file_upload (file_name, board_no)
+        VALUES (#{fileName}, #{boardNo})
+    </insert>
+
+    <!-- 첨부파일 삭제 -->
+    <delete id="deleteFile">
+        DELETE FROM file_upload WHERE board_no = #{boardNo}
+    </delete>
+
     <!-- 첨부파일 경로명 조회 -->
     <select id="findFileNames" resultType="string">
         SELECT file_name

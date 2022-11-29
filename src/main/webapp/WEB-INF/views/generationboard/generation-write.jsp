@@ -20,11 +20,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
-    <style>
-        .img-sizing:hover {
-            opacity: 0.5
-        }
-    </style>
 </head>
 <body>
 
@@ -36,8 +31,8 @@
     <div class="content-container">
 
         <h1 class="main-title">연령대별 게시판
-            <c:if test="${generation != 9999}">
-                - ${generation}년대
+            <c:if test="${sessionGeneration != 9999}">
+                - ${sessionGeneration}년대
             </c:if>
         </h1>
 
@@ -45,7 +40,7 @@
             <input type="hidden" name="userNickname" value="${loginUser.userNickname}">
 
             <c:if test="${sessionGeneration != 9999}">
-                <input type="text" name="generation" value="${sessionGeneration}">
+                <input type="hidden" name="generation" value="${sessionGeneration}">
             </c:if>
 
             <c:if test="${sessionGeneration == 9999}">
@@ -236,15 +231,13 @@
     // 글 작성 이벤트
     function writeEvent() {
         document.getElementById("reg-btn").addEventListener("click", function () {
-            if (${sessionGeneration} ===
-            9999
-        )
-            {
+            if (document.querySelector('select') !== null) {
                 if (document.querySelector('select').value === "") {
                     alert('연대를 선택해주세요.');
                     return;
                 }
             }
+
             if (document.getElementById('title-input').value === '') {
                 alert('제목을 입력해주세요');
                 return;
@@ -252,6 +245,7 @@
                 alert('글 내용을 작성해주세요.');
                 return;
             }
+
             const $form = document.getElementById("write-form");
             $form.action = "/generation/write";
             $form.method = "post";

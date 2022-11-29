@@ -42,6 +42,7 @@ public class BoardService {
 
         // 첨부파일 저장
         List<String> fileNames = board.getFileNames();
+        log.info("fileNames is {}", fileNames);
         if (fileNames != null && fileNames.size() > 0) {
             for (String fileName : fileNames) {
                 // 첨부파일 내용 DB에 저장
@@ -241,15 +242,37 @@ public class BoardService {
         // 좋아요도 삭제
         goodMapper.removeByBoardNo(boardNo);
 
+        // 첨부파일도 삭제
+        boardMapper.deleteFile(boardNo);
+
         // 원본 게시물 삭제
         boolean flag = boardMapper.remove(boardNo);
         return flag;
     }
 
     // 게시글 수정
+    @Transactional
     public boolean editService(Board board) {
         log.info("edit service start");
         boolean flag = boardMapper.edit(board);
+
+        // 첨부파일 저장
+        List<String> fileNames = board.getFileNames();
+        log.info("fileNames is {}", fileNames);
+
+        if (fileNames != null && fileNames.size() > 0) {
+            // 첨부파일 DB에서 삭제 후
+            boardMapper.deleteFile(board.getBoardNo());
+
+            for (String fileName : fileNames) {
+                log.info("파일 이름은 {}", fileName);
+                // 첨부파일 내용 DB에 저장
+                boardMapper.addFileByEdit(fileName, board.getBoardNo());
+            }
+        } else if(fileNames == null){   // 게시글 수정 시, 이미지가 없으면
+            // 수정했을 때, 사진이 아무것도 없다는 뜻이니까 첨부파일 DB에서 전부 삭제
+            boardMapper.deleteFile(board.getBoardNo());
+        }
         return flag;
     }
 
@@ -262,5 +285,4 @@ public class BoardService {
     public List<String> getFiles(Long boardNo) {
         return boardMapper.findFileNames(boardNo);
     }
-
 }

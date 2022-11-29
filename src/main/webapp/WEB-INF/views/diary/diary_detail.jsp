@@ -73,6 +73,7 @@
                 <div class="badge badge-primary custom-emotion">${d.emotion}</div>
                 <div class="badge badge-primary custom-show">${d.diaryShow}</div>
                 <div class="badge badge-primary custom-good">좋아요 : ${d.diaryGood}</div>
+                <div class="badge badge-primary custom-good">조회수 : ${d.diaryHit}</div>
                 <c:if test="${user.userNickname != null}">
                 <div class="good-part">
                     <%--       false 일 때       --%>
