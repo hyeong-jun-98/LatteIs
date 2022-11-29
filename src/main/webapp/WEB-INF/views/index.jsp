@@ -33,12 +33,12 @@
     </div>
     <div class="today">
         <div class="keyword">
-            <div>오늘의 키워드</div>
-            <div>사탕</div>
+            <a>
+                <div>오늘의 키워드</div>
+                <div>사탕</div>
+            </a>
+            <div></div>
         </div>
-        <div>스무고개 랭킹</div>
-        <div>베스트 게시글</div>
-        <%--            <c:forEach var="d" items="${dBOne}">--%>
         <div id="bestDiary" data-diary-num="${dBOne.diaryNo}">
             <a href="#" style="color: black">
                 <div>
@@ -53,7 +53,9 @@
                     <div>${dBOne.diaryContent}</div>
                 </div>
             </a>
+            <div></div>
         </div>
+
             <div id="board">
                 <div>베스트 게시글</div>
                 <div>

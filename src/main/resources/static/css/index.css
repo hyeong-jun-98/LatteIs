@@ -105,7 +105,6 @@ body{
     background-size: 100% 100%;
     background-repeat: no-repeat;
     visibility: hidden;
-
 }
 
 .today #bestDiary a:hover + div{
