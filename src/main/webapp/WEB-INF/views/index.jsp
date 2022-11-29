@@ -54,11 +54,29 @@
                 </div>
             </a>
         </div>
-        <%--            </c:forEach>--%>
-
-
-        <%--            data-diary-num="${d.diaryNo}"--%>
-
+            <div id="board">
+                <div>베스트 게시글</div>
+                <div>
+                    <div>
+                        <div>키워드 게시판</div><div id="tokey">${bk.content}</div>
+                    </div>
+                    <div>
+                        <div>연령대 게시판(00)</div><div id="to00">${b00.content}</div>
+                    </div>
+                    <div>
+                        <div>연령대 게시판(90)</div><div id="to90">${b90.content}</div>
+                    </div>
+                    <div>
+                        <div>연령대 게시판(80)</div><div id="to80">${b80.content}</div>
+                    </div>
+                    <div>
+                        <div>연령대 게시판(70)</div><div id="to70">${b70.content}</div>
+                    </div>
+                    <div>
+                        <div>자유 게시판</div><div id="tofree">${bf.content}</div>
+                    </div>
+                </div>
+            </div>
     </div>
     <div class="keyword_main">
         <div class="keyword_content">
@@ -136,6 +154,7 @@
             </div>
         </div>
     </div>
+</div>
 </body>
 <script>
     let keySlideIndex = 1;
@@ -268,6 +287,33 @@
     //     slides[keySlideIndex-1].style.display = "block";
     // }
 
+    function toHotBoard(){
+        const $tokey = document.getElementById("tokey");
+        $tokey.onclick = e =>{
+            location.href="/keyword/detail/" + ${bk.boardNo}
+        }
+        const $to00 = document.getElementById("to00");
+        $to00.onclick = e =>{
+            location.href="/generation/detail/" + ${b00.boardNo}
+        }
+        const $to90 = document.getElementById("to90");
+        $to90.onclick = e =>{
+            location.href="/generation/detail/" + ${b90.boardNo}
+        }
+        const $to80 = document.getElementById("to80");
+        $to80.onclick = e =>{
+            location.href="/generation/detail/" + ${b80.boardNo}
+        }
+        const $to70 = document.getElementById("to70");
+        $to70.onclick = e =>{
+            location.href="/generation/detail/" + ${b70.boardNo}
+        }
+        const $tofree = document.getElementById("tofree");
+        $tofree.onclick = e =>{
+            location.href="/freeboard/detail/" + ${bf.boardNo}
+        }
+    }
+
     // 자세히 보기
     function detailEvent() {
         const $table = document.getElementById("bestDiary");
@@ -296,6 +342,7 @@
 
     (function () {
         detailEvent();
+        toHotBoard();
     })();
 
 
