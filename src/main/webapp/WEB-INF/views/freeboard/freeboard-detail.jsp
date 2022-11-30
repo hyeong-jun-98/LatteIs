@@ -57,7 +57,6 @@
                     <ul class="uploaded-list"></ul>
                 </div>
             </div>
-
         </div>
 
 

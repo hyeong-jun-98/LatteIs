@@ -150,9 +150,12 @@ public class BoardController {
         if (uri.equals("/generation/write")) {     // 연령대별 게시판 게시글 작성 요청이면 if문 안에 실행
             // 클라이언트가 전송한 파일 업로드하기
             List<String> fileNames = new ArrayList<>();
-            for (MultipartFile file : board.getFiles()) {
-                fileNames.add(FileUtils.uploadFile(file, UPLOAD_PATH));
+            if (board.getFiles() != null){
+                for (MultipartFile file : board.getFiles()) {
+                    fileNames.add(FileUtils.uploadFile(file, UPLOAD_PATH));
+                }
             }
+
             flag = boardService.writeGenerationService(board, fileNames);
             if (flag) ra.addFlashAttribute("msg", "write-success");
             return flag ? "redirect:/generation/list?generation=" + session.getAttribute("sessionGeneration")
@@ -162,11 +165,15 @@ public class BoardController {
         if (uri.equals("/keyword/write")) {
             log.info(request.getSession().getAttribute("keyword"));
             board.setTopicNo(Long.parseLong((String) request.getSession().getAttribute("keyword")));
+
             // 클라이언트가 전송한 파일 업로드하기
             List<String> fileNames = new ArrayList<>();
-            for (MultipartFile file : board.getFiles()) {
-                fileNames.add(FileUtils.uploadFile(file, UPLOAD_PATH));
+            if (board.getFiles() != null){
+                for (MultipartFile file : board.getFiles()) {
+                    fileNames.add(FileUtils.uploadFile(file, UPLOAD_PATH));
+                }
             }
+
             flag = boardService.writeKeywordService(board, fileNames);
             if (flag) ra.addFlashAttribute("msg", "write-success");
             return flag ? "redirect:/keyword/list" : "redirect:/list";
@@ -180,6 +187,7 @@ public class BoardController {
                 fileNames.add(FileUtils.uploadFile(file, UPLOAD_PATH));
             }
         }
+
         flag = boardService.writeFreeService(board, fileNames);
         if (flag) ra.addFlashAttribute("msg", "write-success");
         return flag ? "redirect:/freeboard/list" : "redirect:/list";

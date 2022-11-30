@@ -204,9 +204,43 @@
         if ($delBtn !== null) {
             $delBtn.onclick = e => {
                 if (!confirm("삭제하시겠습니까?")) return;
-                console.log(${board.boardNo});
+                deleteFile();
                 location.href = "/generation/delete?boardNo=${board.boardNo}&pageNum=${page.pageNum}&amount=${page.amount}";
             }
+        }
+    }
+
+    // 파일 삭제 요청
+    function deleteFile() {
+        const files = document.getElementsByName('file');
+        const images = document.getElementsByName('img');
+
+        const reqInfo = {
+            method: 'DELETE'
+        };
+
+        // 이미지 삭제
+        for (let image of images) {
+            let imgSrc = image.getAttribute('src');
+            let imgName = imgSrc.substring(imgSrc.indexOf('=') + 1);     // 삭제할 이미지 이름
+
+            fetch(('/deleteFile?fileName=' + imgName), reqInfo)
+                .then(res => res.text())
+                .then(msg => {
+                    console.log(msg);
+                });
+        }
+
+        // 파일 삭제
+        for (let file of files) {
+            let fileSrc = file.getAttribute('href');
+            let fileName = fileSrc.substring(fileSrc.indexOf('=') + 1);     // 삭제할 파일 이름
+
+            fetch(('/deleteFile?fileName=' + fileName), reqInfo)
+                .then(res => res.text())
+                .then(msg => {
+                    console.log(msg);
+                });
         }
     }
 
@@ -669,6 +703,7 @@
 <!-- 파일 업로드 관련 스크립트 -->
 <script>
     $(document).ready(function () {
+
         // 이미지 파일 판단
         function isImageFile(originFileName) {
             //정규표현식
@@ -676,28 +711,33 @@
             return originFileName.match(pattern);
         }
 
-        // 파일 확장자에 따른 렌더링 처리
-        function checkExtType(fileName){
-            // 원본 파읾명 추출
-            let originFileName = fileName.substring(fileName.indexOf('_') + 1);
+// 파일의 확장자에 따른 렌더링 처리
+        function checkExtType(fileName) {
+            // 원본 파일명 추출
+            let originFileName = fileName.substring(fileName.indexOf("_") + 1);
 
             // 확장자 추출 후 이미지인지 아닌지 확인
-            if (isImageFile(originFileName)){
+            if (isImageFile(originFileName)) {  // 파일이 이미지라면
                 const $img = document.createElement('img');
                 $img.classList.add('img-sizing');
                 $img.setAttribute('src', '/loadFile?fileName=' + fileName);
                 $img.setAttribute('alt', originFileName);
+                $img.setAttribute('name', 'img');
                 $('.uploaded-list').append($img);
-            } else {
+
+            } else {    // 이미지가 아니라면 다운로드 링크를 생성
                 const $a = document.createElement('a');
+                $a.classList.add('a-sizing');
                 $a.setAttribute('href', '/loadFile?fileName=' + fileName);
+                $a.setAttribute('name', 'file');
 
-                const $img = document.createElement('img');
-                $img.classList.add('img-sizing');
-                $img.setAttribute('src', '/img/file_icon.jpg');
-                $img.setAttribute('alt', originFileName);
+                const $i = document.createElement('i');
+                $i.classList.add('fas');
+                $i.classList.add('fa-file');
+                $i.classList.add('fa-4x');
+                $i.setAttribute('style', 'display:block');
 
-                $a.append($img);
+                $a.append($i);
                 $a.innerHTML += '<span>' + originFileName + '</span>';
 
                 $('.uploaded-list').append($a);
@@ -705,8 +745,8 @@
         }
 
         // 드롭한 파일을 화면에 보여주는 함수
-        function showFileData(fileNames){
-            for (let fileName of fileNames){
+        function showFileData(fileNames) {
+            for (let fileName of fileNames) {
                 checkExtType(fileName);
             }
         }
@@ -720,6 +760,7 @@
                 })
         }
 
+        // 파일 목록 출력~!
         showFileList();
     })
 </script>

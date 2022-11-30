@@ -76,11 +76,6 @@
 </div>
 
 <script>
-    // 첨부파일 관련 변수 선언
-    let deleteFileNames = [];     // 삭제할 이미지 이름을 담을 배열
-    let formData;   // 파일 전송할 폼데이터
-    let showFileData;
-
     // 제목 글자수 제한
     $(document).ready(function () {
 

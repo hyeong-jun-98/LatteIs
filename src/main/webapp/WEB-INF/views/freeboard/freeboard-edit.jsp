@@ -81,7 +81,7 @@
 
 <script>
     // 첨부파일 관련 변수 선언
-    let deleteFileNames = [];     // 삭제할 이미지 이름을 담을 배열
+    let deleteFileNames = [];     // 삭제할 파일 이름을 담을 배열
 
     // ----------- Start JQuery ---------------
     // 제목 글자수 제한
@@ -341,6 +341,7 @@
             if (!confirm("수정하시겠습니까?")) return;
 
             deleteFile();   // 첨부파일 먼저 삭제
+
             const $form = document.querySelector("form");
             $form.method = "post";
             $form.action = "/freeboard/edit";
