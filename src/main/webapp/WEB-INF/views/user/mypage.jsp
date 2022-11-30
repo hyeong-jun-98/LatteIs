@@ -35,144 +35,159 @@
         margin-top: 5em;
         font-size: 50px;
     }
-    .login_wrapper{
-        margin: auto;
+    .mypage_wrapper{
         width: 40%;
-        border-radius: 20px;
+        height: 20em;
         background: white;
-        margin-top: 50px;
-        margin-bottom: 200px;
-        padding: 40px;
-    }
-    .login_form{
-        width: 80%;
-        height: 40%;
-        float: left;
-        margin-left: 40px;
-    }
-    .login_form .input{
-        font-size: 20px;
-        z-index: 100;
-        position: relative;
-    }
-    .login_form .input>label{
-        width: 100%;
-        display: inline-block;
-        margin-bottom: 5px;
-    }
-    .login_form .input>label input{
-        width: 100%;
-        line-height: 40px;
         border-radius: 20px;
+        margin: auto;
+        margin-bottom: 10em;
+        padding: 2em;
     }
-
-    .user_year{
-        margin-top: 25px;
+    .mypage_wrapper > div:last-child{
         display: flex;
+        width: 100%;
         justify-content: space-around;
+        padding-top: 1em;
+    }
+    .myInfo{
+        display:flex;
+        float: left;
+        height: 70%;
+        width: 100%;
+        border-radius: 20px;
+        border: 2px black solid;
+    }
+    .myInfo > div{
+        width: 25%;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        text-align: center;
+        line-height: 2.4em;
+        font-size: 80px;
+        margin-left: 0.1em;
+    }
+    table{
+        margin-left: 4em;
+    }
+    tr td:last-child{
+        padding-left: 5em;
     }
     button{
-        width: 100%;
+        width: 30%;
         height: 40px;
         background: white;
         z-index: 1000;
         position: relative;
+        margin: 1em 0;
     }
 
-    .bg{
-        width: 80%;
-        /*height: 100%;*/
-        z-index: -100;
-        margin: auto;
-        opacity: 0.3;
-    }
 
-    .bg .icon{
-        width: 100%;
-        height: 60%;
-        background-image: url("https://cdn-icons-png.flaticon.com/128/6937/6937770.png");
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-    }
-    .bg .text{
-        width: 100%;
-        /*height: 40%;*/
-        font-size: 80px;
-        text-align: center;
-    }
-    .check_email{
-        font-size: 15px;
-        color: red;
-    }
-    .check_pass{
-        font-size: 15px;
-        color: red;
-    }
-    .check_repass{
-        font-size: 15px;
-        color: red;
-    }
-    .check_year{
-        font-size: 15px;
-        color: red;
-    }
-    .c-red{
-        color: red;
-    }
-    .c-green{
-        color: green;
-    }
-    span{
-        height: 30px;
-        width: 100%;
-        display:inline-block;
-    }
-    b{
-        font-size: 20px;
-    }
+    /*.bg{*/
+    /*    width: 80%;*/
+    /*    !*height: 100%;*!*/
+    /*    z-index: -100;*/
+    /*    margin: auto;*/
+    /*    opacity: 0.3;*/
+    /*}*/
+
+    /*.bg .icon{*/
+    /*    width: 100%;*/
+    /*    height: 60%;*/
+    /*    background-image: url("https://cdn-icons-png.flaticon.com/128/6937/6937770.png");*/
+    /*    background-size: 100% 100%;*/
+    /*    background-repeat: no-repeat;*/
+    /*}*/
+    /*.bg .text{*/
+    /*    width: 100%;*/
+    /*    !*height: 40%;*!*/
+    /*    font-size: 80px;*/
+    /*    text-align: center;*/
+    /*}*/
 </style>
 <body>
     <%@include file="../topbar.jsp"%>
     <h1>마이페이지</h1>
-    <div class="login_wrapper">
-        <div class="login_form">
-            <form id="joinForm" action="/user/join" method="post">
-                <div class="input">
-                    <label id="user_email">아이디
-                        <input type="text" id="loginid" name="userEmail"></label>
-                    <span class="check_id"></span>
-                    <label id="password">비밀번호
-                        <input type="password" id="loginpw" name="password"></label>
-                    <span class="check_pass"></span>
-                    <label id="repassword">비밀번호 재확인
-                        <input type="password" id="reloginpw"></label>
-                    <span class="check_repass"></span>
-                    <label id="user_nickname">닉네임
-                        <input type="text" id="nickname" name="userNickname"></label>
-                    <span class="check_nickname"></span>
-                    <label name="user_name">이름
-                        <input type="text" id="user_name" name="userName"></label>
-                    <span class="check_name"></span>
-                    <div name="user_year">연령대</div>
-                    <div class="check_year">필수 입력 사항입니다.</div>
-                    <div class="user_year" name="userYear">
-                        <label><input type="radio" name="userYear" value="70">70년대</label>
-                        <label><input type="radio" name="userYear" value="80">80년대</label>
-                        <label><input type="radio" name="userYear" value="90">90년대</label>
-                        <label><input type="radio" name="userYear" value="00">00년대</label>
-                    </div>
-
-                </div>
-                <button id="join" type="button">회원가입</button>
-            </form>
-
+    <div class="mypage_wrapper">
+        <div class="myInfo">
+            <div id="userImg">${loginUser.userYear}</div>
+            <table class="infoTable">
+                <tr>
+                    <td>
+                        <div>아이디</div>
+                        <div>${loginUser.userEmail}</div>
+                    </td>
+                    <td>
+                        <div>이름</div>
+                        <div>${loginUser.userName}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>닉네임</div>
+                        <div>${loginUser.userNickname}</div>
+                    </td>
+                    <td>
+                        <div>연령대</div>
+                        <div>${loginUser.userYear}년대</div>
+                    </td>
+                </tr>
+            </table>
         </div>
-
-        <div class="bg">
-            <div class="icon"></div>
-            <div class="text">Latte is...</div>
+        <div>
+            <button type="button" id="toHome">홈으로</button>
+            <button type="button" id="toRevise">회원정보 수정</button>
+            <button type="button" id="toExit">회원 탈퇴</button>
         </div>
+<%--        <div class="bg">--%>
+<%--            <div class="icon"></div>--%>
+<%--            <div class="text">Latte is...</div>--%>
+<%--        </div>--%>
 
     </div>
 </body>
+<script>
+    function toMyHome(){
+        document.getElementById("toHome").onclick = e =>{
+            location.href="/";
+        }
+    }
+    function toRevise(){
+        document.getElementById("toRevise").onclick = e =>{
+            location.href="/user/revise";
+        }
+    }
+    function toExit(){
+        document.getElementById("toExit").onclick = e =>{
+            if (confirm("정말 회원정보를 삭제 하겠습니까?") == true){    //확인
+                location.href="/user/exit";
+            }else{   //취소
+                return;
+            }
+        }
+    }
+    function setImg(){
+        const yearCheck = '${loginUser.userYear}';
+        switch (yearCheck){
+            case '70':
+                document.getElementById("userImg").style.backgroundImage="url('/img/ddak1.png')";
+                break;
+            case '80':
+                document.getElementById("userImg").style.backgroundImage="url('/img/ddak2.png')";
+                break;
+            case '90':
+                document.getElementById("userImg").style.backgroundImage="url('/img/ddak3.png')";
+                break;
+            case '00':
+                document.getElementById("userImg").style.backgroundImage="url('/img/ddak4.png')";
+                break;
+        }
+    }
+    (function (){
+        toMyHome();
+        toRevise();
+        toExit();
+        setImg();
+    })()
+</script>
 </html>

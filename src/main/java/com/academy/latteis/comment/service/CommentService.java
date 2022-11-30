@@ -4,6 +4,7 @@ import com.academy.latteis.comment.domain.Comment;
 import com.academy.latteis.comment.repository.CommentMapper;
 import com.academy.latteis.common.page.Page;
 import com.academy.latteis.common.page.PageMaker;
+import com.academy.latteis.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -53,5 +54,14 @@ public class CommentService {
     // 댓글 수
     public int getCommentCountService(Long boardNo){
         return commentMapper.getCommentCount(boardNo);
+    }
+
+    public void exitUser(User user){
+        log.info("댓글 {}",user);
+        commentMapper.exitUser(user.getUserNickname());
+    }
+
+    public void reviseUser(String beforeUserNickname, String afterUsernickname){
+        commentMapper.reviseUser(beforeUserNickname, afterUsernickname);
     }
 }

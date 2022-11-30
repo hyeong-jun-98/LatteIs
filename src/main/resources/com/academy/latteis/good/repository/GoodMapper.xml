@@ -51,4 +51,8 @@
         select * from board where
     </select>
 
+    <delete id="exitUser">
+        delete from board_good where user_no=#{userNo}
+    </delete>
+
 </mapper>

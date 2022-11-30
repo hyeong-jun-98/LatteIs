@@ -1,5 +1,9 @@
 package com.academy.latteis.user.service;
 
+import com.academy.latteis.board.service.BoardService;
+import com.academy.latteis.comment.service.CommentService;
+import com.academy.latteis.diary.service.DiaryService;
+import com.academy.latteis.good.service.GoodService;
 import com.academy.latteis.user.domain.User;
 import com.academy.latteis.user.dto.AutoLoginDTO;
 import com.academy.latteis.user.dto.LoginDTO;
@@ -9,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +32,10 @@ import static com.academy.latteis.util.LoginUtils.*;
 public class UserService {
 
     private final UserMapper userMapper;
+    private final BoardService boardService;
+    private final GoodService goodService;
+    private final DiaryService diaryService;
+    private final CommentService commentService;
 
     private final BCryptPasswordEncoder encoder;
 
@@ -34,6 +43,7 @@ public class UserService {
     public boolean saveUser(User user, String login){
         user.setPassword(encoder.encode(user.getPassword()));
         user.setLogin(login);
+        log.info(user);
         boolean loginCheck = userMapper.save(user);
         return loginCheck;
     }
@@ -119,6 +129,26 @@ public class UserService {
             AutoLoginDTO dto = new AutoLoginDTO(user_email, "none", new Date(), user.getLogin());
             userMapper.saveAutoLoginValue(dto);
         }
+    }
+    public void revise(User beforeUser, User afterUser){
+        userMapper.reviseUser(afterUser);
+        diaryService.reviseUser(beforeUser.getUserNickname(), afterUser.getUserNickname());
+        boardService.reviseUser(beforeUser.getUserNickname(), afterUser.getUserNickname());
+        commentService.reviseUser(beforeUser.getUserNickname(), afterUser.getUserNickname());
+    }
+    public User findUser(User user){
+        return userMapper.findUser(user.getUserEmail(), user.getLogin());
+    }
+
+    @Transactional
+    public void exitUser(User user){
+        commentService.exitUser(user);
+        goodService.exitUser(user);
+        diaryService.gExitUser(user);
+        diaryService.dExitUser(user);
+        boardService.exitUser(user);
+        userMapper.exitUser(user.getUserNo());
+
     }
 
 }

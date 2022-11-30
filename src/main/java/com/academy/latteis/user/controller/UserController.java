@@ -150,6 +150,28 @@ public class UserController {
                 return "/user/mypage";
         }
 
+        @GetMapping("/revise")
+        public String getRevise(){ return "/user/revise";}
 
+        @PostMapping("/revise")
+        public String revise(User user, HttpSession session){
+                User loginUser =(User) session.getAttribute("loginUser");
+                user.setUserNo(loginUser.getUserNo());
+                log.info(user);
+                userService.revise(loginUser, user);
+                session.setAttribute("loginUser", userService.findUser(loginUser));
+                return "redirect:/user/mypage";
+        }
+
+        @GetMapping("/exit")
+        public String exit(HttpSession session){
+                User user = (User) session.getAttribute("loginUser");
+                userService.exitUser(user);
+                // 1. 세션에서 정보를 삭제한다.
+                session.removeAttribute(LOGIN_FLAG);
+                // 2. 세션을 무효화한다.
+                session.invalidate();
+                return "redirect:/";
+        }
 
 }

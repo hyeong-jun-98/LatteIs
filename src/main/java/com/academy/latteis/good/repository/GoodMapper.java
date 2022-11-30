@@ -19,4 +19,6 @@ public interface GoodMapper {
 
     // 좋아요 수
     int goodCnt(Long boardNo);
+
+    void exitUser(int userNo);
 }

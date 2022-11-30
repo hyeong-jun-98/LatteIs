@@ -29,5 +29,7 @@ public interface CommentMapper {
     // 댓글 수
     int getCommentCount(Long boardNo);
 
+    void exitUser(String userNickname);
 
+    void reviseUser(String beforeUserNickname, String afterUserNickname);
 }

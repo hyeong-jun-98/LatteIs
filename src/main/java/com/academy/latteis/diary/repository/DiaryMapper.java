@@ -75,6 +75,12 @@ public interface DiaryMapper {
     // 조회수 UP
     void hitUp (Long diaryNo);
 
+    void dExitUser(String userNickname);
+
+    void gExitUser(int userNo);
+
+    void reviseUser(String beforeUserNickname, String afterUserNickname);
+
 
 
 
