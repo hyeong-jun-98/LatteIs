@@ -72,3 +72,7 @@
 html > body {
     font-family: 'KyoboHand';
 }
+
+.detail_div {
+    margin-bottom: 2%;
+}

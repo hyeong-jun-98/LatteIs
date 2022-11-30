@@ -151,6 +151,7 @@
                 <div id="diaryp1" class="diarySlides"></div>
                 <div id="diaryp2" class="diarySlides"></div>
                 <div id="diaryp3" class="diarySlides"></div>
+                <div id="diaryp4" class="diarySlides"></div>
                 <a class="prev" onclick="plusDiarySlides(-1)">❮</a>
                 <a class="next" onclick="plusDiarySlides(1)">❯</a>
             </div>
