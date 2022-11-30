@@ -123,7 +123,7 @@
     <select id="getTotalCountFree" resultType="int">
         SELECT COUNT(*)
         FROM board
-        WHERE generation IS NULL
+        WHERE generation IS NULL AND topic_no IS NULL
 
         <include refid="searchInclude"/>
 
@@ -132,7 +132,7 @@
     <select id="getTotalCountGeneration" resultType="int">
         SELECT COUNT(*)
         FROM board
-        WHERE generation IS NOT NULL
+        WHERE generation IS NOT NULL AND topic_no IS NULL
 
         <include refid="searchInclude"/>
 
