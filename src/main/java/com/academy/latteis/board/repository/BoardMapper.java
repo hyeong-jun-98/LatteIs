@@ -3,6 +3,7 @@ package com.academy.latteis.board.repository;
 import com.academy.latteis.board.domain.Board;
 import com.academy.latteis.board.dto.BoardConvertDTO;
 import com.academy.latteis.board.dto.BoardGoodDTO;
+import com.academy.latteis.board.dto.EditBoardDTO;
 import com.academy.latteis.board.dto.ValidateUserDTO;
 import com.academy.latteis.common.search.Search;
 import org.apache.ibatis.annotations.Mapper;
@@ -39,7 +40,7 @@ public interface BoardMapper {
     boolean remove(Long boardNo);
 
     // 게시글 수정
-    boolean edit(Board board);
+    boolean edit(EditBoardDTO board);
 
     // 조회수 처리
     void upHit(Long boardNo);
@@ -54,7 +55,10 @@ public interface BoardMapper {
     void addFileByEdit(String fileName, Long boardNo);
 
     // 첨부파일 삭제 처리
-    void deleteFile(Long boardNo);
+    void deleteAllFile(Long boardNo);
+
+    // 수정 글 첨부파일 삭제
+    void editFileDelete(EditBoardDTO dto);
 
     // 게시물에 붙어있는 첨부파일 경로명 전부 조회
     List<String> findFileNames(Long boardNo);
