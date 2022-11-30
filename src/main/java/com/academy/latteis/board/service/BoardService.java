@@ -3,6 +3,7 @@ package com.academy.latteis.board.service;
 import com.academy.latteis.board.domain.Board;
 import com.academy.latteis.board.dto.BoardConvertDTO;
 import com.academy.latteis.board.dto.BoardGoodDTO;
+import com.academy.latteis.board.dto.EditBoardDTO;
 import com.academy.latteis.board.dto.ValidateUserDTO;
 import com.academy.latteis.board.repository.BoardMapper;
 import com.academy.latteis.comment.repository.CommentMapper;
@@ -13,16 +14,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Log4j2
@@ -35,18 +34,17 @@ public class BoardService {
 
     // 게시글 작성
     @Transactional
-    public boolean writeFreeService(Board board) {
+    public boolean writeFreeService(Board board, List<String> fileNames) {
         log.info("save free service start - {}", board);
 
         // 게시물 내용 DB에 저장
         boolean flag = boardMapper.writeFree(board);
 
         // 첨부파일 저장
-        List<String> fileNames = board.getFileNames();
-        log.info("fileNames is {}", fileNames);
         if (fileNames != null && fileNames.size() > 0) {
             for (String fileName : fileNames) {
                 // 첨부파일 내용 DB에 저장
+                log.info("파일 이름은 {}", fileName);
                 boardMapper.addFile(fileName);
             }
         }
@@ -55,17 +53,17 @@ public class BoardService {
     }
 
     @Transactional
-    public boolean writeGenerationService(Board board) {
+    public boolean writeGenerationService(Board board, List<String> fileNames) {
         log.info("save generation service start - {}", board);
 
         // 게시물 내용 DB에 저장
         boolean flag = boardMapper.writeGeneration(board);
 
         // 첨부파일 저장
-        List<String> fileNames = board.getFileNames();
         if (fileNames != null && fileNames.size() > 0) {
             for (String fileName : fileNames) {
                 // 첨부파일 내용 DB에 저장
+                log.info("파일 이름은 {}", fileName);
                 boardMapper.addFile(fileName);
             }
         }
@@ -73,8 +71,18 @@ public class BoardService {
         return flag;
     }
 
-    public boolean writeKeywordService(Board board) {
+    public boolean writeKeywordService(Board board, List<String> fileNames) {
         boolean flag = boardMapper.writeKeyword(board);
+
+        // 첨부파일 저장
+        if (fileNames != null && fileNames.size() > 0) {
+            for (String fileName : fileNames) {
+                // 첨부파일 내용 DB에 저장
+                log.info("파일 이름은 {}", fileName);
+                boardMapper.addFile(fileName);
+            }
+        }
+
         return flag;
     }
 
@@ -243,9 +251,9 @@ public class BoardService {
         // 좋아요도 삭제
         goodMapper.removeByBoardNo(boardNo);
 
-
         // 첨부파일도 삭제
-        boardMapper.deleteFile(boardNo);
+        boardMapper.deleteAllFile(boardNo);
+
         // 원본 게시물 삭제
         boolean flag = boardMapper.remove(boardNo);
         return flag;
@@ -253,27 +261,30 @@ public class BoardService {
 
     // 게시글 수정
     @Transactional
-    public boolean editService(Board board) {
-        log.info("edit service start");
+    public boolean editService(EditBoardDTO board, List<String> fileNames) {
+        log.info("edit service start - {}", fileNames.size());
+        log.info("수정할 파일 이름은 {}", board.getEditFileNames());
         boolean flag = boardMapper.edit(board);
+        List<String> editFileNames = board.getEditFileNames();
 
-        // 첨부파일 저장
-        List<String> fileNames = board.getFileNames();
-        log.info("fileNames is {}", fileNames);
+        // 기존에 있던 파일 중, 삭제하기로 한 파일만 DB에서 삭제
+        if (editFileNames != null && editFileNames.size() > 0){
+            for (String editFileName : editFileNames){
+                board.setEditFileName(editFileName);
+                log.info("세팅한 board의 수정 파일 이름은 {}", board.getEditFileName());
+                boardMapper.editFileDelete(board);
+            }
+        }
 
+        // 첨부파일 내용 DB에 저장
         if (fileNames != null && fileNames.size() > 0) {
-            // 첨부파일 DB에서 삭제 후
-            boardMapper.deleteFile(board.getBoardNo());
-
             for (String fileName : fileNames) {
                 log.info("파일 이름은 {}", fileName);
-                // 첨부파일 내용 DB에 저장
                 boardMapper.addFileByEdit(fileName, board.getBoardNo());
             }
-        } else if(fileNames == null){   // 게시글 수정 시, 이미지가 없으면
-            // 수정했을 때, 사진이 아무것도 없다는 뜻이니까 첨부파일 DB에서 전부 삭제
-            boardMapper.deleteFile(board.getBoardNo());
         }
+
+        // 기존에 존재했던 파일 DB에서 삭제
         return flag;
     }
 

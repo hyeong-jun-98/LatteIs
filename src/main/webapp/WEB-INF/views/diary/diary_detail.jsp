@@ -68,7 +68,7 @@
 
 <%--            <input type="hidden" name="userNo" id="userNo" value="${loginUser.userNo}">--%>
 
-            <div>
+            <div class="detail_div">
                 <h1 class="today-diary">${d.userNickname}의 일기</h1>
                 <div class="badge badge-primary custom-emotion">${d.emotion}</div>
                 <div class="badge badge-primary custom-show">${d.diaryShow}</div>

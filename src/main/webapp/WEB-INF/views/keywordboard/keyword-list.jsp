@@ -42,7 +42,7 @@
     <div class="board-list">
 
         <h1 class="main-title">키워드 게시판</h1>
-        <h2 style="color: red">사탕</h2>
+        <h2 style="color: red">불량식품</h2>
 
         <div class="top-section">
             <div class="search">

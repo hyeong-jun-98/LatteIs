@@ -5,6 +5,8 @@
 <head>
     <title>글쓰기</title>
 
+    <!-- fontawesome css: https://fontawesome.com -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
     <!-- bootstrap css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -71,6 +73,18 @@
                           oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
             </div>
 
+            <!-- 첨부파일 드래그 앤 드롭 영역 -->
+            <div class="form-group">
+                <div class="fileDrop">
+                    <span>Drop Here!!</span>
+                </div>
+                <div class="uploadDiv">
+                </div>
+                <!-- 업로드된 파일의 썸네일을 보여줄 영역 -->
+                <div class="uploaded-list">
+                </div>
+            </div>
+
             <div class="d-grid gap-2">
                 <button id="reg-btn" class="btn btn-dark" type="button">글 작성하기</button>
                 <button id="to-list" class="btn btn-warning" type="button">목록으로</button>
@@ -95,6 +109,118 @@
                 $(this).val($(this).val().substring(0, 100));
             }
         });
+
+        // ----------------- 파일 업로드 --------------------
+        // 이미지 파일인지 판단하는 함수
+        function isImageFile(originFileName) {
+            //정규표현식
+            const pattern = /jpg$|gif$|png$/i;
+            return originFileName.match(pattern);
+        }
+
+        // 이미지 썸네일 보여주기
+        function handleFiles(files) {
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const fileName = file.name;
+                // 원본 파일명 추출
+                let originFileName = fileName.substring(fileName.indexOf("_") + 1);
+
+                if (isImageFile(originFileName)) {
+                    const $img = document.createElement("img");
+                    $img.classList.add("img-sizing");
+                    $img.setAttribute('data-name', originFileName);
+                    $img.file = file;
+                    $('.uploaded-list').append($img);
+
+                    const reader = new FileReader();
+                    reader.onload = (function (aImg) {
+                        return function (e) {
+                            aImg.src = e.target.result;
+                        };
+                    })($img);
+                    reader.readAsDataURL(file);
+
+                } else {    // 이미지가 아니라면
+                    const $a = document.createElement('a');
+                    $a.classList.add('a-sizing');
+                    $a.setAttribute('data-name', originFileName);
+
+                    const $i = document.createElement('i');
+                    $i.classList.add('fas');
+                    $i.classList.add('fa-file');
+                    $i.classList.add('fa-4x');
+                    $i.setAttribute('style', 'display:block');
+
+                    $a.append($i);
+                    $a.innerHTML += '<span>' + originFileName + '</span>'
+                    $('.uploaded-list').append($a);
+                }
+            }
+        }
+
+        // drag &  drop 이벤트
+        const $dropBox = $('.fileDrop');
+
+        // drag 진입 이벤트
+        $dropBox.on('dragover dragenter', e => {
+            e.preventDefault();
+            $dropBox
+                .css('border-color', 'red')
+                .css('background', 'lightgray');
+        });
+
+        // drag 탈출 이벤트
+        $dropBox.on('dragleave', e => {
+            e.preventDefault();
+            $dropBox
+                .css('border-color', 'gray')
+                .css('background', 'transparent');
+        });
+
+        // drop 이벤트
+        $dropBox.on('drop', e => {
+            e.preventDefault();
+
+            // 드롭된 파일 정보를 서버로 전송
+            // 1. 드롭된 파일 데이터 읽기
+            const files = e.originalEvent.dataTransfer.files;
+
+            // 2. file input 태그 생성
+            const $fileInput = $('<input>', {type: 'file', name: 'files', style: 'display:none'});
+            $('.uploadDiv').append($fileInput);
+
+            // 3. 생성한 input 태그에 드롭한 file 저장
+            $fileInput.prop('files', files);
+
+            // 4. 썸네일 보여주기
+            handleFiles(files);
+
+        })
+
+        // 사진 삭제 이벤트
+        $(document).on('click', 'img', function () {
+            const $img = $(this);   // 클릭한 이미지
+            const $fileInput = document.getElementsByName('files');     // input file 리스트
+            for (let item of $fileInput) {
+                if (item.value.substring(item.value.lastIndexOf('\\') + 1) === $img.data('name')) {
+                    item.remove();  // 클릭한 이미지의 input 태그 삭제
+                }
+            }
+            $img.remove();  // 이미지 삭제
+        })
+
+        // 파일 삭제 이벤트
+        $(document).on('click', 'a', function () {
+            const $file = $(this);   // 클릭한 파일
+            const $fileInput = document.getElementsByName('files');     // input file 리스트
+            for (let item of $fileInput){
+                if (item.value.substring(item.value.lastIndexOf('\\') + 1) === $file.data('name')){
+                    item.remove();  // 클릭한 파일의 input 태그 삭제
+                }
+            }
+            $file.remove();  // 파일 삭제
+        })
     });
 
     // 글 작성 이벤트
