@@ -17,6 +17,7 @@ public class Diary {
     private Date diaryRegdate;
     private String diaryShow;
     private long diaryGood;
+    private long diaryHit;
     private String userNickname;
 
 
@@ -35,6 +36,7 @@ public class Diary {
         this.diaryShow = rs.getString("diary_show");
         this.diaryGood = rs.getLong("diary_good");
         this.userNickname = rs.getString("user_nickname");
+        this.diaryHit = rs.getLong("diary_hit");
     }
 
 }

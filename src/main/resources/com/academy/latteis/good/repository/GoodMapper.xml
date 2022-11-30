@@ -46,4 +46,9 @@
         where board_no = #{boardNo}
     </select>
 
+<!--   베스트 글 뽑아!-->
+    <select id="findBest">
+        select * from board where
+    </select>
+
 </mapper>

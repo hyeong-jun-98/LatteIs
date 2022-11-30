@@ -31,41 +31,110 @@ body{
     flex-wrap: wrap;
     justify-content: space-around;
     align-content: space-around;
+    margin-top: 200px;
 }
 .today > div{
     width: 40%;
-    height: 40%;
-    background: white;
-    border-radius: 20px;
+    /*height: 40%;*/
     text-align: center;
     line-height: 250px;
     font-size: 30px;
+    margin-bottom: 100px;
 }
 .today .keyword div{
     margin: auto;
     height: 50%;
-    line-height: 100px;
-}
-.today .keyword div:first-child{
-    margin-top: 30px;
+    line-height: 3em;
 }
 .today .keyword div:last-child{
-    line-height: 0;
     color: red;
 }
-.today #bestDiary{
-    padding: 40px;
-    display: table;
+.today .keyword > div{
+    height: 20%;
+    background: url("/img/redpen.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    visibility: hidden;
 }
+.today .keyword a:hover + div{
+    visibility: visible;
+}
+.today a{
+    width: 100%;
+    display: block;
+    background: white;
+    border-radius: 20px;
+    padding: 2em;
+    height: 12em;
+}
+.today #board{
+    width: 100%;
+    display: block;
+    background: white;
+    border-radius: 20px;
+    padding: 2em;
+    padding-bottom: 0;
+    margin: 0 2em;
+}
+.today #board > div:first-child{
+    text-align: left;
+    border-bottom: 2px black solid;
+    line-height: 1em;
+}
+.today #board > div:last-child{
+    padding: 1em 0;
+    font-size: 0.7em;
+}
+.today #board > div:last-child >div{
+    line-height: 1em;
+    display: flex;
+    margin: 1em 0;
+}
+.today #board > div:last-child >div >div:last-child{
+    margin-left: 3em;
+    cursor: pointer;
+}
+.today #bestDiary{
+    display: block;
+
+    position: relative;
+}
+.today #bestDiary > div{
+    height: 20%;
+    background: url("/img/redpen.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    visibility: hidden;
+}
+
+.today #bestDiary a:hover + div{
+    visibility: visible;
+}
+.today #bestDiary span{
+    position: absolute;
+    background: black;
+}
+
+/*.today #bestDiary span:nth-child(1){left: 0; top: 0; width: 0; height: 5px; transition: width 0.1s;}*/
+/*.today #bestDiary span:nth-child(2){right: 0; top: 0; width: 5px; height: 0; transition: height 0.1s linear 0.1s;}*/
+/*.today #bestDiary span:nth-child(3){right: 0; bottom: 0; width: 0; height: 5px; transition: width 0.1s linear 0.2s;}*/
+/*.today #bestDiary span:nth-child(4){left: 0; bottom: 0; width: 5px; height: 0; transition: height 0.1s linear 0.3s;}*/
+/*.today #bestDiary span:nth-child(1){left: 0; top: 0; width: 0; height: 5px; transition: width 0.1s;}*/
+/*.today #bestDiary span:nth-child(2){right: 0; top: 0; width: 5px; height: 0; transition: height 0.1s;}*/
+/*.today #bestDiary span:nth-child(3){right: 0; bottom: 0; width: 0; height: 5px; transition: width 0.1s;}*/
+/*.today #bestDiary span:nth-child(4){left: 0; bottom: 0; width: 5px; height: 0; transition: height 0.1s;}*/
+/*.today #bestDiary:hover span:nth-child(1){width: 100%;}*/
+/*.today #bestDiary:hover span:nth-child(2){height: 100%;}*/
+/*.today #bestDiary:hover span:nth-child(3){width: 100%;}*/
+/*.today #bestDiary:hover span:nth-child(4){height: 100%;}*/
 .today #bestDiary div{
     margin-top: 10px;
     font-size: 20px;
     line-height: 20px;
     text-align: left;
 }
-.today #bestDiary>div{
+.today #bestDiary>a>div{
     width: 100%;
-    display: table-row;
 }
 .today #bestDiary > div:first-child{
     border-bottom: black 2px solid;
@@ -83,6 +152,7 @@ body{
     border-bottom: black 2px solid;
     padding-bottom: 10px;
 }
+
 /*키워드 메인*/
 .keyword_main{
     margin:auto;

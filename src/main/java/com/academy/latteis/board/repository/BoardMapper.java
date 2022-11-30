@@ -62,4 +62,16 @@ public interface BoardMapper {
 
     // 게시물에 붙어있는 첨부파일 경로명 전부 조회
     List<String> findFileNames(Long boardNo);
+
+    BoardGoodDTO findBestFree();
+
+    BoardGoodDTO findBestKey();
+
+    BoardGoodDTO findBest00();
+
+    BoardGoodDTO findBest90();
+
+    BoardGoodDTO findBest80();
+
+    BoardGoodDTO findBest70();
 }
