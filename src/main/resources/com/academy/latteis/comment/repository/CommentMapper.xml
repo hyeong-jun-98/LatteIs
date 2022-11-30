@@ -55,4 +55,12 @@
         WHERE board_no = #{boardNo}
     </select>
 
+    <delete id="exitUser">
+        delete from comment where user_nickname = #{userNickname}
+    </delete>
+
+    <update id="reviseUser">
+        update comment set user_nickname = #{afterUserNickname}, comment_writer = #{afterUserNickname} where user_nickname = #{beforeUserNickname}
+    </update>
+
 </mapper>

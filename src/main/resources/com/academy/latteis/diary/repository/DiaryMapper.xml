@@ -148,6 +148,18 @@
     )
 </select>
 
+    <delete id="dExitUser">
+        delete from diary where user_nickname=#{userNickname}
+    </delete>
+
+    <delete id="gExitUser">
+        delete from good where user_no=#{userNo}
+    </delete>
+
+    <update id="reviseUser">
+        update diary set user_nickname = #{afterUserNickname} where user_nickname = #{beforeUserNickname}
+    </update>
+
 
     
 <!--&lt;!&ndash;    좋아요 이력을 가져오기&ndash;&gt;-->

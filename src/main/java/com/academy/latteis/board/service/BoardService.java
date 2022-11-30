@@ -8,6 +8,7 @@ import com.academy.latteis.board.repository.BoardMapper;
 import com.academy.latteis.comment.repository.CommentMapper;
 import com.academy.latteis.common.search.Search;
 import com.academy.latteis.good.repository.GoodMapper;
+import com.academy.latteis.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -133,7 +134,7 @@ public class BoardService {
         processConverting(boardList);
 
         findDataMap.put("boardList", boardList);
-        findDataMap.put("totalCount", boardMapper.getTotalCountGeneration(search));
+        findDataMap.put("totalCount", boardMapper.getTotalCountKey(search));
         return findDataMap;
     }
 
@@ -242,9 +243,9 @@ public class BoardService {
         // 좋아요도 삭제
         goodMapper.removeByBoardNo(boardNo);
 
+
         // 첨부파일도 삭제
         boardMapper.deleteFile(boardNo);
-
         // 원본 게시물 삭제
         boolean flag = boardMapper.remove(boardNo);
         return flag;
@@ -284,5 +285,13 @@ public class BoardService {
     // 첨부파일 목록 가져오기
     public List<String> getFiles(Long boardNo) {
         return boardMapper.findFileNames(boardNo);
+    }
+
+    public void exitUser(User user){
+        log.info("게시글 {}",user);
+        boardMapper.exitUser(user.getUserNickname());
+    }
+    public void reviseUser(String beforeUserNickname, String afterUserNickname){
+        boardMapper.reviseUser(beforeUserNickname, afterUserNickname);
     }
 }

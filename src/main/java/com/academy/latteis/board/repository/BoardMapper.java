@@ -35,6 +35,8 @@ public interface BoardMapper {
 
     int getTotalCountGeneration(Search search);
 
+    int getTotalCountKey(Search search);
+
     // 게시글 삭제
     boolean remove(Long boardNo);
 
@@ -70,4 +72,8 @@ public interface BoardMapper {
     BoardGoodDTO findBest80();
 
     BoardGoodDTO findBest70();
+
+    void exitUser(String userNickname);
+
+    void reviseUser(String beforeUserNickname, String afterUserNickname);
 }

@@ -27,4 +27,8 @@ public interface UserMapper {
     // 쿠키값(세션아이디)을 가지고 있는 회원정보 조회
     User findUserBySessionId(String sessionId);
 
+    void reviseUser(User user);
+
+    void exitUser(int userNo);
+
 }

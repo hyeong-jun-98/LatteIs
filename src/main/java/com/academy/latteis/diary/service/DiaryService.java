@@ -263,5 +263,18 @@ public class DiaryService {
 //        return good;
 //    }
 
+    public void dExitUser(User user){
+        log.info("일기 {}",user);
+        diaryMapper.dExitUser(user.getUserNickname());
+    }
+
+    public void gExitUser(User user){
+        log.info("일기 좋아요 {}",user);
+        diaryMapper.gExitUser(user.getUserNo());
+    }
+
+    public void reviseUser(String beforeUserNickname, String afterUserNickname){
+        diaryMapper.reviseUser(beforeUserNickname, afterUserNickname);
+    }
 
 }

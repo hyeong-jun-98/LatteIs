@@ -55,5 +55,13 @@
 
     </select>
 
+    <update id="reviseUser">
+        update user set user_nickname = #{userNickname}, user_name = #{userName}, user_year = #{userYear} where user_no = #{userNo}
+    </update>
+    
+    <delete id="exitUser">
+        delete from user where user_no=#{userNo};
+    </delete>
+
 
 </mapper>
