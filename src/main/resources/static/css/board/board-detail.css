@@ -75,9 +75,15 @@ body{
     display: block;
     width: 100px;
     height: 100px;
+    margin: 10px;
 }
 .img-sizing:hover {
     opacity: 0.5
+}
+.a-sizing {
+    display: block;
+    color: #000;
+    margin: 10px;
 }
 
 /* textarea - 제목, 내용 */

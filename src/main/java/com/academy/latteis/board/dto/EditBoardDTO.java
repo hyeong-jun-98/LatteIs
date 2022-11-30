@@ -1,9 +1,8 @@
-package com.academy.latteis.board.domain;
+package com.academy.latteis.board.dto;
 
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
 import java.util.List;
 
 @Setter
@@ -11,22 +10,13 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Board {
+public class EditBoardDTO {
     private Long boardNo;
     private String title;
     private String writer;
     private String content;
-    private Date regdate;
-    private Long hit;
-    private Long good;
-    private String userNickname;
-    private Long generation;
-
-    // fk
-    private Long topicNo;
 
     private List<MultipartFile> files;
     private List<String> editFileNames;
-
-
+    private String editFileName;
 }

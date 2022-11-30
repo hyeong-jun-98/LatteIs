@@ -2,10 +2,12 @@ package com.academy.latteis.board.controller;
 
 import com.academy.latteis.board.domain.Board;
 import com.academy.latteis.board.dto.BoardGoodDTO;
+import com.academy.latteis.board.dto.EditBoardDTO;
 import com.academy.latteis.board.service.BoardService;
 import com.academy.latteis.common.page.Page;
 import com.academy.latteis.common.page.PageMaker;
 import com.academy.latteis.common.search.Search;
+import com.academy.latteis.util.FileUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -13,11 +15,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +32,9 @@ import java.util.Map;
 public class BoardController {
 
     private final BoardService boardService;
+
+    // 업로드 파일 저장 경로
+    private static final String UPLOAD_PATH = "D:/sl_djp/upload";
 
     // 게시글 목록 요청
     @GetMapping("/list")
@@ -45,7 +52,7 @@ public class BoardController {
             //탑바 고정 세션
             session.setAttribute("topbar", "free");
             where = "freeboard/freeboard-list";
-        } else if(uri.equals("/generation/list")){    // 연령대별 게시판 목록 요청이면
+        } else if (uri.equals("/generation/list")) {    // 연령대별 게시판 목록 요청이면
             boardMap = boardService.findAllGenerationService(search, generation);
             // 세션 정보 생성
             session.setAttribute("sessionGeneration", generation);     // 게시판의 generation 정보를 세션에 담아둠
@@ -65,8 +72,8 @@ public class BoardController {
             } else if (generation == 1970) {       // 1970년대 게시판 요청일 때
                 where = "generationboard/70-list";
             }
-        } else{
-            long topicNo =1;
+        } else {
+            long topicNo = 1;
             boardMap = boardService.findAllKeywordService(search, topicNo);
             session.setAttribute("topbar", "keyword");
             where = "keywordboard/keyword-list";
@@ -93,22 +100,22 @@ public class BoardController {
         List<BoardGoodDTO> boardList = boardService.findOneService(boardNo, response, request);
         log.info("boardList {} ", boardList);
         BoardGoodDTO board = null;
-        if(boardList.size() != 0) {
-          board = boardList.get(0);  // boardList에서 아무거나 하나 뽑음
-          model.addAttribute("board", board);
-          model.addAttribute("boardList", boardList);
-          model.addAttribute("page", page);
+        if (boardList.size() != 0) {
+            board = boardList.get(0);  // boardList에서 아무거나 하나 뽑음
+            model.addAttribute("board", board);
+            model.addAttribute("boardList", boardList);
+            model.addAttribute("page", page);
         }
 
-        if(url.equals("/freeboard/detail/" + boardNo)){
+        if (url.equals("/freeboard/detail/" + boardNo)) {
             where = "freeboard/freeboard-detail";
         } else if (url.equals("/generation/detail/" + boardNo)) {
             where = "generationboard/generation-detail";
-        }else{
+        } else {
             where = "keywordboard/keyword-detail";
         }
 
-        if(board == null) {
+        if (board == null) {
             return "error/error";
         }
 
@@ -120,12 +127,12 @@ public class BoardController {
     public String write(HttpServletRequest request) {
         String uri = request.getRequestURI();
         log.info("controller request {} GET!", uri);
-        String where=null;
-        if(uri.equals("/freeboard/write")){
+        String where = null;
+        if (uri.equals("/freeboard/write")) {
             where = "freeboard/freeboard-write";
-        } else if(uri.equals("/generation/write")){
+        } else if (uri.equals("/generation/write")) {
             where = "generationboard/generation-write";
-        } else{
+        } else {
             where = "keywordboard/keyword-write";
         }
         return where;
@@ -139,25 +146,41 @@ public class BoardController {
 
         boolean flag;
         HttpSession session = request.getSession();
-        log.info("세션에 담긴 연령대 정보는 {}", session.getAttribute("sessionGeneration"));
 
         if (uri.equals("/generation/write")) {     // 연령대별 게시판 게시글 작성 요청이면 if문 안에 실행
-            flag = boardService.writeGenerationService(board);
+            // 클라이언트가 전송한 파일 업로드하기
+            List<String> fileNames = new ArrayList<>();
+            for (MultipartFile file : board.getFiles()) {
+                fileNames.add(FileUtils.uploadFile(file, UPLOAD_PATH));
+            }
+            flag = boardService.writeGenerationService(board, fileNames);
             if (flag) ra.addFlashAttribute("msg", "write-success");
             return flag ? "redirect:/generation/list?generation=" + session.getAttribute("sessionGeneration")
                     : "redirect:/generation/list?generation=" + session.getAttribute("sessionGeneration");
         }
         //키워드 글 작성
-        if (uri.equals("/keyword/write")){
+        if (uri.equals("/keyword/write")) {
             log.info(request.getSession().getAttribute("keyword"));
             board.setTopicNo(Long.parseLong((String) request.getSession().getAttribute("keyword")));
-            flag = boardService.writeKeywordService(board);
+            // 클라이언트가 전송한 파일 업로드하기
+            List<String> fileNames = new ArrayList<>();
+            for (MultipartFile file : board.getFiles()) {
+                fileNames.add(FileUtils.uploadFile(file, UPLOAD_PATH));
+            }
+            flag = boardService.writeKeywordService(board, fileNames);
             if (flag) ra.addFlashAttribute("msg", "write-success");
             return flag ? "redirect:/keyword/list" : "redirect:/list";
         }
 
         // 자유게시판 게시글 작성이면
-        flag = boardService.writeFreeService(board);
+        // 클라이언트가 전송한 파일 업로드하기
+        List<String> fileNames = new ArrayList<>();
+        if (board.getFiles() != null){
+            for (MultipartFile file : board.getFiles()) {
+                fileNames.add(FileUtils.uploadFile(file, UPLOAD_PATH));
+            }
+        }
+        flag = boardService.writeFreeService(board, fileNames);
         if (flag) ra.addFlashAttribute("msg", "write-success");
         return flag ? "redirect:/freeboard/list" : "redirect:/list";
     }
@@ -169,12 +192,12 @@ public class BoardController {
         String uri = request.getRequestURI();
         model.addAttribute("boardNo", boardNo);
         model.addAttribute("validate", boardService.getUser(boardNo));
-        String where=  null;
-        if(uri.equals("/freeboard/delete")){
+        String where = null;
+        if (uri.equals("/freeboard/delete")) {
             where = "freeboard/process-delete";
-        }else if(uri.equals("/generation/delete")){
+        } else if (uri.equals("/generation/delete")) {
             where = "generationboard/process-delete";
-        }else{
+        } else {
             where = "keywordboard/process-delete";
         }
 
@@ -192,11 +215,11 @@ public class BoardController {
         if (flag) ra.addFlashAttribute("msg", "delete-success");
 
         HttpSession session = request.getSession();
-        if(uri.equals("/freeboard/delete")){
+        if (uri.equals("/freeboard/delete")) {
             where = "redirect:/freeboard/list";
-        }else if(uri.equals("/generation/delete")){
+        } else if (uri.equals("/generation/delete")) {
             where = "redirect:/generation/list?generation=" + session.getAttribute("sessionGeneration");
-        }else{
+        } else {
             where = "redirect:/keyword/list";
         }
 
@@ -216,11 +239,11 @@ public class BoardController {
         model.addAttribute("boardNo", boardNo);
         model.addAttribute("page", page);
         model.addAttribute("validate", boardService.getUser(boardNo));
-        if(uri.equals("/freeboard/edit")){
+        if (uri.equals("/freeboard/edit")) {
             where = "freeboard/freeboard-edit";
-        }else if(uri.equals("/generation/edit")){
+        } else if (uri.equals("/generation/edit")) {
             where = "generationboard/generation-edit";
-        }else {
+        } else {
             where = "keywordboard/keyword-edit";
         }
         return where;
@@ -228,18 +251,26 @@ public class BoardController {
 
     // 게시글 수정 요청
     @PostMapping("/edit")
-    public String edit(Board board, Page page, HttpServletRequest request) {
+    public String edit(EditBoardDTO board, Page page, HttpServletRequest request) {
         String uri = request.getRequestURI();
         String where;
         log.info("controller request {} POST!!", uri);
+        log.info("원래 존재했던 파일 중 수정할 파일 이름은 {}", board.getEditFileNames());
 
         HttpSession session = request.getSession();
-        boolean flag = boardService.editService(board);
+        // 클라이언트가 전송한 파일 업로드하기
+        List<String> fileNames = new ArrayList<>();
+        if (board.getFiles() != null){
+            for (MultipartFile file : board.getFiles()) {
+                fileNames.add(FileUtils.uploadFile(file, UPLOAD_PATH));
+            }
+        }
+        boolean flag = boardService.editService(board, fileNames);
         if (uri.equals("/freeboard/edit")) {
             where = "redirect:/freeboard/detail/" + board.getBoardNo() + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount();
-        }else if(uri.equals("/generation/edit")){
+        } else if (uri.equals("/generation/edit")) {
             where = "redirect:/generation/detail/" + board.getBoardNo() + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount();
-        }else{
+        } else {
             where = "redirect:/keyword/detail/" + board.getBoardNo() + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount();
         }
         return where;
@@ -248,7 +279,7 @@ public class BoardController {
     // 특정 게시물에 붙은 첨부파일 경로 리스트를 클라이언트에게 비동기 전송
     @GetMapping("/file/{boardNo}")
     @ResponseBody
-    public ResponseEntity<List<String>> getFiles(@PathVariable Long boardNo){
+    public ResponseEntity<List<String>> getFiles(@PathVariable Long boardNo) {
         List<String> files = boardService.getFiles(boardNo);
         log.info("/file/{} GET! ASYNC - {}", boardNo, files);
 

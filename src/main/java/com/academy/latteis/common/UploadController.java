@@ -29,8 +29,8 @@ public class UploadController {
     // 비동기 요청 파일 업로드 처리
     @PostMapping("/ajax-upload")
     @ResponseBody
-    public ResponseEntity<List<String>> ajaxUpload(List<MultipartFile> files) {
-        log.info("/ajax-upload POST! - {}", files.get(0).getOriginalFilename());
+    public ResponseEntity<List<String>> ajaxUpload(List<MultipartFile> files, String fileName) {
+        log.info("/ajax-upload POST! - {}, {}", files.get(0), fileName);
 
         // 클라이언트에게 전송할 파일경로 리스트
         List<String> fileNames = new ArrayList<>();

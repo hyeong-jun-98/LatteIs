@@ -26,6 +26,12 @@
         <result property="userNickname" column="user_nickname"/>
     </resultMap>
 
+    <!-- EditBoardDTO -->
+    <resultMap id="editBoardMap" type="com.academy.latteis.board.dto.EditBoardDTO">
+        <result property="boardNo" column="board_no"/>
+        <result property="editFileName" column="file_name"/>
+    </resultMap>
+
     <!-- 중복 쿼리문 재사용하기 -->
     <sql id="searchInclude">
         <if test="type == 'title'">AND title LIKE CONCAT('%', #{keyword}, '%')</if>
@@ -176,9 +182,14 @@
         VALUES (#{fileName}, #{boardNo})
     </insert>
 
-    <!-- 첨부파일 삭제 -->
-    <delete id="deleteFile">
+    <!-- 해당 글 첨부파일 모두 삭제 -->
+    <delete id="deleteAllFile">
         DELETE FROM file_upload WHERE board_no = #{boardNo}
+    </delete>
+
+    <!-- 수정 글 첨부파일 삭제 -->
+    <delete id="editFileDelete">
+        DELETE FROM file_upload WHERE board_no = #{boardNo} AND file_name = #{editFileName}
     </delete>
 
     <!-- 첨부파일 경로명 조회 -->
