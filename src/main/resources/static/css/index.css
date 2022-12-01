@@ -90,9 +90,20 @@ body{
     display: flex;
     margin: 1em 0;
 }
-.today #board > div:last-child >div >div:last-child{
+#tokey{
+    margin-left: 5em !important;
+}
+#tofree{
+    margin-left: 5.7em !important;
+}
+.today #board > div:last-child >div >div:nth-child(2){
     margin-left: 3em;
     cursor: pointer;
+    width: 55%;
+    text-align: left;
+}
+.today #board > div:last-child >div >div:nth-child(4){
+    margin-left: 3em;
 }
 .today #bestDiary{
     display: block;

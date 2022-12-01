@@ -60,22 +60,22 @@
                 <div>베스트 게시글</div>
                 <div>
                     <div>
-                        <div>키워드 게시판</div><div id="tokey">${bk.content}</div>
+                        <div>키워드 게시판</div><div id="tokey">${bk.content}</div><div>좋아요 ${bk.goodCount}</div><div>댓글 <c:if test="${bk.commentCount == null}">0</c:if><c:if test="${bk.commentCount != null}">${bk.commentCount}</c:if></div>
                     </div>
                     <div>
-                        <div>연령대 게시판(00)</div><div id="to00">${b00.content}</div>
+                        <div>연령대 게시판(00)</div><div id="to00">${b00.content}</div><div>좋아요 ${b00.goodCount}</div><div>댓글 <c:if test="${b00.commentCount == null}">0</c:if><c:if test="${b00.commentCount != null}">${b00.commentCount}</c:if></div>
                     </div>
                     <div>
-                        <div>연령대 게시판(90)</div><div id="to90">${b90.content}</div>
+                        <div>연령대 게시판(90)</div><div id="to90">${b90.content}</div><div>좋아요 ${b90.goodCount}</div><div>댓글 <c:if test="${b90.commentCount == null}">0</c:if><c:if test="${b90.commentCount != null}">${b90.commentCount}</c:if></div>
                     </div>
                     <div>
-                        <div>연령대 게시판(80)</div><div id="to80">${b80.content}</div>
+                        <div>연령대 게시판(80)</div><div id="to80">${b80.content}</div><div>좋아요 ${b80.goodCount}</div><div>댓글 <c:if test="${b80.commentCount == null}">0</c:if><c:if test="${b80.commentCount != null}">${b80.commentCount}</c:if></div>
                     </div>
                     <div>
-                        <div>연령대 게시판(70)</div><div id="to70">${b70.content}</div>
+                        <div>연령대 게시판(70)</div><div id="to70">${b70.content}</div><div>좋아요 ${b70.goodCount}</div><div>댓글 <c:if test="${b70.commentCount == null}">0</c:if><c:if test="${b70.commentCount != null}">${b70.commentCount}</c:if></div>
                     </div>
                     <div>
-                        <div>자유 게시판</div><div id="tofree">${bf.content}</div>
+                        <div>자유 게시판</div><div id="tofree">${bf.content}</div><div>좋아요 ${bf.goodCount}</div><div>댓글 <c:if test="${bf.commentCount == null}">0</c:if><c:if test="${bf.commentCount != null}">${bf.commentCount}</c:if></div>
                     </div>
                 </div>
             </div>
