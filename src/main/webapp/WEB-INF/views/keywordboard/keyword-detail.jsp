@@ -64,8 +64,7 @@
                     <!-- 댓글 내용 헤더 -->
                     <div class="card-header text-white m-0 bg-warning bg-opacity-50">
                         <div class="float-left text-black" id="good-comment-area">
-                            <i class="far fa-heart fs-4" id="good-check"
-                               data-user-no="${loginUser.userNo}"></i>&nbsp좋아요 (<span id="goodCnt">0</span>)
+                            <i class="far fa-heart fs-4" id="good-check"></i>&nbsp좋아요 (<span id="goodCnt">0</span>)
 
                             &nbsp&nbsp댓글 (<span id="commentCnt">0</span>)
                         </div>
@@ -263,12 +262,7 @@
     // 좋아요 여부 확인
     function goodOrNot() {
         <c:forEach var="b" items="${boardList}">
-
-        console.log('${b}');
-        console.log('${b.userNo}');
-        console.log('${loginUser.userNo}');
-
-        if ('${b.userNo}' === '${loginUser.userNo}' && $goodCheck.dataset.userNo !== '') {
+        if ('${b.userNo}' === '${loginUser.userNo}' && ${not empty loginUser}) {
             goodList.replace('far', 'fas'); // 엄지 체크
         }
         </c:forEach>
@@ -289,18 +283,16 @@
     function goodCheckEvent() {
         $goodCheck.onclick = e => {
 
-            if ($goodCheck.dataset.userNo === '') { // 로그인 안돼있으면
+            if (${empty loginUser}) { // 로그인 안돼있으면
                 alert("로그인 후 이용 가능한 서비스 입니다.");
                 return;
             }
 
             // 로그인 돼있으면 아래 실행
             if (goodList.contains('far')) {  // 빈 엄지이면
-                console.log('좋아요 눌러줘');
                 goodCheck();
                 goodList.replace('far', 'fas'); // 빈 좋아요를 채워진 엄지로 변경
             } else if (goodList.contains('fas')) {    // 채워진 엄지이면
-                console.log('좋아요 풀어줘');
                 goodUnCheck();
                 goodList.replace('fas', 'far');   // 빈 엄지로 변경
             }
@@ -312,8 +304,8 @@
     function goodCheck() {
         // 서버로 전송할 데이터들
         const replyData = {
-            userNo: $goodCheck.dataset.userNo,
-            boardNo: ${board.boardNo}
+            userNo: '${loginUser.userNo}',
+            boardNo: '${board.boardNo}'
         };
 
         // POST요청을 위한 요청 정보 객체
@@ -337,8 +329,8 @@
     function goodUnCheck() {
         // 서버로 전송할 데이터들
         const replyData = {
-            userNo: $goodCheck.dataset.userNo,
-            boardNo: ${board.boardNo},
+            userNo: '${loginUser.userNo}',
+            boardNo: '${board.boardNo}'
         };
 
         // POST요청을 위한 요청 정보 객체

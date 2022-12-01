@@ -97,10 +97,12 @@ public class BoardController {
         String url = request.getRequestURI();
         String where = null;
         log.info("controller request {} GET! - {}", request.getRequestURI(), boardNo);
+
         List<BoardGoodDTO> boardList = boardService.findOneService(boardNo, response, request);
         log.info("boardList {} ", boardList);
+
         BoardGoodDTO board = null;
-        if (boardList.size() != 0) {
+        if (boardList.size() > 0) {
             board = boardList.get(0);  // boardList에서 아무거나 하나 뽑음
             model.addAttribute("board", board);
             model.addAttribute("boardList", boardList);
