@@ -17,6 +17,7 @@ public class BoardConvertDTO {
     private String userNickname;
     private Long generation;
     private Long topicNo;
+    private String userYear;
 
     // 커스텀 필드
     private String shortTitle;  // 줄임 제목

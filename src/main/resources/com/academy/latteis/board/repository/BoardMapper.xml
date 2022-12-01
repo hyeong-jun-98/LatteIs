@@ -24,6 +24,7 @@
         <result property="boardNo" column="board_no"/>
         <result property="topicNo" column="topic_no"/>
         <result property="userNickname" column="user_nickname"/>
+        <result property="userYear" column="user_year"/>
     </resultMap>
 
     <!-- EditBoardDTO -->
@@ -64,8 +65,7 @@
 
     <!-- 자유게시판 목록 가져오기 -->
     <select id="findAllFree" resultMap="boardConvertMap">
-        SELECT *
-        FROM board
+        SELECT board.*, user_year from board left join user on board.user_nickname = user.user_nickname
         WHERE generation IS NULL and topic_no is null
 
         <include refid="searchInclude"/>
@@ -76,9 +76,7 @@
 
     <!-- 연령대별 게시판 목록 가져오기 -->
     <select id="findAllGeneration" resultMap="boardConvertMap">
-        SELECT *
-        FROM board
-
+        SELECT board.*, user_year from board left join user on board.user_nickname = user.user_nickname
         <if test="generation == '2000' || generation == '1990' || generation == '1980'|| generation == '1970'">
             WHERE generation = #{generation}
         </if>
@@ -97,8 +95,7 @@
 
     <!-- 키워드 게시판 목록 가져오기 -->
     <select id="findAllKeyword" resultMap="boardConvertMap">
-        SELECT *
-        FROM board WHERE topic_no = #{topicNo}
+        SELECT board.*, user_year from board left join user on board.user_nickname = user.user_nickname WHERE topic_no = #{topicNo}
         <if test="search.type == 'title'">AND title LIKE CONCAT('%', #{search.keyword}, '%')</if>
         <if test="search.type == 'writer'">AND writer LIKE CONCAT('%', #{search.keyword}, '%')</if>
         <if test="search.type == 'content'">AND content LIKE CONCAT('%', #{search.keyword}, '%')</if>

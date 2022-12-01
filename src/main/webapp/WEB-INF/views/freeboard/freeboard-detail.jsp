@@ -25,6 +25,8 @@
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
 </head>
+<style>
+</style>
 <body>
 
 <%@include file="../topbar.jsp" %>
