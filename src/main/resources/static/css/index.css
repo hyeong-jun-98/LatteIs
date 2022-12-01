@@ -269,15 +269,13 @@ body{
     display: none;
 }
 .age_picture div:nth-child(1){
-    background-image: url("/img/freeboard_list.PNG");
+    background-image: url("/img/generationList.png");
     display: block;
 }
 .age_picture div:nth-child(2){
-    background-image: url("/img/freeboard_detail1.PNG");
+    background-image: url("/img/generationDetail.png");
 }
-.age_picture div:nth-child(3){
-    background-image: url("/img/freeboard_detail2.PNG");
-}
+
 .age_describe{
     width: 50%;
     /*background: white;*/
@@ -338,15 +336,15 @@ body{
     display: none;
 }
 .quiz_picture div:nth-child(1){
-    background-image: url("/img/freeboard_list.PNG");
+    background-image: url("/img/ready.png");
     display: block;
 }
-.quiz_picture div:nth-child(2){
-    background-image: url("/img/freeboard_detail1.PNG");
-}
-.quiz_picture div:nth-child(3){
-    background-image: url("/img/freeboard_detail2.PNG");
-}
+/*.quiz_picture div:nth-child(2){*/
+/*    background-image: url("/img/freeboard_detail1.PNG");*/
+/*}*/
+/*.quiz_picture div:nth-child(3){*/
+/*    background-image: url("/img/freeboard_detail2.PNG");*/
+/*}*/
 .quiz_describe{
     width: 50%;
     /*background: white;*/
