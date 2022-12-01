@@ -47,15 +47,6 @@ class GoodMapperTest {
         }
     }
 
-    // 좋아요 여부 확인
-    @Test
-    @DisplayName("")
-    void goodOrNotTest() {
-        BoardGood boardGood = new BoardGood();
-        boardGood.setUserNo(6L);
-        boardGood.setBoardNo(336L);
-        System.out.println(mapper.goodOrNot(boardGood));
-    }
 
     // 좋아요 수 테스트
     @Test

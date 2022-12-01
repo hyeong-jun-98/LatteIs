@@ -112,7 +112,7 @@
             <div class="age_picture">
                 <div id="agep1" class="ageSlides"></div>
                 <div id="agep2" class="ageSlides"></div>
-                <div id="agep3" class="ageSlides"></div>
+
                 <a class="prev" onclick="plusAgeSlides(-1)">❮</a>
                 <a class="next" onclick="plusAgeSlides(1)">❯</a>
             </div>
@@ -122,8 +122,7 @@
         <div class="quiz_content">
             <div class="quiz_picture">
                 <div id="quizp1" class="quizSlides"></div>
-                <div id="quizp2" class="quizSlides"></div>
-                <div id="quizp3" class="quizSlides"></div>
+
                 <a class="prev" onclick="plusQuizSlides(-1)">❮</a>
                 <a class="next" onclick="plusQuizSlides(1)">❯</a>
             </div>
