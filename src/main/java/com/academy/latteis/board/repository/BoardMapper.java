@@ -36,6 +36,8 @@ public interface BoardMapper {
 
     int getTotalCountGeneration(Search search);
 
+    int getTotalCountKeyword(Search search);
+
     // 게시글 삭제
     boolean remove(Long boardNo);
 

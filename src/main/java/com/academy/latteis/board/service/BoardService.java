@@ -141,7 +141,7 @@ public class BoardService {
         processConverting(boardList);
 
         findDataMap.put("boardList", boardList);
-        findDataMap.put("totalCount", boardMapper.getTotalCountGeneration(search));
+        findDataMap.put("totalCount", boardMapper.getTotalCountKeyword(search));
         return findDataMap;
     }
 

@@ -49,14 +49,11 @@
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-            <div class="form-control main-content" id="exampleFormControlTextarea1">
-                ${board.content}
-
-                <!-- 파일 첨부 영역 -->
-                <div class="form-group">
-                    <ul class="uploaded-list"></ul>
-                </div>
-            </div>
+            <div class="form-control detail-main-content" id="exampleFormControlTextarea1">${board.content}<!-- 이미지 첨부 영역 --><div class="form-group"><ul class="img-uploaded-list"></ul></div></div>
+        </div>
+        <!-- 파일 첨부 영역 -->
+        <div class="form-group">
+            <ul class="file-uploaded-list"></ul>
         </div>
 
 
@@ -714,11 +711,11 @@
             // 확장자 추출 후 이미지인지 아닌지 확인
             if (isImageFile(originFileName)) {  // 파일이 이미지라면
                 const $img = document.createElement('img');
-                $img.classList.add('img-sizing');
+                $img.classList.add('detail-img-sizing');
                 $img.setAttribute('src', '/loadFile?fileName=' + fileName);
                 $img.setAttribute('alt', originFileName);
                 $img.setAttribute('name', 'img');
-                $('.uploaded-list').append($img);
+                $('.img-uploaded-list').append($img);
 
             } else {    // 이미지가 아니라면 다운로드 링크를 생성
                 const $a = document.createElement('a');
@@ -735,7 +732,7 @@
                 $a.append($i);
                 $a.innerHTML += '<span>' + originFileName + '</span>';
 
-                $('.uploaded-list').append($a);
+                $('.file-uploaded-list').append($a);
             }
         }
 
