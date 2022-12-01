@@ -138,7 +138,7 @@
 
     </select>
     <!-- 키워드 게시판 전체 수 가져오기 -->
-    <select id="getTotalCountKey" resultType="int">
+    <select id="getTotalCountKeyword" resultType="int">
         SELECT COUNT(*)
         FROM board
         WHERE topic_no IS NOT NULL

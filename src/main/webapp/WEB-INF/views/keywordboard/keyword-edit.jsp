@@ -64,8 +64,11 @@
                 </div>
                 <div class="uploadDiv">
                 </div>
+                <!-- 업로드된 이미지의 썸네일을 보여줄 영역 -->
+                <div class="write-img-uploaded-list">
+                </div>
                 <!-- 업로드된 파일의 썸네일을 보여줄 영역 -->
-                <div class="uploaded-list">
+                <div class="write-file-uploaded-list">
                 </div>
             </div>
 
@@ -120,7 +123,7 @@
                 $img.setAttribute('data-name', originFileName);
                 $img.setAttribute('src', '/loadFile?fileName=' + fileName);
                 $img.setAttribute('alt', originFileName);
-                $('.uploaded-list').append($img);
+                $('.write-img-uploaded-list').append($img);
             } else {    // 이미지가 아니라면 다운로드 링크를 생성
                 const $a = document.createElement('a');
                 $a.classList.add('a-sizing');
@@ -134,7 +137,7 @@
 
                 $a.append($i);
                 $a.innerHTML += '<span>' + originFileName + '</span>'
-                $('.uploaded-list').append($a);
+                $('.write-file-uploaded-list').append($a);
             }
         }
 
@@ -158,7 +161,7 @@
                     const $img = document.createElement("img");
                     $img.classList.add("img-sizing");
                     $img.setAttribute('data-name', originFileName);
-                    $('.uploaded-list').append($img);
+                    $('.write-img-uploaded-list').append($img);
 
                     const reader = new FileReader();
                     reader.onload = (function (aImg) {
@@ -181,7 +184,7 @@
 
                     $a.append($i);
                     $a.innerHTML += '<span>' + originFileName + '</span>'
-                    $('.uploaded-list').append($a);
+                    $('.write-file-uploaded-list').append($a);
                 }
             }
         }

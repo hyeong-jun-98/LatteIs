@@ -62,7 +62,10 @@
                 <div class="uploadDiv">
                 </div>
                 <!-- 업로드된 파일의 썸네일을 보여줄 영역 -->
-                <div class="uploaded-list">
+                <div class="write-img-uploaded-list">
+                </div>
+                <!-- 업로드된 파일의 썸네일을 보여줄 영역 -->
+                <div class="write-file-uploaded-list">
                 </div>
             </div>
 
@@ -114,7 +117,7 @@
                     $img.classList.add("img-sizing");
                     $img.setAttribute('data-name', originFileName);
                     $img.file = file;
-                    $('.uploaded-list').append($img);
+                    $('.write-img-uploaded-list').append($img);
 
                     const reader = new FileReader();
                     reader.onload = (function (aImg) {
@@ -137,7 +140,7 @@
 
                     $a.append($i);
                     $a.innerHTML += '<span>' + originFileName + '</span>'
-                    $('.uploaded-list').append($a);
+                    $('.write-file-uploaded-list').append($a);
                 }
             }
         }

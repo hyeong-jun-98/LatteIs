@@ -50,6 +50,22 @@ body{
     min-height: 400px;
     overflow:hidden;
 }
+.content-container .detail-main-content {
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    padding: 10px 25px;
+    font-size: 1.1em;
+    text-align: justify;
+    background: #fff;
+    min-height: 400px;
+    overflow:hidden;
+
+    /* 줄바꿈 출력 */
+    white-space:pre-wrap;
+
+    /* 한글, 영어 둘다 줄바꿈 => 얘 없으면 한글만 줄바꿈 된다.. */
+    word-break: break-word;
+}
 .content-container .custom-btn-group {
     position: absolute;
     left: 50%;
@@ -67,7 +83,15 @@ body{
     font-size: 1.5em;
     margin-bottom: 16px;
 }
-.uploaded-list {
+.write-img-uploaded-list, .write-file-uploaded-list {
+    width: 100%;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+.img-uploaded-list, .file-uploaded-list {
+    width: 100%;
+    padding: 0;
     display: flex;
     flex-wrap: wrap;
 }
@@ -79,6 +103,11 @@ body{
 }
 .img-sizing:hover {
     opacity: 0.5
+}
+.detail-img-sizing {
+    display: block;
+    width: 100%;
+    margin: 10px;
 }
 .a-sizing {
     display: block;
