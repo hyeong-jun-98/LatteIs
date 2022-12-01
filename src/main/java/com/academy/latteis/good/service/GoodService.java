@@ -24,11 +24,6 @@ public class GoodService {
         return goodMapper.unCheck(boardGood);
     }
 
-    // 좋아요 여부 확인
-    public BoardGood goodOrNotService(BoardGood boardGood){
-        return goodMapper.goodOrNot(boardGood);
-    }
-
     // 좋아요 수 가져오기
     public int goodCntService(Long boardNo){
         return goodMapper.goodCnt(boardNo);
