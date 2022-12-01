@@ -46,7 +46,7 @@ public class BoardInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
         // postHandle이 작동해야 하는 URI 목록
-        List<String> uriList = Arrays.asList("/freeboard/edit", "/freeboard/delete", "/generation/edit", "/generation/delete");
+        List<String> uriList = Arrays.asList("/freeboard/edit", "/freeboard/delete", "/generation/edit", "/generation/delete", "/keyword/list", "/keyword/content");
 
         // 현재 요청 URI 정보 알아내기
         String requestURI = request.getRequestURI();
@@ -73,12 +73,18 @@ public class BoardInterceptor implements HandlerInterceptor {
                 if (!isMine(session, dto.getUserEmail())) {
                     response.sendRedirect("/freeboard/detail/" + boardNo + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount() + "&msg=no-match");
                 }
-            }else {
+            }else if (requestURI.contains("/generation")){
                 // 수정하려는 게시글의 계정명 정보와 세션에 저장된 계정명 정보가 일치하지 않으면 리스트로 돌려보내라
                 if (!isMine(session, dto.getUserEmail())) {
                     response.sendRedirect("/generation/detail/" + boardNo + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount() + "&msg=no-match");
                 }
+            }else{
+                // 수정하려는 게시글의 계정명 정보와 세션에 저장된 계정명 정보가 일치하지 않으면 리스트로 돌려보내라
+                if (!isMine(session, dto.getUserEmail())) {
+                    response.sendRedirect("/keyword/detail/" + boardNo + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount() + "&msg=no-match");
+                }
             }
+
         }
     }
 
