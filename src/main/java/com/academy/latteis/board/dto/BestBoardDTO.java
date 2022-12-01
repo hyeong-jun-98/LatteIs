@@ -8,6 +8,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BestBoardDTO {
+    private String boardNo;
     private String content;
     private String commentCount;
     private String goodCount;

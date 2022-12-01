@@ -292,27 +292,27 @@
     function toHotBoard(){
         const $tokey = document.getElementById("tokey");
         $tokey.onclick = e =>{
-            location.href="/keyword/detail/" + ${bk.boardNo}
+            location.href="/keyword/detail/" + '${bk.boardNo}'
         }
         const $to00 = document.getElementById("to00");
         $to00.onclick = e =>{
-            location.href="/generation/detail/" + ${b00.boardNo}
+            location.href="/generation/detail/" + '${b00.boardNo}'
         }
         const $to90 = document.getElementById("to90");
         $to90.onclick = e =>{
-            location.href="/generation/detail/" + ${b90.boardNo}
+            location.href="/generation/detail/" + '${b90.boardNo}'
         }
         const $to80 = document.getElementById("to80");
         $to80.onclick = e =>{
-            location.href="/generation/detail/" + ${b80.boardNo}
+            location.href="/generation/detail/" + '${b80.boardNo}'
         }
         const $to70 = document.getElementById("to70");
         $to70.onclick = e =>{
-            location.href="/generation/detail/" + ${b70.boardNo}
+            location.href="/generation/detail/" + '${b70.boardNo}'
         }
         const $tofree = document.getElementById("tofree");
         $tofree.onclick = e =>{
-            location.href="/freeboard/detail/" + ${bf.boardNo}
+            location.href="/freeboard/detail/" + '${bf.boardNo}'
         }
     }
 
