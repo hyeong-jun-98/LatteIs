@@ -34,7 +34,7 @@ public interface BoardMapper {
     // 전체 게시글 수 조회
     int getTotalCountFree(Search search);
 
-    int getTotalCountGeneration(Search search);
+    int getTotalCountGeneration(@Param("search") Search search, @Param("generation") Long generation);
 
     int getTotalCountKeyword(Search search);
 

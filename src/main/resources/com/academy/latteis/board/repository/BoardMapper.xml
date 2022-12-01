@@ -56,6 +56,7 @@
             (writer, title, content, user_nickname, generation)
         values (#{writer}, #{title}, #{content}, #{userNickname}, #{generation})
     </insert>
+    <!-- 키워드 게시판 게시글 작성 -->
     <insert id="writeKeyword">
         insert into board
             (writer, title, content, user_nickname, topic_no)
@@ -132,9 +133,20 @@
     <select id="getTotalCountGeneration" resultType="int">
         SELECT COUNT(*)
         FROM board
-        WHERE generation IS NOT NULL AND topic_no IS NULL
+        WHERE topic_no IS NULL
+        <if test="generation == '2000'">AND generation = #{generation}</if>
+        <if test="generation == '1990'">AND generation = #{generation}</if>
+        <if test="generation == '1980'">AND generation = #{generation}</if>
+        <if test="generation == '1970'">AND generation = #{generation}</if>
+        <if test="generation == '9999'">AND generation IS NOT NULL</if>
 
-        <include refid="searchInclude"/>
+        <if test="search.type == 'title'">AND title LIKE CONCAT('%', #{keyword}, '%')</if>
+        <if test="search.type == 'writer'">AND writer LIKE CONCAT('%', #{keyword}, '%')</if>
+        <if test="search.type == 'content'">AND content LIKE CONCAT('%', #{keyword}, '%')</if>
+        <if test="search.type == 'tc'">
+            AND title LIKE CONCAT('%', #{keyword}, '%')
+            OR content LIKE CONCAT('%', #{keyword}, '%')
+        </if>
 
     </select>
     <!-- 키워드 게시판 전체 수 가져오기 -->

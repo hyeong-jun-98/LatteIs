@@ -108,7 +108,7 @@ public class BoardService {
     }
 
     public Map<String, Object> findAllGenerationService(Search search, Long generation) {
-        log.info("findAll service start");
+        log.info("findAll service start - generation = {}", generation);
 
         Map<String, Object> findDataMap = new HashMap<>();
 
@@ -123,7 +123,7 @@ public class BoardService {
         processConverting(boardList);
 
         findDataMap.put("boardList", boardList);
-        findDataMap.put("totalCount", boardMapper.getTotalCountGeneration(search));
+        findDataMap.put("totalCount", boardMapper.getTotalCountGeneration(search, generation));
         return findDataMap;
     }
 
