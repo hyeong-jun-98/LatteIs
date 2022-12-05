@@ -5,6 +5,9 @@ plugins {
     id 'war'
 }
 
+bootWar.enabled = false; // bootWar와 충돌 방지 => bootWar는 내장 톰켓... 이걸 중지시킴. 톰캣 실행을 내장에서 하는게 아니라 외장에서 하겠다!!!
+war.enabled = true;
+
 group = 'com.academy'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
@@ -48,5 +51,6 @@ dependencies {
 }
 
 tasks.named('test') {
-    useJUnitPlatform()
+//    useJUnitPlatform()
+    exclude '**/*'
 }

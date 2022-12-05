@@ -51,12 +51,7 @@
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-            <div class="form-control detail-main-content" id="exampleFormControlTextarea1">
-                ${board.content}<!-- 이미지 첨부 영역 -->
-                <div class="form-group">
-                    <ul class="img-uploaded-list"></ul>
-                </div>
-            </div>
+            <div class="form-control detail-main-content" id="exampleFormControlTextarea1">${board.content}<!-- 이미지 첨부 영역 --><div class="form-group"><ul class="img-uploaded-list"></ul></div></div>
         </div>
         <!-- 파일 첨부 영역 -->
         <div class="form-group">

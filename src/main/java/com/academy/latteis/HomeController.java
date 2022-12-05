@@ -30,12 +30,12 @@ public class HomeController {
         log.info("LatteIs에 오신 걸 환영합니다!!");
         log.info("로그아웃 후 쿠키 확인 {}", getAutoLoginCookie(request));
 
-        Map<String, Object> diaryBestOneMap = diaryService.findBestOneService();
-        log.info("홈 컨트롤러 베스트 하나 매핑 {}", diaryBestOneMap);
+//        Map<String, Object> diaryBestOneMap = diaryService.findBestOneService();
+//        log.info("홈 컨트롤러 베스트 하나 매핑 {}", diaryBestOneMap);
 
         Map<String, Object> boardBestMap = boardService.findBestBoard();
         log.info(boardBestMap);
-        model.addAttribute("dBOne", diaryBestOneMap.get("dBOne"));
+//        model.addAttribute("dBOne", diaryBestOneMap.get("dBOne"));
         model.addAttribute("bf", boardBestMap.get("free"));
         model.addAttribute("bk", boardBestMap.get("key"));
         model.addAttribute("b00", boardBestMap.get("gene00"));

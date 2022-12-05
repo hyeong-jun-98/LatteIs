@@ -109,8 +109,10 @@ public class DiaryService {
 
         Diary diaryBestOne = diaryMapper.findBestOne();
 
-        processConvertingOne(diaryBestOne);
-        findDataMap.put("dBOne", diaryBestOne);
+        if (diaryBestOne != null){
+            processConvertingOne(diaryBestOne);
+            findDataMap.put("dBOne", diaryBestOne);
+        }
 
         return findDataMap;
 

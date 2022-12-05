@@ -148,14 +148,20 @@
     }
 
 
-    // 목록으로 가지
+    // 자유게시판
     function toList() {
-        // 목록 버튼
         const $toList = document.getElementById('list');
         $toList.onclick = e => {
             location.href = "/freeboard/list";
         }
+    }
 
+    // 스무고개
+    function toQuiz(){
+        const $quiz = document.getElementById('game');
+        $quiz.onclick = e =>{
+            location.href = "/quiz"
+        }
     }
 
 
@@ -278,6 +284,7 @@
         to80List();
         to70List();
         toList();
+        toQuiz();
         toDiary();
         <c:if test="${loginUser == null}">
         toLogin();
