@@ -5,6 +5,9 @@ plugins {
     id 'war'
 }
 
+bootWar.enabled = false;
+war.enabled = true;
+
 group = 'com.academy'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
@@ -17,6 +20,10 @@ configurations {
 
 repositories {
     mavenCentral()
+}
+
+war {
+    archiveName 'ROOT.war'
 }
 
 dependencies {
@@ -48,5 +55,6 @@ dependencies {
 }
 
 tasks.named('test') {
-    useJUnitPlatform()
+//    useJUnitPlatform()
+    exclude '**/*'
 }

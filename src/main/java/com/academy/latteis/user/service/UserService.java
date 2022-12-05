@@ -52,12 +52,6 @@ public class UserService {
         Map<String, Object> checkMap = new HashMap<>();
         checkMap.put("type", type);
         checkMap.put("value", value);
-        if(loginType.equals("latteis")) {
-            checkMap.put("login", "latteis");
-        }else{
-            checkMap.put("login", "kakao");
-        }
-
         return userMapper.isDuplicate(checkMap) == 1;
     }
 

@@ -150,14 +150,14 @@ public class DiaryController {
 
         String referer = (String) session.getAttribute("referer");
         log.info("referer 테스트 - {}", referer);
-        String url[] = referer.split("4");
-        log.info("자르기 테스트 - {}",url[1]);
+        String url = referer.substring(referer.indexOf("/"));
+        log.info("자르기 테스트 - {}",url);
         // 세션에서 닉네임 뽑기
         diary.setUserNickname(loginUser.getUserNickname());
 
        boolean flag = diaryService.saveService(diary);
 
-        return flag ? "redirect:"+url[1] : "redirect:/";
+        return flag ? "redirect:"+url : "redirect:/";
     }
 
     // 일기 상세화면

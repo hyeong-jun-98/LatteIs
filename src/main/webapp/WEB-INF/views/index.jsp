@@ -323,7 +323,7 @@
             //     // console.log(e.target);
 
 
-            location.href = '/diary/detail/' + ${dBOne.diaryNo};
+            location.href = '/diary/detail/' + '${dBOne.diaryNo}';
 
             //     if(!e.target.matches('#bestDiary *')){
             //         // console.log('게시글 내부');
