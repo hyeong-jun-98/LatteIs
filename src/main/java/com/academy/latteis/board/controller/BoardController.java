@@ -34,7 +34,7 @@ public class BoardController {
     private final BoardService boardService;
 
     // 업로드 파일 저장 경로
-    private static final String UPLOAD_PATH = "C:/Users/hojong/upload";
+    private static final String UPLOAD_PATH = "/usr/local/upload";
 
     // 게시글 목록 요청
     @GetMapping("/list")
