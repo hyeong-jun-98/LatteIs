@@ -24,7 +24,7 @@ import java.util.List;
 public class UploadController {
 
     // 업로드 파일 저장 경로
-    private static final String UPLOAD_PATH = "usr/local/upload";
+    private static final String UPLOAD_PATH = "/usr/local/upload";
 
     // 비동기 요청 파일 업로드 처리
     @PostMapping("/ajax-upload")
@@ -53,7 +53,7 @@ public class UploadController {
     @GetMapping("/loadFile")
     @ResponseBody
     public ResponseEntity<byte[]> loadFile(String fileName) {
-        log.info("/loadFile GET - {}", fileName);
+        log.info("/loadFile GET - fileName={}, uploadPath={}", fileName, UPLOAD_PATH);
 
         // 클라이언트가 요청하는 파일의 진짜 바이트 데이터를 갖다줘야함
 
