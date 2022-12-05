@@ -53,7 +53,7 @@ public class UploadController {
     @GetMapping("/loadFile")
     @ResponseBody
     public ResponseEntity<byte[]> loadFile(String fileName) {
-        log.info("/loadFile GET - {}", fileName);
+        log.info("/loadFile GET - fileName={}, uploadPath={}", fileName, UPLOAD_PATH);
 
         // 클라이언트가 요청하는 파일의 진짜 바이트 데이터를 갖다줘야함
 
