@@ -34,7 +34,7 @@ public class BoardController {
     private final BoardService boardService;
 
     // 업로드 파일 저장 경로
-    private static final String UPLOAD_PATH = "C:/Users/hojong/upload";
+    private static final String UPLOAD_PATH = "/usr/local/upload";
 
     // 게시글 목록 요청
     @GetMapping("/list")
@@ -164,7 +164,7 @@ public class BoardController {
                     : "redirect:/generation/list?generation=" + session.getAttribute("sessionGeneration");
         }
         //키워드 글 작성
-        if (uri.equals("/keyword/write")) {
+        else if (uri.equals("/keyword/write")) {
             log.info(request.getSession().getAttribute("keyword"));
             board.setTopicNo(Long.parseLong((String) request.getSession().getAttribute("keyword")));
 

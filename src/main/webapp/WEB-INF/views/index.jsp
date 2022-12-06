@@ -60,22 +60,22 @@
                 <div>베스트 게시글</div>
                 <div>
                     <div>
-                        <div>키워드 게시판</div><div id="tokey">${bk.content}</div>
+                        <div>키워드 게시판</div><div id="tokey">${bk.content}</div><div>좋아요 ${bk.goodCount}</div><div>댓글 <c:if test="${bk.commentCount == null}">0</c:if><c:if test="${bk.commentCount != null}">${bk.commentCount}</c:if></div>
                     </div>
                     <div>
-                        <div>연령대 게시판(00)</div><div id="to00">${b00.content}</div>
+                        <div>연령대 게시판(00)</div><div id="to00">${b00.content}</div><div>좋아요 ${b00.goodCount}</div><div>댓글 <c:if test="${b00.commentCount == null}">0</c:if><c:if test="${b00.commentCount != null}">${b00.commentCount}</c:if></div>
                     </div>
                     <div>
-                        <div>연령대 게시판(90)</div><div id="to90">${b90.content}</div>
+                        <div>연령대 게시판(90)</div><div id="to90">${b90.content}</div><div>좋아요 ${b90.goodCount}</div><div>댓글 <c:if test="${b90.commentCount == null}">0</c:if><c:if test="${b90.commentCount != null}">${b90.commentCount}</c:if></div>
                     </div>
                     <div>
-                        <div>연령대 게시판(80)</div><div id="to80">${b80.content}</div>
+                        <div>연령대 게시판(80)</div><div id="to80">${b80.content}</div><div>좋아요 ${b80.goodCount}</div><div>댓글 <c:if test="${b80.commentCount == null}">0</c:if><c:if test="${b80.commentCount != null}">${b80.commentCount}</c:if></div>
                     </div>
                     <div>
-                        <div>연령대 게시판(70)</div><div id="to70">${b70.content}</div>
+                        <div>연령대 게시판(70)</div><div id="to70">${b70.content}</div><div>좋아요 ${b70.goodCount}</div><div>댓글 <c:if test="${b70.commentCount == null}">0</c:if><c:if test="${b70.commentCount != null}">${b70.commentCount}</c:if></div>
                     </div>
                     <div>
-                        <div>자유 게시판</div><div id="tofree">${bf.content}</div>
+                        <div>자유 게시판</div><div id="tofree">${bf.content}</div><div>좋아요 ${bf.goodCount}</div><div>댓글 <c:if test="${bf.commentCount == null}">0</c:if><c:if test="${bf.commentCount != null}">${bf.commentCount}</c:if></div>
                     </div>
                 </div>
             </div>
@@ -292,27 +292,27 @@
     function toHotBoard(){
         const $tokey = document.getElementById("tokey");
         $tokey.onclick = e =>{
-            location.href="/keyword/detail/" + ${bk.boardNo}
+            location.href="/keyword/detail/" + '${bk.boardNo}'
         }
         const $to00 = document.getElementById("to00");
         $to00.onclick = e =>{
-            location.href="/generation/detail/" + ${b00.boardNo}
+            location.href="/generation/detail/" + '${b00.boardNo}'
         }
         const $to90 = document.getElementById("to90");
         $to90.onclick = e =>{
-            location.href="/generation/detail/" + ${b90.boardNo}
+            location.href="/generation/detail/" + '${b90.boardNo}'
         }
         const $to80 = document.getElementById("to80");
         $to80.onclick = e =>{
-            location.href="/generation/detail/" + ${b80.boardNo}
+            location.href="/generation/detail/" + '${b80.boardNo}'
         }
         const $to70 = document.getElementById("to70");
         $to70.onclick = e =>{
-            location.href="/generation/detail/" + ${b70.boardNo}
+            location.href="/generation/detail/" + '${b70.boardNo}'
         }
         const $tofree = document.getElementById("tofree");
         $tofree.onclick = e =>{
-            location.href="/freeboard/detail/" + ${bf.boardNo}
+            location.href="/freeboard/detail/" + '${bf.boardNo}'
         }
     }
 
@@ -323,7 +323,7 @@
             //     // console.log(e.target);
 
 
-            location.href = '/diary/detail/' + ${dBOne.diaryNo};
+            location.href = '/diary/detail/' + '${dBOne.diaryNo}';
 
             //     if(!e.target.matches('#bestDiary *')){
             //         // console.log('게시글 내부');

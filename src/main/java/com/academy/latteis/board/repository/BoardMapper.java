@@ -1,10 +1,7 @@
 package com.academy.latteis.board.repository;
 
 import com.academy.latteis.board.domain.Board;
-import com.academy.latteis.board.dto.BoardConvertDTO;
-import com.academy.latteis.board.dto.BoardGoodDTO;
-import com.academy.latteis.board.dto.EditBoardDTO;
-import com.academy.latteis.board.dto.ValidateUserDTO;
+import com.academy.latteis.board.dto.*;
 import com.academy.latteis.common.search.Search;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -65,17 +62,17 @@ public interface BoardMapper {
     // 게시물에 붙어있는 첨부파일 경로명 전부 조회
     List<String> findFileNames(Long boardNo);
 
-    BoardGoodDTO findBestFree();
+    BestBoardDTO findBestFree();
 
-    BoardGoodDTO findBestKey();
+    BestBoardDTO findBestKey();
 
-    BoardGoodDTO findBest00();
+    BestBoardDTO findBest00();
 
-    BoardGoodDTO findBest90();
+    BestBoardDTO findBest90();
 
-    BoardGoodDTO findBest80();
+    BestBoardDTO findBest80();
 
-    BoardGoodDTO findBest70();
+    BestBoardDTO findBest70();
 
     void exitUser(String userNickname);
 

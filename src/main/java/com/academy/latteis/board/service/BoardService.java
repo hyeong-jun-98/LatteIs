@@ -221,7 +221,6 @@ public class BoardService {
         findBest.put("gene90", boardMapper.findBest90());
         findBest.put("gene80", boardMapper.findBest80());
         findBest.put("gene70", boardMapper.findBest70());
-
         return findBest;
     }
 

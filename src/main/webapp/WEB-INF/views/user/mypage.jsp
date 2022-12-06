@@ -170,16 +170,16 @@
         const yearCheck = '${loginUser.userYear}';
         switch (yearCheck){
             case '70':
-                document.getElementById("userImg").style.backgroundImage="url('/img/ddak1.png')";
+                document.getElementById("userImg").style.backgroundImage="url('/img/blue.png')";
                 break;
             case '80':
-                document.getElementById("userImg").style.backgroundImage="url('/img/ddak2.png')";
+                document.getElementById("userImg").style.backgroundImage="url('/img/red.png')";
                 break;
             case '90':
-                document.getElementById("userImg").style.backgroundImage="url('/img/ddak3.png')";
+                document.getElementById("userImg").style.backgroundImage="url('/img/orange.png')";
                 break;
             case '00':
-                document.getElementById("userImg").style.backgroundImage="url('/img/ddak4.png')";
+                document.getElementById("userImg").style.backgroundImage="url('/img/yellow.png')";
                 break;
         }
     }

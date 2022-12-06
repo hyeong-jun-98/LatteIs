@@ -26,10 +26,10 @@
         SELECT COUNT(*)
         FROM user
         <if test="type=='user_nickname'">
-            WHERE user_nickname = #{value} and login=#{login}
+            WHERE user_nickname = #{value}
         </if>
         <if test="type=='user_email'">
-            WHERE user_email = #{value} and login=#{login}
+            WHERE user_email = #{value}
         </if>
     </select>
 
