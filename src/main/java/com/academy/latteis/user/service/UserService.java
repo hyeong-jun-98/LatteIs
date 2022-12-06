@@ -49,6 +49,7 @@ public class UserService {
     }
     //중복체크
     public boolean checkSignUpValue(String loginType, String type, String value) {
+        log.info("service type={}, value={}", type, value);
         Map<String, Object> checkMap = new HashMap<>();
         checkMap.put("type", type);
         checkMap.put("value", value);

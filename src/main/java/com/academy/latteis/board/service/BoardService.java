@@ -89,6 +89,7 @@ public class BoardService {
     // 게시글 전체 조회
     public Map<String, Object> findAllFreeService(Search search) {
         log.info("findAll service start");
+        log.info("findAll service search={}", search);
 
         Map<String, Object> findDataMap = new HashMap<>();
 
@@ -109,6 +110,7 @@ public class BoardService {
 
     public Map<String, Object> findAllGenerationService(Search search, Long generation) {
         log.info("findAll service start - generation = {}", generation);
+        log.info("findAllGeneration service search={}", search);
 
         Map<String, Object> findDataMap = new HashMap<>();
 

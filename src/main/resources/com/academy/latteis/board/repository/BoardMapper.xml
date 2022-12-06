@@ -41,7 +41,7 @@
     </resultMap>
 
     <!-- 중복 쿼리문 재사용하기 -->
-    <sql id="searchInclude">
+    <sql id="search">
         <if test="type == 'title'">AND title LIKE CONCAT('%', #{keyword}, '%')</if>
         <if test="type == 'writer'">AND writer LIKE CONCAT('%', #{keyword}, '%')</if>
         <if test="type == 'content'">AND content LIKE CONCAT('%', #{keyword}, '%')</if>
@@ -51,6 +51,15 @@
         </if>
     </sql>
 
+    <sql id="searchGenAndKey">
+        <if test="search.type == 'title'">AND title LIKE CONCAT('%', #{search.keyword}, '%')</if>
+        <if test="search.type == 'writer'">AND writer LIKE CONCAT('%', #{search.keyword}, '%')</if>
+        <if test="search.type == 'content'">AND content LIKE CONCAT('%', #{search.keyword}, '%')</if>
+        <if test="search.type == 'tc'">
+            AND title LIKE CONCAT('%', #{search.keyword}, '%')
+            OR content LIKE CONCAT('%', #{search.keyword}, '%')
+        </if>
+    </sql>
 
     <!-- 자유게시판 게시글 작성 -->
     <insert id="writeFree">
@@ -76,7 +85,7 @@
         SELECT board.*, user_year from board left join user on board.user_nickname = user.user_nickname
         WHERE generation IS NULL and topic_no is null
 
-        <include refid="searchInclude"/>
+        <include refid="search"/>
 
         ORDER BY board_no DESC
         LIMIT #{start}, #{amount}
@@ -90,13 +99,8 @@
         </if>
         <if test="generation == 9999">WHERE generation IS NOT NULL</if>
 
-        <if test="search.type == 'title'">AND title LIKE CONCAT('%', #{search.keyword}, '%')</if>
-        <if test="search.type == 'writer'">AND writer LIKE CONCAT('%', #{search.keyword}, '%')</if>
-        <if test="search.type == 'content'">AND content LIKE CONCAT('%', #{search.keyword}, '%')</if>
-        <if test="search.type == 'tc'">
-            AND title LIKE CONCAT('%', #{search.keyword}, '%')
-            OR content LIKE CONCAT('%', #{search.keyword}, '%')
-        </if>
+       <include refid="searchGenAndKey"></include>
+
         ORDER BY board_no DESC
         LIMIT #{search.start}, #{search.amount}
     </select>
@@ -104,13 +108,9 @@
     <!-- 키워드 게시판 목록 가져오기 -->
     <select id="findAllKeyword" resultMap="boardConvertMap">
         SELECT board.*, user_year from board left join user on board.user_nickname = user.user_nickname WHERE topic_no = #{topicNo}
-        <if test="search.type == 'title'">AND title LIKE CONCAT('%', #{search.keyword}, '%')</if>
-        <if test="search.type == 'writer'">AND writer LIKE CONCAT('%', #{search.keyword}, '%')</if>
-        <if test="search.type == 'content'">AND content LIKE CONCAT('%', #{search.keyword}, '%')</if>
-        <if test="search.type == 'tc'">
-            AND title LIKE CONCAT('%', #{search.keyword}, '%')
-            OR content LIKE CONCAT('%', #{search.keyword}, '%')
-        </if>
+
+        <include refid="searchGenAndKey"></include>
+
         ORDER BY board_no DESC
         LIMIT #{search.start}, #{search.amount}
     </select>
@@ -130,7 +130,7 @@
         FROM board
         WHERE generation IS NULL AND topic_no IS NULL
 
-        <include refid="searchInclude"/>
+        <include refid="search"/>
 
     </select>
     <!-- 연령대별 게시판 전체 수 가져오기 -->
@@ -144,13 +144,7 @@
         <if test="generation == '1970'">AND generation = #{generation}</if>
         <if test="generation == '9999'">AND generation IS NOT NULL</if>
 
-        <if test="search.type == 'title'">AND title LIKE CONCAT('%', #{keyword}, '%')</if>
-        <if test="search.type == 'writer'">AND writer LIKE CONCAT('%', #{keyword}, '%')</if>
-        <if test="search.type == 'content'">AND content LIKE CONCAT('%', #{keyword}, '%')</if>
-        <if test="search.type == 'tc'">
-            AND title LIKE CONCAT('%', #{keyword}, '%')
-            OR content LIKE CONCAT('%', #{keyword}, '%')
-        </if>
+        <include refid="searchGenAndKey"></include>
 
     </select>
     <!-- 키워드 게시판 전체 수 가져오기 -->
@@ -159,7 +153,7 @@
         FROM board
         WHERE topic_no IS NOT NULL
 
-        <include refid="searchInclude"/>
+        <include refid="search"/>
 
     </select>
 

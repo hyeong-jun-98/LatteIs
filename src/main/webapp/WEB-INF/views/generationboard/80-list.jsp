@@ -56,7 +56,7 @@
                         <option value="tc">제목+내용</option>
                     </select>
 
-                    <input type="text" class="form-control" name="keyword" value="">
+                    <input type="text" class="form-control" name="keyword" value="${search.keyword}">
                     <input type="hidden" name="generation" value="${sessionGeneration}">
 
                     <button id="btn-search" class="btn btn-warning" type="button">
