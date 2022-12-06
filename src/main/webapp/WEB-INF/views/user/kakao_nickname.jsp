@@ -145,7 +145,7 @@
   // 회원가입 폼 검증
   $(document).ready(function () {
     //입력값 검증 정규표현식
-    const getIdCheck = RegExp(/^[a-zA-Z0-9]{4,14}$/);
+    const getIdCheck = RegExp(/^.{0,10}$/);
 
     // 입력값 검증 배열
     // 1: 닉네임,  2: 연령
@@ -168,7 +168,7 @@
       // 일치하면 true, 일치하지 않으면 false를 리턴
       else if (!getIdCheck.test($idInput.val())) {
         $idInput.css('border-color', 'red');
-        $('.check_nickname').html('<b class="c-red">영문, 숫자로 4~14자 사이로 작성하세요!</b>');
+        $('.check_nickname').html('<b class="c-red">10자 이내로 작성하세요!</b>');
         checkArr[0] = false;
       }
 

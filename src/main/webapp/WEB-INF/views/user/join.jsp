@@ -169,7 +169,8 @@
     // 회원가입 폼 검증
     $(document).ready(function () {
         //입력값 검증 정규표현식
-        const getIdCheck = RegExp(/^[a-zA-Z0-9]{4,14}$/);
+        //const getIdCheck = RegExp(/^[a-zA-Z0-9]{4,14}$/);
+        const getNicknameCheck = RegExp(/^.{0,10}$/);
         const getPwCheck = RegExp(
             /([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
         const getName = RegExp(/^[가-힣]+$/);
@@ -194,9 +195,9 @@
                 // 닉네임 패턴에 맞지 않게 입력하였을 경우
                 // test() 메서드는 정규표현식을 검증하여 입력값이 표현식과
             // 일치하면 true, 일치하지 않으면 false를 리턴
-            else if (!getIdCheck.test($idInput.val())) {
+            else if (!getNicknameCheck.test($idInput.val())) {
                 $idInput.css('border-color', 'red');
-                $('.check_nickname').html('<b class="c-red">영문, 숫자로 4~14자 사이로 작성하세요!</b>');
+                $('.check_nickname').html('<b class="c-red">10자 이내로 작성하세요!</b>');
                 checkArr[0] = false;
             }
 
