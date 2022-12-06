@@ -31,14 +31,6 @@
         where board_no = #{boardNo}
     </delete>
 
-    <!-- 좋아요 체크 여부 -->
-    <select id="goodOrNot" resultMap="boardGoodMap">
-        select *
-        from board_good
-        where user_no = #{userNo}
-          and board_no = #{boardNo}
-    </select>
-
     <!-- 좋아요 수 -->
     <select id="goodCnt" resultType="int">
         select COUNT(*)
@@ -46,10 +38,6 @@
         where board_no = #{boardNo}
     </select>
 
-<!--   베스트 글 뽑아!-->
-    <select id="findBest">
-        select * from board where
-    </select>
 
     <delete id="exitUser">
         delete from board_good where user_no=#{userNo}
