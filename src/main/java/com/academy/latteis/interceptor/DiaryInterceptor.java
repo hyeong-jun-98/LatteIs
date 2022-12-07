@@ -78,15 +78,22 @@ public class DiaryInterceptor implements HandlerInterceptor {
 
             // 수정하려는 게시글의 계정명 정보와 세션에 저장된 계정명 정보가 일치하지 않으면
             // 돌아가!
+
+            if (isAdmin(session)) {
+                log.info("인터셉터 : 관리자.");
+                return;
+            }
+
             if(!isMine(session, dto.getUserEmail())) {
                response.sendRedirect("/diary/detail/" + diaryNo + "?pageNum=" + diaryPage.getPageNum() + "&amount=" + diaryPage.getAmount() + "&msg=no-match");
 
             }
         }
     }
-//    private boolean isAdmin(HttpSession session) {
-//        return getCurrentMemberAuth(session).equals("ADMIN");
-//    }
+
+    private boolean isAdmin(HttpSession session) {
+        return getCurrentMemberAuth(session).equals("ADMIN");
+    }
 
     private static boolean isMine(HttpSession session, String account) {
         return account.equals(getCurrentMemberAccount(session));

@@ -108,7 +108,7 @@
 
             <div class="d-grid gap-2 btn-list">
                 <button id="to-list" class="btn btn-warning custom-button" type="button">목록</button>
-                <c:if test="${loginUser.userNickname == d.userNickname}">
+                <c:if test="${loginUser.userNickname == d.userNickname || loginUser.auth == 'ADMIN'}">
                     <button id="btn-update" class="btn btn-warning custom-button" type="button">수정</button>
                     <button id="btn-delete" class="btn btn-warning custom-button" type="button">삭제</button>
                 </c:if>
