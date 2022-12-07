@@ -35,7 +35,7 @@
         <div class="keyword">
             <a>
                 <div>오늘의 키워드</div>
-                <div>사탕</div>
+                <div>${topicName}</div>
             </a>
             <div></div>
         </div>

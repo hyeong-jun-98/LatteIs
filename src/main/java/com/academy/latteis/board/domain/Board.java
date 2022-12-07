@@ -21,9 +21,7 @@ public class Board {
     private Long good;
     private String userNickname;
     private Long generation;
-
-    // fk
-    private Long topicNo;
+    private String topicName;
 
     private List<MultipartFile> files;
     private List<String> editFileNames;

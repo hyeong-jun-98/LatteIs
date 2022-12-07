@@ -7,14 +7,14 @@
     <!-- sql과 java의 이름 관례 차이에서 오는 매핑을 맞춰주는 것 -->
     <resultMap id="boardMap" type="com.academy.latteis.board.domain.Board">
         <result property="boardNo" column="board_no"/>
-        <result property="topicNo" column="topic_no"/>
+        <result property="topicName" column="topic_name"/>
         <result property="userNickname" column="user_nickname"/>
     </resultMap>
 
     <!-- 좋아요 관련 Board dto -->
     <resultMap id="boardGoodMap" type="com.academy.latteis.board.dto.BoardGoodDTO">
         <result property="boardNo" column="board_no"/>
-        <result property="topicNo" column="topic_no"/>
+        <result property="topicName" column="topic_name"/>
         <result property="userNickname" column="user_nickname"/>
         <result property="userNo" column="user_No"/>
     </resultMap>
@@ -22,7 +22,7 @@
     <!-- BoardConvertDTO -->
     <resultMap id="boardConvertMap" type="com.academy.latteis.board.dto.BoardConvertDTO">
         <result property="boardNo" column="board_no"/>
-        <result property="topicNo" column="topic_no"/>
+        <result property="topicName" column="topic_name"/>
         <result property="userNickname" column="user_nickname"/>
         <result property="userYear" column="user_year"/>
     </resultMap>
@@ -40,6 +40,12 @@
         <result property="boardNo" column="board_no"/>
     </resultMap>
 
+    <!-- Topic resultMap -->
+    <resultMap id="topicMap" type="com.academy.latteis.board.domain.Topic">
+        <result property="topicNo" column="topic_no"/>
+        <result property="topicName" column="topic_name"/>
+    </resultMap>
+
     <!-- 중복 쿼리문 재사용하기 -->
     <sql id="search">
         <if test="type == 'title'">AND title LIKE CONCAT('%', #{keyword}, '%')</if>
@@ -51,7 +57,7 @@
         </if>
     </sql>
 
-    <sql id="searchGenAndKey">
+    <sql id="searchGen">
         <if test="search.type == 'title'">AND title LIKE CONCAT('%', #{search.keyword}, '%')</if>
         <if test="search.type == 'writer'">AND writer LIKE CONCAT('%', #{search.keyword}, '%')</if>
         <if test="search.type == 'content'">AND content LIKE CONCAT('%', #{search.keyword}, '%')</if>
@@ -76,14 +82,14 @@
     <!-- 키워드 게시판 게시글 작성 -->
     <insert id="writeKeyword">
         insert into board
-            (writer, title, content, user_nickname, topic_no)
-        values (#{writer}, #{title}, #{content}, #{userNickname}, #{topicNo})
+            (writer, title, content, user_nickname, topic_name)
+        values (#{writer}, #{title}, #{content}, #{userNickname}, #{topicName})
     </insert>
 
     <!-- 자유게시판 목록 가져오기 -->
     <select id="findAllFree" resultMap="boardConvertMap">
         SELECT board.*, user_year from board left join user on board.user_nickname = user.user_nickname
-        WHERE generation IS NULL and topic_no is null
+        WHERE generation IS NULL and topic_name is null
 
         <include refid="search"/>
 
@@ -99,7 +105,7 @@
         </if>
         <if test="generation == 9999">WHERE generation IS NOT NULL</if>
 
-       <include refid="searchGenAndKey"></include>
+       <include refid="searchGen"></include>
 
         ORDER BY board_no DESC
         LIMIT #{search.start}, #{search.amount}
@@ -107,12 +113,12 @@
 
     <!-- 키워드 게시판 목록 가져오기 -->
     <select id="findAllKeyword" resultMap="boardConvertMap">
-        SELECT board.*, user_year from board left join user on board.user_nickname = user.user_nickname WHERE topic_no = #{topicNo}
+        SELECT board.*, user_year from board left join user on board.user_nickname = user.user_nickname WHERE topic_name IS NOT NULL
 
-        <include refid="searchGenAndKey"></include>
+        <include refid="search"></include>
 
         ORDER BY board_no DESC
-        LIMIT #{search.start}, #{search.amount}
+        LIMIT #{start}, #{amount}
     </select>
 
     <!-- 게시글 상세보기 -->
@@ -128,7 +134,7 @@
     <select id="getTotalCountFree" resultType="int">
         SELECT COUNT(*)
         FROM board
-        WHERE generation IS NULL AND topic_no IS NULL
+        WHERE generation IS NULL AND topic_name IS NULL
 
         <include refid="search"/>
 
@@ -137,21 +143,21 @@
     <select id="getTotalCountGeneration" resultType="int">
         SELECT COUNT(*)
         FROM board
-        WHERE topic_no IS NULL
+        WHERE topic_name IS NULL
         <if test="generation == '2000'">AND generation = #{generation}</if>
         <if test="generation == '1990'">AND generation = #{generation}</if>
         <if test="generation == '1980'">AND generation = #{generation}</if>
         <if test="generation == '1970'">AND generation = #{generation}</if>
         <if test="generation == '9999'">AND generation IS NOT NULL</if>
 
-        <include refid="searchGenAndKey"></include>
+        <include refid="searchGen"></include>
 
     </select>
     <!-- 키워드 게시판 전체 수 가져오기 -->
     <select id="getTotalCountKeyword" resultType="int">
         SELECT COUNT(*)
         FROM board
-        WHERE topic_no IS NOT NULL
+        WHERE topic_name IS NOT NULL
 
         <include refid="search"/>
 
@@ -218,12 +224,21 @@
         WHERE board_no = #{boardNo}
     </select>
 
+    <!-- 토픽 가져오기 -->
+    <select id="getTopic" resultMap="topicMap">
+        select * from topic
+    </select>
+    <!-- 토픽 가져오기 -->
+    <select id="getTopicOne" resultMap="topicMap">
+        select * from topic where topic_no = #{topicNo}
+    </select>
+
     <select id="findBestFree" resultMap="bestBoardMap">
-        select good_board.board_no ,content, comment_count, good_count from ((select * from board where board_no = (select board.board_no from board_good left join board on board_good.board_no = board.board_no where topic_no is null and generation is null group by board.board_no order by count(*) desc, board.regdate desc limit 1)) as good_board) left join (select board_no, count(board_no) as comment_count from comment group by board_no) as comment_board on good_board.board_no = comment_board.board_no left join (select board_no ,count(*) as good_count from board_good group by board_no) as good on good_board.board_no = good.board_no;
+        select good_board.board_no ,content, comment_count, good_count from ((select * from board where board_no = (select board.board_no from board_good left join board on board_good.board_no = board.board_no where topic_name is null and generation is null group by board.board_no order by count(*) desc, board.regdate desc limit 1)) as good_board) left join (select board_no, count(board_no) as comment_count from comment group by board_no) as comment_board on good_board.board_no = comment_board.board_no left join (select board_no ,count(*) as good_count from board_good group by board_no) as good on good_board.board_no = good.board_no;
     </select>
 
     <select id="findBestKey" resultMap="bestBoardMap">
-        select good_board.board_no ,content, comment_count, good_count from ((select * from board where board_no = (select board.board_no from board_good left join board on board_good.board_no = board.board_no where topic_no is not null group by board.board_no order by count(*) desc, board.regdate desc limit 1)) as good_board) left join (select board_no, count(board_no) as comment_count from comment group by board_no) as comment_board on good_board.board_no = comment_board.board_no left join (select board_no ,count(*) as good_count from board_good group by board_no) as good on good_board.board_no = good.board_no;
+        select good_board.board_no ,content, comment_count, good_count from ((select * from board where board_no = (select board.board_no from board_good left join board on board_good.board_no = board.board_no where topic_name is not null group by board.board_no order by count(*) desc, board.regdate desc limit 1)) as good_board) left join (select board_no, count(board_no) as comment_count from comment group by board_no) as comment_board on good_board.board_no = comment_board.board_no left join (select board_no ,count(*) as good_count from board_good group by board_no) as good on good_board.board_no = good.board_no;
     </select>
 
     <select id="findBest00" resultMap="bestBoardMap">

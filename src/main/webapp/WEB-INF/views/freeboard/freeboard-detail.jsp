@@ -37,7 +37,9 @@
     <div class="content-container">
 
         <h1 class="main-title">자유게시판</h1>
-        <h2 class="board-no-title">${board.boardNo}번 게시물</h2>
+        <div class="board-no-title">
+            <span>${board.boardNo}번 게시물</span>
+        </div>
 
         <div class="mb-3">
             <label for="writer-input" class="form-label">작성자</label>
