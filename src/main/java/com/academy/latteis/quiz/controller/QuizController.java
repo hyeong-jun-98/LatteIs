@@ -1,4 +1,4 @@
-package com.academy.latteis.quiz;
+package com.academy.latteis.quiz.controller;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -12,6 +12,18 @@ public class QuizController {
 
     @GetMapping("/write")
     public String toQuiz(){
-        return "quiz-write";
+        return "quiz/quiz-write";
+    }
+
+    @GetMapping("/list")
+    public String quizList(){
+
+        return "quiz/quiz_list";
     }
 }
+
+
+
+
+
+
