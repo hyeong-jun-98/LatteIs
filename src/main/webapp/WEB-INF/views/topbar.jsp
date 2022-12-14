@@ -34,7 +34,7 @@
         </div>
 
         <div id="game">
-            스무고개
+            퀴즈
         </div>
         <div id="diarycate">
             <div id="diary">
