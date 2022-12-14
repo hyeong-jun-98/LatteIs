@@ -1,4 +1,4 @@
-package com.academy.latteis;
+package com.academy.latteis.quiz;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/quiz")
 public class QuizController {
 
-    @GetMapping("")
+    @GetMapping("/write")
     public String toQuiz(){
-        return "quiz/quiz-home";
+        return "quiz-write";
     }
 }
