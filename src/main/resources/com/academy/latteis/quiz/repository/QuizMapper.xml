@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.academy.latteis.quiz.repository.QuizMapper">
+
+    <resultMap id="quizMapper" type="com.academy.latteis.quiz.domain.Quiz">
+        <result property="quizNo" column="quiz_no"/>
+        <result property="quizWriter" column="quiz_writer"/>
+<!--        <result property="quizContent" column="quiz_content"/>-->
+        <result property="quizAnswer" column="quiz_answer"/>
+        <result property="quizGood" column="quiz_good"/>
+        <result property="quizRegdate" column="quiz_regdate"/>
+        <result property="quizHit" column="quiz_hit"/>
+        <result property="userNickname" column="user_nickname"/>
+        <result property="quizCheck" column="quiz_check"/>
+        <result property="quizScore" column="quiz_score"/>
+        <result property="fileName" column="file_name"/>
+    </resultMap>
+
+    <insert id="write">
+        insert into quiz(quiz_writer, file_name, quiz_answer, quiz_score)
+        values (#{quizWriter}, #{fileName},#{quizAnswer},#{quizScore})
+    </insert>
+
+</mapper>
