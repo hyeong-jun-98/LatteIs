@@ -18,6 +18,10 @@ public class QuizController {
     @GetMapping("/list")
     public String quizList(){
 
+
+
+
+
         return "quiz/quiz_list";
     }
 }

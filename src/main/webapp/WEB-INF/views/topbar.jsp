@@ -160,7 +160,7 @@
     function toQuiz(){
         const $quiz = document.getElementById('game');
         $quiz.onclick = e =>{
-            location.href = "/quiz"
+            location.href = "/quiz/list"
         }
     }
 
