@@ -17,7 +17,7 @@
     <link href="/css/topbar.css" rel="stylesheet">
     <!-- board-list css -->
     <link href="/css/board/board-list.css" rel="stylesheet">
-
+    <meta name="viewport" content="width=device-width; initial-scale=1">
     <style>
         @font-face {
             font-family: 'KyoboHand';

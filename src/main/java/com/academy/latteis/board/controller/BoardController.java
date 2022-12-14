@@ -166,7 +166,7 @@ public class BoardController {
         //키워드 글 작성
         if (uri.equals("/keyword/write")) {
             log.info(request.getSession().getAttribute("keyword"));
-            board.setTopicNo(Long.parseLong((String) request.getSession().getAttribute("keyword")));
+//            board.setTopicNo(Long.parseLong((String) request.getSession().getAttribute("keyword")));
 
             // 클라이언트가 전송한 파일 업로드하기
             List<String> fileNames = new ArrayList<>();

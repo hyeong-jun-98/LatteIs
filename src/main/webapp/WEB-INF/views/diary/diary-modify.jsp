@@ -10,6 +10,7 @@
     <!-- bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
     <link href="/css/topbar.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width; initial-scale=1">
     <style>
 
         @font-face {

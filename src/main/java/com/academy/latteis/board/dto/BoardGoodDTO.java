@@ -20,7 +20,7 @@ public class BoardGoodDTO {
     private Long generation;
 
     // fk
-    private Long topicNo;
+    private Long topicName;
 
     // good
     private String userNo;  // 좋아요를 누가 눌렀냐..

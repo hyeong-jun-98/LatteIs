@@ -23,7 +23,7 @@ public class Board {
     private Long generation;
 
     // fk
-    private Long topicNo;
+    private Long topicName;
 
     private List<MultipartFile> files;
     private List<String> editFileNames;

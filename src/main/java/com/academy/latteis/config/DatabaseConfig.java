@@ -12,13 +12,13 @@ import javax.sql.DataSource;
 @Configuration
 @PropertySource("classpath:db_info.properties")
 public class DatabaseConfig {
-    @Value("${aws.rds_user_name}")
+    @Value("${local.db.username}")
     private String username;
 
-    @Value("${aws.rds_password}")
+    @Value("${local.db.password}")
     private String password;
 
-    @Value("${aws.rds_url}")
+    @Value("${local.db.url}")
     private String url;
 
     @Bean
