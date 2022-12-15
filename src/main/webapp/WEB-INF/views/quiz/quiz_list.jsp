@@ -142,11 +142,6 @@
                                     <p class="text-sm text-gray-500 date">좋아요 : ${q.quizGood}</p>
                                     <p class="text-sm text-gray-500 date">조회수 : ${q.quizHit} </p>
                                 </div>
-                                <!-- <p class="text-sm text-gray-500 text-right">조회수 </p> -->
-
-                                    <%--                        <div class="divider my-0">--%>
-
-                                    <%--                        </div>--%>
                             </div>
                         </div>
                         <img id="canvas" src="${q.fileName}">

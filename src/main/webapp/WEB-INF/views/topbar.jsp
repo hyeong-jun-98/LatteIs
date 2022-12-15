@@ -40,7 +40,7 @@
             자유게시판
         </div>
 
-        <div id="game">
+        <div id="quiz">
             퀴즈
         </div>
         <div id="diarycate">
@@ -138,6 +138,12 @@
                     $pencil.style.display = "block";
                     // document.getElementById('list').style.background="rgba(0,0,0,0.3)";
                     break;
+                case 'quiz':
+                    document.getElementById('quiz').style.color = "white";
+                    $pencil.style.left = "1160px";
+                    $pencil.style.display = "block";
+                    // document.getElementById('list').style.background="rgba(0,0,0,0.3)";
+                    break;
             }
         }
     }
@@ -205,7 +211,7 @@
 
     // 스무고개
     function toQuiz(){
-        const $quiz = document.getElementById('game');
+        const $quiz = document.getElementById('quiz');
         $quiz.onclick = e =>{
             location.href = "/quiz/list"
         }
@@ -251,7 +257,7 @@
         const $keyword = document.getElementById("keyword");
         const $generation = document.getElementById("generation");
         const $list = document.getElementById("list");
-        const $game = document.getElementById("game");
+        const $game = document.getElementById("quiz");
         const $diary = document.getElementById("diary");
         const $pencil = document.getElementById("img");
         const $subcatec = document.getElementById("subcatec");
@@ -288,7 +294,7 @@
             $pencil.style.display = "none";
         }
         $game.onmouseenter = e => {
-            $pencil.style.left = "1135px";
+            $pencil.style.left = "1160px";
             $pencil.style.display = "block";
         }
         $game.onmouseout = e => {

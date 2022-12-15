@@ -48,7 +48,7 @@ public class QuizController {
 
 
     @GetMapping("/list")
-    public String quizList(DiaryPage diaryPage, Model model){
+    public String quizList(DiaryPage diaryPage, Model model, HttpSession session){
         Map<String, Object> quizMap = quizService.findAllService(diaryPage);
 
         DiaryPageMaker pm = new DiaryPageMaker(
@@ -59,6 +59,7 @@ public class QuizController {
 
         model.addAttribute("qList", quizMap.get("qList"));
         model.addAttribute("pm", pm);
+        session.setAttribute("topbar", "quiz");
 
 
         return "quiz/quiz_list";
