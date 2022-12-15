@@ -53,7 +53,7 @@
 <%--        </div>--%>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-            <div class="form-control detail-main-content" id="exampleFormControlTextarea1">${q.quizContent}<!-- 이미지 첨부 영역 --><div class="form-group"><ul class="img-uploaded-list"></ul></div></div>
+            <div class="form-control detail-main-content" id="exampleFormControlTextarea1"><img id="img"><div class="form-group"><ul class="img-uploaded-list"></ul></div></div>
         </div>
         <!-- 파일 첨부 영역 -->
         <div class="form-group">
@@ -235,50 +235,6 @@
         }
     }
 
-    // 파일 삭제 요청
-    function deleteFile() {
-        const files = document.getElementsByName('file');
-        const images = document.getElementsByName('img');
-
-        const reqInfo = {
-            method: 'DELETE'
-        };
-
-        // 이미지 삭제
-        for (let image of images) {
-            let imgSrc = image.getAttribute('src');
-            let imgName = imgSrc.substring(imgSrc.indexOf('=') + 1);     // 삭제할 이미지 이름
-
-            fetch(('/deleteFile?fileName=' + imgName), reqInfo)
-                .then(res => res.text())
-                .then(msg => {
-                    console.log(msg);
-                });
-        }
-
-        // 파일 삭제
-        for (let file of files) {
-            let fileSrc = file.getAttribute('href');
-            let fileName = fileSrc.substring(fileSrc.indexOf('=') + 1);     // 삭제할 파일 이름
-
-            fetch(('/deleteFile?fileName=' + fileName), reqInfo)
-                .then(res => res.text())
-                .then(msg => {
-                    console.log(msg);
-                });
-        }
-    }
-
-    // 게시글 수정하기
-    function editEvent() {
-        // 수정하기 버튼
-        const $editBtn = document.getElementById("edit-btn");
-        if ($editBtn !== null) {
-            $editBtn.onclick = e => {
-                location.href = "/quiz/edit?quizNo=${q.quizNo}&pageNum=${diaryPage.pageNum}&amount=${diaryPage.amount}";
-            }
-        }
-    }
 
     // 로그인 여부 메시지
     function alertServerMessage() {
@@ -385,13 +341,18 @@
         const $textarea = document.getElementById('title-input');
         $textarea.style.height = $textarea.scrollHeight + 'px';
     }
+    function urlToImg(){
+        const $img = document.getElementById('img');
+        alert(${q.fileName});
+        $img.src = ${q.fileName};
+    }
 
     (function () {
         alertServerMessage();
         toList();
         deleteEvent();
         editEvent();
-
+        urlToImg();
         // 퀴즈 정답
         quiz();
 

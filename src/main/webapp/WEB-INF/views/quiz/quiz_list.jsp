@@ -128,13 +128,13 @@
 
     <!--글 하나하나-->
     <c:forEach var="q" items="${qList}">
-        <div class="lg:w-1/4 md:w-1/2 w-full p-5 articles margin " data-diary-num="${q.quizNo}">
+        <div class="lg:w-1/4 md:w-1/2 w-full p-5 articles margin " data-quiz-num="${q.quizNo}">
             <a href="#" style="color: black">
                 <div class="hover:shadow-2x1 card shadow-lg w-full h-full break-all hover">
                     <div class="card-body h-72 bg-white">
                         <div class="flex justify-between">
                             <div class="w-100">
-                                <p>${q.quizWriter}</p>
+                                <p>${q.quizWriter}${q.quizNo}</p>
                                 <p class=" text-sm text-gray-500 date">${q.prettierDate}</p>
                                 <p class=" text-sm text-gray-500 date">퀴즈 점수 : ${q.quizScore}</p>
 
@@ -231,7 +231,7 @@
             let quizNo = $targetDiv.dataset.quizNum;
             console.log('글번호: ' + quizNo);
 
-            location.href = '/quiz/detail/' + ${q.quizNo}
+            location.href = '/quiz/detail/' + quizNo
                 + "?pageNum=${pm.diaryPage.pageNum}"
                 + "&amount=${pm.diaryPage.amount}";
         });

@@ -1,13 +1,8 @@
 .wrap {
-    /*width: 60%;*/
+    width: 60%;
     margin: 200px auto 100px;
 }
-html{
-    /*overflow-x: hidden;*/
-}
-body{
-    /*overflow-x: hidden;*/
-}
+
 .board-list{
     font-size: 20px;
 }
