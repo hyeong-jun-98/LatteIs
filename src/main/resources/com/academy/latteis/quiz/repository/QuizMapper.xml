@@ -4,10 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.academy.latteis.quiz.repository.QuizMapper">
 
-    <resultMap id="quizMap" type="com.academy.latteis.quiz.domain.Quiz">
-        <id property="quizNo" column="quiz_no"/>
+    <resultMap id="quizMapper" type="com.academy.latteis.quiz.domain.Quiz">
+        <result property="quizNo" column="quiz_no"/>
         <result property="quizWriter" column="quiz_writer"/>
-        <result property="quizContent" column="quiz_content"/>
         <result property="quizAnswer" column="quiz_answer"/>
         <result property="quizGood" column="quiz_good"/>
         <result property="quizRegdate" column="quiz_regdate"/>
@@ -15,6 +14,7 @@
         <result property="userNickname" column="user_nickname"/>
         <result property="quizCheck" column="quiz_check"/>
         <result property="quizScore" column="quiz_score"/>
+        <result property="fileName" column="file_name"/>
     </resultMap>
 
 <!--    퀴즈 리스트 뽑아오기-->
@@ -31,5 +31,11 @@
     <select id="findOne" resultMap="quizMap">
         select * from quiz where quiz_no = #{quizNo}
     </select>
+
+
+    <insert id="write">
+        insert into quiz(quiz_writer, file_name, quiz_answer, quiz_score)
+        values (#{quizWriter}, #{fileName},#{quizAnswer},#{quizScore})
+    </insert>
 
 </mapper>
