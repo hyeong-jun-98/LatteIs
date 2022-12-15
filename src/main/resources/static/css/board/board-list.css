@@ -6,6 +6,7 @@
 .board-list{
     font-size: 20px;
 }
+
 .board-list .main-title {
     font-size: 40px;
     font-weight: 700;
@@ -17,19 +18,24 @@
     display: flex;
     justify-content: space-between;
 }
+
 .board-list .top-section .search {
     flex: 4;
 }
+
 .board-list .top-section .amount {
     flex: 4;
 }
+
 .board-list .top-section .search form {
     display: flex;
 }
+
 .board-list .top-section .search form #search-type {
     flex: 1;
     margin-right: 10px;
 }
+
 .board-list .top-section .search form input[name=keyword] {
     flex: 3;
 }
@@ -40,16 +46,20 @@
     /* background: skyblue; */
     justify-content: flex-end;
 }
+
 .board-list .amount {
     list-style: none;
 }
+
 .board-list .amount li {
     width: 8%;
     margin-right: 10px;
 }
+
 .board-list .amount li a {
     width: 100%;
 }
+
 .board-list .amount li a.active {
     color: #000 !important;
     background-color: #ffc107 !important;
@@ -61,20 +71,25 @@ table tbody a {
     color: #000 !important;
     text-decoration: none;
 }
+
 table tbody a:hover {
     color: orange !important;
     text-decoration: underline;
 }
+
 table tr th:nth-child(1) {
     width: 10%;
 }
+
 table tr th:nth-child(2) {
     width: 15%;
 }
+
 table tr th:nth-child(3) {
     width: 30%;
 }
-#title :not(a){
+
+#title :not(a) {
     font-size: 15px;
     margin-left: 10px;
 }
@@ -85,6 +100,7 @@ table tr th:nth-child(3) {
     display: flex;
     justify-content: center;
 }
+
 .bottom-section button {
     font-size: 20px;
 }
@@ -92,6 +108,7 @@ table tr th:nth-child(3) {
 .pagination-custom li a {
     color: #000 !important;
 }
+
 .pagination-custom li.active a,
 .pagination-custom li:hover a {
     background: lightyellow !important;

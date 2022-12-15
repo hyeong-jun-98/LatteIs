@@ -5,7 +5,8 @@
     font-weight: bold;
     font-style: normal;
 }
-body{
+
+body {
     background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -18,14 +19,20 @@ body{
     width: 50%;
     margin: 0 auto;
 }
+
 .content-container {
     margin-top: 200px;
     margin-bottom: 100px;
+}
+
+.content-container * {
     font-size: 20px;
 }
+
 .content-container .mb-3 .form-control {
     background: #fff !important;
 }
+
 .content-container .main-title {
     font-size: 30px;
     font-weight: 700;
@@ -35,11 +42,13 @@ body{
     width: fit-content;
     margin: 20px auto 30px;
 }
+
 .content-container .board-no-title {
     font-size: 20px;
     margin-bottom: 20px;
     color: #808080;
 }
+
 .content-container .main-content {
     border: 2px solid #ccc;
     border-radius: 20px;
@@ -48,8 +57,9 @@ body{
     text-align: justify;
     background: #fff;
     min-height: 400px;
-    overflow:hidden;
+    overflow: hidden;
 }
+
 .content-container .detail-main-content {
     border: 2px solid #ccc;
     border-radius: 20px;
@@ -58,14 +68,15 @@ body{
     text-align: justify;
     background: #fff;
     min-height: 400px;
-    overflow:hidden;
+    overflow: hidden;
 
     /* 줄바꿈 출력 */
-    white-space:pre-wrap;
+    white-space: pre-wrap;
 
     /* 한글, 영어 둘다 줄바꿈 => 얘 없으면 한글만 줄바꿈 된다.. */
     word-break: break-word;
 }
+
 .content-container .custom-btn-group {
     position: absolute;
     left: 50%;
@@ -83,32 +94,38 @@ body{
     font-size: 1.5em;
     margin-bottom: 16px;
 }
+
 .write-img-uploaded-list, .write-file-uploaded-list {
     width: 100%;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
 }
+
 .img-uploaded-list, .file-uploaded-list {
     width: 100%;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
 }
+
 .img-sizing {
     display: block;
     width: 100px;
     height: 100px;
     margin: 10px;
 }
+
 .img-sizing:hover {
     opacity: 0.5
 }
+
 .detail-img-sizing {
     display: block;
     width: 100%;
     margin: 10px;
 }
+
 .a-sizing {
     display: block;
     color: #000;
@@ -118,7 +135,7 @@ body{
 /* textarea - 제목, 내용 */
 textarea {
     resize: none;
-    overflow:hidden;
+    overflow: hidden;
 }
 
 /* 하단 버튼 스타일 */
@@ -126,6 +143,7 @@ textarea {
     justify-content: space-between;
     margin-bottom: 10px;
 }
+
 #edit-btn, #del-btn {
     width: 49%;
 }
@@ -134,30 +152,38 @@ textarea {
 #comments {
     margin-bottom: 10px;
 }
-#commentData{
+
+#commentData {
     margin-bottom: 16px;
 }
+
 #commentContent {
     margin: 0 20px;
 }
+
 .row {
     justify-content: space-between;
 }
+
 .offset-md-1 {
     margin-left: 0px;
     width: 100%;
 }
+
 .offset-md-2 {
     display: flex;
     justify-content: end;
     align-items: end;
 }
+
 .bottom-line {
     border-bottom: 1px solid lightgray;
 }
+
 #commentAddBtn {
     margin-bottom: 6px;
 }
+
 #commentEditBtn, #commentDelBtn {
     height: 30px;
 }
@@ -171,6 +197,7 @@ textarea {
 .pagination-custom li a {
     color: #000 !important;
 }
+
 .pagination-custom li.active a,
 .pagination-custom li:hover a {
     background: lightyellow !important;
