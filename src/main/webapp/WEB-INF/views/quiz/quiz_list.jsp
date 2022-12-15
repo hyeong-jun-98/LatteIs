@@ -73,9 +73,23 @@
     .pagination-custom li:hover a {
         background: lightyellow !important;
         border-color: orange !important;
-
     }
 
+    .bg-size {
+        width: 70px;
+        text-align: center;
+        line-height: 50px;
+        background-size: 100% 100%;
+        color: white;
+    }
+    .div-height {
+        height: 50px;
+        line-height: 50px;
+    }
+
+    #canvas {
+        border: 1px solid black;
+    }
 
 </style>
 
@@ -130,25 +144,25 @@
         <div class="lg:w-1/4 md:w-1/2 w-full p-5 articles margin " data-quiz-num="${q.quizNo}">
             <a href="#" style="color: black">
                 <div class="hover:shadow-2x1 card shadow-lg w-full h-full break-all hover">
-                    <div class="card-body h-72 bg-white">
+                    <div class="card-body bg-white">
                         <div class="flex justify-between">
                             <div class="w-100">
-                                <div class="d-flex justify-content-between mb-3">
+                                <div class="d-flex justify-content-between mb-3 div-height">
                                     <p class="fs-5">${q.quizWriter}</p>
                                     <c:if test="${q.quizScore == '500'}">
-                                        <p class="fs-5 text-danger">${q.quizScore}점</p>
+                                        <div class="fs-5 bg-size" style="background-image: url('/img/red.png');">${q.quizScore}점</div>
                                     </c:if>
                                     <c:if test="${q.quizScore == '400'}">
-                                        <p class="fs-5 text-warning">${q.quizScore}점</p>
+                                        <div class="fs-5 bg-size" style="background-image: url('/img/orange.png');">${q.quizScore}점</div>
                                     </c:if>
                                     <c:if test="${q.quizScore == '300'}">
-                                        <p class="fs-5 text-primary">${q.quizScore}점</p>
+                                        <div class="fs-5 bg-size" style="background-image: url('/img/yellow.png');">${q.quizScore}점</div>
                                     </c:if>
                                     <c:if test="${q.quizScore == '200'}">
-                                        <p class="fs-5 text-info">${q.quizScore}점</p>
+                                        <div class="fs-5 bg-size" style="background-image: url('/img/blue.png');">${q.quizScore}점</div>
                                     </c:if>
                                     <c:if test="${q.quizScore == '100'}">
-                                        <p class="fs-5 text-success">${q.quizScore}점</p>
+                                        <div class="fs-5 bg-size" style="background-image: url('/img/purple.png');">${q.quizScore}점</div>
                                     </c:if>
                                 </div>
                                 <p class=" text-sm text-gray-500 date">${q.prettierDate}</p>
