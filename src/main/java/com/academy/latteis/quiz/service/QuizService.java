@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Log4j2
 @RequiredArgsConstructor
@@ -18,6 +20,11 @@ public class QuizService {
         boolean flag = quizMapper.write(quiz);
 
         return flag;
+    }
+
+    public List<Quiz> findAllQuiz(){
+        List<Quiz> quizList = quizMapper.findAllQuiz();
+        return quizList;
     }
 
 }

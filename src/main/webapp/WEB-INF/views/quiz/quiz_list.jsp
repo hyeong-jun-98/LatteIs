@@ -127,19 +127,19 @@
 
 
     <!--글 하나하나-->
-    <c:forEach var="d" items="${dPList}">
-        <div class="lg:w-1/4 md:w-1/2 w-full p-5 articles margin " data-diary-num="${d.diaryNo}">
+    <c:forEach var="q" items="${qPList}">
+        <div class="lg:w-1/4 md:w-1/2 w-full p-5 articles margin " data-diary-num="${q.quizNo}">
             <a href="#" style="color: black">
                 <div class="hover:shadow-2x1 card shadow-lg w-full h-full break-all hover">
                     <div class="card-body h-72 bg-white">
                         <div class="flex justify-between">
                             <div class="w-100">
-                                <p>${d.userNickname}</p>
-                                <p class=" text-sm text-gray-500 date">${d.prettierDate}</p>
+                                <p>${q.userNickname}</p>
+                                <p class=" text-sm text-gray-500 date">${q.quizRegdate}</p>
 
                                 <div class="like-view">
-                                    <p class="text-sm text-gray-500 date">좋아요 : ${d.diaryGood}</p>
-                                    <p class="text-sm text-gray-500 date">조회수 : ${d.diaryHit} </p>
+                                    <p class="text-sm text-gray-500 date">좋아요 : ${q.quizGood}</p>
+                                    <p class="text-sm text-gray-500 date">조회수 : ${q.quizHit} </p>
                                 </div>
                                 <!-- <p class="text-sm text-gray-500 text-right">조회수 </p> -->
 
@@ -148,11 +148,7 @@
                                     <%--                        </div>--%>
                             </div>
                         </div>
-                        <h2 class="card-title">오늘의 기분 : ${d.emotion}</h2>
-
-                        <div class="text-clip overflow-hidden">
-                            <p>${d.diaryContent}</p>
-                        </div>
+                        <img id="canvas" src="${q.fileName}">
                     </div>
                 </div>
             </a>

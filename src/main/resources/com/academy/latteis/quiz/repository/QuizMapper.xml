@@ -23,5 +23,8 @@
         values (#{quizWriter}, #{fileName},#{quizAnswer},#{quizScore})
     </insert>
 
+    <select id="findAllQuiz" resultMap="quizMapper">
+        select * from quiz
+    </select>
 
 </mapper>
