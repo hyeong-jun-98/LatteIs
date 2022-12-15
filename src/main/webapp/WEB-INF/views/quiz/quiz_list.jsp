@@ -134,9 +134,25 @@
                     <div class="card-body h-72 bg-white">
                         <div class="flex justify-between">
                             <div class="w-100">
-                                <p>${q.quizWriter}${q.quizNo}</p>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <p class="fs-5">${q.quizWriter}</p>
+                                    <c:if test="${q.quizScore == '500'}">
+                                        <p class="fs-5 text-danger">${q.quizScore}점</p>
+                                    </c:if>
+                                    <c:if test="${q.quizScore == '400'}">
+                                        <p class="fs-5 text-warning">${q.quizScore}점</p>
+                                    </c:if>
+                                    <c:if test="${q.quizScore == '300'}">
+                                        <p class="fs-5 text-primary">${q.quizScore}점</p>
+                                    </c:if>
+                                    <c:if test="${q.quizScore == '200'}">
+                                        <p class="fs-5 text-info">${q.quizScore}점</p>
+                                    </c:if>
+                                    <c:if test="${q.quizScore == '100'}">
+                                        <p class="fs-5 text-success">${q.quizScore}점</p>
+                                    </c:if>
+                                </div>
                                 <p class=" text-sm text-gray-500 date">${q.prettierDate}</p>
-                                <p class=" text-sm text-gray-500 date">퀴즈 점수 : ${q.quizScore}</p>
 
                                 <div class="like-view">
                                     <p class="text-sm text-gray-500 date">좋아요 : ${q.quizGood}</p>
