@@ -38,4 +38,5 @@
         values (#{quizWriter}, #{fileName},#{quizAnswer},#{quizScore})
     </insert>
 
+
 </mapper>

@@ -22,8 +22,6 @@ public class Quiz {
     private String userNickname;
     private String quizCheck;
     private Long quizScore;
-
     private String fileName;
 
-    private MultipartFile file;
 }

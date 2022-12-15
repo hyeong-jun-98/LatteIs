@@ -19,7 +19,7 @@
     <link href="/css/board/board-detail.css" rel="stylesheet"/>
     <!-- 상단바 css -->
     <link href="/css/topbar.css" rel="stylesheet">
-
+    <meta name="viewport" content="width=device-width; initial-scale=1">
     <!--제이쿼리-->
     <script src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>

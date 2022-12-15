@@ -7,6 +7,8 @@ import com.academy.latteis.quiz.domain.Quiz;
 import com.academy.latteis.quiz.service.QuizService;
 import com.academy.latteis.user.domain.User;
 import lombok.RequiredArgsConstructor;
+import com.academy.latteis.quiz.service.QuizService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,7 @@ import java.util.Map;
 @Log4j2
 @RequiredArgsConstructor
 @RequestMapping("/quiz")
+@RequiredArgsConstructor
 public class QuizController {
 
     private final QuizService quizService;
@@ -35,6 +38,13 @@ public class QuizController {
         log.info("controller /quiz/write GET");
         return "quiz/quiz-write";
     }
+
+    @PostMapping("/write")
+    public void quizWrite(Quiz quiz){
+        log.info(quiz);
+        quizService.writeService(quiz);
+    }
+
 
     @GetMapping("/list")
     public String quizList(DiaryPage diaryPage, Model model){

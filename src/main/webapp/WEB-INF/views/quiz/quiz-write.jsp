@@ -259,49 +259,25 @@
         }
     }
 
-    function uploadCanvasToServer()  {
-        const canvas = document.getElementById('canvas');
-        const imgBase64 = canvas.toDataURL('image/jpeg', 'image/octet-stream');
-        const decodImg = atob(imgBase64.split(',')[1]);
 
-        let array = [];
-        for (let i = 0; i < decodImg .length; i++) {
-            array.push(decodImg .charCodeAt(i));
-        }
-
-        const file = new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
-        const fileName = 'canvas_img_' + new Date().getMilliseconds() + '.jpg';
-        let formData = new FormData();
-        formData.append('file', file, fileName);
-        formData.append('quizScore', document.getElementById('quiz-score').value);
-        formData.append('quizWriter', document.getElementById('writer-input').value);
-        formData.append('quizAnswer', document.getElementById('answer-input').value);
-
-        const reqInfo = {
-            method: 'POST',
-            body: formData
-        };
-        fetch('/api/quiz', reqInfo)
-            .then(res => {
-                return res.text();
-            })
-            .then(msg => {
-                if (msg == 'good'){
-                    location.href='/quiz/list';
-                }
-            });
-    };
 
     // 퀴즈 작성하기
     function write(){
         const $btnWrite = document.getElementById('btn-write');
         $btnWrite.onclick = e => {
             if (!confirm('작성하시겠습니까?'))return;
-            uploadCanvasToServer();
-            // const $writeForm = document.getElementById('write-form');
-            // $writeForm.method = 'POST';
-            // $writeForm.action = '/quiz/write';
-            // $writeForm.submit()
+            const $writeForm = document.getElementById('write-form');
+            const $input = document.createElement('input');
+            $input.setAttribute("type", "text");
+            $input.setAttribute("name", "fileName");
+            $input.setAttribute("value", canvas.toDataURL());
+            $writeForm.append($input);
+            // canvas.setAttribute("fileName",canvas.toDataURL);
+            // alert(canvas);
+            // console.log(canvas);
+            $writeForm.method = 'POST';
+            $writeForm.action = '/quiz/write';
+            $writeForm.submit();
         }
 
     }

@@ -21,6 +21,8 @@ public class Board {
     private Long good;
     private String userNickname;
     private Long generation;
+
+    // fk
     private String topicName;
 
     private List<MultipartFile> files;

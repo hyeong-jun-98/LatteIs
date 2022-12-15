@@ -18,18 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin    // CORS를 적용하는 어노테이션
 public class QuizApiController {
 
-    private final QuizService quizService;
-
-    @PostMapping("")
-    public ResponseEntity<String> quizWrite(Quiz quiz){
-        log.info("restcontroller /api/quiz POST - {}", quiz.getFile().getOriginalFilename());
-
-        String fileName = quiz.getFile().getOriginalFilename();
-        quiz.setFileName(fileName);
-
-        boolean b = quizService.writeService(quiz);
-        log.info("그림 작성 결과는 {}", b);
-
-        return new ResponseEntity<>("good", HttpStatus.OK);
-    }
+//    private final QuizService quizService;
+//
+//    @PostMapping("")
+//    public ResponseEntity<String> quizWrite(Quiz quiz){
+//        log.info("restcontroller /api/quiz POST - {}", quiz.getFile().getOriginalFilename());
+//
+//        String fileName = quiz.getFile().getOriginalFilename();
+//        quiz.setFileName(fileName);
+//
+//        boolean b = quizService.writeService(quiz);
+//        log.info("그림 작성 결과는 {}", b);
+//
+//        return new ResponseEntity<>("good", HttpStatus.OK);
+//    }
 }

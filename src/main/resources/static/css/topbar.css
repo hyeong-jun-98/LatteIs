@@ -19,7 +19,7 @@
 }
 .icon-wrapper{
     width: 300px;
-    height: 100px;
+    /*height: 100px;*/
     padding: 10px;
     display: flex;
 }
@@ -68,6 +68,9 @@
     line-height: 90px;
     margin-left: 50px;
     display: flex;
+}
+.homeMenu{
+    display:none;
 }
 .category #img{
     background: url("/img/images-removebg-preview.png");
@@ -160,6 +163,182 @@
 }
 #subcated >div:hover div{
     color: white;
+}
+.menu {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 60%;
+    height: 100%;
+    background: white;
+    z-index: 10000;
+    display: none;
+    position: fixed;
+}
+
+.login {
+    display: block;
+}
+
+.homeMenu {
+    display: none;
+    width: 20px;
+    height: 20px;
+    margin-top: 25px;
+    margin-left: 30px;
+    background: url("/img/homeMenu.png");
+    background-size: 100% 100%;
+}
+
+@media screen and (max-width: 390px) {
+    .topbar {
+        height: 80px;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+
+    .icon {
+        width: 30px;
+        height: 30px;
+        margin-top: 7px;
+    }
+
+    .icon-text {
+        font-size: 10px;
+    }
+
+    .category {
+        display: none;
+    }
+
+    .login {
+        display: none;
+    }
+
+    .nickname {
+        display: none;
+    }
+
+    .homeMenu {
+        display: block;
+        width: 20px;
+        height: 20px;
+        margin-top: 25px;
+        margin-left: 30px;
+        background: url("/img/homeMenu.png");
+        background-size: 100% 100%;
+    }
+
+    .menu > div:first-child {
+        height: 20%;
+        border-bottom: 2px black solid;
+    }
+
+    .menu > div:nth-child(2) {
+        height: 60%;
+        padding: 20px;
+    }
+
+    .menu > div:last-child {
+        height: 20%;
+        border-top: 2px black solid;
+    }
+
+    .menu-icon-wrapper {
+        margin: auto;
+        margin-top: 50px;
+        width: 40%;
+        height: 70%;
+    }
+
+    .menu-icon-wrapper > div:first-child {
+        background: url("https://cdn-icons-png.flaticon.com/128/6937/6937770.png");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        height: 80%;
+    }
+
+    .menu-icon-wrapper > div:last-child {
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .menu-category > div {
+        margin-left: 0px;
+        margin-bottom: 20px;
+        display: flex;
+    }
+
+    #geneArrow {
+        width: 8px;
+        height: 8px;
+        margin-top: 7px;
+        margin-left: 10px;
+        background: url("/img/arrow.png");
+        background-size: 100% 100%;
+    }
+
+    #m-subcatec {
+        display: none;
+        margin-left: 25px;
+        overflow: hidden;
+    }
+
+    #m-subcatec > div {
+        margin-bottom: 10px;
+        margin-left: 25px;
+    }
+
+    #m-subcatec span {
+        width: 25px;
+        background: url("/img/images-removebg-preview.png");
+        background-size: 100% 100%;
+    }
+
+    #diaryArrow {
+        width: 8px;
+        height: 8px;
+        margin-top: 7px;
+        margin-left: 10px;
+        background: url("/img/arrow.png");
+        background-size: 100% 100%;
+    }
+
+    #m-subcated {
+        display: none;
+        margin-left: 25px;
+        overflow: hidden;
+    }
+
+    #m-subcated > div {
+        margin-bottom: 10px;
+        margin-left: 25px;
+    }
+
+    #m-subcated span {
+        visibility: hidden;
+        width: 25px;
+        background: url("/img/images-removebg-preview.png");
+        background-size: 100% 100%;
+    }
+
+    .menu-category > div span:first-child {
+        visibility: hidden;
+        width: 25px;
+        background: url("/img/images-removebg-preview.png");
+        background-size: 100% 100%;
+    }
+
+    .m-login {
+        margin-top: 30px;
+        margin-right: 10px;
+        text-align: right;
+    }
+    .m-nickname {
+        margin-top: 30px;
+        margin-right: 10px;
+        text-align: right;
+    }
 }
 
 

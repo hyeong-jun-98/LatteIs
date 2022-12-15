@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.servlet.http.HttpSession;
+
 // 다양한 인터셉터들을 관리하는 설정 클래스
 @Configuration
 @RequiredArgsConstructor
@@ -22,6 +24,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     // 인터셉터 설정 추가 메서드
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+
         // 게시판 인터셉터 설정
         registry.addInterceptor(boardInterceptor)
                 .addPathPatterns("/freeboard/*", "/generation/*", "/keyword/*", "/user/revise", "/user/exit", "/user/mypage")
