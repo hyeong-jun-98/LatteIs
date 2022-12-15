@@ -1,6 +1,7 @@
 package com.academy.latteis.board.service;
 
 import com.academy.latteis.board.domain.Board;
+import com.academy.latteis.board.domain.Topic;
 import com.academy.latteis.board.dto.BoardConvertDTO;
 import com.academy.latteis.board.dto.BoardGoodDTO;
 import com.academy.latteis.board.dto.EditBoardDTO;
@@ -41,13 +42,7 @@ public class BoardService {
         boolean flag = boardMapper.writeFree(board);
 
         // 첨부파일 저장
-        if (fileNames != null && fileNames.size() > 0) {
-            for (String fileName : fileNames) {
-                // 첨부파일 내용 DB에 저장
-                log.info("파일 이름은 {}", fileName);
-                boardMapper.addFile(fileName);
-            }
-        }
+        fileSave(fileNames);
 
         return flag;
     }
@@ -60,13 +55,7 @@ public class BoardService {
         boolean flag = boardMapper.writeGeneration(board);
 
         // 첨부파일 저장
-        if (fileNames != null && fileNames.size() > 0) {
-            for (String fileName : fileNames) {
-                // 첨부파일 내용 DB에 저장
-                log.info("파일 이름은 {}", fileName);
-                boardMapper.addFile(fileName);
-            }
-        }
+        fileSave(fileNames);
 
         return flag;
     }
@@ -75,6 +64,13 @@ public class BoardService {
         boolean flag = boardMapper.writeKeyword(board);
 
         // 첨부파일 저장
+        fileSave(fileNames);
+
+        return flag;
+    }
+
+    public void fileSave(List<String> fileNames){
+        // 첨부파일 저장
         if (fileNames != null && fileNames.size() > 0) {
             for (String fileName : fileNames) {
                 // 첨부파일 내용 DB에 저장
@@ -82,13 +78,12 @@ public class BoardService {
                 boardMapper.addFile(fileName);
             }
         }
-
-        return flag;
     }
 
     // 게시글 전체 조회
     public Map<String, Object> findAllFreeService(Search search) {
         log.info("findAll service start");
+        log.info("findAll service search={}", search);
 
         Map<String, Object> findDataMap = new HashMap<>();
 
@@ -109,6 +104,7 @@ public class BoardService {
 
     public Map<String, Object> findAllGenerationService(Search search, Long generation) {
         log.info("findAll service start - generation = {}", generation);
+        log.info("findAllGeneration service search={}", search);
 
         Map<String, Object> findDataMap = new HashMap<>();
 
@@ -127,12 +123,12 @@ public class BoardService {
         return findDataMap;
     }
 
-    public Map<String, Object> findAllKeywordService(Search search, Long topicNo) {
+    public Map<String, Object> findAllKeywordService(Search search) {
         log.info("findAll service start");
 
         Map<String, Object> findDataMap = new HashMap<>();
 
-        List<BoardConvertDTO> boardList = boardMapper.findAllKeyword(search, topicNo);
+        List<BoardConvertDTO> boardList = boardMapper.findAllKeyword(search);
 
         for (BoardConvertDTO b : boardList) {
             b.setGood((long) goodMapper.goodCnt(b.getBoardNo()));
@@ -295,6 +291,10 @@ public class BoardService {
     // 첨부파일 목록 가져오기
     public List<String> getFiles(Long boardNo) {
         return boardMapper.findFileNames(boardNo);
+    }
+
+    public Topic getTopicOneService(Long topicNo){
+        return boardMapper.getTopicOne(topicNo);
     }
 
     public void exitUser(User user){

@@ -34,7 +34,9 @@ public class BoardController {
     private final BoardService boardService;
 
     // 업로드 파일 저장 경로
-    private static final String UPLOAD_PATH = "C:/Users/hojong/upload";
+    private static final String UPLOAD_PATH = "/usr/local/upload";
+
+    public static String topicName;
 
     // 게시글 목록 요청
     @GetMapping("/list")
@@ -73,11 +75,12 @@ public class BoardController {
                 where = "generationboard/70-list";
             }
         } else {
-            long topicNo = 1;
-            boardMap = boardService.findAllKeywordService(search, topicNo);
+            boardMap = boardService.findAllKeywordService(search);
             session.setAttribute("topbar", "keyword");
             where = "keywordboard/keyword-list";
             session.setAttribute("keyword", "1");
+
+            session.setAttribute("topicName", topicName);
         }
 
         // 페이지 정보 생성
@@ -164,8 +167,8 @@ public class BoardController {
                     : "redirect:/generation/list?generation=" + session.getAttribute("sessionGeneration");
         }
         //키워드 글 작성
-        if (uri.equals("/keyword/write")) {
-            log.info(request.getSession().getAttribute("keyword"));
+        else if (uri.equals("/keyword/write")) {
+            log.info("컨트롤러에서 키워드는 {}", request.getSession().getAttribute("keyword"));
 //            board.setTopicNo(Long.parseLong((String) request.getSession().getAttribute("keyword")));
 
             // 클라이언트가 전송한 파일 업로드하기

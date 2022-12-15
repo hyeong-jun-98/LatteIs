@@ -19,7 +19,7 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
-    <meta name="viewport" content="width=device-width; initial-scale=1">
+
 
 </head>
 
@@ -30,7 +30,8 @@
         font-weight: bold;
         font-style: normal;
     }
-    body{
+
+    body {
         background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
         background-repeat: no-repeat;
         background-size: cover;
@@ -53,12 +54,14 @@
     .amount li a {
         width: 100%;
     }
+
     /* bottom-section style */
     .bottom-section nav {
         flex: 9;
         display: flex;
         justify-content: center;
     }
+
     .bottom-section button {
         font-size: 20px;
     }
@@ -66,6 +69,7 @@
     .pagination-custom li a {
         color: #000 !important;
     }
+
     .pagination-custom li.active a,
     .pagination-custom li:hover a {
         background: lightyellow !important;
@@ -74,46 +78,74 @@
     }
 
 
-
 </style>
 
 <body>
 <%--topbar--%>
-<%@include file="../topbar.jsp"%>
+<%@include file="../topbar.jsp" %>
 
 <!-- Header-->
 <header class="py-5">
     <div class="container px-lg-5">
         <div class="p-4 p-lg-5 rounded-3 text-center list-title">
             <div class="m-4 m-lg-5">
-                <h1 class="display-5 fw-bold custom-Mylist diary-header">나의 일기장</h1>
-                <a class="btn btn-primary btn-lg custom-gotoWrite diary-header" href="/diary/write" style="color: black">일기 작성하러 가기</a>
+                <h1 class="display-5 fw-bold custom-Mylist diary-header">퀴즈</h1>
+                <a class="btn btn-primary btn-lg custom-gotoWrite diary-header" href="/quiz/write"
+                   style="color: black">퀴즈 작성하러 가기</a>
             </div>
         </div>
     </div>
 </header>
+<!--
+ Page Content
+<section class="pt-4">
+    <div class="container px-lg-5">
+       Page Features
+        <div class="row gx-lg-5">
+            <div class="col-lg-6 col-xxl-4 mb-5">
+                <div class="card bg-light border-0 h-100">
+                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
+                        <h2 class="fs-4 fw-bold">Fresh new layout</h2>
+                        <p class="mb-0">With Bootstrap 5, we've created a fresh new layout for this template!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
 
+<%--<!-- 목록 개수별 보기 영역 -->--%>
+<%--<ul class="amount">--%>
+<%--    <li><a class="btn btn-danger" href="/diary/list?amount=10">10</a></li>--%>
+<%--    <li><a class="btn btn-danger" href="/diary/list?amount=20">20</a></li>--%>
+<%--    <li><a class="btn btn-danger" href="/diary/list?amount=30">30</a></li>--%>
+<%--</ul>--%>
 
 <!--글 목록-->
 <div id="article-container" class="container mx-auto flex flex-wrap justify-start">
 
 
     <!--글 하나하나-->
-    <c:forEach var="d" items="${dMList}">
-        <div class="lg:w-1/4 md:w-1/2 w-full p-5 articles margin" data-diary-num="${d.diaryNo}">
+    <c:forEach var="d" items="${dPList}">
+        <div class="lg:w-1/4 md:w-1/2 w-full p-5 articles margin " data-diary-num="${d.diaryNo}">
             <a href="#" style="color: black">
                 <div class="hover:shadow-2x1 card shadow-lg w-full h-full break-all hover">
                     <div class="card-body h-72 bg-white">
                         <div class="flex justify-between">
-                            <div>
-                            <p>${d.userNickname}</p>
-                            <p class="text-right text-sm text-gray-500 date">${d.prettierDate}</p>
-                            <p class="text-sm text-gray-500 date">좋아요 : ${d.diaryGood}</p>
-                            <!-- <p class="text-sm text-gray-500 text-right">조회수 </p> -->
+                            <div class="w-100">
+                                <p>${d.userNickname}</p>
+                                <p class=" text-sm text-gray-500 date">${d.prettierDate}</p>
 
-<%--                        <div class="divider my-0">--%>
+                                <div class="like-view">
+                                    <p class="text-sm text-gray-500 date">좋아요 : ${d.diaryGood}</p>
+                                    <p class="text-sm text-gray-500 date">조회수 : ${d.diaryHit} </p>
+                                </div>
+                                <!-- <p class="text-sm text-gray-500 text-right">조회수 </p> -->
 
-<%--                        </div>--%>
+                                    <%--                        <div class="divider my-0">--%>
+
+                                    <%--                        </div>--%>
                             </div>
                         </div>
                         <h2 class="card-title">오늘의 기분 : ${d.emotion}</h2>
@@ -143,7 +175,7 @@
 
             <c:forEach var="n" begin="${pm.beginPage}" end="${pm.endPage}" step="1">
                 <li data-page-num="${n}" class="page-item" style="color: black">
-                    <a class="page-link" href="/diary/list?pageNum=${n}&amount=${pm.diaryPage.amount}" >${n}</a>
+                    <a class="page-link" href="/diary/list?pageNum=${n}&amount=${pm.diaryPage.amount}">${n}</a>
                 </li>
             </c:forEach>
 
@@ -163,21 +195,6 @@
 <%--<script src="js/scripts.js"></script>--%>
 
 <script>
-
-    function hover(){
-        const $hover = document.getElementsByClassName("hover");
-        for(let i of $hover){
-            console.log(i);
-            i.onmouseover = e =>{
-                i.className = "hover:shadow-2x1 card shadow-lg w-full h-full break-all hover animate__animated animate__bounce";
-                console.log(i);
-            }
-            i.onmouseout = e =>{
-                i.className = "hover:shadow-2x1 card shadow-lg w-full h-full break-all hover";
-            }
-        }
-
-    }
 
     //현재 위치한 페이지에 active 스타일 부여하기
     function appendPageActive() {
@@ -204,7 +221,6 @@
         //상세보기 요청 이벤트
         const $table = document.querySelector("#article-container");
         // console.log($table);
-
         $table.addEventListener('click', e => {
 
             // console.log(e.target);
@@ -222,6 +238,21 @@
                 + "?pageNum=${pm.diaryPage.pageNum}"
                 + "&amount=${pm.diaryPage.amount}";
         });
+    }
+
+    function hover() {
+        const $hover = document.getElementsByClassName("hover");
+        for (let i of $hover) {
+            console.log(i);
+            i.onmouseover = e => {
+                i.className = "hover:shadow-2x1 card shadow-lg w-full h-full break-all hover animate__animated animate__bounce";
+                console.log(i);
+            }
+            i.onmouseout = e => {
+                i.className = "hover:shadow-2x1 card shadow-lg w-full h-full break-all hover";
+            }
+        }
+
     }
 
     (function () {

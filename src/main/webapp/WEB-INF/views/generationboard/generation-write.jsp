@@ -32,11 +32,13 @@
 
     <div class="content-container">
 
-        <h1 class="main-title">연령대별 게시판
-            <c:if test="${sessionGeneration != 9999}">
-                - ${sessionGeneration}년대
-            </c:if>
-        </h1>
+        <h1 class="main-title">연령대별 게시판</h1>
+
+        <c:if test="${sessionGeneration != 9999}">
+            <div style="margin-bottom: 10px;">
+                <span style="font-size: 30px;">${sessionGeneration}년대</span>
+            </div>
+        </c:if>
 
         <form id="write-form" autocomplete="off" enctype="multipart/form-data">
             <input type="hidden" name="userNickname" value="${loginUser.userNickname}">

@@ -1,5 +1,6 @@
 package com.academy.latteis;
 
+import com.academy.latteis.board.domain.Topic;
 import com.academy.latteis.board.dto.BoardGoodDTO;
 import com.academy.latteis.board.service.BoardService;
 import com.academy.latteis.diary.service.DiaryService;
@@ -23,6 +24,9 @@ public class HomeController {
     private final DiaryService diaryService;
     private final BoardService boardService;
 
+    public static String topicName;
+
+
     @GetMapping("/")
     public String home(Model model, HttpSession session, HttpServletRequest request){
 
@@ -44,6 +48,7 @@ public class HomeController {
         model.addAttribute("b70", boardBestMap.get("gene70"));
         session.setAttribute("topbar", "home");
 
+        session.setAttribute("topicName", topicName);
 
         return "index";
     }

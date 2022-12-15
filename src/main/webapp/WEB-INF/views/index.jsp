@@ -16,7 +16,10 @@
     <%--  topbar  --%>
     <link href="/css/index.css" rel="stylesheet">
     <link href="/css/topbar.css" rel="stylesheet">
-
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
 
     <%--    <link rel="stylesheet" href="css/animations.css">--%>
 
@@ -25,34 +28,34 @@
 <div class="wrapper">
     <%@include file="topbar.jsp" %>
 
-    <div class="main" id="main">
-        <div class="title animate__animated animate__fadeInDown">
-            Latte is...
+<div class="main">
+    <div class="title animate__animated animate__fadeInDown">
+        Latte is...
+    </div>
+    <div class="today">
+        <div class="keyword">
+            <a>
+                <div>오늘의 키워드</div>
+                <div>${topicName}</div>
+            </a>
+            <div></div>
         </div>
-        <div class="today">
-            <div class="keyword">
-                <a>
-                    <div>오늘의 키워드</div>
-                    <div>사탕</div>
-                </a>
-                <div></div>
-            </div>
-            <div id="bestDiary" data-diary-num="${dBOne.diaryNo}">
-                <a href="#" style="color: black">
-                    <div>
-                        <div>베스트 일기</div>
-                        <div>${dBOne.userNickname}</div>
-                        <div>${dBOne.prettierDate}</div>
-                        <div>좋아요 : ${dBOne.diaryGood}</div>
-                        <div>조회수 : ${dBOne.diaryHit}</div>
-                    </div>
-                    <div>
-                        <div>오늘의 기분 : ${dBOne.emotion}</div>
-                        <div>${dBOne.diaryContent}</div>
-                    </div>
-                </a>
-                <div></div>
-            </div>
+        <div id="bestDiary" data-diary-num="${dBOne.diaryNo}">
+            <a href="#" style="color: black">
+                <div>
+                    <div>베스트 일기</div>
+                    <div>${dBOne.userNickname}</div>
+                    <div>${dBOne.prettierDate}</div>
+                    <div>좋아요 : ${dBOne.diaryGood}</div>
+                    <div>조회수 : ${dBOne.diaryHit}</div>
+                </div>
+                <div>
+                    <div>오늘의 기분 : ${dBOne.emotion}</div>
+                    <div>${dBOne.diaryContent}</div>
+                </div>
+            </a>
+            <div></div>
+        </div>
 
             <div id="board">
                 <div>베스트 게시글</div>

@@ -36,9 +36,12 @@
             <input type="hidden" name="amount" value="${page.amount}">
             <input type="hidden" name="boardNo" value="${board.boardNo}">
             <input type="hidden" name="generation" value="${board.generation}">
+            <input type="hidden" name="topicName" value="${topicName}">
 
             <h1 class="main-title">키워드 게시판</h1>
-            <h2 class="board-no-title">${board.boardNo}번 게시물</h2>
+            <div class="board-no-title">
+                <span>${board.boardNo}번 게시물 (${board.topicName})</span>
+            </div>
 
             <div class="mb-3">
                 <label for="writer-input" class="form-label">작성자</label>

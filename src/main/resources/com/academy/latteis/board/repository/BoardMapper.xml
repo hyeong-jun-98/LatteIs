@@ -7,14 +7,14 @@
     <!-- sql과 java의 이름 관례 차이에서 오는 매핑을 맞춰주는 것 -->
     <resultMap id="boardMap" type="com.academy.latteis.board.domain.Board">
         <result property="boardNo" column="board_no"/>
-        <result property="topicNo" column="topic_name"/>
+        <result property="topicName" column="topic_name"/>
         <result property="userNickname" column="user_nickname"/>
     </resultMap>
 
     <!-- 좋아요 관련 Board dto -->
     <resultMap id="boardGoodMap" type="com.academy.latteis.board.dto.BoardGoodDTO">
         <result property="boardNo" column="board_no"/>
-        <result property="topicNo" column="topic_name"/>
+        <result property="topicName" column="topic_name"/>
         <result property="userNickname" column="user_nickname"/>
         <result property="userNo" column="user_No"/>
     </resultMap>
@@ -22,7 +22,7 @@
     <!-- BoardConvertDTO -->
     <resultMap id="boardConvertMap" type="com.academy.latteis.board.dto.BoardConvertDTO">
         <result property="boardNo" column="board_no"/>
-        <result property="topicNo" column="topic_name"/>
+        <result property="topicName" column="topic_name"/>
         <result property="userNickname" column="user_nickname"/>
         <result property="userYear" column="user_year"/>
     </resultMap>
@@ -40,8 +40,14 @@
         <result property="boardNo" column="board_no"/>
     </resultMap>
 
+    <!-- Topic resultMap -->
+    <resultMap id="topicMap" type="com.academy.latteis.board.domain.Topic">
+        <result property="topicNo" column="topic_no"/>
+        <result property="topicName" column="topic_name"/>
+    </resultMap>
+
     <!-- 중복 쿼리문 재사용하기 -->
-    <sql id="searchInclude">
+    <sql id="search">
         <if test="type == 'title'">AND title LIKE CONCAT('%', #{keyword}, '%')</if>
         <if test="type == 'writer'">AND writer LIKE CONCAT('%', #{keyword}, '%')</if>
         <if test="type == 'content'">AND content LIKE CONCAT('%', #{keyword}, '%')</if>
@@ -51,6 +57,15 @@
         </if>
     </sql>
 
+    <sql id="searchGen">
+        <if test="search.type == 'title'">AND title LIKE CONCAT('%', #{search.keyword}, '%')</if>
+        <if test="search.type == 'writer'">AND writer LIKE CONCAT('%', #{search.keyword}, '%')</if>
+        <if test="search.type == 'content'">AND content LIKE CONCAT('%', #{search.keyword}, '%')</if>
+        <if test="search.type == 'tc'">
+            AND title LIKE CONCAT('%', #{search.keyword}, '%')
+            OR content LIKE CONCAT('%', #{search.keyword}, '%')
+        </if>
+    </sql>
 
     <!-- 자유게시판 게시글 작성 -->
     <insert id="writeFree">
@@ -76,7 +91,7 @@
         SELECT board.*, user_year from board left join user on board.user_nickname = user.user_nickname
         WHERE generation IS NULL and topic_name is null
 
-        <include refid="searchInclude"/>
+        <include refid="search"/>
 
         ORDER BY board_no DESC
         LIMIT #{start}, #{amount}
@@ -90,13 +105,8 @@
         </if>
         <if test="generation == 9999">WHERE generation IS NOT NULL</if>
 
-        <if test="search.type == 'title'">AND title LIKE CONCAT('%', #{search.keyword}, '%')</if>
-        <if test="search.type == 'writer'">AND writer LIKE CONCAT('%', #{search.keyword}, '%')</if>
-        <if test="search.type == 'content'">AND content LIKE CONCAT('%', #{search.keyword}, '%')</if>
-        <if test="search.type == 'tc'">
-            AND title LIKE CONCAT('%', #{search.keyword}, '%')
-            OR content LIKE CONCAT('%', #{search.keyword}, '%')
-        </if>
+       <include refid="searchGen"></include>
+
         ORDER BY board_no DESC
         LIMIT #{search.start}, #{search.amount}
     </select>
@@ -104,15 +114,11 @@
     <!-- 키워드 게시판 목록 가져오기 -->
     <select id="findAllKeyword" resultMap="boardConvertMap">
         SELECT board.*, user_year from board left join user on board.user_nickname = user.user_nickname WHERE topic_name IS NOT NULL
-        <if test="search.type == 'title'">AND title LIKE CONCAT('%', #{search.keyword}, '%')</if>
-        <if test="search.type == 'writer'">AND writer LIKE CONCAT('%', #{search.keyword}, '%')</if>
-        <if test="search.type == 'content'">AND content LIKE CONCAT('%', #{search.keyword}, '%')</if>
-        <if test="search.type == 'tc'">
-            AND title LIKE CONCAT('%', #{search.keyword}, '%')
-            OR content LIKE CONCAT('%', #{search.keyword}, '%')
-        </if>
+
+        <include refid="search"></include>
+
         ORDER BY board_no DESC
-        LIMIT #{search.start}, #{search.amount}
+        LIMIT #{start}, #{amount}
     </select>
 
     <!-- 게시글 상세보기 -->
@@ -130,7 +136,7 @@
         FROM board
         WHERE generation IS NULL AND topic_name IS NULL
 
-        <include refid="searchInclude"/>
+        <include refid="search"/>
 
     </select>
     <!-- 연령대별 게시판 전체 수 가져오기 -->
@@ -144,13 +150,7 @@
         <if test="generation == '1970'">AND generation = #{generation}</if>
         <if test="generation == '9999'">AND generation IS NOT NULL</if>
 
-        <if test="search.type == 'title'">AND title LIKE CONCAT('%', #{keyword}, '%')</if>
-        <if test="search.type == 'writer'">AND writer LIKE CONCAT('%', #{keyword}, '%')</if>
-        <if test="search.type == 'content'">AND content LIKE CONCAT('%', #{keyword}, '%')</if>
-        <if test="search.type == 'tc'">
-            AND title LIKE CONCAT('%', #{keyword}, '%')
-            OR content LIKE CONCAT('%', #{keyword}, '%')
-        </if>
+        <include refid="searchGen"></include>
 
     </select>
     <!-- 키워드 게시판 전체 수 가져오기 -->
@@ -159,7 +159,7 @@
         FROM board
         WHERE topic_name IS NOT NULL
 
-        <include refid="searchInclude"/>
+        <include refid="search"/>
 
     </select>
 
@@ -222,6 +222,15 @@
         SELECT file_name
         FROM file_upload
         WHERE board_no = #{boardNo}
+    </select>
+
+    <!-- 토픽 가져오기 -->
+    <select id="getTopic" resultMap="topicMap">
+        select * from topic
+    </select>
+    <!-- 토픽 가져오기 -->
+    <select id="getTopicOne" resultMap="topicMap">
+        select * from topic where topic_no = #{topicNo}
     </select>
 
     <select id="findBestFree" resultMap="bestBoardMap">

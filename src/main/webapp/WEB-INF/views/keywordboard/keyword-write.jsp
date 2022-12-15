@@ -21,23 +21,6 @@
     <!--제이쿼리-->
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
-    <style>
-        @font-face {
-            font-family: 'KyoboHand';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
-            font-weight: bold;
-            font-style: normal;
-        }
-
-        body {
-            background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
-            background-repeat: no-repeat;
-            background-size: cover;
-            overflow: visible;
-            font-family: KyoboHand;
-        }
-
-    </style>
 </head>
 <body>
 
@@ -48,14 +31,15 @@
 
     <div class="content-container">
 
-        <h1 class="main-title">키워드 게시판
+        <h1 class="main-title">키워드 게시판</h1>
 
-        </h1>
+        <div style="margin-bottom: 10px;">
+            <span style="color: red; font-size: 30px;">${topicName}</span>
+        </div>
 
         <form id="write-form" autocomplete="off" enctype="multipart/form-data">
             <input type="hidden" name="userNickname" value="${loginUser.userNickname}">
-
-
+            <input type="hidden" name="topicName" value="${topicName}">
 
             <div class="mb-3">
                 <label for="writer-input" class="form-label">작성자</label>

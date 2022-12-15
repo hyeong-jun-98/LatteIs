@@ -35,7 +35,9 @@
     <div class="content-container">
 
         <h1 class="main-title">연령대별 게시판</h1>
-        <h2 class="board-no-title">${board.boardNo}번 게시물 - ${board.generation}년대</h2>
+        <div class="board-no-title">
+            <span>${board.boardNo}번 게시물 - ${board.generation}년대</span>
+        </div>
 
         <div class="mb-3">
             <label for="writer-input" class="form-label">작성자</label>
@@ -160,7 +162,7 @@
         </div>
 
         <div class="d-flex">
-            <c:if test="${loginUser.userNickname == board.userNickname}">
+            <c:if test="${loginUser.userNickname == board.userNickname || loginUser.auth == 'ADMIN'}">
                 <button id="edit-btn" class="btn btn-dark" type="button">수정하기</button>
                 <button id="del-btn" class="btn btn-danger" type="button">삭제하기</button>
             </c:if>
@@ -397,7 +399,7 @@
 
     // 로그인한 계정의 닉네임
     const currNickname = '${loginUser.userNickname}';
-
+    const currAuth = '${loginUser.auth}';
     // 글 번호
     const bno = ${board.boardNo};
 
@@ -485,7 +487,7 @@
                     "    <div class='row'>" +
                     "       <div class='col-md-6'>" + comment.commentContent + "</div>" +
                     "       <div class='offset-md-2 col-md-4 text-right'>";
-                if (currNickname === comment.userNickname) {
+                if (currNickname === comment.userNickname || currAuth === 'ADMIN') {
                     tag +=
                         "           <a id='commentEditBtn' class='btn btn-sm btn-outline-dark' data-bs-toggle='modal' data-bs-target='#commentEditModal'>수정</a>&nbsp;" +
                         "           <a id='commentDelBtn' class='btn btn-sm btn-outline-dark' href='#'>삭제</a>";

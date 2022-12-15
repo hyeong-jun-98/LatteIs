@@ -1,6 +1,7 @@
 package com.academy.latteis.board.repository;
 
 import com.academy.latteis.board.domain.Board;
+import com.academy.latteis.board.domain.Topic;
 import com.academy.latteis.board.dto.*;
 import com.academy.latteis.common.search.Search;
 import org.apache.ibatis.annotations.Mapper;
@@ -23,7 +24,7 @@ public interface BoardMapper {
 
     List<BoardConvertDTO> findAllGeneration(@Param("search") Search search, @Param("generation") Long generation);
 
-    List<BoardConvertDTO> findAllKeyword(@Param("search") Search search, @Param("topicNo") Long topicNo);
+    List<BoardConvertDTO> findAllKeyword(Search search);
 
     // 게시글 상세보기
     List<BoardGoodDTO> findOne(Long boardNo);
@@ -61,6 +62,10 @@ public interface BoardMapper {
 
     // 게시물에 붙어있는 첨부파일 경로명 전부 조회
     List<String> findFileNames(Long boardNo);
+
+    // 주제 가져오기
+    List<Topic> getTopic();
+    Topic getTopicOne(Long topicNo);
 
     BestBoardDTO findBestFree();
 

@@ -41,7 +41,7 @@
         </div>
 
         <div id="game">
-            스무고개
+            퀴즈
         </div>
         <div id="diarycate">
             <div id="diary">
@@ -195,9 +195,8 @@
     }
 
 
-    // 목록으로 가지
+    // 자유게시판
     function toList() {
-        // 목록 버튼
         const $toList = document.getElementById('list');
         $toList.onclick = e => {
             location.href = "/freeboard/list";
@@ -208,7 +207,7 @@
     function toQuiz(){
         const $quiz = document.getElementById('game');
         $quiz.onclick = e =>{
-            location.href = "/quiz"
+            location.href = "/quiz/list"
         }
     }
 

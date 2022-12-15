@@ -162,6 +162,7 @@
 
         if($('#emotion-input').val() === '') {
             alert('오늘의 감정을 알려주세요');
+
         } else if($('#show-input').val() === '') {
             alert('공개인지 비공개인지 알려주세요');
         } else if($('#exampleFormControlTextarea1').val() === '') {

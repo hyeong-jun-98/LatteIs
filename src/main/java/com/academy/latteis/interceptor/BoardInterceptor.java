@@ -14,8 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static com.academy.latteis.util.LoginUtils.getCurrentMemberAccount;
-import static com.academy.latteis.util.LoginUtils.isLogin;
+import static com.academy.latteis.util.LoginUtils.*;
 
 @Configuration
 @Log4j2
@@ -68,6 +67,12 @@ public class BoardInterceptor implements HandlerInterceptor {
             Long boardNo = (Long) modelMap.get("boardNo");
             Page page = (Page) modelMap.get("page");
 
+
+           if (isAdmin(session)) {
+                log.info("인터셉터 : 관리자.");
+                return;
+            }
+
             if (requestURI.contains("/freeboard")){
                 // 수정하려는 게시글의 계정명 정보와 세션에 저장된 계정명 정보가 일치하지 않으면 리스트로 돌려보내라
                 if (!isMine(session, dto.getUserEmail())) {
@@ -86,6 +91,10 @@ public class BoardInterceptor implements HandlerInterceptor {
             }
 
         }
+    }
+
+    private boolean isAdmin(HttpSession session) {
+        return getCurrentMemberAuth(session).equals("ADMIN");
     }
 
     private static boolean isMine(HttpSession session, String account) {

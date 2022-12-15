@@ -16,7 +16,7 @@ public class BoardConvertDTO {
     private Long good;
     private String userNickname;
     private Long generation;
-    private Long topicName;
+    private String topicName;
     private String userYear;
 
     // 커스텀 필드
