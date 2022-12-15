@@ -15,16 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
-@Log4j2
-@RequiredArgsConstructor
-import com.academy.latteis.quiz.domain.Quiz;
-import com.academy.latteis.quiz.repository.QuizMapper;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+
 
 @Service
 @Log4j2
@@ -75,7 +67,6 @@ public class QuizService {
         q.setPrettierDate(sdf.format(date));
     }
 
-    private final QuizMapper quizMapper;
 
     public boolean writeService(Quiz quiz) {
         log.info("quiz write service start - {}", quiz);
@@ -84,9 +75,5 @@ public class QuizService {
         return flag;
     }
 
-    public List<Quiz> findAllQuiz(){
-        List<Quiz> quizList = quizMapper.findAllQuiz();
-        return quizList;
-    }
 
 }

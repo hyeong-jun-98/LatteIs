@@ -18,7 +18,7 @@
     </resultMap>
 
 <!--    퀴즈 리스트 뽑아오기-->
-    <select id="findAll" resultMap="quizMap">
+    <select id="findAll" resultMap="quizMapper">
         select * from quiz order by quiz_no desc
     </select>
 
@@ -28,18 +28,13 @@
     </select>
 
 <!--    퀴즈 하나 가져오기-->
-    <select id="findOne" resultMap="quizMap">
+    <select id="findOne" resultMap="quizMapper">
         select * from quiz where quiz_no = #{quizNo}
     </select>
-
 
     <insert id="write">
         insert into quiz(quiz_writer, file_name, quiz_answer, quiz_score)
         values (#{quizWriter}, #{fileName},#{quizAnswer},#{quizScore})
     </insert>
-
-    <select id="findAllQuiz" resultMap="quizMapper">
-        select * from quiz
-    </select>
 
 </mapper>

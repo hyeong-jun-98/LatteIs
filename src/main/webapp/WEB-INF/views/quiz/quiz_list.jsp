@@ -134,7 +134,7 @@
                     <div class="card-body h-72 bg-white">
                         <div class="flex justify-between">
                             <div class="w-100">
-                                <p>${q.userNickname}</p>
+                                <p>${q.quizWriter}</p>
                                 <p class=" text-sm text-gray-500 date">${q.prettierDate}</p>
                                 <p class=" text-sm text-gray-500 date">퀴즈 점수 : ${q.quizScore}</p>
 

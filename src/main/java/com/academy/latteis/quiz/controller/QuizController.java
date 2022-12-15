@@ -41,9 +41,9 @@ public class QuizController {
     }
 
     @PostMapping("/write")
-    public void quizWrite(Quiz quiz){
-        log.info(quiz);
+    public String quizWrite(Quiz quiz){
         quizService.writeService(quiz);
+        return "redirect:/quiz/list";
     }
 
 
