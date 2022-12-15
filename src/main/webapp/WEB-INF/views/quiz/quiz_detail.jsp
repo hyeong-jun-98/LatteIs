@@ -26,6 +26,9 @@
 
 </head>
 <style>
+    #exampleFormControlTextarea1{
+        padding: 0;
+    }
 </style>
 <body>
 
@@ -53,7 +56,7 @@
 <%--        </div>--%>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-            <div class="form-control detail-main-content" id="exampleFormControlTextarea1"><img id="img"><div class="form-group"><ul class="img-uploaded-list"></ul></div></div>
+            <div class="form-control detail-main-content" id="exampleFormControlTextarea1"><img id="my-img"><div class="form-group"><ul class="img-uploaded-list"></ul></div></div>
         </div>
         <!-- 파일 첨부 영역 -->
         <div class="form-group">
@@ -336,22 +339,18 @@
             })
     }
 
-    // 스크롤 높이 계산
-    function scrollHeightCal() {
-        const $textarea = document.getElementById('title-input');
-        $textarea.style.height = $textarea.scrollHeight + 'px';
-    }
     function urlToImg(){
-        const $img = document.getElementById('img');
-        alert(${q.fileName});
-        $img.src = ${q.fileName};
+        const $img = document.getElementById('my-img');
+        console.log($img);
+        $img.setAttribute('src', '${q.fileName}');
+        <%--$img.src = '${q.fileName}';--%>
     }
 
     (function () {
         alertServerMessage();
         toList();
         deleteEvent();
-        editEvent();
+        // editEvent();
         urlToImg();
         // 퀴즈 정답
         quiz();
@@ -362,8 +361,7 @@
         goodOrNot();
         // 좋아요 이벤트
         goodCheckEvent();
-        // 스크롤 높이 계산
-        scrollHeightCal();
+
     })();
 </script>
 
@@ -394,7 +392,7 @@
     const currAuth = '${loginUser.auth}';
 
     // 글 번호
-    const bno = ${board.boardNo};
+    const qno = '${q.quizNo}';
 
     // 댓글 요청 URL
     const URL = '/api/v1/comment';
@@ -422,7 +420,7 @@
         const commentData = {
             commentWriter: $writerInput.value,
             commentContent: $contentInput.value,
-            boardNo: bno
+            boardNo: qno
         };
 
         // POST 요청을 위한 요청 정보 객체
@@ -452,7 +450,7 @@
 
     // 댓글 목록을 서버로부터 비동기 요청으로 불러오는 함수
     function showComment(pageNum = 1) {
-        fetch(URL + '?boardNo=' + bno + '&pageNum=' + pageNum)
+        fetch(URL + '?boardNo=' + qno + '&pageNum=' + pageNum)
             .then(res => res.json())
             .then(commentMap => {
                 // console.log(commentMap.commentList);
@@ -686,69 +684,5 @@
     })();
 </script>
 
-<!-- 파일업로드 관련 스크립트 -->
-<script>
-    $(document).ready(function () {
-
-        // 이미지 파일 판단
-        function isImageFile(originFileName) {
-            //정규표현식
-            const pattern = /jpg$|gif$|png$/i;
-            return originFileName.match(pattern);
-        }
-
-        // 파일의 확장자에 따른 렌더링 처리
-        function checkExtType(fileName) {
-            // 원본 파일명 추출
-            let originFileName = fileName.substring(fileName.indexOf("_") + 1);
-
-            // 확장자 추출 후 이미지인지 아닌지 확인
-            if (isImageFile(originFileName)) {  // 파일이 이미지라면
-                const $img = document.createElement('img');
-                $img.classList.add('detail-img-sizing');
-                $img.setAttribute('src', '/loadFile?fileName=' + fileName);
-                $img.setAttribute('alt', originFileName);
-                $img.setAttribute('name', 'img');
-                $('.img-uploaded-list').append($img);
-
-            } else {    // 이미지가 아니라면 다운로드 링크를 생성
-                const $a = document.createElement('a');
-                $a.classList.add('a-sizing');
-                $a.setAttribute('href', '/loadFile?fileName=' + fileName);
-                $a.setAttribute('name', 'file');
-
-                const $i = document.createElement('i');
-                $i.classList.add('fas');
-                $i.classList.add('fa-file');
-                $i.classList.add('fa-4x');
-                $i.setAttribute('style', 'display:block');
-
-                $a.append($i);
-                $a.innerHTML += '<span>' + originFileName + '</span>';
-
-                $('.file-uploaded-list').append($a);
-            }
-        }
-
-        // 드롭한 파일을 화면에 보여주는 함수
-        function showFileData(fileNames) {
-            for (let fileName of fileNames) {
-                checkExtType(fileName);
-            }
-        }
-
-        // 파일 목록 불러오기 함수
-        function showFileList() {
-            fetch('/freeboard/file/' + bno)
-                .then(res => res.json())
-                .then(fileNames => {
-                    showFileData(fileNames);
-                })
-        }
-
-        // 파일 목록 출력~!
-        showFileList();
-    })
-</script>
 </body>
 </html>

@@ -70,7 +70,6 @@ public class QuizController {
         log.info(" quizDetailController quizNo {}", quizNo);
 
         Quiz quiz  = quizService.findOneService(quizNo);
-        log.info(" quizDetailController quizNo {}", quiz);
 
         User loginUser = (User) session.getAttribute("loginUser");
         log.info("로그인 유저 데이터 {}", loginUser);
@@ -82,8 +81,6 @@ public class QuizController {
 
         return "quiz/quiz_detail";
     }
-
-
 
 }
 
