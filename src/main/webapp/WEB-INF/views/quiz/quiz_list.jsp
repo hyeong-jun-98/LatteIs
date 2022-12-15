@@ -127,7 +127,7 @@
 
 
     <!--글 하나하나-->
-    <c:forEach var="q" items="${qPList}">
+    <c:forEach var="q" items="${qList}">
         <div class="lg:w-1/4 md:w-1/2 w-full p-5 articles margin " data-diary-num="${q.quizNo}">
             <a href="#" style="color: black">
                 <div class="hover:shadow-2x1 card shadow-lg w-full h-full break-all hover">
@@ -135,7 +135,8 @@
                         <div class="flex justify-between">
                             <div class="w-100">
                                 <p>${q.userNickname}</p>
-                                <p class=" text-sm text-gray-500 date">${q.quizRegdate}</p>
+                                <p class=" text-sm text-gray-500 date">${q.prettierDate}</p>
+                                <p class=" text-sm text-gray-500 date">퀴즈 점수 : ${q.quizScore}</p>
 
                                 <div class="like-view">
                                     <p class="text-sm text-gray-500 date">좋아요 : ${q.quizGood}</p>
@@ -219,18 +220,18 @@
         // console.log($table);
         $table.addEventListener('click', e => {
 
-            // console.log(e.target);
+            console.log(e.target);
 
             if (!e.target.matches('.break-all *')) return;
 
-            // console.log('게시글 내부 영역 클릭됨! - ', e.target);
+            console.log('게시글 내부 영역 클릭됨! - ', e.target);
 
             const $targetDiv = e.target.closest('.articles');
-            // console.log($targetDiv);
-            let diaryNo = $targetDiv.dataset.diaryNum;
-            // console.log('글번호: ' + diaryNo);
+            console.log($targetDiv);
+            let quizNo = $targetDiv.dataset.quizNum;
+            console.log('글번호: ' + quizNo);
 
-            location.href = '/diary/detail/' + diaryNo
+            location.href = '/quiz/detail/' + ${q.quizNo}
                 + "?pageNum=${pm.diaryPage.pageNum}"
                 + "&amount=${pm.diaryPage.amount}";
         });

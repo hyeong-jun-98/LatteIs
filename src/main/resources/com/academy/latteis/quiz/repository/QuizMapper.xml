@@ -7,7 +7,6 @@
     <resultMap id="quizMapper" type="com.academy.latteis.quiz.domain.Quiz">
         <result property="quizNo" column="quiz_no"/>
         <result property="quizWriter" column="quiz_writer"/>
-<!--        <result property="quizContent" column="quiz_content"/>-->
         <result property="quizAnswer" column="quiz_answer"/>
         <result property="quizGood" column="quiz_good"/>
         <result property="quizRegdate" column="quiz_regdate"/>
@@ -17,6 +16,22 @@
         <result property="quizScore" column="quiz_score"/>
         <result property="fileName" column="file_name"/>
     </resultMap>
+
+<!--    퀴즈 리스트 뽑아오기-->
+    <select id="findAll" resultMap="quizMap">
+        select * from quiz order by quiz_no desc
+    </select>
+
+<!--    퀴즈 총 개수 가져오기-->
+    <select id="getTotalCount" resultType="int">
+        select count(*) from quiz
+    </select>
+
+<!--    퀴즈 하나 가져오기-->
+    <select id="findOne" resultMap="quizMap">
+        select * from quiz where quiz_no = #{quizNo}
+    </select>
+
 
     <insert id="write">
         insert into quiz(quiz_writer, file_name, quiz_answer, quiz_score)
