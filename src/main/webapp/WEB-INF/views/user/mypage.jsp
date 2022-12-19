@@ -132,6 +132,16 @@
                         <div>${loginUser.userYear}년대</div>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <div>총점수</div>
+                        <div>${loginUser.userScore}점</div>
+                    </td>
+                    <td>
+                        <div>등급</div>
+                        <div>${loginUser.userGrade}</div>
+                    </td>
+                </tr>
             </table>
         </div>
         <div>

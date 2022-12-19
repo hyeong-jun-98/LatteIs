@@ -12,6 +12,8 @@
         <result property="userEmail" column="user_email" />
         <result property="password" column="password" />
         <result property="userYear" column="user_year" />
+        <result property="userScore" column="user_score" />
+        <result property="userGrade" column="user_grade" />
         <result property="login" column="login" />
     </resultMap>
 

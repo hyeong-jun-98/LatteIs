@@ -59,7 +59,7 @@ public class UserService {
     public LoginFlag login(LoginDTO inputData, HttpSession session, HttpServletResponse response) {
         // 회원가입 여부 확인
         User foundUser = userMapper.findUser(inputData.getUserEmail(), inputData.getLogin());
-        log.info(foundUser);
+        log.info("로그인한 사용자 정보는 {}", foundUser);
         if (foundUser != null) {
             if (encoder.matches(inputData.getPassword(), foundUser.getPassword())) {
                 // 로그인 성공

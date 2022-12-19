@@ -65,12 +65,12 @@
 
         <div class="mb-3">
             <input type="text" class="form-control w-25 float-right " id="quiz-input"
-            placeholder="퀴즈 정답" name="quiz_answer"  >
+            placeholder="정답을 작성해주세요." name="quiz_answer"  >
         </div>
 
         <div class="mb-3">
             <input type="" class="form-control w-25  " id="quiz-result"
-                   name="quiz_result"  >
+                   name="quiz_result" value="${q.quizAnswer}" readonly>
         </div>
 
         <div class="mb-3">
@@ -285,7 +285,6 @@
                 goodUnCheck();
                 goodList.replace('fas', 'far');   // 빈 엄지로 변경
             }
-
         };
     }
 
