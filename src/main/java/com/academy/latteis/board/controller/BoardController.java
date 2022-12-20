@@ -1,9 +1,11 @@
 package com.academy.latteis.board.controller;
 
 import com.academy.latteis.board.domain.Board;
+import com.academy.latteis.board.dto.BoardConvertDTO;
 import com.academy.latteis.board.dto.BoardGoodDTO;
 import com.academy.latteis.board.dto.EditBoardDTO;
 import com.academy.latteis.board.service.BoardService;
+import com.academy.latteis.boardgood.service.BoardGoodService;
 import com.academy.latteis.common.page.Page;
 import com.academy.latteis.common.page.PageMaker;
 import com.academy.latteis.common.search.Search;
@@ -32,6 +34,7 @@ import java.util.Map;
 public class BoardController {
 
     private final BoardService boardService;
+    private final BoardGoodService boardGoodService;
 
     // 업로드 파일 저장 경로
     private static final String UPLOAD_PATH = "C:/Users/hojong/upload";
@@ -86,7 +89,15 @@ public class BoardController {
         // 페이지 정보 생성
         PageMaker pm = new PageMaker(new Page(search.getPageNum(), search.getAmount()), (Integer) boardMap.get("totalCount"));
 
-        model.addAttribute("boardList", boardMap.get("boardList"));
+        // boardMap에서 boardList 꺼내기
+        List<BoardConvertDTO> boardList = (List<BoardConvertDTO>) boardMap.get("boardList");
+
+        // 반복문 돌려서 boardList 안에 있는 게시글에 각각 좋아요 정보를 넣어줌
+        for (BoardConvertDTO b : boardList) {
+            b.setGood((long) boardGoodService.goodCntService(b.getBoardNo()));
+        }
+
+        model.addAttribute("boardList", boardList);
         model.addAttribute("pm", pm);
         model.addAttribute("search", search);
 

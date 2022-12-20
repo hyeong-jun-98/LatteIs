@@ -88,11 +88,6 @@ public class BoardService {
 
         List<BoardConvertDTO> boardList = boardMapper.findAllFree(search);
 
-        // 반복문 돌려서 boardList 안에 있는 게시글에 각각 좋아요 정보를 넣어줌
-        for (BoardConvertDTO b : boardList) {
-            b.setGood((long) boardGoodMapper.goodCnt(b.getBoardNo()));
-        }
-
         // 목록 중간 데이터 처리
         processConverting(boardList);
 
@@ -109,11 +104,6 @@ public class BoardService {
 
         List<BoardConvertDTO> boardList = boardMapper.findAllGeneration(search, generation);
 
-        // 반복문 돌려서 boardList 안에 있는 게시글에 각각 좋아요 정보를 넣어줌
-        for (BoardConvertDTO b : boardList) {
-            b.setGood((long) boardGoodMapper.goodCnt(b.getBoardNo()));
-        }
-
         // 목록 중간 데이터 처리
         processConverting(boardList);
 
@@ -128,10 +118,6 @@ public class BoardService {
         Map<String, Object> findDataMap = new HashMap<>();
 
         List<BoardConvertDTO> boardList = boardMapper.findAllKeyword(search);
-
-        for (BoardConvertDTO b : boardList) {
-            b.setGood((long) boardGoodMapper.goodCnt(b.getBoardNo()));
-        }
 
         // 목록 중간 데이터 처리
         processConverting(boardList);
