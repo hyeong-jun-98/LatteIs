@@ -79,6 +79,7 @@ public interface DiaryMapper {
 
     void gExitUser(int userNo);
 
+    void exitUser(int userNo);
     void reviseUser(String beforeUserNickname, String afterUserNickname);
 
 

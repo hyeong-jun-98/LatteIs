@@ -275,6 +275,10 @@ public class DiaryService {
         diaryMapper.gExitUser(user.getUserNo());
     }
 
+    public void exitUser(User user){
+        diaryMapper.exitUser(user.getUserNo());
+    }
+
     public void reviseUser(String beforeUserNickname, String afterUserNickname){
         diaryMapper.reviseUser(beforeUserNickname, afterUserNickname);
     }

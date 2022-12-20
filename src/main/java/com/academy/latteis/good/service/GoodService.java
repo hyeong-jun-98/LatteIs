@@ -33,4 +33,8 @@ public class GoodService {
         log.info("게시글 좋아요 {}",user);
         goodMapper.exitUser(user.getUserNo());
     }
+
+    public void exitUser2(User user){
+        goodMapper.exitUser2(user.getUserNickname());
+    }
 }

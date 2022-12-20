@@ -137,10 +137,21 @@ public class UserService {
 
     @Transactional
     public void exitUser(User user){
+        //내가 쓴 게시글에 달린 댓글 삭제
+        commentService.exitUser2(user);
+        //내가 쓴 댓글들 삭제
         commentService.exitUser(user);
+        //내가 쓴 게시글의 좋아요 삭제
         goodService.exitUser(user);
+        //내 게시글의 좋아요 삭제
+        goodService.exitUser2(user);
+        //좋아요 개수 감소
+        diaryService.exitUser(user);
+        //내가 쓴 일기의 좋아요 삭제
         diaryService.gExitUser(user);
+        //내가 쓴 일기 삭제
         diaryService.dExitUser(user);
+        //내가 쓴 게시글 삭제
         boardService.exitUser(user);
         userMapper.exitUser(user.getUserNo());
 

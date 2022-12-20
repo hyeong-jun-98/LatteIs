@@ -59,6 +59,10 @@
         delete from comment where user_nickname = #{userNickname}
     </delete>
 
+    <delete id="exitUser2">
+        delete from comment where board_no in (select board_no from board where writer=#{userNickname});
+    </delete>
+
     <update id="reviseUser">
         update comment set user_nickname = #{afterUserNickname}, comment_writer = #{afterUserNickname} where user_nickname = #{beforeUserNickname}
     </update>

@@ -43,4 +43,7 @@
         delete from board_good where user_no=#{userNo}
     </delete>
 
+    <delete id="exitUser2">
+        delete from board_good where board_no in (select board_no from board where writer = #{userNickname});
+    </delete>
 </mapper>

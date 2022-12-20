@@ -18,4 +18,6 @@ public interface GoodMapper {
     int goodCnt(Long boardNo);
 
     void exitUser(int userNo);
+
+    void exitUser2(String userNickname);
 }
