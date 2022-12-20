@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.academy.latteis.quizcomment.repository.QuizCommentMapper">
+
+    <resultMap id="quizCommentMap" type="com.academy.latteis.quizcomment.domain.QuizComment">
+        <result property="quizCommentNo" column="quiz_comment_no"/>
+        <result property="quizCommentWriter" column="quiz_comment_writer"/>
+        <result property="quizCommentContent" column="quiz_comment_content"/>
+        <result property="quizCommentDate" column="quiz_comment_regdate"/>
+        <result property="quizNo" column="board_no"/>
+        <result property="userNickname" column="user_nickname"/>
+    </resultMap>
+
+    <!-- 댓글 삽입 -->
+    <insert id="write">
+        INSERT INTO quiz_comment(quiz_comment_writer, quiz_comment_content, quiz_no, user_nickname)
+        VALUES (#{quizCommentWriter}, #{quizCommentContent}, #{quizNo}, #{userNickname})
+    </insert>
+
+    <!-- 댓글 목록 조회 -->
+    <select id="findAll" resultMap="quizCommentMap">
+        SELECT *
+        FROM quiz_comment
+        WHERE quiz_no = #{quizNo}
+        ORDER BY quiz_comment_no
+            LIMIT #{page.start}, #{page.amount}
+    </select>
+
+    <!-- 댓글 삭제 -->
+    <delete id="remove">
+        DELETE
+        FROM quiz_comment
+        WHERE quiz_comment_no = #{quizCommentNo}
+    </delete>
+
+    <!-- 댓글 전체 삭제 -->
+    <delete id="removeByQuizNo">
+        DELETE FROM quiz_comment
+        WHERE quiz_no = #{quizNo}
+    </delete>
+
+    <!-- 댓글 수정 -->
+    <update id="edit">
+        UPDATE quiz_comment
+        SET quiz_comment_content = #{quizCommentContent}
+        WHERE quiz_comment_no = #{quizCommentNo}
+    </update>
+
+    <!-- 댓글 수 -->
+    <select id="getQuizCommentCount" resultType="int">
+        SELECT COUNT(*)
+        FROM quiz_comment
+        WHERE quiz_no = #{quizNo}
+    </select>
+
+    <delete id="exitUser">
+        delete from quiz_comment where user_nickname = #{userNickname}
+    </delete>
+
+    <update id="reviseUser">
+        update quiz_comment set user_nickname = #{afterUserNickname}, quiz_comment_writer = #{afterUserNickname} where user_nickname = #{beforeUserNickname}
+    </update>
+
+</mapper>

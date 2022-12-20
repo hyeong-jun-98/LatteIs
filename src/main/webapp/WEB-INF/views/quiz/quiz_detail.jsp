@@ -65,12 +65,12 @@
 
         <div class="mb-3">
             <input type="text" class="form-control w-25 float-right " id="quiz-input"
-            placeholder="정답을 작성해주세요." name="quiz_answer"  >
+            placeholder="퀴즈 정답" name="quiz_answer"  >
         </div>
 
         <div class="mb-3">
             <input type="" class="form-control w-25  " id="quiz-result"
-                   name="quiz_result" value="${q.quizAnswer}" readonly>
+                   name="quiz_result">
         </div>
 
         <div class="mb-3">
@@ -394,7 +394,7 @@
     const qno = '${q.quizNo}';
 
     // 댓글 요청 URL
-    const URL = '/api/v1/comment';
+    const URL = '/api/v1/quiz-comment';
 
     // 댓글 등록버튼 클릭
     function clickRegister() {
@@ -417,9 +417,9 @@
 
         // 서버로 전송할 데이터들
         const commentData = {
-            commentWriter: $writerInput.value,
-            commentContent: $contentInput.value,
-            boardNo: qno
+            quizCommentWriter: $writerInput.value,
+            quizCommentContent: $contentInput.value,
+            quizNo: qno
         };
 
         // POST 요청을 위한 요청 정보 객체
@@ -449,7 +449,7 @@
 
     // 댓글 목록을 서버로부터 비동기 요청으로 불러오는 함수
     function showComment(pageNum = 1) {
-        fetch(URL + '?boardNo=' + qno + '&pageNum=' + pageNum)
+        fetch(URL + '?quizNo=' + qno + '&pageNum=' + pageNum)
             .then(res => res.json())
             .then(commentMap => {
                 // console.log(commentMap.commentList);
@@ -458,24 +458,24 @@
     }
 
     // 댓글 목록 DOM을 생성하는 함수
-    function makeCommentDOM({commentList, pageMaker, count}) {
+    function makeCommentDOM({quizCommentList, pageMaker, count}) {
         // 각 댓글 하나의 태그
         let tag = '';
-        if (commentList === null || commentList.length === 0) {
+        if (quizCommentList === null || quizCommentList.length === 0) {
             tag += "<div id='commentContent' class='card-body'>댓글이 아직 없습니다.</div>";
         } else {
-            for (let comment of commentList) {
+            for (let comment of quizCommentList) {
                 tag +=
-                    "<div id='commentContent' class='card-body bottom-line' data-commentId='" + comment.commentNo + "'>" +
+                    "<div id='commentContent' class='card-body bottom-line' data-commentId='" + comment.quizCommentNo + "'>" +
                     "    <div class='row user-block'>" +
                     "       <span class='col-md-3'>" +
-                    "         <b>" + comment.commentWriter + "</b>" +
+                    "         <b>" + comment.quizCommentWriter + "</b>" +
                     "       </span>" +
-                    "       <span class='offset-md-6 col-md-3 text-right'><b>" + formatDate(comment.commentDate) +
+                    "       <span class='offset-md-6 col-md-3 text-right'><b>" + formatDate(comment.quizCommentDate) +
                     "       </b></span>" +
                     "    </div><br>" +
                     "    <div class='row'>" +
-                    "       <div class='col-md-6'>" + comment.commentContent + "</div>" +
+                    "       <div class='col-md-6'>" + comment.quizCommentContent + "</div>" +
                     "       <div class='offset-md-2 col-md-4 text-right'>";
                 if (currNickname === comment.userNickname || currAuth ==="ADMIN") {
                     tag +=
@@ -598,7 +598,7 @@
     function removeComment(cno) {
         if (!confirm('정말 삭제하시겠습니까')) return;
 
-        fetch(URL + '?commentNo=' + cno, {
+        fetch(URL + '?quizCommentNo=' + cno, {
             method: 'DELETE'
         })
             .then(res => res.text())
@@ -642,8 +642,8 @@
                     'content-type': 'application/json'
                 },
                 body: JSON.stringify({
-                    commentNo: cno,
-                    commentContent: document.querySelector('#modCommentText').value
+                    quizCommentNo: cno,
+                    quizCommentContent: document.querySelector('#modCommentText').value
                 })
             };
             console.log(reqInfo);
