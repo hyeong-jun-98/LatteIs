@@ -16,4 +16,6 @@ public class User {
     private String userYear;
     private Auth auth;
     private String login;
+    private Long userScore;
+    private String userGrade;
 }

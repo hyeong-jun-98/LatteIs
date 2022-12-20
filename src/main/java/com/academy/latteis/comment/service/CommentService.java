@@ -61,6 +61,11 @@ public class CommentService {
         commentMapper.exitUser(user.getUserNickname());
     }
 
+    //내가 쓴 게시글의 댓글정보 날리기
+    public void exitUser2(User user){
+        commentMapper.exitUser2(user.getUserNickname());
+    }
+
     public void reviseUser(String beforeUserNickname, String afterUsernickname){
         commentMapper.reviseUser(beforeUserNickname, afterUsernickname);
     }

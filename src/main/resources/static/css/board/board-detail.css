@@ -184,10 +184,6 @@ textarea {
     margin-bottom: 6px;
 }
 
-#commentEditBtn, #commentDelBtn {
-    height: 30px;
-}
-
 /* 좋아요 체크 */
 #good-check {
     cursor: pointer;

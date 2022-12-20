@@ -91,9 +91,9 @@ public class KakaoController {
         String login = "kakao";
         user.setUserName(kakaouser.getUserName());
         user.setUserEmail(kakaouser.getUserEmail());
-        session.setAttribute("loginUser", user);
         log.info("user check {}",user);
-        kakaoService.kakaoJoin(user, login);
+        user = kakaoService.kakaoJoin(user, login);
+        session.setAttribute("loginUser", user);
         String referer = (String) session.getAttribute("referer");
         log.info("referer 테스트 - {}", referer);
         String url = referer.substring(referer.indexOf("/"));

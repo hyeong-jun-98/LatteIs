@@ -31,5 +31,7 @@ public interface CommentMapper {
 
     void exitUser(String userNickname);
 
+    void exitUser2(String userNickname);
+
     void reviseUser(String beforeUserNickname, String afterUserNickname);
 }

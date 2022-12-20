@@ -162,11 +162,14 @@
         delete from good where user_no=#{userNo}
     </delete>
 
+
     <update id="reviseUser">
         update diary set user_nickname = #{afterUserNickname} where user_nickname = #{beforeUserNickname}
     </update>
 
-
+    <update id="exitUser">
+        update diary set diary_good = diary_good - 1 where diary_no in (select diary_no from good where user_no=#{userNo} and good_check='true')
+    </update>
     
 <!--&lt;!&ndash;    좋아요 이력을 가져오기&ndash;&gt;-->
 <!--    <select id="findGoodCheck" resultMap="goodMap">-->

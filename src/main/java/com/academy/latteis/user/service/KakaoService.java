@@ -200,10 +200,11 @@ public class KakaoService implements OAuthService, OAuthValue {
             return true;
         }else return false;
     }
-    public void kakaoJoin(User user, String login){
+    public User kakaoJoin(User user, String login){
         user.setLogin(login);
         user.setPassword("kakao password");
         userMapper.save(user);
-
+        user = userMapper.findUser(user.getUserEmail(), login);
+        return user;
     }
 }

@@ -1,10 +1,10 @@
-package com.academy.latteis.good.repository;
+package com.academy.latteis.boardgood.repository;
 
-import com.academy.latteis.good.domain.BoardGood;
+import com.academy.latteis.boardgood.domain.BoardGood;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface GoodMapper {
+public interface BoardGoodMapper {
 
     // 좋아요
     boolean check(BoardGood boardGood);
@@ -18,4 +18,6 @@ public interface GoodMapper {
     int goodCnt(Long boardNo);
 
     void exitUser(int userNo);
+
+    void exitUser2(String userNickname);
 }
