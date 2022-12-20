@@ -153,7 +153,7 @@ public class DiaryService {
             diaryMapper.hitUp(diaryNo);     // 조회수 상승
             Cookie cookie = new Cookie("d" + diaryNo, String.valueOf(diaryNo));     // 쿠키에 생성
             cookie.setMaxAge(60);
-            cookie.setPath("/diary/detail");
+            cookie.setPath("/");
 
             log.info("쿠키 diaryNo = {}", cookie);
             response.addCookie(cookie);
