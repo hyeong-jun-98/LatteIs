@@ -82,7 +82,7 @@
 <%--                    </c:if>--%>
                             <%--      true일 때        --%>
 <%--                    <c:if test="${goodCheckCT}">--%>
-                        <button type="button" id="btnGoodFalse" class="badge badge-primary custom-good-bt text-right" >좋아요취소</button>
+                    <button type="button" id="btnGoodFalse" class="badge badge-primary custom-good-bt text-right" >좋아요취소</button>
 <%--                        onclick="location.href='/diary/goodCheck?diaryNo=${d.diaryNo}' "--%>
 <%--                    </c:if>--%>
                 </div>
@@ -166,38 +166,37 @@
         location.href = '/diary/list';
     };
 
-    // 수정
-    const $update = document.getElementById('btn-update');
+    if (${loginUser.userNickname == d.userNickname || loginUser.auth == 'ADMIN'}) {
+        // 수정
+        const $update = document.getElementById('btn-update');
 
-    if($update !== null) {
+        if($update !== null) {
 
-        $update.onclick = e => {
+            $update.onclick = e => {
 
 
-            location.href = '/diary/modify?diaryNo=${d.diaryNo}';
+                location.href = '/diary/modify?diaryNo=${d.diaryNo}';
+            };
+        }
+
+    }
+    if (${loginUser.userNickname == d.userNickname || loginUser.auth == 'ADMIN'}) {
+        // 삭제
+        const $delete = document.getElementById('btn-delete');
+        $delete.onclick = e => {
+            if(!confirm('일기를 지울까요? 정말..? 추억인데....')) {
+                return;
+            }
+            location.href = '/diary/delete?diaryNo=${diaryNo}';
         };
     }
-
-    // 삭제
-    const $delete = document.getElementById('btn-delete');
-    $delete.onclick = e => {
-        if(!confirm('일기를 지울까요? 정말..? 추억인데....')) {
-            return;
-        }
-        location.href = '/diary/delete?diaryNo=${diaryNo}';
-    };
-
     // 추천
     $("#btnGoodTrue").click(function () {
-
             like_func();
-
     })
 
     $("#btnGoodFalse").click(function () {
-
             like_func();
-
     })
 
     let check = false;
@@ -253,7 +252,6 @@
 
     (function () {
         detailGoodCheck();
-
 
     })();
 

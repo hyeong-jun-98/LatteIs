@@ -1,7 +1,7 @@
 package com.academy.latteis.diary.service;
 
 
-import com.academy.latteis.diary.domain.Good;
+
 import com.academy.latteis.diary.dto.ValidateDiaryUserDTO;
 import com.academy.latteis.common.page.DiaryPage;
 

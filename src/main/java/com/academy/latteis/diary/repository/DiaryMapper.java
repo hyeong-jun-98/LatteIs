@@ -3,7 +3,7 @@ package com.academy.latteis.diary.repository;
 import com.academy.latteis.common.page.DiaryPage;
 
 import com.academy.latteis.diary.domain.Diary;
-import com.academy.latteis.diary.domain.Good;
+
 import com.academy.latteis.diary.dto.ValidateDiaryUserDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
