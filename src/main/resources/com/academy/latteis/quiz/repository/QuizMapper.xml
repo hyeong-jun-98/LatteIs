@@ -32,9 +32,15 @@
         select * from quiz where quiz_no = #{quizNo}
     </select>
 
+    <!-- 퀴즈 작성 -->
     <insert id="write">
         insert into quiz(quiz_writer, file_name, quiz_answer, quiz_score)
         values (#{quizWriter}, #{fileName},#{quizAnswer},#{quizScore})
     </insert>
+
+    <!-- 퀴즈 삭제 -->
+    <delete id="delete">
+        delete from quiz where quiz_no = ${quizNo}
+    </delete>
 
 </mapper>

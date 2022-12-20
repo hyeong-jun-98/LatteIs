@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 public interface QuizMapper {
 
+    // 퀴즈 작성
     boolean write(Quiz quiz);
 
     // 퀴즈 리스트
@@ -16,6 +17,9 @@ public interface QuizMapper {
 
     // 퀴즈 총 개수
     int getTotalCount();
+
+    // 퀴즈 삭제
+    boolean delete(Long quizNo);
 
     // 퀴즈 하나
     Quiz findOne(Long quizNo);

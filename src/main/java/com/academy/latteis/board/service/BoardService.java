@@ -30,7 +30,7 @@ public class BoardService {
 
     private final BoardMapper boardMapper;
     private final CommentMapper commentMapper;
-    private final BoardGoodMapper goodMapper;
+    private final BoardGoodMapper boardGoodMapper;
 
     // 게시글 작성
     @Transactional
@@ -90,7 +90,7 @@ public class BoardService {
 
         // 반복문 돌려서 boardList 안에 있는 게시글에 각각 좋아요 정보를 넣어줌
         for (BoardConvertDTO b : boardList) {
-            b.setGood((long) goodMapper.goodCnt(b.getBoardNo()));
+            b.setGood((long) boardGoodMapper.goodCnt(b.getBoardNo()));
         }
 
         // 목록 중간 데이터 처리
@@ -111,7 +111,7 @@ public class BoardService {
 
         // 반복문 돌려서 boardList 안에 있는 게시글에 각각 좋아요 정보를 넣어줌
         for (BoardConvertDTO b : boardList) {
-            b.setGood((long) goodMapper.goodCnt(b.getBoardNo()));
+            b.setGood((long) boardGoodMapper.goodCnt(b.getBoardNo()));
         }
 
         // 목록 중간 데이터 처리
@@ -130,7 +130,7 @@ public class BoardService {
         List<BoardConvertDTO> boardList = boardMapper.findAllKeyword(search);
 
         for (BoardConvertDTO b : boardList) {
-            b.setGood((long) goodMapper.goodCnt(b.getBoardNo()));
+            b.setGood((long) boardGoodMapper.goodCnt(b.getBoardNo()));
         }
 
         // 목록 중간 데이터 처리
@@ -243,7 +243,7 @@ public class BoardService {
         commentMapper.removeByBoardNo(boardNo);
 
         // 좋아요도 삭제
-        goodMapper.removeByBoardNo(boardNo);
+        boardGoodMapper.removeByBoardNo(boardNo);
 
         // 첨부파일도 삭제
         boardMapper.deleteAllFile(boardNo);

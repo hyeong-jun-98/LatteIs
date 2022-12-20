@@ -26,7 +26,7 @@
 
 </head>
 <style>
-    #exampleFormControlTextarea1{
+    #exampleFormControlTextarea1 {
         padding: 0;
     }
 </style>
@@ -39,7 +39,7 @@
 
     <div class="content-container">
 
-        <h1 class="main-title">자유게시판</h1>
+        <h1 class="main-title">퀴즈</h1>
         <div class="board-no-title">
             <span>${q.quizNo}번 게시물</span>
         </div>
@@ -49,14 +49,14 @@
             <input type="text" class="form-control" id="writer-input"
                    placeholder="이름" name="quiz_writer" value="${q.quizWriter}" disabled>
         </div>
-<%--        <div class="mb-3">--%>
-<%--            <label for="title-input" class="form-label">글제목</label>--%>
-<%--            <textarea type="text" class="form-control" id="title-input"--%>
-<%--                      placeholder="제목" name="quiz_title" disabled rows="1">${board.title}</textarea>--%>
-<%--        </div>--%>
+
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-            <div class="form-control detail-main-content" id="exampleFormControlTextarea1"><img id="my-img"><div class="form-group"><ul class="img-uploaded-list"></ul></div></div>
+            <div class="form-control detail-main-content" id="exampleFormControlTextarea1"><img id="my-img">
+                <div class="form-group">
+                    <ul class="img-uploaded-list"></ul>
+                </div>
+            </div>
         </div>
         <!-- 파일 첨부 영역 -->
         <div class="form-group">
@@ -65,7 +65,7 @@
 
         <div class="mb-3">
             <input type="text" class="form-control w-25 float-right " id="quiz-input"
-            placeholder="퀴즈 정답" name="quiz_answer"  >
+                   placeholder="퀴즈 정답" name="quiz_answer">
         </div>
 
         <div class="mb-3">
@@ -75,7 +75,8 @@
 
         <div class="mb-3">
             <button type="button" class="form-control w-25  " id="quiz-button"
-                    name="quiz-button" >정답확인</button>
+                    name="quiz-button">정답확인
+            </button>
         </div>
 
 
@@ -183,7 +184,7 @@
         </div>
 
         <div class="d-flex">
-            <c:if test="${user.userNickname == q.userNickname || user.auth == 'ADMIN'}">
+            <c:if test="${user.userNickname == q.quizWriter || user.auth == 'ADMIN'}">
                 <button id="edit-btn" class="btn btn-dark" type="button">수정하기</button>
                 <button id="del-btn" class="btn btn-danger" type="button">삭제하기</button>
             </c:if>
@@ -214,9 +215,18 @@
     const goodList = $goodCheck.classList;  // 좋아요 버튼의 클래스 리스트
 
     // 좋아요 요청 URL
-    const Good_URL = '/api/v1/good';
+    const Good_URL = '/api/v1/quiz-good';
 
-    // 목록으로 가지
+    // 퀴즈 번호
+    const qno = '${q.quizNo}';
+
+    // 로그인 계정 번호
+    const uno = '${loginUser.userNo}';
+
+    // 좋아요 체크 여부
+    let flag = 'false';
+
+    // 목록으로 가기
     function toList() {
         // 목록 버튼
         const $toList = document.getElementById('to-list');
@@ -233,7 +243,7 @@
             $delBtn.onclick = e => {
                 if (!confirm("삭제하시겠습니까?")) return;
                 deleteFile();
-                location.href = "/quiz/delete?boardNo=${q.quizNo}&pageNum=${diaryPage.pageNum}&amount=${diaryPage.amount}";
+                location.href = "/quiz/delete?quizNo=" + qno + "&pageNum=${diaryPage.pageNum}&amount=${diaryPage.amount}";
             }
         }
     }
@@ -249,16 +259,21 @@
 
     // 좋아요 여부 확인
     function goodOrNot() {
-        <c:forEach var="q" items="${qList}">
-        if ('${b.userNo}' === '${loginUser.userNo}' && ${not empty loginUser}) {
-            goodList.replace('far', 'fas'); // 엄지 체크
+        if (uno !== ''){
+            fetch(Good_URL + '/check?quizNo=' + qno + '&userNo=' + uno)
+                .then(res => res.text())
+                .then(msg => {
+                    flag = msg;
+                    if (flag === 'true') {
+                        goodList.replace('far', 'fas'); // 엄지 체크
+                    }
+                });
         }
-        </c:forEach>
     }
 
     // 좋아요 수 요청 함수
     function getGoodCount() {
-        fetch(Good_URL + '?boardNo=${board.boardNo}')
+        fetch(Good_URL + '?quizNo=' + qno)
             .then(res => res.text())
             .then(cnt => {
                 // 좋아요 수 배치
@@ -276,13 +291,13 @@
             }
 
             // 로그인 돼있으면 아래 실행
-            if (goodList.contains('far')) {  // 빈 엄지이면
-                console.log('좋아요 눌러줘');
+            if (flag === 'false') {  // 빈 엄지이면
                 goodCheck();
+                flag = 'true';
                 goodList.replace('far', 'fas'); // 빈 좋아요를 채워진 엄지로 변경
-            } else if (goodList.contains('fas')) {    // 채워진 엄지이면
-                console.log('좋아요 풀어줘');
+            } else if (flag === 'true') {    // 채워진 엄지이면
                 goodUnCheck();
+                flag = 'false';
                 goodList.replace('fas', 'far');   // 빈 엄지로 변경
             }
         };
@@ -292,8 +307,8 @@
     function goodCheck() {
         // 서버로 전송할 데이터들
         const replyData = {
-            userNo: '${loginUser.userNo}',
-            boardNo: '${board.boardNo}'
+            userNo: uno,
+            quizNo: qno
         };
 
         // POST요청을 위한 요청 정보 객체
@@ -306,9 +321,7 @@
         };
 
         fetch(Good_URL, reqInfo)
-            .then(res => res.text())
-            .then(msg => {
-                console.log(msg);
+            .then(function () {
                 getGoodCount(); // 좋아요 수 비동기로 가져오기
             });
     }
@@ -317,8 +330,8 @@
     function goodUnCheck() {
         // 서버로 전송할 데이터들
         const replyData = {
-            userNo: '${loginUser.userNo}',
-            boardNo: '${board.boardNo}'
+            userNo: uno,
+            quizNo: qno
         };
 
         // POST요청을 위한 요청 정보 객체
@@ -331,14 +344,12 @@
         };
 
         fetch(Good_URL, reqInfo)
-            .then(res => res.text())
-            .then(msg => {
-                console.log(msg);
+            .then(function () {
                 getGoodCount(); // 좋아요 수 비동기로 가져오기
             })
     }
 
-    function urlToImg(){
+    function urlToImg() {
         const $img = document.getElementById('my-img');
         console.log($img);
         $img.setAttribute('src', '${q.fileName}');
@@ -389,9 +400,6 @@
     // 로그인한 계정의 닉네임
     const currNickname = '${loginUser.userNickname}';
     const currAuth = '${loginUser.auth}';
-
-    // 글 번호
-    const qno = '${q.quizNo}';
 
     // 댓글 요청 URL
     const URL = '/api/v1/quiz-comment';
@@ -452,7 +460,6 @@
         fetch(URL + '?quizNo=' + qno + '&pageNum=' + pageNum)
             .then(res => res.json())
             .then(commentMap => {
-                // console.log(commentMap.commentList);
                 makeCommentDOM(commentMap);
             })
     }
@@ -477,7 +484,7 @@
                     "    <div class='row'>" +
                     "       <div class='col-md-6'>" + comment.quizCommentContent + "</div>" +
                     "       <div class='offset-md-2 col-md-4 text-right'>";
-                if (currNickname === comment.userNickname || currAuth ==="ADMIN") {
+                if (currNickname === comment.userNickname || currAuth === "ADMIN") {
                     tag +=
                         "           <a id='commentEditBtn' class='btn btn-sm btn-outline-dark' data-bs-toggle='modal' data-bs-target='#commentEditModal'>수정</a>&nbsp;" +
                         "           <a id='commentDelBtn' class='btn btn-sm btn-outline-dark' href='#'>삭제</a>";
