@@ -72,18 +72,19 @@
                 <h1 class="today-diary">${d.userNickname}의 일기</h1>
                 <div class="badge badge-primary custom-emotion">${d.emotion}</div>
                 <div class="badge badge-primary custom-show">${d.diaryShow}</div>
-                <div class="badge badge-primary custom-good">좋아요 : ${d.diaryGood}</div>
+                <div class="badge badge-primary custom-good" id="diaryGood">좋아요 : ${d.diaryGood}</div>
                 <div class="badge badge-primary custom-good">조회수 : ${d.diaryHit}</div>
                 <c:if test="${user.userNickname != null}">
                 <div class="good-part">
                     <%--       false 일 때       --%>
-                    <c:if test="${!goodCheckCT}">
-                    <button type="button" id="btnGood" class="badge badge-primary custom-good-bt" onclick="location.href='/diary/goodCheck/${d.diaryNo}' ">좋아요</button>
-                    </c:if>
-                        <%--      true일 때        --%>
-                    <c:if test="${goodCheckCT}">
-                        <button type="button" id="btnGood" class="badge badge-primary custom-good-bt" onclick="location.href='/diary/goodCheck/${d.diaryNo}' ">좋아요취소</button>
-                    </c:if>
+<%--                    <c:if test="${!goodCheckCT}">--%>
+                    <button type="button" id="btnGoodTrue" class="badge badge-primary custom-good-bt text-right">좋아요</button>
+<%--                    </c:if>--%>
+                            <%--      true일 때        --%>
+<%--                    <c:if test="${goodCheckCT}">--%>
+                        <button type="button" id="btnGoodFalse" class="badge badge-primary custom-good-bt text-right" >좋아요취소</button>
+<%--                        onclick="location.href='/diary/goodCheck?diaryNo=${d.diaryNo}' "--%>
+<%--                    </c:if>--%>
                 </div>
                 </c:if>
             </div>
@@ -187,20 +188,74 @@
     };
 
     // 추천
-    $("#btnGood").click(function () {
+    $("#btnGoodTrue").click(function () {
 
             like_func();
 
     })
 
+    $("#btnGoodFalse").click(function () {
+
+            like_func();
+
+    })
+
+    let check = false;
     // 좋아요 구현 가보자!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     function like_func() {
 
-        console.log("${goodCheck}");
-        diaryNo.submit();
+        fetch("/api/v1/diaryGood/${d.diaryNo}")
+            .then(res => res.text())
+            .then(flag =>{
+                console.log('flag : ', flag);
+                var jsonObj = JSON.parse(flag);
+                var totalGoodCount = jsonObj.totalGoodCount;
+                console.log('count : ', totalGoodCount);
+
+
+
+                if(check) {
+                    // true
+                    document.getElementById('btnGoodTrue').style.display="inline";
+                    document.getElementById('btnGoodFalse').style.display="none";
+                    // document.getElementById('diaryGood').textContent =  totalGoodCount;
+                    check = false;
+                } else {
+                    document.getElementById('btnGoodFalse').style.display="inline";
+                    document.getElementById('btnGoodTrue').style.display="none";
+                    // document.getElementById('diaryGood').textContent = totalGoodCount;
+                    check = true;
+                }
+
+                document.getElementById('diaryGood').textContent = " 좋아요 : " + totalGoodCount;
+
+            })
+
+        <%--console.log("${goodCheck}");--%>
+        // diaryNo.submit();
 
 
     }
+    function detailGoodCheck() {
+        if(${goodCheckCT}) {
+            check = true;
+            console.log(check);
+            document.getElementById('btnGoodTrue').style.display="none";
+            document.getElementById('btnGoodFalse').style.display="inline";
+
+        } else {
+            check = false;
+            console.log(check);
+            document.getElementById('btnGoodFalse').style.display="none";
+            document.getElementById('btnGoodTrue').style.display="inline";
+        }
+    }
+
+    (function () {
+        detailGoodCheck();
+
+
+    })();
 
 
 
