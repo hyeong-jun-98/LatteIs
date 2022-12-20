@@ -204,6 +204,19 @@
 
 <!-- 게시글 상세보기 관련 script -->
 <script>
+    //본인 출제 문제 감지
+    function my(){
+        let writer = '${q.quizWriter}';
+        let user = '${user.userNickname}';
+        const $quiz = document.getElementById('quiz-button');
+        const $answer = document.getElementById('answer');
+        const $showAnswer = document.getElementById('quiz-input');
+        if(writer==user){
+            $quiz.style.display="none";
+            $answer.style.display="none";
+        }
+    }
+
     // 이미 정답을 맞춘 퀴즈 감지
     function check(){
         const $quiz = document.getElementById('quiz-button');
@@ -397,6 +410,8 @@
     }
 
     (function () {
+        //본인 퀴즈 감지
+        my();
         //정답 처리된 퀴즈 감지
         check();
         alertServerMessage();

@@ -179,6 +179,7 @@
     }
 
     // 삭제
+    if(${loginUser.userNickname == d.userNickname || loginUser.auth == 'ADMIN'}){
     const $delete = document.getElementById('btn-delete');
     $delete.onclick = e => {
         if(!confirm('일기를 지울까요? 정말..? 추억인데....')) {
@@ -186,6 +187,7 @@
         }
         location.href = '/diary/delete?diaryNo=${diaryNo}';
     };
+    }
 
     // 추천
     $("#btnGoodTrue").click(function () {

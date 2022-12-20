@@ -55,4 +55,5 @@
     <update id="correctUser">
         update quiz set who_correct = #{userNickname} where quiz_no = #{quizNo}
     </update>
+
 </mapper>
