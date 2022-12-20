@@ -1,7 +1,7 @@
-package com.academy.latteis.good.service;
+package com.academy.latteis.boardgood.service;
 
-import com.academy.latteis.good.domain.BoardGood;
-import com.academy.latteis.good.repository.GoodMapper;
+import com.academy.latteis.boardgood.domain.BoardGood;
+import com.academy.latteis.boardgood.repository.BoardGoodMapper;
 import com.academy.latteis.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @Log4j2
-public class GoodService {
+public class BoardGoodService {
 
-    private final GoodMapper goodMapper;
+    private final BoardGoodMapper goodMapper;
 
     // 좋아요 체크 처리
     public boolean checkService(BoardGood boardGood){
