@@ -117,38 +117,12 @@
         </div>
     </div>
 </header>
-<!--
- Page Content
-<section class="pt-4">
-    <div class="container px-lg-5">
-       Page Features
-        <div class="row gx-lg-5">
-            <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
-                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
-                        <h2 class="fs-4 fw-bold">Fresh new layout</h2>
-                        <p class="mb-0">With Bootstrap 5, we've created a fresh new layout for this template!</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> -->
-
-<%--<!-- 목록 개수별 보기 영역 -->--%>
-<%--<ul class="amount">--%>
-<%--    <li><a class="btn btn-danger" href="/diary/list?amount=10">10</a></li>--%>
-<%--    <li><a class="btn btn-danger" href="/diary/list?amount=20">20</a></li>--%>
-<%--    <li><a class="btn btn-danger" href="/diary/list?amount=30">30</a></li>--%>
-<%--</ul>--%>
 
 <!--글 목록-->
 <div id="article-container" class="container mx-auto flex flex-wrap justify-start">
 
-
     <!--글 하나하나-->
-    <c:forEach var="q" items="${qList}">
+    <c:forEach var="q" items="${quizList}">
         <div class="lg:w-1/4 md:w-1/2 w-full p-5 articles margin" data-quiz-num="${q.quizNo}">
             <a href="#" style="color: black">
                 <div class="hover:shadow-2x1 card shadow-lg w-full h-full break-all hover position">

@@ -26,12 +26,26 @@
 
 </head>
 <style>
-    .answer{
+    .answer {
         display: none;
     }
-    #crown{
+
+    #crown {
         display: none;
         width: 2em;
+    }
+
+    .bg-size {
+        width: 70px;
+        text-align: center;
+        line-height: 50px;
+        background-size: 100% 100%;
+        color: white;
+    }
+    .board-no-title {
+        display: flex;
+        justify-content: space-between;
+        line-height: 50px;
     }
 </style>
 <body>
@@ -46,6 +60,21 @@
         <h1 class="main-title">퀴즈</h1>
         <div class="board-no-title">
             <span>${q.quizNo}번 게시물</span>
+            <c:if test="${q.quizScore == '500'}">
+                <div class="fs-5 bg-size" style="background-image: url('/img/red.png');">${q.quizScore}점</div>
+            </c:if>
+            <c:if test="${q.quizScore == '400'}">
+                <div class="fs-5 bg-size" style="background-image: url('/img/orange.png');">${q.quizScore}점</div>
+            </c:if>
+            <c:if test="${q.quizScore == '300'}">
+                <div class="fs-5 bg-size" style="background-image: url('/img/yellow.png');">${q.quizScore}점</div>
+            </c:if>
+            <c:if test="${q.quizScore == '200'}">
+                <div class="fs-5 bg-size" style="background-image: url('/img/blue.png');">${q.quizScore}점</div>
+            </c:if>
+            <c:if test="${q.quizScore == '100'}">
+                <div class="fs-5 bg-size" style="background-image: url('/img/purple.png');">${q.quizScore}점</div>
+            </c:if>
         </div>
 
         <div class="mb-3">
@@ -61,7 +90,7 @@
         <div class="mb-3">
             <img src="/img/crown.png" id="crown">
             <input type="text" class="form-control answer" id="quiz-input"
-            placeholder="퀴즈 정답" name="quiz_answer" readonly>
+                   placeholder="퀴즈 정답" name="quiz_answer" readonly>
         </div>
 
         <div class="mb-3">
@@ -145,11 +174,11 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <c:if test="${empty user}">
+                        <c:if test="${empty loginUser}">
                             <a href="/user/login">댓글은 로그인 후 작성 가능합니다.</a>
                         </c:if>
 
-                        <c:if test="${not empty user}">
+                        <c:if test="${not empty loginUser}">
                             <div class="row">
                                 <div class="col-md-9">
                                     <div class="form-group">
@@ -168,7 +197,7 @@
                                         <label for="newCommentWriter" hidden>댓글 작성자</label>
                                         <input id="newCommentWriter" name="commentWriter" type="text"
                                                class="form-control" placeholder="작성자 이름" readonly
-                                               value="${user.userNickname}"
+                                               value="${loginUser.userNickname}"
                                                style="margin-bottom: 6px;">
                                     </div>
                                 </div>
@@ -180,7 +209,7 @@
         </div>
 
         <div class="d-flex">
-            <c:if test="${user.userNickname == q.quizWriter || user.auth == 'ADMIN'}">
+            <c:if test="${loginUser.userNickname == q.quizWriter || loginUser.auth == 'ADMIN'}">
                 <button id="del-btn" class="btn btn-danger" type="button" style="width: 100%;">삭제하기</button>
             </c:if>
         </div>
@@ -196,7 +225,7 @@
 <!-- 게시글 상세보기 관련 script -->
 <script>
     // 그림 크기 설정
-    function setImgSize(){
+    function setImgSize() {
         const canvas = document.querySelector("#my-img");
         const width = 951;
         const height = 600;
@@ -209,18 +238,18 @@
 
 
     // 이미 정답을 맞춘 퀴즈 감지
-    function check(){
+    function check() {
         const $quiz = document.getElementById('quiz-button');
         const $answer = document.getElementById('answer');
         const $showAnswer = document.getElementById('quiz-input');
         const $crown = document.getElementById('crown');
         let check = ${q.quizCheck};
-        if(check=='1'){
-            $quiz.style.display="none";
-            $answer.style.display="none";
-            $crown.style.display="block";
-            $showAnswer.style.display="inline-block";
-            $showAnswer.value='정답: ${q.quizAnswer} / 정답자: ${q.whoCorrect}';
+        if (check == '1') {
+            $quiz.style.display = "none";
+            $answer.style.display = "none";
+            $crown.style.display = "block";
+            $showAnswer.style.display = "inline-block";
+            $showAnswer.value = '정답: ${q.quizAnswer} / 정답자: ${q.whoCorrect}';
         }
     }
 
@@ -232,22 +261,22 @@
             const $answer = document.getElementById('answer');
             const $crown = document.getElementById('crown');
             console.log(answer);
-            fetch('/quiz/check?quizAnswer='+answer+'&quizNo=${q.quizNo}')
+            fetch('/quiz/check?quizAnswer=' + answer + '&quizNo=${q.quizNo}')
                 .then(res => res.text())
-                .then(quiz =>{
+                .then(quiz => {
                     let jsonQuiz = JSON.parse(quiz);
                     let check = jsonQuiz.quizCheck;
                     let quizAnswer = jsonQuiz.quizAnswer;
                     let whoCorrect = jsonQuiz.whoCorrect;
-                    if(check=='1'){
+                    if (check == '1') {
                         alert("정답입니다!");
                         const $showAnswer = document.getElementById('quiz-input');
-                        $crown.style.display="block";
-                        $quiz.style.display="none";
-                        $answer.style.display="none";
-                        $showAnswer.style.display="inline-block";
-                        $showAnswer.value="정답: "+quizAnswer+" / 정답자: "+whoCorrect;
-                    }else{
+                        $crown.style.display = "block";
+                        $quiz.style.display = "none";
+                        $answer.style.display = "none";
+                        $showAnswer.style.display = "inline-block";
+                        $showAnswer.value = "정답: " + quizAnswer + " / 정답자: " + whoCorrect;
+                    } else {
                         alert("틀렸습니다!");
                     }
                 })
@@ -303,7 +332,7 @@
 
     // 좋아요 여부 확인
     function goodOrNot() {
-        if (uno !== ''){
+        if (uno !== '') {
             fetch(Good_URL + '/check?quizNo=' + qno + '&userNo=' + uno)
                 .then(res => res.text())
                 .then(msg => {

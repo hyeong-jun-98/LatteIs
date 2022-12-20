@@ -112,8 +112,16 @@
                     <span class="purple">purple</span>
                     <span class="black">black</span>
                     <span class="white">white</span>
-                    <span class="clear">clear</span>
-                    <span class="fill">fill</span>
+                    <span class="gray">gray</span>
+                    &nbsp; &nbsp;
+                    <span class="clear">지우기</span>
+                    <span class="fill">채우기</span>
+                    <br>
+                    <span class="pink">pink</span>
+                    <span class="brown">brown</span>
+                    <span class="skyblue">skyblue</span>
+                    <br>
+                    <br>
                 </div>
                 <div id="weight">
                     굵기 :
@@ -204,6 +212,10 @@
         "purple",
         "black",
         "white",
+        "gray",
+        "pink",
+        "brown",
+        "skyblue",
         "clear",
         "fill"
     ];

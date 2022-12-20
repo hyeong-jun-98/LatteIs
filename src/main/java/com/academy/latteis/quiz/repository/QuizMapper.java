@@ -21,6 +21,11 @@ public interface QuizMapper {
     // 퀴즈 삭제
     boolean delete(Long quizNo);
 
+    // 조회수 처리
+    void upHit(Long boardNo);
+
+    // 좋아요 수
+
     // 퀴즈 하나
     Quiz findOne(Long quizNo);
 

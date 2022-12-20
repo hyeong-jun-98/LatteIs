@@ -18,41 +18,61 @@
         <result property="whoCorrect" column="who_correct"/>
     </resultMap>
 
-<!--    퀴즈 리스트 뽑아오기-->
+    <!--    퀴즈 리스트 뽑아오기-->
     <select id="findAll" resultMap="quizMapper">
-        select * from quiz order by quiz_no desc
+        select *
+        from quiz
+        order by quiz_no desc
     </select>
 
-<!--    퀴즈 총 개수 가져오기-->
+    <!--    퀴즈 총 개수 가져오기-->
     <select id="getTotalCount" resultType="int">
-        select count(*) from quiz
+        select count(*)
+        from quiz
     </select>
 
-<!--    퀴즈 하나 가져오기-->
+    <!--    퀴즈 하나 가져오기-->
     <select id="findOne" resultMap="quizMapper">
-        select * from quiz where quiz_no = #{quizNo}
+        select *
+        from quiz
+        where quiz_no = #{quizNo}
     </select>
 
     <!-- 퀴즈 작성 -->
     <insert id="write">
         insert into quiz(quiz_writer, file_name, quiz_answer, quiz_score)
-        values (#{quizWriter}, #{fileName},#{quizAnswer},#{quizScore})
+        values (#{quizWriter}, #{fileName}, #{quizAnswer}, #{quizScore})
     </insert>
 
     <!-- 퀴즈 삭제 -->
     <delete id="delete">
-        delete from quiz where quiz_no = ${quizNo}
+        delete
+        from quiz
+        where quiz_no = ${quizNo}
     </delete>
 
+    <!-- 조회수 -->
+    <update id="upHit">
+        UPDATE quiz
+        SET quiz_hit = quiz_hit + 1
+        WHERE quiz_no = #{quizNo}
+    </update>
+
     <select id="answerCheck" resultType="int">
-        select count(*) from quiz where quiz_answer = #{quizAnswer}
+        select count(*)
+        from quiz
+        where quiz_answer = #{quizAnswer}
     </select>
 
     <update id="correctAnswer">
-        update quiz set quiz_check = 1 where quiz_no = #{quizNo};
+        update quiz
+        set quiz_check = 1
+        where quiz_no = #{quizNo};
     </update>
 
     <update id="correctUser">
-        update quiz set who_correct = #{userNickname} where quiz_no = #{quizNo}
+        update quiz
+        set who_correct = #{userNickname}
+        where quiz_no = #{quizNo}
     </update>
 </mapper>

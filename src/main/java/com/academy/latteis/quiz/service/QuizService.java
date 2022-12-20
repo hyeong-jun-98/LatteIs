@@ -10,7 +10,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.WebUtils;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -35,7 +39,7 @@ public class QuizService {
         List<Quiz> quizList = quizMapper.findAll(diaryPage);
 
         processConverting(quizList);
-        findDataMap.put("qList", quizList);
+        findDataMap.put("quizList", quizList);
         findDataMap.put("tc", quizMapper.getTotalCount());
 
         return findDataMap;
@@ -44,11 +48,14 @@ public class QuizService {
 
     // 퀴즈 하나 가져오기
     @Transactional
-    public Quiz findOneService(Long quizNo) {
+    public Quiz findOneService(Long quizNo, HttpServletResponse response, HttpServletRequest request) {
         log.info("quiz findOneService {}", quizNo);
 
         Quiz quiz = quizMapper.findOne(quizNo);
 
+        // 해당 게시물 번호에 해당하는 쿠키가 있는지 확인
+        // 쿠키가 없으면 조회수를 상승시켜주고 쿠키를 만들어서 클라이언트에 전송
+        upHit(quizNo, response, request);
         return quiz;
     }
 
@@ -88,6 +95,22 @@ public class QuizService {
         // 원본 게시물 삭제
         return quizMapper.delete(quizNo);
     }
+
+    // 조회수 상승 처리
+    private void upHit(Long quizNo, HttpServletResponse response, HttpServletRequest request) {
+        // 먼저 쿠키를 조회함 => 해당 이름의 쿠키가 있으면 쿠키가 들어올 것이고, 없다면 null이 들어올 것임
+        Cookie foundCookie = WebUtils.getCookie(request, "q" + quizNo);
+
+        if (foundCookie == null) {   // 쿠키가 없다면~~
+            quizMapper.upHit(quizNo); // 조회수 상승 시키고
+            Cookie cookie = new Cookie("q" + quizNo, String.valueOf(quizNo));   // 쿠키 생성
+            cookie.setMaxAge(60);   // 쿠키 수명을 1분으로 설정
+            cookie.setPath("/");   // 쿠키 작동 범위
+
+            response.addCookie(cookie);   // 클라이언트에게 쿠키 전송
+        }
+    }
+
 
     public Quiz answerCheck(String quizAnswer, int quizNo, String userNickname){
         if(quizMapper.answerCheck(quizAnswer)>0){

@@ -14,7 +14,6 @@ import java.util.Date;
 public class Quiz {
     private Long quizNo;
     private String quizWriter;
-//    private Blob quizContent;
     private String quizAnswer;
     private Long quizGood;
     private Date quizRegdate;
