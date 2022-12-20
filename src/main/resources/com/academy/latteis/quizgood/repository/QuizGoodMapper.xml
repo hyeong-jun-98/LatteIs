@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.academy.latteis.quizgood.repository.QuizGoodMapper">
+
+    <resultMap id="quizGoodMap" type="com.academy.latteis.quizgood.domain.QuizGood">
+        <result property="quizGoodNo" column="quiz_good_no"/>
+        <result property="userNo" column="user_no"/>
+        <result property="quizNo" column="quiz_no"/>
+    </resultMap>
+
+    <!-- 좋아요 체크 -->
+    <insert id="check">
+        insert into quiz_good(user_no, quiz_no)
+        values (#{userNo}, #{quizNo})
+    </insert>
+
+    <!-- 좋아요 취소 -->
+    <delete id="unCheck">
+        delete
+        from quiz_good
+        where user_no = #{userNo}
+          and quiz_no = #{quizNo}
+    </delete>
+
+    <!-- 게시글 삭제할 때, 해당 게시글 좋아요도 삭제 -->
+    <delete id="removeByQuizNo">
+        delete
+        from quiz_good
+        where quiz_no = #{quizNo}
+    </delete>
+
+    <!-- 좋아요 수 -->
+    <select id="goodCnt" resultType="int">
+        select COUNT(*)
+        from quiz_good
+        where quiz_no = #{quizNo}
+    </select>
+
+    <!-- 로그인한 사용자가 해당 게시글에 좋아요를 눌렀는지... -->
+    <select id="goodOrNot" resultMap="quizGoodMap">
+        select *
+        from quiz_good
+        where quiz_no = ${quizNo}
+          and user_no = (select user_no from user where user_no = ${userNo})
+    </select>
+
+
+    <delete id="exitUser">
+        delete
+        from quiz_good
+        where user_no = #{userNo}
+    </delete>
+
+    <delete id="exitUser2">
+        delete
+        from quiz_good
+        where board_no in (select quiz_no from quiz where writer = #{userNickname});
+    </delete>
+</mapper>

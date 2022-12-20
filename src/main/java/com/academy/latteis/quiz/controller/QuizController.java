@@ -29,12 +29,14 @@ public class QuizController {
 
     private final QuizService quizService;
 
+    // 작성화면 요청
     @GetMapping("/write")
     public String quizWrite(){
         log.info("controller /quiz/write GET");
         return "quiz/quiz-write";
     }
 
+    // 퀴즈 작성 처리
     @PostMapping("/write")
     public String quizWrite(Quiz quiz){
         quizService.writeService(quiz);
@@ -66,7 +68,6 @@ public class QuizController {
         log.info(" quizDetailController quizNo {}", quizNo);
 
         Quiz quiz  = quizService.findOneService(quizNo);
-        log.info(quiz);
 
         User loginUser = (User) session.getAttribute("loginUser");
         log.info("로그인 유저 데이터 {}", loginUser);
@@ -75,8 +76,13 @@ public class QuizController {
         model.addAttribute("diaryPage", diaryPage);
         model.addAttribute("user", loginUser);
 
-
         return "quiz/quiz_detail";
+    }
+
+    // 퀴즈 삭제
+    @GetMapping("/delete")
+    public String delete(){
+        return "redirect:/quiz/list";
     }
 
     @GetMapping("/check")
