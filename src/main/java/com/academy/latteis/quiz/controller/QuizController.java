@@ -3,13 +3,11 @@ package com.academy.latteis.quiz.controller;
 import com.academy.latteis.quiz.domain.Quiz;
 import com.academy.latteis.common.page.DiaryPage;
 import com.academy.latteis.common.page.DiaryPageMaker;
-import com.academy.latteis.quiz.domain.Quiz;
 import com.academy.latteis.quiz.service.QuizService;
 import com.academy.latteis.user.domain.User;
 import lombok.RequiredArgsConstructor;
-import com.academy.latteis.quiz.service.QuizService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,9 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
@@ -71,6 +66,7 @@ public class QuizController {
         log.info(" quizDetailController quizNo {}", quizNo);
 
         Quiz quiz  = quizService.findOneService(quizNo);
+        log.info(quiz);
 
         User loginUser = (User) session.getAttribute("loginUser");
         log.info("로그인 유저 데이터 {}", loginUser);
@@ -82,6 +78,17 @@ public class QuizController {
 
         return "quiz/quiz_detail";
     }
+
+    @GetMapping("/check")
+    @ResponseBody
+    public ResponseEntity<Quiz> check(String quizAnswer, int quizNo, HttpSession session){
+        log.info(quizAnswer, quizNo);
+        User user = (User)session.getAttribute("loginUser");
+        Quiz quiz = quizService.answerCheck(quizAnswer, quizNo, user.getUserNickname());
+        return new ResponseEntity<>(quiz,HttpStatus.OK);
+    }
+
+
 
 }
 

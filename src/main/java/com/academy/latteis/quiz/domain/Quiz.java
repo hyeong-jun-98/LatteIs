@@ -23,6 +23,7 @@ public class Quiz {
     private String quizCheck;
     private Long quizScore;
     private String fileName;
+    private String whoCorrect;
 
     private String shortTitle;  // 줄임 제목
     private String prettierDate;    // 변경된 날짜 포맷 문자열

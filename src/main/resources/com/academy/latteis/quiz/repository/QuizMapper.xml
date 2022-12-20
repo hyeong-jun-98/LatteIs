@@ -15,6 +15,7 @@
         <result property="quizCheck" column="quiz_check"/>
         <result property="quizScore" column="quiz_score"/>
         <result property="fileName" column="file_name"/>
+        <result property="whoCorrect" column="who_correct"/>
     </resultMap>
 
 <!--    퀴즈 리스트 뽑아오기-->
@@ -37,4 +38,15 @@
         values (#{quizWriter}, #{fileName},#{quizAnswer},#{quizScore})
     </insert>
 
+    <select id="answerCheck" resultType="int">
+        select count(*) from quiz where quiz_answer = #{quizAnswer}
+    </select>
+
+    <update id="correctAnswer">
+        update quiz set quiz_check = 1 where quiz_no = #{quizNo};
+    </update>
+
+    <update id="correctUser">
+        update quiz set who_correct = #{userNickname} where quiz_no = #{quizNo}
+    </update>
 </mapper>

@@ -29,6 +29,13 @@
     #exampleFormControlTextarea1{
         padding: 0;
     }
+    .answer{
+        display: none;
+    }
+    #crown{
+        display: none;
+        width: 2em;
+    }
 </style>
 <body>
 
@@ -64,12 +71,13 @@
         </div>
 
         <div class="mb-3">
-            <input type="text" class="form-control w-25 float-right " id="quiz-input"
-            placeholder="퀴즈 정답" name="quiz_answer"  >
+            <img src="/img/crown.png" id="crown">
+            <input type="text" class="form-control answer" id="quiz-input"
+            placeholder="퀴즈 정답" name="quiz_answer" readonly>
         </div>
 
         <div class="mb-3">
-            <input type="" class="form-control w-25  " id="quiz-result"
+            <input type="" class="form-control w-25" id="answer"
                    name="quiz_result">
         </div>
 
@@ -199,12 +207,49 @@
 
 <!-- 게시글 상세보기 관련 script -->
 <script>
+    // 이미 정답을 맞춘 퀴즈 감지
+    function check(){
+        const $quiz = document.getElementById('quiz-button');
+        const $answer = document.getElementById('answer');
+        const $showAnswer = document.getElementById('quiz-input');
+        const $crown = document.getElementById('crown');
+        let check = ${q.quizCheck};
+        if(check=='1'){
+            $quiz.style.display="none";
+            $answer.style.display="none";
+            $crown.style.display="block";
+            $showAnswer.style.display="inline-block";
+            $showAnswer.value='정답: ${q.quizAnswer} / 정답자: ${q.whoCorrect}';
+        }
+    }
+
     // 퀴즈 정답홧인
     function quiz() {
         const $quiz = document.getElementById('quiz-button');
-
         $quiz.onclick = e => {
-            alert('정답확인');
+            let answer = document.getElementById('answer').value;
+            const $answer = document.getElementById('answer');
+            const $crown = document.getElementById('crown');
+            console.log(answer);
+            fetch('/quiz/check?quizAnswer='+answer+'&quizNo=${q.quizNo}')
+                .then(res => res.text())
+                .then(quiz =>{
+                    let jsonQuiz = JSON.parse(quiz);
+                    let check = jsonQuiz.quizCheck;
+                    let quizAnswer = jsonQuiz.quizAnswer;
+                    let whoCorrect = jsonQuiz.whoCorrect;
+                    if(check=='1'){
+                        alert("정답입니다!");
+                        const $showAnswer = document.getElementById('quiz-input');
+                        $crown.style.display="block";
+                        $quiz.style.display="none";
+                        $answer.style.display="none";
+                        $showAnswer.style.display="inline-block";
+                        $showAnswer.value="정답: "+quizAnswer+" / 정답자: "+whoCorrect;
+                    }else{
+                        alert("틀렸습니다!");
+                    }
+                })
         }
 
     }
@@ -346,6 +391,8 @@
     }
 
     (function () {
+        //정답 처리된 퀴즈 감지
+        check();
         alertServerMessage();
         toList();
         deleteEvent();

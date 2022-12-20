@@ -1,9 +1,9 @@
 package com.academy.latteis.quiz.service;
 
 import com.academy.latteis.common.page.DiaryPage;
-import com.academy.latteis.diary.domain.Diary;
 import com.academy.latteis.quiz.domain.Quiz;
 import com.academy.latteis.quiz.repository.QuizMapper;
+import com.sun.tools.jconsole.JConsoleContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -73,6 +73,20 @@ public class QuizService {
         boolean flag = quizMapper.write(quiz);
 
         return flag;
+    }
+
+    public Quiz answerCheck(String quizAnswer, int quizNo, String userNickname){
+        if(quizMapper.answerCheck(quizAnswer)>0){
+            quizMapper.correctAnswer(quizNo);
+            quizMapper.correctUser(userNickname, quizNo);
+            log.info(quizNo);
+            log.info((long)quizNo);
+            Quiz quiz= quizMapper.findOne((long)quizNo);
+            return quiz;
+        }else{
+            Quiz quiz= quizMapper.findOne((long)quizNo);
+            return quiz;
+        }
     }
 
 

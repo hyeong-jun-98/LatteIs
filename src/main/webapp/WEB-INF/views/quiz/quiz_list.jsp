@@ -90,7 +90,15 @@
     #canvas {
         border: 1px solid black;
     }
-
+    #stamp{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 10em;
+    }
+    .position{
+        position: relative;
+    }
 </style>
 
 <body>
@@ -141,9 +149,12 @@
 
     <!--글 하나하나-->
     <c:forEach var="q" items="${qList}">
-        <div class="lg:w-1/4 md:w-1/2 w-full p-5 articles margin " data-quiz-num="${q.quizNo}">
+        <div class="lg:w-1/4 md:w-1/2 w-full p-5 articles margin" data-quiz-num="${q.quizNo}">
             <a href="#" style="color: black">
-                <div class="hover:shadow-2x1 card shadow-lg w-full h-full break-all hover">
+                <div class="hover:shadow-2x1 card shadow-lg w-full h-full break-all hover position">
+                    <c:if test="${q.quizCheck == '1'}">
+                    <img id="stamp" src="/img/stamp.png">
+                    </c:if>
                     <div class="card-body bg-white">
                         <div class="flex justify-between">
                             <div class="w-100">

@@ -20,4 +20,9 @@ public interface QuizMapper {
     // 퀴즈 하나
     Quiz findOne(Long quizNo);
 
+    int answerCheck(String quizAnswer);
+
+    void correctAnswer(int quizNo);
+
+    void correctUser(String userNickname, int quizNo);
 }
