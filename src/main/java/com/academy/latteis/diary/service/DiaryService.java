@@ -242,6 +242,8 @@ public class DiaryService {
             flag = false;
 
         }
+
+        log.info("diaryService return flag {}", flag);
         return flag;
     }
 
@@ -255,15 +257,11 @@ public class DiaryService {
         return diaryMapper.findUserByDiaryNo(diaryNo);
     }
 
-//    // 좋아요 여부 가져오기
-//    public Good findGoodCheckService(Long diaryNo, Long userNo) {
-//
-//        log.info("좋아요 여부 뽑아오기 -서비스 {},{}", diaryNo, userNo);
-//
-//        Good good = diaryMapper.findGoodCheck(diaryNo, userNo);
-//
-//        return good;
-//    }
+    // 좋아요 개수 가져오기
+    public  int findGoodCountService (Long diaryNo) {
+        log.info("findGoodCount service {}", diaryNo);
+        return diaryMapper.findGoodCount(diaryNo);
+    }
 
     public void dExitUser(User user){
         log.info("일기 {}",user);

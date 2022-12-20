@@ -148,6 +148,12 @@
     )
 </select>
 
+<!--    일기 좋아요 개수 구하기-->
+    <select id="findGoodCount" resultType="int">
+        select diary_good from diary where diary_no = #{diaryNo}
+    </select>
+
+
     <delete id="dExitUser">
         delete from diary where user_nickname=#{userNickname}
     </delete>

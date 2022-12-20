@@ -257,27 +257,27 @@ public class DiaryController {
 
     // 좋아요 하려고
     // redirect 할 때는 model이 리셋이되므로 RedirectAttribute로 넣어주어야 한다.
-    @GetMapping("/goodCheck/{diaryNo}")
-    public String goodCheck(HttpSession session, @PathVariable Long diaryNo, Model model, RedirectAttributes ra) {
-        log.info("diaryGoodCheck controller {}", diaryNo);
-
-        User loginUser = (User) session.getAttribute("loginUser");
-
-
-        boolean goodCheck = diaryService.goodCheckService(diaryNo, (long) loginUser.getUserNo());
-        ra.addFlashAttribute("goodCheck", goodCheck);
-
-        log.info("좋아요 누를 때 {}, {}, {}", diaryNo, (long) loginUser.getUserNo(), goodCheck);
-
-        model.addAttribute("loginUser", loginUser);
-
-//        Good good = diaryService.findGoodCheckService(diaryNo, userNo);
-//        log.info("좋아요 여부 뽑아오기 -컨트롤러 {},{}", diaryNo, userNo);
+//    @GetMapping("/goodCheck/{diaryNo}")
+//    public String goodCheck(HttpSession session, @PathVariable Long diaryNo, Model model, RedirectAttributes ra) {
+//        log.info("diaryGoodCheck controller {}", diaryNo);
 //
-//        model.addAttribute("good", good);
-
-        return "redirect:/diary/detail/" + diaryNo;
-    }
+//        User loginUser = (User) session.getAttribute("loginUser");
+//
+//
+//        boolean goodCheck = diaryService.goodCheckService(diaryNo, (long) loginUser.getUserNo());
+//        ra.addFlashAttribute("goodCheck", goodCheck);
+//
+//        log.info("좋아요 누를 때 {}, {}, {}", diaryNo, (long) loginUser.getUserNo(), goodCheck);
+//
+//        model.addAttribute("loginUser", loginUser);
+//
+////        Good good = diaryService.findGoodCheckService(diaryNo, userNo);
+////        log.info("좋아요 여부 뽑아오기 -컨트롤러 {},{}", diaryNo, userNo);
+////
+////        model.addAttribute("good", good);
+//
+//        return "redirect:/diary/detail/" + diaryNo;
+//    }
 
 
 
