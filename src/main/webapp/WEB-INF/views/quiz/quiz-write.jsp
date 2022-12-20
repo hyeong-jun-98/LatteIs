@@ -28,28 +28,35 @@
             margin-top: 200px;
             margin-bottom: 200px;
         }
+
         .main-content {
             width: 50%;
             margin: 0 auto;
         }
+
         .main-content .mb-3 .form-control {
             background: #fff !important;
         }
+
         .main-content * {
             font-size: 20px;
         }
+
         #palette span {
             font-size: 15px;
         }
+
         .sub-content {
             display: flex;
             justify-content: space-between;
         }
+
         .btn-write {
             display: flex;
             justify-content: end;
             margin-top: 10px;
         }
+
         .main-content .main-title {
             font-size: 30px;
             font-weight: 700;
@@ -89,8 +96,8 @@
             </div>
 
             <div class="mb-3">
-                <label for="writer-input" class="form-label">정답</label>
-                <input type="text" class="form-control" id="answer-input" placeholder="정답" name="quizAnswer">
+                <label for="answer-input" class="form-label">정답</label>
+                <input type="text" class="form-control" id="answer-input" placeholder="10글자 이내의 단어" name="quizAnswer">
             </div>
 
             <canvas id="canvas"></canvas>
@@ -136,6 +143,15 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+
+    // ----------------- 정답 유효성 검사 --------------------
+    $('#answer-input').on('keyup', function (e) {
+        if ($(this).val().length > 10) {
+            alert('정답을 10자 이내로 입력하세요.');
+            $(this).val($(this).val().substring(0, 10));
+        }
+    });
+
     const canvas = document.querySelector("#canvas");
     const ctx = canvas.getContext("2d");
     const width = innerWidth - 975;
@@ -233,48 +249,57 @@
 
     // 굵기 변경
     const $lineWidth = document.getElementById('line-width');
-    $lineWidth.onchange = e =>{
-        if (e.target.value === '3' || e.target.value === ''){
+    $lineWidth.onchange = e => {
+        if (e.target.value === '3' || e.target.value === '') {
             console.log(e.target.value);
             ctx.lineWidth = 3;
-        } else if(e.target.value === '5'){
+        } else if (e.target.value === '5') {
             console.log(e.target.value);
             ctx.lineWidth = 5;
-        }else if(e.target.value === '7'){
+        } else if (e.target.value === '7') {
             ctx.lineWidth = 7;
-        }else if(e.target.value === '10'){
+        } else if (e.target.value === '10') {
             ctx.lineWidth = 10;
-        }else if(e.target.value === '15'){
+        } else if (e.target.value === '15') {
             ctx.lineWidth = 15;
-        }else if(e.target.value === '20'){
+        } else if (e.target.value === '20') {
             ctx.lineWidth = 20;
-        }else if(e.target.value === '20'){
+        } else if (e.target.value === '20') {
             ctx.lineWidth = 20;
-        } else if(e.target.value === '30'){
+        } else if (e.target.value === '30') {
             ctx.lineWidth = 30;
-        } else if(e.target.value === '40'){
+        } else if (e.target.value === '40') {
             ctx.lineWidth = 40;
-        } else if(e.target.value === '50'){
+        } else if (e.target.value === '50') {
             ctx.lineWidth = 50;
         }
     }
 
 
-
     // 퀴즈 작성하기
-    function write(){
+    function write() {
         const $btnWrite = document.getElementById('btn-write');
         $btnWrite.onclick = e => {
-            if (!confirm('작성하시겠습니까?'))return;
+
+            if (document.querySelector('select').value === "") {
+                alert('점수를 선택해주세요.');
+                return;
+            } else if (document.getElementById('answer-input').value === '') {
+                alert('정답을 입력해주세요.');
+                return;
+            } else if (canvas.toDataURL() === 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA7EAAADWCAYAAAAHOgUmAAAAAXNSR0IArs4c6QAAD79JREFUeF7t18EJADAMA7F2/6Fd6BYHygRGzsd3244jQIAAAQIECBAgQIAAAQIBgWvEBloSkQABAgQIECBAgAABAgS+gBHrEQgQIECAAAECBAgQIEAgI2DEZqoSlAABAgQIECBAgAABAgSMWD9AgAABAgQIECBAgAABAhkBIzZTlaAECBAgQIAAAQIECBAgYMT6AQIECBAgQIAAAQIECBDICBixmaoEJUCAAAECBAgQIECAAAEj1g8QIECAAAECBAgQIECAQEbAiM1UJSgBAgQIECBAgAABAgQIGLF+gAABAgQIECBAgAABAgQyAkZspipBCRAgQIAAAQIECBAgQMCI9QMECBAgQIAAAQIECBAgkBEwYjNVCUqAAAECBAgQIECAAAECRqwfIECAAAECBAgQIECAAIGMgBGbqUpQAgQIECBAgAABAgQIEDBi/QABAgQIECBAgAABAgQIZASM2ExVghIgQIAAAQIECBAgQICAEesHCBAgQIAAAQIECBAgQCAjYMRmqhKUAAECBAgQIECAAAECBIxYP0CAAAECBAgQIECAAAECGQEjNlOVoAQIECBAgAABAgQIECBgxPoBAgQIECBAgAABAgQIEMgIGLGZqgQlQIAAAQIECBAgQIAAASPWDxAgQIAAAQIECBAgQIBARsCIzVQlKAECBAgQIECAAAECBAgYsX6AAAECBAgQIECAAAECBDICRmymKkEJECBAgAABAgQIECBAwIj1AwQIECBAgAABAgQIECCQETBiM1UJSoAAAQIECBAgQIAAAQJGrB8gQIAAAQIECBAgQIAAgYyAEZupSlACBAgQIECAAAECBAgQMGL9AAECBAgQIECAAAECBAhkBIzYTFWCEiBAgAABAgQIECBAgIAR6wcIECBAgAABAgQIECBAICNgxGaqEpQAAQIECBAgQIAAAQIEjFg/QIAAAQIECBAgQIAAAQIZASM2U5WgBAgQIECAAAECBAgQIGDE+gECBAgQIECAAAECBAgQyAgYsZmqBCVAgAABAgQIECBAgAABI9YPECBAgAABAgQIECBAgEBGwIjNVCUoAQIECBAgQIAAAQIECBixfoAAAQIECBAgQIAAAQIEMgJGbKYqQQkQIECAAAECBAgQIEDAiPUDBAgQIECAAAECBAgQIJARMGIzVQlKgAABAgQIECBAgAABAkasHyBAgAABAgQIECBAgACBjIARm6lKUAIECBAgQIAAAQIECBAwYv0AAQIECBAgQIAAAQIECGQEjNhMVYISIECAAAECBAgQIECAgBHrBwgQIECAAAECBAgQIEAgI2DEZqoSlAABAgQIECBAgAABAgSMWD9AgAABAgQIECBAgAABAhkBIzZTlaAECBAgQIAAAQIECBAgYMT6AQIECBAgQIAAAQIECBDICBixmaoEJUCAAAECBAgQIECAAAEj1g8QIECAAAECBAgQIECAQEbAiM1UJSgBAgQIECBAgAABAgQIGLF+gAABAgQIECBAgAABAgQyAkZspipBCRAgQIAAAQIECBAgQMCI9QMECBAgQIAAAQIECBAgkBEwYjNVCUqAAAECBAgQIECAAAECRqwfIECAAAECBAgQIECAAIGMgBGbqUpQAgQIECBAgAABAgQIEDBi/QABAgQIECBAgAABAgQIZASM2ExVghIgQIAAAQIECBAgQICAEesHCBAgQIAAAQIECBAgQCAjYMRmqhKUAAECBAgQIECAAAECBIxYP0CAAAECBAgQIECAAAECGQEjNlOVoAQIECBAgAABAgQIECBgxPoBAgQIECBAgAABAgQIEMgIGLGZqgQlQIAAAQIECBAgQIAAASPWDxAgQIAAAQIECBAgQIBARsCIzVQlKAECBAgQIECAAAECBAgYsX6AAAECBAgQIECAAAECBDICRmymKkEJECBAgAABAgQIECBAwIj1AwQIECBAgAABAgQIECCQETBiM1UJSoAAAQIECBAgQIAAAQJGrB8gQIAAAQIECBAgQIAAgYyAEZupSlACBAgQIECAAAECBAgQMGL9AAECBAgQIECAAAECBAhkBIzYTFWCEiBAgAABAgQIECBAgIAR6wcIECBAgAABAgQIECBAICNgxGaqEpQAAQIECBAgQIAAAQIEjFg/QIAAAQIECBAgQIAAAQIZASM2U5WgBAgQIECAAAECBAgQIGDE+gECBAgQIECAAAECBAgQyAgYsZmqBCVAgAABAgQIECBAgAABI9YPECBAgAABAgQIECBAgEBGwIjNVCUoAQIECBAgQIAAAQIECBixfoAAAQIECBAgQIAAAQIEMgJGbKYqQQkQIECAAAECBAgQIEDAiPUDBAgQIECAAAECBAgQIJARMGIzVQlKgAABAgQIECBAgAABAkasHyBAgAABAgQIECBAgACBjIARm6lKUAIECBAgQIAAAQIECBAwYv0AAQIECBAgQIAAAQIECGQEjNhMVYISIECAAAECBAgQIECAgBHrBwgQIECAAAECBAgQIEAgI2DEZqoSlAABAgQIECBAgAABAgSMWD9AgAABAgQIECBAgAABAhkBIzZTlaAECBAgQIAAAQIECBAgYMT6AQIECBAgQIAAAQIECBDICBixmaoEJUCAAAECBAgQIECAAAEj1g8QIECAAAECBAgQIECAQEbAiM1UJSgBAgQIECBAgAABAgQIGLF+gAABAgQIECBAgAABAgQyAkZspipBCRAgQIAAAQIECBAgQMCI9QMECBAgQIAAAQIECBAgkBEwYjNVCUqAAAECBAgQIECAAAECRqwfIECAAAECBAgQIECAAIGMgBGbqUpQAgQIECBAgAABAgQIEDBi/QABAgQIECBAgAABAgQIZASM2ExVghIgQIAAAQIECBAgQICAEesHCBAgQIAAAQIECBAgQCAjYMRmqhKUAAECBAgQIECAAAECBIxYP0CAAAECBAgQIECAAAECGQEjNlOVoAQIECBAgAABAgQIECBgxPoBAgQIECBAgAABAgQIEMgIGLGZqgQlQIAAAQIECBAgQIAAASPWDxAgQIAAAQIECBAgQIBARsCIzVQlKAECBAgQIECAAAECBAgYsX6AAAECBAgQIECAAAECBDICRmymKkEJECBAgAABAgQIECBAwIj1AwQIECBAgAABAgQIECCQETBiM1UJSoAAAQIECBAgQIAAAQJGrB8gQIAAAQIECBAgQIAAgYyAEZupSlACBAgQIECAAAECBAgQMGL9AAECBAgQIECAAAECBAhkBIzYTFWCEiBAgAABAgQIECBAgIAR6wcIECBAgAABAgQIECBAICNgxGaqEpQAAQIECBAgQIAAAQIEjFg/QIAAAQIECBAgQIAAAQIZASM2U5WgBAgQIECAAAECBAgQIGDE+gECBAgQIECAAAECBAgQyAgYsZmqBCVAgAABAgQIECBAgAABI9YPECBAgAABAgQIECBAgEBGwIjNVCUoAQIECBAgQIAAAQIECBixfoAAAQIECBAgQIAAAQIEMgJGbKYqQQkQIECAAAECBAgQIEDAiPUDBAgQIECAAAECBAgQIJARMGIzVQlKgAABAgQIECBAgAABAkasHyBAgAABAgQIECBAgACBjIARm6lKUAIECBAgQIAAAQIECBAwYv0AAQIECBAgQIAAAQIECGQEjNhMVYISIECAAAECBAgQIECAgBHrBwgQIECAAAECBAgQIEAgI2DEZqoSlAABAgQIECBAgAABAgSMWD9AgAABAgQIECBAgAABAhkBIzZTlaAECBAgQIAAAQIECBAgYMT6AQIECBAgQIAAAQIECBDICBixmaoEJUCAAAECBAgQIECAAAEj1g8QIECAAAECBAgQIECAQEbAiM1UJSgBAgQIECBAgAABAgQIGLF+gAABAgQIECBAgAABAgQyAkZspipBCRAgQIAAAQIECBAgQMCI9QMECBAgQIAAAQIECBAgkBEwYjNVCUqAAAECBAgQIECAAAECRqwfIECAAAECBAgQIECAAIGMgBGbqUpQAgQIECBAgAABAgQIEDBi/QABAgQIECBAgAABAgQIZASM2ExVghIgQIAAAQIECBAgQICAEesHCBAgQIAAAQIECBAgQCAjYMRmqhKUAAECBAgQIECAAAECBIxYP0CAAAECBAgQIECAAAECGQEjNlOVoAQIECBAgAABAgQIECBgxPoBAgQIECBAgAABAgQIEMgIGLGZqgQlQIAAAQIECBAgQIAAASPWDxAgQIAAAQIECBAgQIBARsCIzVQlKAECBAgQIECAAAECBAgYsX6AAAECBAgQIECAAAECBDICRmymKkEJECBAgAABAgQIECBAwIj1AwQIECBAgAABAgQIECCQETBiM1UJSoAAAQIECBAgQIAAAQJGrB8gQIAAAQIECBAgQIAAgYyAEZupSlACBAgQIECAAAECBAgQMGL9AAECBAgQIECAAAECBAhkBIzYTFWCEiBAgAABAgQIECBAgIAR6wcIECBAgAABAgQIECBAICNgxGaqEpQAAQIECBAgQIAAAQIEjFg/QIAAAQIECBAgQIAAAQIZASM2U5WgBAgQIECAAAECBAgQIGDE+gECBAgQIECAAAECBAgQyAgYsZmqBCVAgAABAgQIECBAgAABI9YPECBAgAABAgQIECBAgEBGwIjNVCUoAQIECBAgQIAAAQIECBixfoAAAQIECBAgQIAAAQIEMgJGbKYqQQkQIECAAAECBAgQIEDAiPUDBAgQIECAAAECBAgQIJARMGIzVQlKgAABAgQIECBAgAABAkasHyBAgAABAgQIECBAgACBjIARm6lKUAIECBAgQIAAAQIECBAwYv0AAQIECBAgQIAAAQIECGQEjNhMVYISIECAAAECBAgQIECAgBHrBwgQIECAAAECBAgQIEAgI2DEZqoSlAABAgQIECBAgAABAgSMWD9AgAABAgQIECBAgAABAhkBIzZTlaAECBAgQIAAAQIECBAgYMT6AQIECBAgQIAAAQIECBDICBixmaoEJUCAAAECBAgQIECAAAEj1g8QIECAAAECBAgQIECAQEbAiM1UJSgBAgQIECBAgAABAgQIGLF+gAABAgQIECBAgAABAgQyAkZspipBCRAgQIAAAQIECBAgQMCI9QMECBAgQIAAAQIECBAgkBEwYjNVCUqAAAECBAgQIECAAAECRqwfIECAAAECBAgQIECAAIGMgBGbqUpQAgQIECBAgAABAgQIEDBi/QABAgQIECBAgAABAgQIZASM2ExVghIgQIAAAQIECBAgQICAEesHCBAgQIAAAQIECBAgQCAjYMRmqhKUAAECBAgQIECAAAECBIxYP0CAAAECBAgQIECAAAECGQEjNlOVoAQIECBAgAABAgQIECDwAM03VawGB7l4AAAAAElFTkSuQmCC') {
+                alert('그림을 그려주세요.');
+                return;
+            }
+
+            if (!confirm('작성하시겠습니까?')) return;
             const $writeForm = document.getElementById('write-form');
             const $input = document.createElement('input');
             $input.setAttribute("type", "text");
             $input.setAttribute("name", "fileName");
             $input.setAttribute("value", canvas.toDataURL());
             $writeForm.append($input);
-            // canvas.setAttribute("fileName",canvas.toDataURL);
-            // alert(canvas);
-            // console.log(canvas);
+
             $writeForm.method = 'POST';
             $writeForm.action = '/quiz/write';
             $writeForm.submit();
@@ -282,7 +307,7 @@
 
     }
 
-    (function(){
+    (function () {
         ctx.fillStyle = 'white';
         ctx.fillRect(0, 0, width, height);
 

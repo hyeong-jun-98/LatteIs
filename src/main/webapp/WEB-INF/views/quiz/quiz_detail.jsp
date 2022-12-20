@@ -242,7 +242,6 @@
         if ($delBtn !== null) {
             $delBtn.onclick = e => {
                 if (!confirm("삭제하시겠습니까?")) return;
-                deleteFile();
                 location.href = "/quiz/delete?quizNo=" + qno + "&pageNum=${diaryPage.pageNum}&amount=${diaryPage.amount}";
             }
         }
