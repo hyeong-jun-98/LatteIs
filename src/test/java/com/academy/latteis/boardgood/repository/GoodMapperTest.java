@@ -1,6 +1,6 @@
-package com.academy.latteis.good.repository;
+package com.academy.latteis.boardgood.repository;
 
-import com.academy.latteis.good.domain.BoardGood;
+import com.academy.latteis.boardgood.domain.BoardGood;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GoodMapperTest {
 
     @Autowired
-    GoodMapper mapper;
+    BoardGoodMapper mapper;
 
     // 좋아요 체크
     @Test

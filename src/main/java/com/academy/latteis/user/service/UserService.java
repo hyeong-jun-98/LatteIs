@@ -3,12 +3,11 @@ package com.academy.latteis.user.service;
 import com.academy.latteis.board.service.BoardService;
 import com.academy.latteis.comment.service.CommentService;
 import com.academy.latteis.diary.service.DiaryService;
-import com.academy.latteis.good.service.GoodService;
+import com.academy.latteis.boardgood.service.BoardGoodService;
 import com.academy.latteis.user.domain.User;
 import com.academy.latteis.user.dto.AutoLoginDTO;
 import com.academy.latteis.user.dto.LoginDTO;
 import com.academy.latteis.user.repository.UserMapper;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,7 +32,7 @@ public class UserService {
 
     private final UserMapper userMapper;
     private final BoardService boardService;
-    private final GoodService goodService;
+    private final BoardGoodService goodService;
     private final DiaryService diaryService;
     private final CommentService commentService;
 
@@ -59,7 +58,7 @@ public class UserService {
     public LoginFlag login(LoginDTO inputData, HttpSession session, HttpServletResponse response) {
         // 회원가입 여부 확인
         User foundUser = userMapper.findUser(inputData.getUserEmail(), inputData.getLogin());
-        log.info(foundUser);
+        log.info("로그인한 사용자 정보는 {}", foundUser);
         if (foundUser != null) {
             if (encoder.matches(inputData.getPassword(), foundUser.getPassword())) {
                 // 로그인 성공

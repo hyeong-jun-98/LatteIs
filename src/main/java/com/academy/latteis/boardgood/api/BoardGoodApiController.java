@@ -1,7 +1,7 @@
-package com.academy.latteis.good.api;
+package com.academy.latteis.boardgood.api;
 
-import com.academy.latteis.good.domain.BoardGood;
-import com.academy.latteis.good.service.GoodService;
+import com.academy.latteis.boardgood.domain.BoardGood;
+import com.academy.latteis.boardgood.service.BoardGoodService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 @Log4j2
 @RequestMapping("/api/v1/good")
 @CrossOrigin    // CORS를 적용하는 어노테이션
-public class GoodApiController {
+public class BoardGoodApiController {
 
-    private final GoodService goodService;
+    private final BoardGoodService goodService;
 
     // 좋아요 체크 요청 처리
     @PostMapping("")

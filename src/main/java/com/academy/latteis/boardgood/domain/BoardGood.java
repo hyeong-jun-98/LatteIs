@@ -1,4 +1,4 @@
-package com.academy.latteis.good.domain;
+package com.academy.latteis.boardgood.domain;
 
 import lombok.*;
 

@@ -9,13 +9,12 @@ import com.academy.latteis.board.dto.ValidateUserDTO;
 import com.academy.latteis.board.repository.BoardMapper;
 import com.academy.latteis.comment.repository.CommentMapper;
 import com.academy.latteis.common.search.Search;
-import com.academy.latteis.good.repository.GoodMapper;
+import com.academy.latteis.boardgood.repository.BoardGoodMapper;
 import com.academy.latteis.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
@@ -31,7 +30,7 @@ public class BoardService {
 
     private final BoardMapper boardMapper;
     private final CommentMapper commentMapper;
-    private final GoodMapper goodMapper;
+    private final BoardGoodMapper goodMapper;
 
     // 게시글 작성
     @Transactional
