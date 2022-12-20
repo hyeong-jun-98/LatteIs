@@ -5,7 +5,8 @@ import com.academy.latteis.quiz.domain.Quiz;
 import com.academy.latteis.quiz.repository.QuizMapper;
 import com.academy.latteis.user.domain.User;
 import com.academy.latteis.user.repository.UserMapper;
-import com.sun.tools.jconsole.JConsoleContext;
+import com.academy.latteis.quizcomment.repository.QuizCommentMapper;
+import com.academy.latteis.quizgood.repository.QuizGoodMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,8 @@ import java.util.Map;
 public class QuizService {
 
     private final QuizMapper quizMapper;
+    private final QuizCommentMapper quizCommentMapper;
+    private final QuizGoodMapper quizGoodMapper;
     private final UserMapper userMapper;
 
     // 일기장 목록 (paging)
@@ -77,6 +80,14 @@ public class QuizService {
     // 퀴즈 삭제
     public boolean deleteService(Long quizNo){
         log.info("quiz delete service start");
+
+        // 댓글 먼저 모두 삭제
+        quizCommentMapper.removeByQuizNo(quizNo);
+
+        // 좋아요도 삭제
+        quizGoodMapper.removeByQuizNo(quizNo);
+
+        // 원본 게시물 삭제
         return quizMapper.delete(quizNo);
     }
 

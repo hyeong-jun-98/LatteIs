@@ -26,9 +26,6 @@
 
 </head>
 <style>
-    #exampleFormControlTextarea1 {
-        padding: 0;
-    }
     .answer{
         display: none;
     }
@@ -52,18 +49,13 @@
         </div>
 
         <div class="mb-3">
-            <label for="writer-input" class="form-label">작성자</label>
+            <label for="writer-input" class="form-label">출제자</label>
             <input type="text" class="form-control" id="writer-input"
                    placeholder="이름" name="quiz_writer" value="${q.quizWriter}" disabled>
         </div>
 
         <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-            <div class="form-control detail-main-content" id="exampleFormControlTextarea1"><img id="my-img"><div class="form-group"><ul class="img-uploaded-list"></ul></div></div>
-        </div>
-        <!-- 파일 첨부 영역 -->
-        <div class="form-group">
-            <ul class="file-uploaded-list"></ul>
+            <img id="my-img">
         </div>
 
         <div class="mb-3">
@@ -189,8 +181,7 @@
 
         <div class="d-flex">
             <c:if test="${user.userNickname == q.quizWriter || user.auth == 'ADMIN'}">
-                <button id="edit-btn" class="btn btn-dark" type="button">수정하기</button>
-                <button id="del-btn" class="btn btn-danger" type="button">삭제하기</button>
+                <button id="del-btn" class="btn btn-danger" type="button" style="width: 100%;">삭제하기</button>
             </c:if>
         </div>
         <div class="d-grid gap-2">
@@ -204,6 +195,19 @@
 
 <!-- 게시글 상세보기 관련 script -->
 <script>
+    // 그림 크기 설정
+    function setImgSize(){
+        const canvas = document.querySelector("#my-img");
+        const width = 951;
+        const height = 600;
+
+        canvas.width = width;
+        canvas.height = height;
+        canvas.style.marginBottom = "10px";
+        canvas.style.border = "3px solid black";
+    }
+
+
     //본인 출제 문제 감지
     function my(){
         let writer = '${q.quizWriter}';
@@ -404,9 +408,7 @@
 
     function urlToImg() {
         const $img = document.getElementById('my-img');
-        console.log($img);
         $img.setAttribute('src', '${q.fileName}');
-        <%--$img.src = '${q.fileName}';--%>
     }
 
     (function () {
@@ -428,6 +430,9 @@
         goodOrNot();
         // 좋아요 이벤트
         goodCheckEvent();
+
+        // 그림 크기 설정
+        setImgSize();
 
     })();
 </script>

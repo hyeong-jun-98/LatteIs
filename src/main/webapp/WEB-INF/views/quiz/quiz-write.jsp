@@ -90,7 +90,7 @@
             </select>
 
             <div class="mb-3">
-                <label for="writer-input" class="form-label">작성자</label>
+                <label for="writer-input" class="form-label">출제자</label>
                 <input type="text" class="form-control" id="writer-input" placeholder="이름"
                        name="quizWriter" value="${loginUser.userNickname}" readonly>
             </div>
@@ -154,8 +154,8 @@
 
     const canvas = document.querySelector("#canvas");
     const ctx = canvas.getContext("2d");
-    const width = innerWidth - 975;
-    const height = innerHeight - 400;
+    const width = 945;
+    const height = 600;
 
     canvas.width = width;
     canvas.height = height;
