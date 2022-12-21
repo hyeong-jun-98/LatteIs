@@ -121,8 +121,10 @@ public class QuizService {
             log.info(quizNo);
             log.info((long)quizNo);
             Quiz quiz= quizMapper.findOne((long)quizNo);
+            int beforeScore = userMapper.getScore(userNickname);
             int score = userMapper.getScore(userNickname);
             score +=quiz.getQuizScore().intValue();
+            int beforeWriterScore = userMapper.getScore(quiz.getQuizWriter());
             int writerScore = userMapper.getScore(quiz.getQuizWriter());
             writerScore += 500;
             //문제를 맞춘사람
@@ -130,18 +132,41 @@ public class QuizService {
             //문제를 출제한 사람
             userMapper.plusScore(quiz.getQuizWriter(), writerScore);
             score = userMapper.getScore(userNickname);
-            if(score>=5000&&score<8000){
+            writerScore = userMapper.getScore(quiz.getQuizWriter());
+            quiz.setLevelUp(0);
+            //맞춘 사람 레벨업
+            if(score>=5000&&beforeScore<5000){
                 userMapper.levelUp(userNickname, "유치원생");
-            }else if(score>=8000&&score<14000){
+                quiz.setLevelUp(1);
+            }else if(score>=8000&&beforeScore<8000){
                 userMapper.levelUp(userNickname, "초등학생");
-            }else if(score>=14000&&score<17000){
+                quiz.setLevelUp(2);
+            }else if(score>=14000&&beforeScore<14000){
                 userMapper.levelUp(userNickname, "중학생");
-            }else if(score>=17000&&score<20000){
+                quiz.setLevelUp(3);
+            }else if(score>=17000&&beforeScore<17000){
                 userMapper.levelUp(userNickname, "고등학생");
-            }else if(score>=20000&&score<24000){
+                quiz.setLevelUp(4);
+            }else if(score>=20000&&beforeScore<20000){
                 userMapper.levelUp(userNickname, "대학생");
-            }else if(score>=24000){
+                quiz.setLevelUp(5);
+            }else if(score>=24000&&beforeScore<24000){
                 userMapper.levelUp(userNickname, "졸업생");
+                quiz.setLevelUp(6);
+            }
+            //작성자 레벨업
+            if(writerScore>=5000&&beforeWriterScore<5000){
+                userMapper.levelUp(quiz.getQuizWriter(), "유치원생");
+            }else if(writerScore>=8000&&beforeWriterScore<8000){
+                userMapper.levelUp(quiz.getQuizWriter(), "초등학생");
+            }else if(writerScore>=14000&&beforeWriterScore<14000){
+                userMapper.levelUp(quiz.getQuizWriter(), "중학생");
+            }else if(writerScore>=17000&&beforeWriterScore<17000){
+                userMapper.levelUp(quiz.getQuizWriter(), "고등학생");
+            }else if(writerScore>=20000&&beforeWriterScore<20000){
+                userMapper.levelUp(quiz.getQuizWriter(), "대학생");
+            }else if(writerScore>=24000&&beforeWriterScore<24000){
+                userMapper.levelUp(quiz.getQuizWriter(), "졸업생");
             }
             return quiz;
         }else{

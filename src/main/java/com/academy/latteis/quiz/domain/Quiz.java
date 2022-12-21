@@ -27,5 +27,7 @@ public class Quiz {
     private String shortTitle;  // 줄임 제목
     private String prettierDate;    // 변경된 날짜 포맷 문자열
     private boolean newPost;  // 새 게시물 표시
+
+    private int levelUp;
 }
 
