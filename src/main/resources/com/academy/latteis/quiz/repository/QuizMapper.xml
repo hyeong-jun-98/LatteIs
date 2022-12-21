@@ -23,6 +23,7 @@
         select *
         from quiz
         order by quiz_no desc
+            limit #{start}, #{amount}
     </select>
 
     <!--    퀴즈 총 개수 가져오기-->

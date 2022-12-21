@@ -175,19 +175,19 @@
 
             <c:if test="${pm.prev}">
                 <li class="page-item"><a class="page-link"
-                                         href="/diary/list?pageNum=${pm.beginPage - 1}&amount=${pm.diaryPage.amount}">prev</a>
+                                         href="/quiz/list?pageNum=${pm.beginPage - 1}&amount=${pm.diaryPage.amount}">prev</a>
                 </li>
             </c:if>
 
             <c:forEach var="n" begin="${pm.beginPage}" end="${pm.endPage}" step="1">
                 <li data-page-num="${n}" class="page-item" style="color: black">
-                    <a class="page-link" href="/diary/list?pageNum=${n}&amount=${pm.diaryPage.amount}">${n}</a>
+                    <a class="page-link" href="/quiz/list?pageNum=${n}&amount=${pm.diaryPage.amount}">${n}</a>
                 </li>
             </c:forEach>
 
             <c:if test="${pm.next}">
                 <li class="page-item"><a class="page-link"
-                                         href="/diary/list?pageNum=${pm.endPage + 1}&amount=${pm.diaryPage.amount}">next</a>
+                                         href="/quiz/list?pageNum=${pm.endPage + 1}&amount=${pm.diaryPage.amount}">next</a>
                 </li>
             </c:if>
 
@@ -249,7 +249,6 @@
     function hover() {
         const $hover = document.getElementsByClassName("hover");
         for (let i of $hover) {
-            console.log(i);
             i.onmouseover = e => {
                 i.className = "hover:shadow-2x1 card shadow-lg w-full h-full break-all hover animate__animated animate__bounce";
                 console.log(i);
