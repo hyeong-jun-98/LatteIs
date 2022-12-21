@@ -65,5 +65,15 @@
         delete from user where user_no=#{userNo};
     </delete>
 
+    <update id="levelUp">
+        update user set user_grade = #{userGrade} where user_nickname = #{userNickname}
+    </update>
 
+    <update id="plusScore">
+        update user set user_score = #{userScore} where user_nickname=#{userNickname}
+    </update>
+
+    <select id="getScore" resultType="int">
+        select user_score from user where user_nickname=#{userNickname}
+    </select>
 </mapper>

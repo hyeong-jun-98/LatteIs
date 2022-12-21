@@ -34,4 +34,7 @@ public interface QuizMapper {
     void correctAnswer(int quizNo);
 
     void correctUser(String userNickname, int quizNo);
+
+
+
 }

@@ -31,4 +31,10 @@ public interface UserMapper {
 
     void exitUser(int userNo);
 
+    void levelUp(String userNickname,String userGrade);
+
+    void plusScore(String userNickname, int userScore);
+
+    int getScore(String userNickname);
+
 }
