@@ -123,7 +123,12 @@ public class QuizService {
             Quiz quiz= quizMapper.findOne((long)quizNo);
             int score = userMapper.getScore(userNickname);
             score +=quiz.getQuizScore().intValue();
+            int writerScore = userMapper.getScore(quiz.getQuizWriter());
+            writerScore += 500;
+            //문제를 맞춘사람
             userMapper.plusScore(userNickname,score);
+            //문제를 출제한 사람
+            userMapper.plusScore(quiz.getQuizWriter(), writerScore);
             score = userMapper.getScore(userNickname);
             if(score>=5000&&score<8000){
                 userMapper.levelUp(userNickname, "유치원생");
