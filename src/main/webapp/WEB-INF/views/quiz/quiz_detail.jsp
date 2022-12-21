@@ -94,8 +94,8 @@
         </div>
 
         <div class="mb-3">
-            <input type="" class="form-control w-25" id="answer"
-                   name="quiz_result">
+            <input type="text" class="form-control w-25" id="answer"
+                   name="quiz_result" placeholder="정답을 입력해주세요.">
         </div>
 
         <div class="mb-3">
@@ -258,12 +258,22 @@
         const $quiz = document.getElementById('quiz-button');
         $quiz.onclick = e => {
             let answer = document.getElementById('answer').value;
+
+            if (${empty loginUser}) { // 로그인 안돼있으면
+                alert("로그인 후 이용 가능한 서비스 입니다.");
+                return;
+            } else if (answer === '' && ${not empty loginUser}){
+                alert('정답을 입력해주세요.')
+                return;
+            }
+
             const $answer = document.getElementById('answer');
             const $crown = document.getElementById('crown');
             console.log(answer);
             fetch('/quiz/check?quizAnswer=' + answer + '&quizNo=${q.quizNo}')
                 .then(res => res.text())
                 .then(quiz => {
+                    console.log('퀴즈는 ', quiz);
                     let jsonQuiz = JSON.parse(quiz);
                     let check = jsonQuiz.quizCheck;
                     let quizAnswer = jsonQuiz.quizAnswer;

@@ -1,24 +1,18 @@
 package com.academy.latteis.quiz.controller;
 
-import com.academy.latteis.board.dto.BoardConvertDTO;
-import com.academy.latteis.quiz.domain.Quiz;
 import com.academy.latteis.common.page.DiaryPage;
 import com.academy.latteis.common.page.DiaryPageMaker;
+import com.academy.latteis.quiz.domain.Quiz;
 import com.academy.latteis.quiz.service.QuizService;
 import com.academy.latteis.quizgood.service.QuizGoodService;
 import com.academy.latteis.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -96,9 +90,10 @@ public class QuizController {
     @GetMapping("/check")
     @ResponseBody
     public ResponseEntity<Quiz> check(String quizAnswer, int quizNo, HttpSession session) {
-        log.info(quizAnswer, quizNo);
+        log.info("quiz controller /quiz/check GET! - quizAnswer={}, qno={}", quizAnswer, quizNo);
         User user = (User) session.getAttribute("loginUser");
         Quiz quiz = quizService.answerCheck(quizAnswer, quizNo, user.getUserNickname());
+        log.info("퀴즈는 {}", quiz);
         return new ResponseEntity<>(quiz, HttpStatus.OK);
     }
 
