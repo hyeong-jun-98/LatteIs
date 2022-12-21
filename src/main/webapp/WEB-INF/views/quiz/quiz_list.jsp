@@ -133,7 +133,7 @@
                         <div class="flex justify-between">
                             <div class="w-100">
                                 <div class="d-flex justify-content-between mb-3 div-height">
-                                    <p class="fs-5">${q.quizWriter}</p>
+                                    <p class="fs-5">${q.quizWriter} [${q.userGrade}]</p>
                                     <c:if test="${q.quizScore == '500'}">
                                         <div class="fs-5 bg-size" style="background-image: url('/img/red.png');">${q.quizScore}점</div>
                                     </c:if>
@@ -150,6 +150,7 @@
                                         <div class="fs-5 bg-size" style="background-image: url('/img/purple.png');">${q.quizScore}점</div>
                                     </c:if>
                                 </div>
+
                                 <p class=" text-sm text-gray-500 date">${q.prettierDate}</p>
 
                                 <div class="like-view">

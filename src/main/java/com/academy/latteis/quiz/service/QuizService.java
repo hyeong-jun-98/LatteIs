@@ -145,5 +145,13 @@ public class QuizService {
         }
     }
 
+    //  퀴즈 작성자 등급 가져오기
+    public String findQuizWriterGradeService (String quizWriter) {
+
+        log.info("findQuizWriterGrade Service {}", quizWriter);
+        return quizMapper.findQuizWriterGrade(quizWriter);
+    }
+
+
 
 }

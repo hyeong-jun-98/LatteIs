@@ -77,4 +77,10 @@
         where quiz_no = #{quizNo}
     </update>
 
+<!--    등급 가져오기-->
+    <select id="findQuizWriterGrade" resultType="String">
+        select user_grade from user where user_nickname = (select quiz_writer from quiz where quiz_writer = #{quizWriter} limit 1)
+    </select>
+
+
 </mapper>

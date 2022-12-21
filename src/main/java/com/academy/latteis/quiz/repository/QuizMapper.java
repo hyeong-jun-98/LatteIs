@@ -35,6 +35,9 @@ public interface QuizMapper {
 
     void correctUser(String userNickname, int quizNo);
 
+    // 퀴즈 출제자 등급 나타내기
+    String findQuizWriterGrade (String quizWriter);
+
 
 
 }

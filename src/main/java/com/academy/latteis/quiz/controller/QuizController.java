@@ -53,13 +53,26 @@ public class QuizController {
                 new DiaryPage(diaryPage.getPageNum(), diaryPage.getAmount())
                 , (Integer) quizMap.get("tc"));
 
+
+
+
         // boardMap에서 boardList 꺼내기
         List<Quiz> quizList = (List<Quiz>) quizMap.get("quizList");
 
+
+
+
+
         // 반복문 돌려서 boardList 안에 있는 게시글에 각각 좋아요 정보를 넣어줌
+        // 유저 정보의 등급을 작성자의 닉네임과 비교해서 넣어줌
         for (Quiz q : quizList) {
             q.setQuizGood((long) quizGoodService.goodCntService(q.getQuizNo()));
+            q.setUserGrade(quizService.findQuizWriterGradeService(q.getQuizWriter()));
         }
+
+
+
+//        model.addAttribute("userGrade", userGrade);
         model.addAttribute("quizList", quizList);
         model.addAttribute("pm", pm);
         session.setAttribute("topbar", "quiz");
@@ -96,6 +109,9 @@ public class QuizController {
         log.info("퀴즈는 {}", quiz);
         return new ResponseEntity<>(quiz, HttpStatus.OK);
     }
+
+
+
 
 
 }
