@@ -63,7 +63,7 @@
 
         <!-- 댓글 영역 -->
         <div id="comments" class="row">
-            <div class="offset-md-1 col-md-10">
+            <div class="col-md-12">
                 <!--댓글 내용 영역-->
                 <div class="card">
                     <!-- 댓글 내용 헤더 -->

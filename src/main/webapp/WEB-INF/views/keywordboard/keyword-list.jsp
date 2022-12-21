@@ -78,7 +78,7 @@
         <table class="table table-hover">
             <thead class="table-warning">
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">주제</th>
                 <th scope="col">작성자</th>
                 <th scope="col">제목</th>
                 <th scope="col">추천수</th>
@@ -89,7 +89,7 @@
             <tbody class="table-group-divider">
             <c:forEach var="b" items="${boardList}">
                 <tr>
-                    <td>${b.boardNo}</td>
+                    <td>${b.topicName}</td>
                     <td>${b.writer} [${b.userYear}]</td>
                     <td title="${b.title}" id="title">
                         <a href="#">${b.shortTitle}</a><span>[${b.commentCount}]</span>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -84,7 +85,7 @@
         <table class="table table-hover">
             <thead class="table-warning">
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">연령대</th>
                 <th scope="col">작성자</th>
                 <th scope="col">제목</th>
                 <th scope="col">추천수</th>
@@ -95,7 +96,7 @@
             <tbody class="table-group-divider">
             <c:forEach var="b" items="${boardList}">
                 <tr>
-                    <td>${b.boardNo}</td>
+                    <td>${fn:substring(b.generation, 2, 4)}년대</td>
                     <td>${b.writer} [${b.userYear}]</td>
                     <td title="${b.title}" id="title">
                         <a href="#">${b.shortTitle}</a><span>[${b.commentCount}]</span>
@@ -153,6 +154,15 @@
 </div>
 
 <script>
+
+    <%--// 연령대 문자열 자르기--%>
+    <%--function substringGeneration(){--%>
+    <%--    <c:forEach var="b" items="${boardList}">--%>
+    <%--        const subGeneration = '${b.generation}'.substring(2);--%>
+    <%--        document.getElementById()--%>
+    <%--    </c:forEach>--%>
+    <%--}--%>
+
     // 게시글 검색
     function search() {
         const $btnSearch = document.getElementById('btn-search');
@@ -250,6 +260,8 @@
         appendAmountActive();
         search();
         fixSearchOption();
+
+        // substringGeneration();  // 연령대 문자열 자르기
     })();
 </script>
 </body>
