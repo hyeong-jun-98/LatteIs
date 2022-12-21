@@ -23,6 +23,10 @@
     <!--제이쿼리-->
     <script src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
 
 </head>
 <style>
@@ -33,6 +37,33 @@
     #crown {
         display: none;
         width: 2em;
+    }
+    .wrap{
+        position: relative;
+    }
+    #stamp{
+        position: absolute;
+        left: 18%;
+        top: 16%;
+        width: 30em;
+        display: none;
+    }
+
+    #fixStamp{
+        position: absolute;
+        right: 0;
+        width: 10em;
+        display: none;
+    }
+
+
+    .flex{
+        display: flex;
+    }
+    .result{
+        line-height: 44px;
+        margin-left: 10px;
+        display: none;
     }
 
     .bg-size {
@@ -54,7 +85,6 @@
 
 <%-- 글 상세보기 영역 --%>
 <div class="wrap">
-
     <div class="content-container">
 
         <h1 class="main-title">퀴즈</h1>
@@ -84,6 +114,9 @@
         </div>
 
         <div class="mb-3">
+            <img src="/img/stamp.png" id="fixStamp">
+            <img src="/img/stamp.png" id="stamp">
+<%--            <img src="/img/discorrect.png" id="discorrect">--%>
             <img id="my-img">
         </div>
 
@@ -93,9 +126,10 @@
                    placeholder="퀴즈 정답" name="quiz_answer" readonly>
         </div>
 
-        <div class="mb-3">
-            <input type="text" class="form-control w-25" id="answer"
-                   name="quiz_result" placeholder="정답을 입력해주세요.">
+        <div class="mb-3 flex">
+            <input type="" class="form-control w-25" id="answer"
+                   name="quiz_result" placeholder="정답을 입력해주세요">
+            <div class="result" id="result" style="color: red">틀렸습니다.</div>
         </div>
 
         <div class="mb-3">
@@ -237,25 +271,42 @@
     }
 
 
+    //본인 출제 문제 감지
+    function my(){
+        let writer = '${q.quizWriter}';
+        let user = '${user.userNickname}';
+        const $quiz = document.getElementById('quiz-button');
+        const $answer = document.getElementById('answer');
+        const $showAnswer = document.getElementById('quiz-input');
+        if(writer==user){
+            $quiz.style.display="none";
+            $answer.style.display="none";
+        }
+    }
+
     // 이미 정답을 맞춘 퀴즈 감지
     function check() {
         const $quiz = document.getElementById('quiz-button');
         const $answer = document.getElementById('answer');
         const $showAnswer = document.getElementById('quiz-input');
         const $crown = document.getElementById('crown');
+        const $fixStamp = document.getElementById('fixStamp');
         let check = ${q.quizCheck};
-        if (check == '1') {
-            $quiz.style.display = "none";
-            $answer.style.display = "none";
-            $crown.style.display = "block";
-            $showAnswer.style.display = "inline-block";
-            $showAnswer.value = '정답: ${q.quizAnswer} / 정답자: ${q.whoCorrect}';
+        if(check=='1'){
+            $quiz.style.display="none";
+            $answer.style.display="none";
+            $crown.style.display="block";
+            $showAnswer.style.display="inline-block";
+            $showAnswer.value='정답: ${q.quizAnswer} / 정답자: ${q.whoCorrect}';
+            $fixStamp.style.display="block";
         }
     }
 
     // 퀴즈 정답홧인
     function quiz() {
         const $quiz = document.getElementById('quiz-button');
+        const $stamp = document.getElementById('stamp');
+        const $result = document.getElementById('result');
         $quiz.onclick = e => {
             let answer = document.getElementById('answer').value;
 
@@ -273,21 +324,28 @@
             fetch('/quiz/check?quizAnswer=' + answer + '&quizNo=${q.quizNo}')
                 .then(res => res.text())
                 .then(quiz => {
-                    console.log('퀴즈는 ', quiz);
                     let jsonQuiz = JSON.parse(quiz);
                     let check = jsonQuiz.quizCheck;
                     let quizAnswer = jsonQuiz.quizAnswer;
                     let whoCorrect = jsonQuiz.whoCorrect;
-                    if (check == '1') {
-                        alert("정답입니다!");
+                    if(check=='1'){
                         const $showAnswer = document.getElementById('quiz-input');
-                        $crown.style.display = "block";
-                        $quiz.style.display = "none";
-                        $answer.style.display = "none";
-                        $showAnswer.style.display = "inline-block";
-                        $showAnswer.value = "정답: " + quizAnswer + " / 정답자: " + whoCorrect;
-                    } else {
-                        alert("틀렸습니다!");
+                        $crown.style.display="block";
+                        $quiz.style.display="none";
+                        $answer.style.display="none";
+                        $showAnswer.style.display="inline-block";
+                        $showAnswer.value="정답: "+quizAnswer+" / 정답자: "+whoCorrect;
+                        $stamp.style.display="block";
+                        $stamp.className="animate__animated animate__flash";
+                        $result.style.display="none";
+                    }else{
+                        $answer.style.border="red solid 2px";
+                        $answer.className="form-control w-25 animate__animated animate__flash";
+                        $result.style.display="block";
+                        setTimeout(() =>
+                                $answer.style.border="#ced4da solid 2px", 1200);
+                        setTimeout(() =>
+                            $answer.className="form-control w-25",1200);
                     }
                 })
         }
@@ -438,6 +496,8 @@
     }
 
     (function () {
+        //본인 퀴즈 감지
+        my();
         //정답 처리된 퀴즈 감지
         check();
         alertServerMessage();

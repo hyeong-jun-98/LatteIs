@@ -146,7 +146,9 @@ public class UserController {
         }
 
         @GetMapping("/mypage")
-        public String mypage(){
+        public String mypage(HttpSession session){
+                User user = userService.findUser((User)session.getAttribute("loginUser"));
+                session.setAttribute("loginUser", user);
                 return "/user/mypage";
         }
 

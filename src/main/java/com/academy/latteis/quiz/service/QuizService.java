@@ -3,7 +3,8 @@ package com.academy.latteis.quiz.service;
 import com.academy.latteis.common.page.DiaryPage;
 import com.academy.latteis.quiz.domain.Quiz;
 import com.academy.latteis.quiz.repository.QuizMapper;
-import com.sun.tools.jconsole.JConsoleContext;
+import com.academy.latteis.user.domain.User;
+import com.academy.latteis.user.repository.UserMapper;
 import com.academy.latteis.quizcomment.repository.QuizCommentMapper;
 import com.academy.latteis.quizgood.repository.QuizGoodMapper;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,7 @@ public class QuizService {
     private final QuizMapper quizMapper;
     private final QuizCommentMapper quizCommentMapper;
     private final QuizGoodMapper quizGoodMapper;
+    private final UserMapper userMapper;
 
     // 일기장 목록 (paging)
     public Map<String, Object> findAllService(DiaryPage diaryPage) {
@@ -119,6 +121,23 @@ public class QuizService {
             log.info(quizNo);
             log.info((long)quizNo);
             Quiz quiz= quizMapper.findOne((long)quizNo);
+            int score = userMapper.getScore(userNickname);
+            score +=quiz.getQuizScore().intValue();
+            userMapper.plusScore(userNickname,score);
+            score = userMapper.getScore(userNickname);
+            if(score>=5000&&score<8000){
+                userMapper.levelUp(userNickname, "유치원생");
+            }else if(score>=8000&&score<14000){
+                userMapper.levelUp(userNickname, "초등학생");
+            }else if(score>=14000&&score<17000){
+                userMapper.levelUp(userNickname, "중학생");
+            }else if(score>=17000&&score<20000){
+                userMapper.levelUp(userNickname, "고등학생");
+            }else if(score>=20000&&score<24000){
+                userMapper.levelUp(userNickname, "대학생");
+            }else if(score>=24000){
+                userMapper.levelUp(userNickname, "졸업생");
+            }
             return quiz;
         }else{
             Quiz quiz= quizMapper.findOne((long)quizNo);

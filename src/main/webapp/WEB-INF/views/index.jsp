@@ -147,16 +147,17 @@
             <div class="quiz_content">
                 <div class="quiz_picture">
                     <div id="quizp1" class="quizSlides"></div>
-
+                    <div id="quizp2" class="quizSlides"></div>
+                    <div id="quizp3" class="quizSlides"></div>
                     <a class="prev">❮</a>
                     <a class="next">❯</a>
                 </div>
                 <div class="quiz_describe">
                     <div>
-                        추억의 단어들로 퀴즈를 진행 해보세요!
+                        그림 퀴즈를 즐겨보세요!
                     </div>
                     <div>
-                        본인이 직접 제시어를 정해 스무고개 문제를 내고 다른 사람의 스무고개를 맞춰 보세요!
+                        본인이 그린 그림을 문제로 내고 다른 사람의 그림 문제도 맞춰보세요!
                     </div>
                 </div>
             </div>

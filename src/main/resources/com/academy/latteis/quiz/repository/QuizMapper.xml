@@ -76,4 +76,5 @@
         set who_correct = #{userNickname}
         where quiz_no = #{quizNo}
     </update>
+
 </mapper>
