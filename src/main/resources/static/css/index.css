@@ -347,7 +347,15 @@ body{
     display: none;
 }
 .quiz_picture div:nth-child(1){
-    background-image: url("/img/ready.png");
+    background-image: url("/img/quizMain.png");
+    display: block;
+}
+.quiz_picture div:nth-child(2){
+    background-image: url("/img/quizWrite.png");
+    display: block;
+}
+.quiz_picture div:nth-child(3){
+    background-image: url("/img/quizDetail.png");
     display: block;
 }
 /*.quiz_picture div:nth-child(2){*/
