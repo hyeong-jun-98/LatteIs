@@ -28,7 +28,9 @@ public class Quiz {
     private String prettierDate;    // 변경된 날짜 포맷 문자열
     private boolean newPost;  // 새 게시물 표시
 
-    private String userGrade;  // 등급 
+    private String userGrade;  // 등급
 
+
+    private int levelUp;
 }
 

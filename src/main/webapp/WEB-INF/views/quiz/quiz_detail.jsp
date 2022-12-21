@@ -325,9 +325,31 @@
                 .then(res => res.text())
                 .then(quiz => {
                     let jsonQuiz = JSON.parse(quiz);
+
+                    switch (jsonQuiz.levelUp){
+                        case 1:
+                            alert("축하합니다!! 유치원생으로 레벨업 하셨습니다.");
+                            break;
+                        case 2:
+                            alert("축하합니다!! 초등학생으로 레벨업 하셨습니다.");
+                            break;
+                        case 3:
+                            alert("축하합니다!! 중학생으로 레벨업 하셨습니다.");
+                            break;
+                        case 4:
+                            alert("축하합니다!! 고등학생으로 레벨업 하셨습니다.");
+                            break;
+                        case 5:
+                            alert("축하합니다!! 대학생으로 레벨업 하셨습니다.");
+                            break;
+                        case 6:
+                            alert("졸업을 축하드립니다!!");
+                            break;
+                    }
                     let check = jsonQuiz.quizCheck;
                     let quizAnswer = jsonQuiz.quizAnswer;
                     let whoCorrect = jsonQuiz.whoCorrect;
+                    console.log(check);
                     if(check=='1'){
                         const $showAnswer = document.getElementById('quiz-input');
                         $crown.style.display="block";

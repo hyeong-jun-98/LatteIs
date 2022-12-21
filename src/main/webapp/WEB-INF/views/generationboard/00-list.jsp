@@ -95,7 +95,7 @@
             <tbody class="table-group-divider">
             <c:forEach var="b" items="${boardList}">
                 <tr>
-                    <td>00년대</td>
+                    <td data-bno="${b.boardNo}">00년대</td>
                     <td>${b.writer}</td>
                     <td title="${b.title}" id="title">
                         <a href="#">${b.shortTitle}</a><span>[${b.commentCount}]</span>
@@ -191,7 +191,7 @@
         const $tbody = document.querySelector('.table-group-divider');
         $tbody.onclick = e => {
             if (!e.target.matches('a')) return;
-            const boardNo = e.target.parentNode.parentNode.firstElementChild.textContent;
+            const boardNo = e.target.parentNode.parentNode.firstElementChild.dataset.bno;
             console.log(boardNo);
             location.href = "/generation/detail/"
                 + boardNo + "?pageNum=${pm.page.pageNum}&amount=${pm.page.amount}"
