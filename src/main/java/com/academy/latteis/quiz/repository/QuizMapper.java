@@ -22,7 +22,7 @@ public interface QuizMapper {
     boolean delete(Long quizNo);
 
     // 조회수 처리
-    void upHit(Long boardNo);
+    void upHit(Long quizNo);
 
     // 좋아요 수
 

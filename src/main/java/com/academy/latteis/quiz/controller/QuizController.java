@@ -68,7 +68,7 @@ public class QuizController {
 
     @GetMapping("/detail/{quizNo}")
     public String quizDetail(@PathVariable Long quizNo, DiaryPage diaryPage, Model model
-            , HttpServletResponse response, HttpServletRequest request) {
+            , HttpServletResponse response, HttpServletRequest request, HttpSession session) {
 
         log.info(" quizDetailController quizNo {}", quizNo);
 
@@ -76,6 +76,7 @@ public class QuizController {
 
         model.addAttribute("q", quiz);
         model.addAttribute("diaryPage", diaryPage);
+        model.addAttribute("user", (User)session.getAttribute("loginUser"));
 
         return "quiz/quiz_detail";
     }
