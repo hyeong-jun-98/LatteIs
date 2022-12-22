@@ -77,7 +77,7 @@
             </div>
 
             <!-- 첨부파일 드래그 앤 드롭 영역 -->
-            <div class="form-group">
+            <div class="form-group upload-hide">
                 <div class="fileDrop">
                     <span>Drop Here!!</span>
                 </div>

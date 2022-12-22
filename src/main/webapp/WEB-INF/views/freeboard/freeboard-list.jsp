@@ -35,10 +35,13 @@
         }
 
     </style>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="minimum-scale=1.0, width=device-width, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
 </head>
 <body>
 
-<%@include file="../topbar.jsp"%>
+<%@include file="../topbar.jsp" %>
 
 <%-- 글 목록 영역 --%>
 <div class="wrap">
@@ -68,15 +71,19 @@
             <!-- 한 페이지 당 보여질 게시글 수 => amount -->
             <ul class="amount">
                 <li data-amount="10"><a class="btn btn-outline-warning"
-                                        href="/freeboard/list?amount=10&type=${search.type}&keyword=${search.keyword}">10</a></li>
-                <li  data-amount="20"><a class="btn btn-outline-warning"
-                                         href="/freeboard/list?amount=20&type=${search.type}&keyword=${search.keyword}">20</a></li>
-                <li  data-amount="30"><a class="btn btn-outline-warning"
-                                         href="/freeboard/list?amount=30&type=${search.type}&keyword=${search.keyword}">30</a></li>
+                                        href="/freeboard/list?amount=10&type=${search.type}&keyword=${search.keyword}">10</a>
+                </li>
+                <li data-amount="20"><a class="btn btn-outline-warning"
+                                        href="/freeboard/list?amount=20&type=${search.type}&keyword=${search.keyword}">20</a>
+                </li>
+                <li data-amount="30"><a class="btn btn-outline-warning"
+                                        href="/freeboard/list?amount=30&type=${search.type}&keyword=${search.keyword}">30</a>
+                </li>
             </ul>
 
         </div>
 
+        <%-- 노트북 화면일 때 리스트 --%>
         <table class="table table-hover">
             <thead class="table-warning">
             <tr>
@@ -107,12 +114,34 @@
             </tbody>
         </table>
 
+        <%-- 아이폰 12 프로 화면일 때 리스트 --%>
+        <div class="board-area" style="margin-bottom: 10px">
+            <c:forEach var="b" items="${boardList}">
+                <div class="board-one">
+                    <div id="board-top">
+                        <p>#${b.boardNo}</p>
+                        <p>${b.prettierDate}</p>
+                    </div>
+                    <div id="board-title">
+                        <a href="#" data-bno="${b.boardNo}">${b.shortTitle}</a>
+                        <c:if test="${b.newPost}">
+                            <span class="badge bg-opacity-75 bg-danger">new</span>
+                        </c:if>
+                    </div>
+                    <div id="board-bottom">
+                        <span>좋아요 ${b.good}</span>&nbsp;&nbsp;&nbsp;
+                        <span>댓글 ${b.commentCount}</span>&nbsp;&nbsp;&nbsp;
+                        <span>조회수 ${b.hit}</span>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+
         <!-- 게시글 목록 하단 영역 -->
         <div class="bottom-section">
             <!-- 페이지 버튼 영역 -->
             <nav aria-label="Page navigation example">
                 <ul class="pagination pagination-lg pagination-custom">
-
                     <c:if test="${pm.prev}">
                         <li class="page-item"><a class="page-link"
                                                  href="/freeboard/list?pageNum=${pm.beginPage - 1}&amount=${pm.page.amount}&type=${search.type}&keyword=${search.keyword}">prev</a>
@@ -131,7 +160,6 @@
                                                  href="/freeboard/list?pageNum=${pm.endPage + 1}&amount=${pm.page.amount}&type=${search.type}&keyword=${search.keyword}">next</a>
                         </li>
                     </c:if>
-
                 </ul>
             </nav>
 
@@ -148,12 +176,12 @@
 
 <script>
     // 게시글 검색
-    function search(){
+    function search() {
         const $btnSearch = document.getElementById('btn-search');
-        $btnSearch.onclick=e=>{
+        $btnSearch.onclick = e => {
             const $form = document.querySelector('form');
-            $form.method="get";
-            $form.action="/freeboard/list";
+            $form.method = "get";
+            $form.action = "/freeboard/list";
             $form.submit();
         }
 
@@ -172,14 +200,14 @@
     // 글 작성 폼으로 이동
     function writeForm() {
         const $btnWrite = document.getElementById("btn-write");
-        if ($btnWrite !== null){
+        if ($btnWrite !== null) {
             $btnWrite.addEventListener("click", function () {
                 location.href = "/freeboard/write";
             });
         }
     }
 
-    // 게시글 상세보기
+    // 노트북 => 게시글 상세보기
     function detailEvent() {
         const $tbody = document.querySelector('.table-group-divider');
         $tbody.onclick = e => {
@@ -187,8 +215,19 @@
             const boardNo = e.target.parentNode.parentNode.firstElementChild.textContent;
             console.log(boardNo);
             location.href = "/freeboard/detail/"
-                + boardNo + "?pageNum=${pm.page.pageNum}&amount=${pm.page.amount}"
-            ;
+                + boardNo + "?pageNum=${pm.page.pageNum}&amount=${pm.page.amount}";
+        }
+    }
+
+    // 모바일 -> 게시글 상세보기
+    function mobileDetailEvent() {
+        const toDetailList = document.querySelectorAll('.board-area a');
+        console.log(toDetailList);
+        for (let toDetail of toDetailList) {
+            toDetail.onclick = () => {
+                location.href = "/freeboard/detail/"
+                    + toDetail.dataset.bno + "?pageNum=${pm.page.pageNum}&amount=${pm.page.amount}";
+            }
         }
     }
 
@@ -211,14 +250,15 @@
             }
         }
     }
+
     // 현재 amount에 active 스타일 부여
-    function appendAmountActive(){
+    function appendAmountActive() {
         // 현재 내 amount
         const curAmount = '${pm.page.amount}';
 
         const $ul = document.querySelector('.amount');
-        for (let $li of [...$ul.children]){
-            if (curAmount === $li.dataset.amount){
+        for (let $li of [...$ul.children]) {
+            if (curAmount === $li.dataset.amount) {
                 $li.firstChild.classList.add('active');
                 break;
             }
@@ -226,12 +266,12 @@
     }
 
     // 검색 조건 고정
-    function fixSearchOption(){
+    function fixSearchOption() {
         const $select = document.getElementById('search-type');
         // console.log($select);
-        for (let $opt of [...$select.children]){
+        for (let $opt of [...$select.children]) {
             console.log($opt.value);
-            if ($opt.value === '${search.type}'){
+            if ($opt.value === '${search.type}') {
                 $opt.setAttribute('selected', 'selected');
                 break;
             }
@@ -241,7 +281,8 @@
 
     (function () {
         alertServerMessage();
-        detailEvent();
+        detailEvent();      // 노트북일때 상세보기
+        mobileDetailEvent();    // 모바일일때 글 상세보기
         writeForm();
         appendPageActive();
         appendAmountActive();

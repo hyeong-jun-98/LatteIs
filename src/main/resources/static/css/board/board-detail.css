@@ -160,6 +160,9 @@ textarea {
 #commentContent {
     margin: 0 20px;
 }
+#commentEditBtn, #commentDelBtn  {
+    height: 40px;
+}
 
 .row {
     justify-content: space-between;
@@ -196,5 +199,46 @@ textarea {
 
 .float-right {
     float : right;
+}
+
+/*==================================*/
+@media screen and (max-width: 390px) {
+
+    .my-img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .wrap {
+        width: 100%;
+        margin: 0 auto;
+        padding: 5%;
+    }
+    .content-container {
+        margin-top: 115px;
+        margin-bottom: 100px;
+    }
+    .media-w {
+        width: 50% !important;
+
+    }
+    .stamp {
+        width: 100%;
+    }
+
+    .user-block {
+        flex-wrap: nowrap;
+    }
+    .user-block span:first-child {
+        width: 40%;
+    }
+    .user-block span:last-child {
+        width: auto;
+    }
+
+    .upload-hide {
+        display: none;
+    }
 
 }
+

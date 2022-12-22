@@ -486,7 +486,7 @@
                     "    </div><br>" +
                     "    <div class='row'>" +
                     "       <div class='col-md-6'>" + comment.commentContent + "</div>" +
-                    "       <div class='offset-md-2 col-md-4 text-right'>";
+                    "       <div class='offset-md-2 col-md-4 text-right align-items-end'>";
                 if (currNickname === comment.userNickname || currAuth === 'ADMIN') {
                     tag +=
                         "           <a id='commentEditBtn' class='btn btn-sm btn-outline-dark' data-bs-toggle='modal' data-bs-target='#commentEditModal'>수정</a>&nbsp;" +

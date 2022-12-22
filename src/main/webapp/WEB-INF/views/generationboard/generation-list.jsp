@@ -82,6 +82,7 @@
 
         </div>
 
+        <%-- 노트북 화면일 때 리스트 --%>
         <table class="table table-hover">
             <thead class="table-warning">
             <tr>
@@ -111,6 +112,29 @@
             </c:forEach>
             </tbody>
         </table>
+
+        <%-- 아이폰 12 프로 화면일 때 리스트 --%>
+        <div class="board-area" style="margin-bottom: 10px">
+            <c:forEach var="b" items="${boardList}">
+                <div class="board-one">
+                    <div id="board-top">
+                        <p>${fn:substring(b.generation, 2, 4)}년대</p>
+                        <p>${b.prettierDate}</p>
+                    </div>
+                    <div id="board-title">
+                        <a href="#" data-bno="${b.boardNo}">${b.shortTitle}</a>
+                        <c:if test="${b.newPost}">
+                            <span class="badge bg-opacity-75 bg-danger">new</span>
+                        </c:if>
+                    </div>
+                    <div id="board-bottom">
+                        <span>좋아요 ${b.good}</span>&nbsp;&nbsp;&nbsp;
+                        <span>댓글 ${b.commentCount}</span>&nbsp;&nbsp;&nbsp;
+                        <span>조회수 ${b.hit}</span>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
 
         <!-- 게시글 목록 하단 영역 -->
         <div class="bottom-section">
@@ -155,14 +179,6 @@
 
 <script>
 
-    <%--// 연령대 문자열 자르기--%>
-    <%--function substringGeneration(){--%>
-    <%--    <c:forEach var="b" items="${boardList}">--%>
-    <%--        const subGeneration = '${b.generation}'.substring(2);--%>
-    <%--        document.getElementById()--%>
-    <%--    </c:forEach>--%>
-    <%--}--%>
-
     // 게시글 검색
     function search() {
         const $btnSearch = document.getElementById('btn-search');
@@ -194,15 +210,25 @@
         }
     }
 
-    // 게시글 상세보기
+    // 노트북 -> 게시글 상세보기
     function detailEvent() {
         const $tbody = document.querySelector('.table-group-divider');
         $tbody.onclick = e => {
             if (!e.target.matches('a')) return;
             const boardNo = e.target.parentNode.parentNode.firstElementChild.dataset.bno;
-            console.log(boardNo);
             location.href = "/generation/detail/"
                 + boardNo + "?pageNum=${pm.page.pageNum}&amount=${pm.page.amount}";
+        }
+    }
+
+    // 모바일 -> 게시글 상세보기
+    function mobileDetailEvent() {
+        const toDetailList = document.querySelectorAll('.board-area a');
+        for (let toDetail of toDetailList) {
+            toDetail.onclick = () => {
+                location.href = "/generation/detail/"
+                    + toDetail.dataset.bno + "?pageNum=${pm.page.pageNum}&amount=${pm.page.amount}";
+            }
         }
     }
 
@@ -254,7 +280,8 @@
 
     (function () {
         alertServerMessage();
-        detailEvent();
+        detailEvent();      // 노트북 -> 글 상세보기
+        mobileDetailEvent();    // 모바일 -> 글 상세보기
         writeForm();
         appendPageActive();
         appendAmountActive();

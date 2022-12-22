@@ -1,9 +1,24 @@
+@font-face {
+    font-family: 'KyoboHand';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+body {
+    background-image: url("https://img.freepik.com/free-photo/white-crumpled-paper-texture-for-background_1373-159.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: visible;
+    font-family: KyoboHand;
+}
+
 .wrap {
     width: 60%;
     margin: 200px auto 100px;
 }
 
-.board-list{
+.board-list {
     font-size: 20px;
 }
 
@@ -43,7 +58,6 @@
 /* 목록 개수별 보기 스타일 */
 .board-list .amount {
     display: flex;
-    /* background: skyblue; */
     justify-content: flex-end;
 }
 
@@ -67,6 +81,10 @@
 }
 
 /* 테이블 style */
+.board-area {
+    display: none;
+}
+
 table tbody a {
     color: #000 !important;
     text-decoration: none;
@@ -105,7 +123,12 @@ table tr th:nth-child(3) {
     font-size: 20px;
 }
 
-.pagination-custom li a {
+.pagination-custom li {
+    text-align: center;
+    flex: 1;
+}
+
+.pagination-custom li .page-link {
     color: #000 !important;
 }
 
@@ -119,4 +142,111 @@ table tr th:nth-child(3) {
     .wrap{
         font-size: 1px;
     }
+}
+
+/* 아이폰 12 프로 화면 */
+@media screen and (max-width: 390px) {
+    html {
+        min-height: 844px;
+    }
+
+    .wrap {
+        width: 100%;
+        margin: 115px auto 100px;
+        padding: 5%;
+    }
+
+    .board-list * {
+        font-size: 15px;
+    }
+
+    /* 검색창 */
+    .board-list .top-section {
+        display: block;
+    }
+
+    .board-list .top-section .search {
+        flex: 4;
+    }
+
+    .board-list .top-section .amount {
+        margin-top: 10px;
+        display: flex;
+        justify-content: end;
+    }
+
+    .board-list .top-section .search form {
+        display: flex;
+    }
+
+    .board-list .top-section .search form #search-type {
+        flex: 1;
+        margin-right: 10px;
+    }
+
+    .board-list .top-section .search form input[name=keyword] {
+        flex: 3;
+    }
+
+    /* 목록 개수별 보기 스타일 */
+    .board-list .amount {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .board-list .amount {
+        list-style: none;
+    }
+
+    .board-list .amount li {
+        width: 15%;
+        margin-left: 3px;
+        margin-right: 0;
+    }
+
+    .board-list .amount li a {
+        width: 100%;
+    }
+
+    .board-list .amount li a.active {
+        color: #000 !important;
+        background-color: #ffc107 !important;
+        border-color: #ffc107 !important;
+    }
+
+    /* 메인 콘텐트 style */
+    .board-area {
+        display: block;
+    }
+
+    table {
+        display: none;
+    }
+
+    .board-one {
+        border-top: 1px solid lightgray;
+        background: #FFFFFFE4;
+        padding: 15px
+    }
+
+    .board-one:last-child {
+        border-bottom: 1px solid lightgray;
+        background: #FFFFFFE4;
+        padding: 15px
+    }
+
+    #board-top {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #board-title a {
+        color: orange !important;
+        font-size: 20px;
+    }
+
+    .pagination-custom {
+        overflow: scroll;
+    }
+
 }
