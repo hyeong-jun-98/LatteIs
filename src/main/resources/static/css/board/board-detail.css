@@ -160,6 +160,9 @@ textarea {
 #commentContent {
     margin: 0 20px;
 }
+#commentEditBtn, #commentDelBtn  {
+    height: 40px;
+}
 
 .row {
     justify-content: space-between;
@@ -211,6 +214,10 @@ textarea {
         margin: 0 auto;
         padding: 5%;
     }
+    .content-container {
+        margin-top: 115px;
+        margin-bottom: 100px;
+    }
     .media-w {
         width: 50% !important;
 
@@ -227,6 +234,10 @@ textarea {
     }
     .user-block span:last-child {
         width: auto;
+    }
+
+    .upload-hide {
+        display: none;
     }
 
 }

@@ -82,8 +82,7 @@
             }
 
             .main-content {
-                 /*width: 50%;*/
-                 margin: 0 auto;
+                 margin: 100px auto;
              }
 
         }
