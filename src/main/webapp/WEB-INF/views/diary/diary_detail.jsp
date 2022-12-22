@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="/css/topbar.css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width; initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
 
         @font-face {
@@ -101,6 +101,7 @@
 <%--                    <option value="">${d.diaryShow}</option>--%>
 <%--                </select>--%>
 <%--            </div>--%>
+
             <div class="mb-3">
                 <textarea name="diaryContent" class="form-control" id="exampleFormControlTextarea1" rows="10" readonly>${d.diaryContent}</textarea>
             </div>
@@ -109,7 +110,7 @@
 
             <div class="d-grid gap-2 btn-list">
                 <button id="to-list" class="btn btn-warning custom-button" type="button">목록</button>
-                <c:if test="${loginUser.userNickname == d.userNickname || loginUser.auth == 'ADMIN'}">
+                <c:if test="${user.userNickname == d.userNickname || user.auth == 'ADMIN'}">
                     <button id="btn-update" class="btn btn-warning custom-button" type="button">수정</button>
                     <button id="btn-delete" class="btn btn-warning custom-button" type="button">삭제</button>
                 </c:if>
@@ -164,7 +165,7 @@
     const $toList = document.getElementById('to-list');
     $toList.onclick = e => {
         location.href = '/diary/list';
-    };
+    }
 
     if (${loginUser.userNickname == d.userNickname || loginUser.auth == 'ADMIN'}) {
         // 수정
@@ -178,16 +179,16 @@
                 location.href = '/diary/modify?diaryNo=${d.diaryNo}';
             };
         }
-
+    }
     // 삭제
-    if(${loginUser.userNickname == d.userNickname || loginUser.auth == 'ADMIN'}){
+    if(${user.userNickname == d.userNickname || user.auth == 'ADMIN'}){
     const $delete = document.getElementById('btn-delete');
     $delete.onclick = e => {
         if(!confirm('일기를 지울까요? 정말..? 추억인데....')) {
             return;
         }
         location.href = '/diary/delete?diaryNo=${diaryNo}';
-    };
+        };
     }
 
     // 추천
@@ -207,8 +208,8 @@
             .then(res => res.text())
             .then(flag =>{
                 console.log('flag : ', flag);
-                var jsonObj = JSON.parse(flag);
-                var totalGoodCount = jsonObj.totalGoodCount;
+                let jsonObj = JSON.parse(flag);
+                let totalGoodCount = jsonObj.totalGoodCount;
                 console.log('count : ', totalGoodCount);
 
 
@@ -252,8 +253,8 @@
 
     (function () {
         detailGoodCheck();
-
     })();
+
 
 
 

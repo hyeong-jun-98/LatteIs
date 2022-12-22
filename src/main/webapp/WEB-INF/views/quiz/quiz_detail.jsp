@@ -43,9 +43,9 @@
     }
     #stamp{
         position: absolute;
-        left: 18%;
-        top: 16%;
-        width: 30em;
+        left: 14%;
+        top: 28%;
+        width: 70%;
         display: none;
     }
 
@@ -115,9 +115,9 @@
 
         <div class="mb-3">
             <img src="/img/stamp.png" id="fixStamp">
-            <img src="/img/stamp.png" id="stamp">
+            <img src="/img/stamp.png" id="stamp" class="stamp">
 <%--            <img src="/img/discorrect.png" id="discorrect">--%>
-            <img id="my-img">
+            <img id="my-img" class="my-img">
         </div>
 
         <div class="mb-3">
@@ -127,13 +127,13 @@
         </div>
 
         <div class="mb-3 flex">
-            <input type="" class="form-control w-25" id="answer"
+            <input type="" class="form-control w-25 media-w" id="answer"
                    name="quiz_result" placeholder="정답을 입력해주세요">
             <div class="result" id="result" style="color: red">틀렸습니다.</div>
         </div>
 
         <div class="mb-3">
-            <button type="button" class="form-control w-25  " id="quiz-button"
+            <button type="button" class="form-control w-25 media-w " id="quiz-button"
                     name="quiz-button">정답확인
             </button>
         </div>
@@ -266,6 +266,7 @@
 
         canvas.width = width;
         canvas.height = height;
+        // canvas.style.width = "150%";
         canvas.style.marginBottom = "10px";
         canvas.style.border = "3px solid black";
     }
@@ -340,12 +341,12 @@
                         $result.style.display="none";
                     }else{
                         $answer.style.border="red solid 2px";
-                        $answer.className="form-control w-25 animate__animated animate__flash";
+                        $answer.className="form-control w-25 media-w animate__animated animate__flash";
                         $result.style.display="block";
                         setTimeout(() =>
                                 $answer.style.border="#ced4da solid 2px", 1200);
                         setTimeout(() =>
-                            $answer.className="form-control w-25",1200);
+                            $answer.className="form-control w-25 media-w",1200);
                     }
                 })
         }

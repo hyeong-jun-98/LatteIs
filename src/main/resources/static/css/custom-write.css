@@ -20,9 +20,10 @@
 .custom-wrap {
     background-color: white;
     border-radius: 5%;
-    width: 650px;
+    width: 90%;
     margin: auto;
-    height: 550px
+    height: 550px;
+    margin-bottom: 20%  ;
 }
 .custom-container {
     width: 95%;
@@ -44,7 +45,7 @@
     width: 200px;
     float: left;
     position: relative;
-
+    margin: auto;
 }
 
 
@@ -75,4 +76,21 @@ html > body {
 
 .detail_div {
     margin-bottom: 2%;
+}
+
+@media screen and (max-width: 390px) {
+
+    .form-size {
+        width: 100%;
+
+    }
+
+    .write-container {
+        width: 100%;
+        margin: 200px auto 150px;
+        font-size: 1.2em;
+        padding: 5%;
+    }
+
+
 }

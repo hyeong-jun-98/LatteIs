@@ -48,7 +48,7 @@ public class RestDiaryController {
 
 //        model.addAttribute("goodCount", totalGoodCount);
         model.addAttribute("d", diary);
-        model.addAttribute("loginUser", loginUser);
+        model.addAttribute("user", loginUser);
 
         return new ResponseEntity<>(new GoodResponseDto(goodCheck, totalGoodCount), HttpStatus.OK);
     }

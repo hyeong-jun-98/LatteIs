@@ -196,5 +196,28 @@ textarea {
 
 .float-right {
     float : right;
+}
+
+/*==================================*/
+@media screen and (max-width: 390px) {
+
+    .my-img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .wrap {
+        width: 100%;
+        margin: 0 auto;
+        padding: 5%;
+    }
+    .media-w {
+        width: 50% !important;
+
+    }
+    .stamp {
+        width: 100%;
+    }
 
 }
+
