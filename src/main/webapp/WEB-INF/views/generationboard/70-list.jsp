@@ -205,7 +205,7 @@
         const $btnWrite = document.getElementById("btn-write");
         if ($btnWrite !== null) {
             $btnWrite.addEventListener("click", function () {
-                location.href = "/generation/write";
+                location.href = "/generation/write?generation=1970";
             });
         }
     }
