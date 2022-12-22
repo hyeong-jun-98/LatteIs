@@ -219,5 +219,15 @@ textarea {
         width: 100%;
     }
 
+    .user-block {
+        flex-wrap: nowrap;
+    }
+    .user-block span:first-child {
+        width: 40%;
+    }
+    .user-block span:last-child {
+        width: auto;
+    }
+
 }
 
