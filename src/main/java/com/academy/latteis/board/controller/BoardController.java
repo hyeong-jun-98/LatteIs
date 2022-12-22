@@ -37,7 +37,7 @@ public class BoardController {
     private final BoardGoodService boardGoodService;
 
     // 업로드 파일 저장 경로
-    private static final String UPLOAD_PATH = "C:/Users/hojong/upload";
+    private static final String UPLOAD_PATH = "D:/sl_djp/upload";
 
     public static String topicName;
 

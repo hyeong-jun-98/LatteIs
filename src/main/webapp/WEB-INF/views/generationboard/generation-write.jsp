@@ -261,7 +261,7 @@
         // 목록 버튼
         const $toList = document.getElementById('to-list');
         $toList.onclick = e => {
-            location.href = "/generation/list";
+            location.href = "/generation/list?generation=${sessionGeneration}";
         }
     }
 
