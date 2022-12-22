@@ -133,7 +133,7 @@ public class DiaryController {
 
         session.setAttribute("referer", request.getHeader("Referer"));
         User loginUser = (User) session.getAttribute("loginUser");
-        model.addAttribute("loginUser", loginUser);
+        model.addAttribute("user", loginUser);
 
         return "diary/diary_write";
     }
@@ -179,7 +179,7 @@ public class DiaryController {
         if(loginUser != null) {
             check = diaryService.goodCheck(diaryNo, (long) loginUser.getUserNo());
         } else {
-            model.addAttribute("user", check);
+            model.addAttribute("check", check);
         }
 
 

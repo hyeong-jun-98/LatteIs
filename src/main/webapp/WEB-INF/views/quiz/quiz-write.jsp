@@ -15,6 +15,7 @@
 
     <%--  topbar  --%>
     <link href="/css/topbar.css" rel="stylesheet">
+    <link href="/css/board/board-detail.css" rel="stylesheet"/>
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
@@ -66,13 +67,33 @@
             width: fit-content;
             margin: 20px auto 30px;
         }
+        /*====================================*/
+        @media screen and (max-width: 390px) {
+
+            .my-img {
+                width: 100%;
+                height: 100%;
+            }
+
+            .wrap {
+                width: 100%;
+                margin: 0 auto;
+                padding: 5%;
+            }
+
+            .main-content {
+                 /*width: 50%;*/
+                 margin: 0 auto;
+             }
+
+        }
     </style>
 </head>
 <body>
 <%@include file="../topbar.jsp" %>
 
 <div class="wrap">
-    <div class="main-content">
+    <div class="main-content wrap">
 
         <h1 class="main-title">퀴즈</h1>
 
@@ -100,7 +121,7 @@
                 <input type="text" class="form-control" id="answer-input" placeholder="10글자 이내의 단어" name="quizAnswer">
             </div>
 
-            <canvas id="canvas"></canvas>
+            <canvas id="canvas" class="my-img"></canvas>
             <div class="sub-content">
                 <div id="palette">
                     <span class="red">red</span>

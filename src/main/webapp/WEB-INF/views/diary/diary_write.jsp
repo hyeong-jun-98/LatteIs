@@ -67,7 +67,7 @@
 
     <div class="write-container">
 
-        <form id="write-form" action="/diary/write" method="post">
+        <form id="write-form" action="/diary/write" method="post" class="form-size">
 
 
             <div>
@@ -97,7 +97,7 @@
             </div>
             <div id="test_cnt">(0 / 100)</div>
 
-            <div class="d-grid gap-2">
+            <div class="d-grid gap-2 mt-5">
                 <button id="reg-btn" class="btn btn-dark custom-button" type="button">일기 작성</button>
                 <button id="to-list" class="btn btn-warning custom-button" type="button">목록</button>
             </div>
