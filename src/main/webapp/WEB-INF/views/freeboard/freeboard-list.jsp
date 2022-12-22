@@ -16,9 +16,9 @@
     <link href="/css/topbar.css" rel="stylesheet">
     <!-- board-list css -->
     <link href="/css/board/board-list.css" rel="stylesheet">
-    <meta content="yes" name="apple-mobile-web-app-capable" />
-    <meta content="minimum-scale=1.0, width=device-width, maximum-scale=1, user-scalable=no" name="viewport" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<%--    <meta content="yes" name="apple-mobile-web-app-capable" />--%>
+<%--    <meta content="minimum-scale=1.0, width=device-width, maximum-scale=1, user-scalable=no" name="viewport" />--%>
+<%--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">--%>
     <style>
         @font-face {
             font-family: 'KyoboHand';
@@ -33,6 +33,7 @@
             overflow: visible;
             font-family: KyoboHand;
         }
+
     </style>
 </head>
 <body>

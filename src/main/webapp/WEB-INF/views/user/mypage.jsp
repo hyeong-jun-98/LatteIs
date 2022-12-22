@@ -81,29 +81,39 @@
         position: relative;
         margin: 1em 0;
     }
+    @media screen and (max-width: 390px) {
+        .mypage_wrapper{
+            width: auto;
+            height: auto;
+        }
+        .myInfo{
+            display: block;
+            height: auto;
+        }
+        table{
+            margin-left: 0;
+        }
+        .myInfo > div{
+            width: auto;
+            margin-left: 0;
+            border-bottom: 2px solid black;
 
-
-    /*.bg{*/
-    /*    width: 80%;*/
-    /*    !*height: 100%;*!*/
-    /*    z-index: -100;*/
-    /*    margin: auto;*/
-    /*    opacity: 0.3;*/
-    /*}*/
-
-    /*.bg .icon{*/
-    /*    width: 100%;*/
-    /*    height: 60%;*/
-    /*    background-image: url("https://cdn-icons-png.flaticon.com/128/6937/6937770.png");*/
-    /*    background-size: 100% 100%;*/
-    /*    background-repeat: no-repeat;*/
-    /*}*/
-    /*.bg .text{*/
-    /*    width: 100%;*/
-    /*    !*height: 40%;*!*/
-    /*    font-size: 80px;*/
-    /*    text-align: center;*/
-    /*}*/
+        }
+        tr td:last-child{
+            padding-left: 0.3em;
+            border-left: 2px solid black;
+        }
+        td{
+            width: 50%;
+            padding-left: 0.8em;
+        }
+        tr{
+            border-bottom: 2px solid black;
+        }
+        tr:last-child{
+            border-bottom: none;
+        }
+    }
 </style>
 <body>
     <%@include file="../topbar.jsp"%>

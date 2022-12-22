@@ -41,6 +41,8 @@ public class LoginUtils {
 
     // 자동 로그인 쿠키 가져오기
     public static Cookie getAutoLoginCookie(HttpServletRequest request) {
+
+
         return WebUtils.getCookie(request, LOGIN_COOKIE);
     }
 

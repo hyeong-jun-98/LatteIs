@@ -83,7 +83,7 @@
                 <div><span></span><div id="m-subc70">70년대</div></div>
             </div>
             <div><span id="freep"></span><div id="m-list">자유게시판</div></div>
-            <div><span id="quizp"></span><div id="m-game">스무고개</div></div>
+            <div><span id="quizp"></span><div id="m-game">퀴즈</div></div>
             <div><span id="diaryp"></span><div id="m-diary">일기</div><span id="diaryArrow" class="dArrowDown"></span></div>
             <div id="m-subcated">
                 <div><span></span><div id="m-subd1">나의 일기</div></div>
@@ -462,11 +462,11 @@
         }
     }
 
-    // 스무고개
+    // 퀴즈
     function mToQuiz(){
         const $quiz = document.getElementById('m-game');
         $quiz.onclick = e =>{
-            location.href = "/quiz"
+            location.href = "/quiz/list"
         }
     }
 

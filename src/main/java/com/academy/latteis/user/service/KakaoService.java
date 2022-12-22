@@ -51,7 +51,7 @@ public class KakaoService implements OAuthService, OAuthValue {
         // 3. 응답 데이터 받기
         try (BufferedReader br
                      = new BufferedReader(
-                             new InputStreamReader(conn.getInputStream()))) {
+                new InputStreamReader(conn.getInputStream()))) {
 
             // 3-a. 응답데이터를 입력스트림으로부터 읽기
             String responseData = br.readLine();

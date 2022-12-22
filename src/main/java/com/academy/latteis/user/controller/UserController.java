@@ -83,7 +83,7 @@ public class UserController {
                 , Model model
                 , HttpSession session // 세션정보 객체
                 , HttpServletResponse response
-                            ,HttpServletRequest request
+                ,HttpServletRequest request
         ) {
 
                 log.info("/member/sign-in POST - {}", inputData);

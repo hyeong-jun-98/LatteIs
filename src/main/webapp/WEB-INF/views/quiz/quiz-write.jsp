@@ -20,53 +20,14 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
     <link href="/css/index.css" rel="stylesheet">
+    <link href="/css/quiz-write.css" rel="stylesheet">
 
-    <%--    <link rel="stylesheet" href="css/animations.css">--%>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+        <link rel="stylesheet" href="css/animations.css">
 
-    <style>
-        .wrap {
-            margin-top: 200px;
-            margin-bottom: 200px;
-        }
-
-        .main-content {
-            width: 50%;
-            margin: 0 auto;
-        }
-
-        .main-content .mb-3 .form-control {
-            background: #fff !important;
-        }
-
-        .main-content * {
-            font-size: 20px;
-        }
-
-        #palette span {
-            font-size: 15px;
-        }
-
-        .sub-content {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .btn-write {
-            display: flex;
-            justify-content: end;
-            margin-top: 10px;
-        }
-
-        .main-content .main-title {
-            font-size: 30px;
-            font-weight: 700;
-            text-align: center;
-            border-bottom: 2px solid rgb(75, 73, 73);
-            padding: 0 20px 15px;
-            width: fit-content;
-            margin: 20px auto 30px;
-        }
-    </style>
 </head>
 <body>
 <%@include file="../topbar.jsp" %>
@@ -103,23 +64,23 @@
             <canvas id="canvas"></canvas>
             <div class="sub-content">
                 <div id="palette">
-                    <span class="red">red</span>
-                    <span class="orange">orange</span>
-                    <span class="yellow">yellow</span>
-                    <span class="green">green</span>
-                    <span class="blue">blue</span>
-                    <span class="navy">navy</span>
-                    <span class="purple">purple</span>
-                    <span class="black">black</span>
-                    <span class="white">white</span>
-                    <span class="gray">gray</span>
+                    <span class="red color">red</span>
+                    <span class="orange color">orange</span>
+                    <span class="yellow color">yellow</span>
+                    <span class="green color">green</span>
+                    <span class="blue color">blue</span>
+                    <span class="navy color">navy</span>
+                    <span class="purple color">purple</span>
+                    <span class="black color">black</span>
+                    <span class="white color">white</span>
+                    <span class="gray color">gray</span>
                     &nbsp; &nbsp;
                     <span class="clear">지우기</span>
                     <span class="fill">채우기</span>
                     <br>
-                    <span class="pink">pink</span>
-                    <span class="brown">brown</span>
-                    <span class="skyblue">skyblue</span>
+                    <span class="pink color">pink</span>
+                    <span class="brown color">brown</span>
+                    <span class="skyblue color">skyblue</span>
                     <br>
                     <br>
                 </div>
@@ -219,8 +180,14 @@
         "clear",
         "fill"
     ];
+    function btnreset(){
+        buttons.forEach((content) =>{
+            let button = document.querySelector(`.\${content}`);
+            button.style.boxShadow= "1px 2px 2px gray";
+            button.className=content;
+        });
+    };
     let lineColor = "black";
-
     buttons.forEach((content) => {
         let button = document.querySelector(`.\${content}`);
 
@@ -240,12 +207,16 @@
         button.style.borderRadius = "25px";
         button.style.boxShadow = "1px 2px 2px gray";
         button.style.marginBottom = "10px";
-
         button.onclick = () => {
             ctx.strokeStyle = content;
             lineColor = content;
+            btnreset();
+            button.className=content+" animate__animated animate__bounce";
+            button.style.boxShadow="0.2px 2px 10px 2px "+ content;
         };
+
     });
+
 
     document.querySelector(".clear").onclick = () => {
         ctx.clearRect(0, 0, width, height);

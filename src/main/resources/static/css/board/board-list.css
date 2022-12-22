@@ -114,3 +114,9 @@ table tr th:nth-child(3) {
     background: lightyellow !important;
     border-color: orange !important;
 }
+
+@media screen and (max-width: 390px){
+    .wrap{
+        font-size: 1px;
+    }
+}

@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width; initial-scale=1">
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <title>회원가입</title>
@@ -79,6 +80,27 @@
     }
     b{
         font-size: 20px;
+    }
+    @media screen and (max-width: 390px) {
+        .login_wrapper{
+            width: 100%;
+            height: 1000px;
+            margin: 0;
+            border-radius: 0px;
+        }
+        body{
+            margin: 0;
+        }
+        .login_form{
+            margin-left: 0;
+        }
+        .login_form .join a{
+            margin-left: 6px;
+            width: 100%;
+        }
+        input:focus{
+            outline: none;
+        }
     }
 </style>
 </head>

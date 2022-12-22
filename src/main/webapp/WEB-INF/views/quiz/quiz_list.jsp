@@ -99,6 +99,18 @@
     .position{
         position: relative;
     }
+
+    .user{
+        font-size: 1.5em !important;
+        height: 1.5em;
+        line-height: 50px;
+    }
+    .user:nth-child(2){
+        font-size: 1.5em !important;
+    }
+    .grade{
+        width: 1.2em;
+    }
 </style>
 
 <body>
@@ -133,7 +145,29 @@
                         <div class="flex justify-between">
                             <div class="w-100">
                                 <div class="d-flex justify-content-between mb-3 div-height">
-                                    <p class="fs-5">${q.quizWriter} [${q.userGrade}]</p>
+                                    <p class="fs-5 user">
+                                        <c:if test="${q.userGrade=='애기'}">
+                                            <img src="/img/10.png" class="grade">
+                                        </c:if>
+                                        <c:if test="${q.userGrade=='유치원생'}">
+                                            <img src="/img/100.png" class="grade">
+                                        </c:if>
+                                        <c:if test="${q.userGrade=='초등학생'}">
+                                            <img src="/img/500.png" class="grade">
+                                        </c:if>
+                                        <c:if test="${q.userGrade=='중학생'}">
+                                            <img src="/img/1000.png" class="grade">
+                                        </c:if>
+                                        <c:if test="${q.userGrade=='고등학생'}">
+                                            <img src="/img/5000.png" class="grade">
+                                        </c:if>
+                                        <c:if test="${q.userGrade=='대학생'}">
+                                            <img src="/img/10000.png" class="grade">
+                                        </c:if>
+                                        <c:if test="${q.userGrade=='졸업생'}">
+                                            <img src="/img/50000.png" class="grade">
+                                        </c:if>
+                                            ${q.quizWriter}</p>
                                     <c:if test="${q.quizScore == '500'}">
                                         <div class="fs-5 bg-size" style="background-image: url('/img/red.png');">${q.quizScore}점</div>
                                     </c:if>

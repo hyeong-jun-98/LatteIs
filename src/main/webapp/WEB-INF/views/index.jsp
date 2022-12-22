@@ -61,7 +61,7 @@
                 <div>베스트 게시글</div>
                 <div>
                     <div>
-                        <div>키워드 게시판</div>
+                        <div>키워드 게시판(All)</div>
                         <div id="tokey">${bk.content}</div>
                         <div>좋아요 ${bk.goodCount}</div>
                         <div>댓글 <c:if test="${bk.commentCount == null}">0</c:if><c:if
@@ -96,7 +96,7 @@
                                 test="${b70.commentCount != null}">${b70.commentCount}</c:if></div>
                     </div>
                     <div>
-                        <div>자유 게시판</div>
+                        <div>자유 게시판(All)</div>
                         <div id="tofree">${bf.content}</div>
                         <div>좋아요 ${bf.goodCount}</div>
                         <div>댓글 <c:if test="${bf.commentCount == null}">0</c:if><c:if

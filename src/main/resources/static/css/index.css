@@ -90,17 +90,18 @@ body{
     display: flex;
     margin: 1em 0;
 }
-#tokey{
-    margin-left: 5em !important;
-}
+
 #tofree{
-    margin-left: 5.7em !important;
+    margin-left: 3.8em !important;
 }
 .today #board > div:last-child >div >div:nth-child(2){
     margin-left: 3em;
     cursor: pointer;
     width: 55%;
     text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .today #board > div:last-child >div >div:nth-child(4){
     margin-left: 3em;
@@ -126,18 +127,6 @@ body{
     background: black;
 }
 
-/*.today #bestDiary span:nth-child(1){left: 0; top: 0; width: 0; height: 5px; transition: width 0.1s;}*/
-/*.today #bestDiary span:nth-child(2){right: 0; top: 0; width: 5px; height: 0; transition: height 0.1s linear 0.1s;}*/
-/*.today #bestDiary span:nth-child(3){right: 0; bottom: 0; width: 0; height: 5px; transition: width 0.1s linear 0.2s;}*/
-/*.today #bestDiary span:nth-child(4){left: 0; bottom: 0; width: 5px; height: 0; transition: height 0.1s linear 0.3s;}*/
-/*.today #bestDiary span:nth-child(1){left: 0; top: 0; width: 0; height: 5px; transition: width 0.1s;}*/
-/*.today #bestDiary span:nth-child(2){right: 0; top: 0; width: 5px; height: 0; transition: height 0.1s;}*/
-/*.today #bestDiary span:nth-child(3){right: 0; bottom: 0; width: 0; height: 5px; transition: width 0.1s;}*/
-/*.today #bestDiary span:nth-child(4){left: 0; bottom: 0; width: 5px; height: 0; transition: height 0.1s;}*/
-/*.today #bestDiary:hover span:nth-child(1){width: 100%;}*/
-/*.today #bestDiary:hover span:nth-child(2){height: 100%;}*/
-/*.today #bestDiary:hover span:nth-child(3){width: 100%;}*/
-/*.today #bestDiary:hover span:nth-child(4){height: 100%;}*/
 .today #bestDiary div{
     margin-top: 10px;
     font-size: 20px;
@@ -520,20 +509,6 @@ a{
     .today #board > div:last-child >div{
         font-size: 8px;
     }
-    #tokey{
-        margin-left: 3.5em !important;
-    }
-    #tofree{
-        margin-left: 3em !important;
-    }
-    .today #board > div:last-child >div:first-child >div:first-child{
-        width: 60px;
-        margin-left: 5px;
-    }
-    .today #board > div:last-child >div:last-child >div:first-child{
-        width: 60px;
-        margin-left: 5px;
-    }
     .keyword_describe div:first-child{
         font-size: 20px;
     }
@@ -568,6 +543,63 @@ a{
     .keyword_picture > .next {
         top: 65%;
     }
+    .today #board{
+        width: 100%;
+        display: block;
+        background: white;
+        border-radius: 20px;
+        padding: 2em;
+        padding-bottom: 0;
+        font-size: 10px;
+    }
+        .today #board > div:first-child {
+            text-align: left;
+            border-bottom: 2px black solid;
+            line-height: 1em;
+            font-size: 3.5em;
+        }
+
+        .today #board > div:last-child {
+            padding: 1em 0;
+            font-size: 1em;
+        }
+
+        .today #board > div:last-child > div {
+            line-height: 1em;
+            display: flex;
+            flex-wrap: wrap;
+            margin: 1em 0;
+            border: 2px solid black;
+            min-height: 80px;
+            border-radius: 15px;
+        }
+
+        .today #board > div:last-child > div > div:nth-child(1) {
+            width: 35%;
+            font-size: 2em;
+            line-height: 2em;
+        }
+
+        .today #board > div:last-child > div > div:nth-child(2) {
+            margin-left: 3%;
+            cursor: pointer;
+            width: 60%;
+            text-align: left;
+            font-size: 2em;
+            line-height: 2em;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .today #board > div:last-child > div > div:nth-child(3) {
+            margin-left: 13em;
+        }
+
+        .today #board > div:last-child > div > div:nth-child(4) {
+            margin-left: 3em;
+        }
+
+
 }
 
 

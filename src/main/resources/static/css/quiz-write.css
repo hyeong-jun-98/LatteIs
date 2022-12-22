@@ -1,0 +1,51 @@
+
+.wrap {
+    margin-top: 200px;
+    margin-bottom: 200px;
+}
+
+.main-content {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.main-content .mb-3 .form-control {
+    background: #fff !important;
+}
+
+.main-content * {
+    font-size: 20px;
+}
+
+#palette span {
+    font-size: 15px;
+}
+
+.sub-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-write {
+    display: flex;
+    justify-content: end;
+    margin-top: 10px;
+}
+
+.main-content .main-title {
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    border-bottom: 2px solid rgb(75, 73, 73);
+    padding: 0 20px 15px;
+    width: fit-content;
+    margin: 20px auto 30px;
+}
+canvas:hover{
+    cursor: url("/img/smallpencil.png"), auto;
+}
+
+span:hover{
+    cursor: pointer;
+    transform: translateY( -5px );
+}
