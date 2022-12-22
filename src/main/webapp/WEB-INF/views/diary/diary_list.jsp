@@ -130,7 +130,7 @@
     <c:forEach var="d" items="${dPList}">
         <div class="lg:w-1/4 md:w-1/2 w-full p-5 articles margin " data-diary-num="${d.diaryNo}">
             <a href="#" style="color: black">
-                <div class="hover:shadow-2x1 card shadow-lg w-full h-full break-all hover">
+                <div class="hover:shadow-2x1 card shadow-lg w-full h-full break-all hover  ">
                     <div class="card-body h-72 bg-white">
                         <div class="flex justify-between">
                             <div class="w-100">
