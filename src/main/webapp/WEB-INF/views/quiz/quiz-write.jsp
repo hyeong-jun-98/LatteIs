@@ -15,11 +15,6 @@
 
     <%--  topbar  --%>
     <link href="/css/topbar.css" rel="stylesheet">
-    <link href="/css/board/board-detail.css" rel="stylesheet"/>
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
     <link href="/css/index.css" rel="stylesheet">
     <link href="/css/quiz-write.css" rel="stylesheet">
 
@@ -28,7 +23,7 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
         <link rel="stylesheet" href="css/animations.css">
-
+    <style>
         .main-content * {
             font-size: 20px;
         }

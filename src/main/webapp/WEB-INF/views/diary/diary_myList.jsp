@@ -36,6 +36,7 @@
         background-size: cover;
         overflow: visible;
         font-family: KyoboHand;
+        min-height: 844px;
     }
 
 

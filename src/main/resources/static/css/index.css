@@ -598,6 +598,9 @@ a{
         .today #board > div:last-child > div > div:nth-child(4) {
             margin-left: 3em;
         }
+        body{
+            min-height: 844px;
+        }
 
 
 }

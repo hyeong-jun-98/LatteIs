@@ -29,7 +29,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
         // 게시판 인터셉터 설정
         registry.addInterceptor(boardInterceptor)
-                .addPathPatterns("/freeboard/*", "/generation/*", "/keyword/*", "/user/revise", "/user/exit", "/user/mypage")
+                .addPathPatterns("/freeboard/*", "/generation/*", "/keyword/*", "/user/revise", "/user/exit", "/user/mypage", "/kakaoinfo", "/kakaoemail", "/kakaonickname", "/kakao/logout")
                 .excludePathPatterns("/freeboard/list", "/freeboard/content", "/generation/list", "/generation/content", "/keyword/list", "/keyword/content");
 
         // 일기장 인터셉터 설정
@@ -49,6 +49,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
         // 홈 화면 인터샙터 설정
         registry.addInterceptor(homeInterceptor)
                         .addPathPatterns("/");
+
         // 자동 로그인 인터셉터 설정
         registry.addInterceptor(autoLoginInterceptor)
                 .addPathPatterns("/","/**");

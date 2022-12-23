@@ -52,7 +52,7 @@ public class UserService {
         Map<String, Object> checkMap = new HashMap<>();
         checkMap.put("type", type);
         checkMap.put("value", value);
-        return userMapper.isDuplicate(checkMap) == 1;
+        return userMapper.isDuplicate(checkMap) != 0;
     }
 
     public LoginFlag login(LoginDTO inputData, HttpSession session, HttpServletResponse response) {

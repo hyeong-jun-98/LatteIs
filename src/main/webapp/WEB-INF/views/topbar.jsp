@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <div class="topbar">
+
     <div class="icon-wrapper" id="home" style="cursor: pointer">
         <div class="icon">
-
         </div>
         <div class="icon-text">
             Latte is...
@@ -66,6 +66,7 @@
     </c:if>
 </div>
 <div class="menu" id="menu">
+    <img src="/img/arrow.png" id="back">
     <div>
         <div class="menu-icon-wrapper">
             <div></div>
@@ -98,8 +99,10 @@
         </c:if>
         <c:if test="${loginUser != null}">
             <div class="m-nickname" style="cursor: pointer">
-                <div id="m-tomypage">${loginUser.userNickname}</div>
-                <div id="m-logout">/로그아웃</div>
+                <div id="login-mapper">
+                    <div id="m-tomypage">${loginUser.userNickname}</div>
+                    <div id="m-logout">/로그아웃</div>
+                </div>
             </div>
         </c:if>
     </div>
@@ -343,11 +346,19 @@
         const $menu = document.getElementById("menu");
         const $subDiary = document.getElementById("m-subcated");
         const $subGene = document.getElementById("m-subcatec");
+        const $back = document.getElementById("back");
         document.onclick = e =>{
             if(e.target.matches('.menu *')||e.target.matches('#homeMenu')) return;
             if($menu.className!="menu") {
-                console.log('document click 이벤트!! d=none');
-
+                $menu.className = "menu animate__animated animate__slideOutRight";
+                $subDiary.style.display = "none";
+                $subDiary.className = "";
+                $subGene.style.display = "none";
+                $subGene.className = "";
+            }
+        }
+        $back.onclick = e =>{
+            if($menu.className!="menu") {
                 $menu.className = "menu animate__animated animate__slideOutRight";
                 $subDiary.style.display = "none";
                 $subDiary.className = "";

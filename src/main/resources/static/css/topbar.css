@@ -229,14 +229,15 @@
         background-size: 100% 100%;
     }
 
-    .menu > div:first-child {
-        height: 20%;
-        border-bottom: 2px black solid;
-    }
+    /*.menu > div:first-child {*/
+    /*    height: 20%;*/
+    /*    border-bottom: 2px black solid;*/
+    /*}*/
 
     .menu > div:nth-child(2) {
-        height: 60%;
+        height: 30%;
         padding: 20px;
+        border-bottom: 2px solid black;
     }
 
     .menu > div:last-child {
@@ -261,6 +262,12 @@
     .menu-icon-wrapper > div:last-child {
         text-align: center;
         font-size: 15px;
+    }
+
+    .menu-category{
+        height: 500px;
+        padding-top: 20px;
+        padding-left: 10px;
     }
 
     .menu-category > div {
@@ -338,6 +345,19 @@
         margin-top: 30px;
         margin-right: 10px;
         text-align: right;
+    }
+    #back{
+        width: 20px;
+        height: 20px;
+        transform: rotate(-90deg);
+        position: absolute;
+        left: 20px;
+        top: 20px;
+    }
+    #login-mapper{
+        display: flex;
+        position: absolute;
+        right: 0;
     }
 }
 
