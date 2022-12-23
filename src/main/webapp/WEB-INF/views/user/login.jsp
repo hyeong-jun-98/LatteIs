@@ -145,7 +145,7 @@
                 <button id="login">로그인</button>
                 <button id="joinform">회원가입</button>
                 <button id="home">홈으로</button>
-                <a id="custom-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=${kakaoAppKey}&redirect_uri=http://localhost:8184${kakaoRedirect}&response_type=code">
+                <a id="custom-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=${kakaoAppKey}&redirect_uri=http://15.165.29.94${kakaoRedirect}&response_type=code">
                     <img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300"/>
                 </a>
             </div>
