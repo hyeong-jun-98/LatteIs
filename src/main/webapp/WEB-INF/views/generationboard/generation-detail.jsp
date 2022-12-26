@@ -37,6 +37,7 @@
         <h1 class="main-title">연령대별 게시판</h1>
         <div class="board-no-title">
             <span>${board.boardNo}번 게시물 - ${board.generation}년대</span>
+            <span>${board.prettierDate}</span>
         </div>
 
         <div class="mb-3">

@@ -143,6 +143,14 @@ public class BoardService {
         b.setPrettierDate(sdf.format(date));
     }
 
+
+    // 게시글 상세보기 날짜 형식 초기화 메소드
+    private void findOneConvertDateFormat(BoardGoodDTO b) {
+        Date date = b.getRegdate();
+        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd a hh:mm");
+        b.setPrettierDate(sdf.format(date));
+    }
+
     // 제목 단축 메소드
     private void substringTitle(BoardConvertDTO b) {
         // 만약에 글제목이 10글자 이상이라면
@@ -187,6 +195,10 @@ public class BoardService {
         log.info("findOne service start- {}", boardNo);
 
         List<BoardGoodDTO> boardList = boardMapper.findOne(boardNo);
+        for (BoardGoodDTO b : boardList){
+            findOneConvertDateFormat(b);
+        }
+
         log.info("findOne service end- {}", boardNo);
         // 해당 게시물 번호에 해당하는 쿠키가 있는지 확인
         // 쿠키가 없으면 조회수를 상승시켜주고 쿠키를 만들어서 클라이언트에 전송

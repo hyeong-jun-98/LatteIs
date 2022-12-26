@@ -39,6 +39,7 @@
             <h1 class="main-title">자유게시판</h1>
             <div class="board-no-title">
                 <span>${board.boardNo}번 게시물</span>
+                <span>${board.prettierDate}</span>
             </div>
 
             <div class="mb-3">

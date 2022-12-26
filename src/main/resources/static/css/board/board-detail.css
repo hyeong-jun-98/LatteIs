@@ -47,6 +47,9 @@ body {
     font-size: 20px;
     margin-bottom: 20px;
     color: #808080;
+
+    display: flex;
+    justify-content: space-between;
 }
 
 .content-container .main-content {
