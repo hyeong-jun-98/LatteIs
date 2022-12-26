@@ -106,8 +106,10 @@
                 height: 1000px;
                 margin: 0;
                 border-radius: 0px;
+                box-sizing: border-box;
             }
             .login_form{
+                width: 100%;
                 left: 10%;
                 margin-left: 0;
             }
@@ -115,7 +117,7 @@
                 margin: 0;
             }
             .login_form .join a{
-                margin-left: 6px;
+                margin-left: 1%;
                 width: 100%;
             }
             .bg .text{
