@@ -19,9 +19,7 @@ public class TopicScheduler {
     private final BoardService boardService;
     public Long topicNo = 1L;
 
-//    @Scheduled(cron = "0 0 0 * * *")    // 매일 00시 정각
-//    @Scheduled(fixedDelay = 1000 * 60 * 10)
-    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "0 0 0 * * ?")
     public void getTopic() {
         if (topicNo > 4){
             topicNo = 1L;
