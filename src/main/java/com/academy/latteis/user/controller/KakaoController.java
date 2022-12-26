@@ -31,6 +31,10 @@ public class KakaoController {
     // 카카오 인증서버가 보내준 인가코드를 받아서 처리할 메서드
     @GetMapping(KAKAO_REDIRECT_URI)
     public String kakaoLogin(String code, HttpSession session, HttpServletRequest request) throws Exception {
+
+        String referer = (String) session.getAttribute("referer");
+        String url = referer.substring(referer.indexOf("/"));
+
         log.info("{} GET!! code - {}", KAKAO_REDIRECT_URI, code);
         // 인가코드를 통해 액세스토큰 발급받기
         // 우리서버에서 카카오서버로 통신을 해야함.
@@ -38,26 +42,23 @@ public class KakaoController {
 
         // 액세스 토큰을 통해 사용자 정보 요청(프로필사진, 닉네임 등)
         KaKaoUserInfoDTO userInfo = kakaoService.getKakaoUserInfo(accessToken);
+        if(userInfo.getEmail()==null) {
+            // 로그인 처리
+            if (userInfo != null) {
+                User user = new User();
 
-        // 로그인 처리
-        if (userInfo != null) {
-            User user = new User();
-
-            user.setUserEmail(userInfo.getEmail());
-            user.setUserName(userInfo.getNickName());
-            session.setAttribute(LOGIN_FLAG, user);
-            session.setAttribute("profile_path", userInfo.getProfileImg());
-            session.setAttribute(LOGIN_FROM, KAKAO);
-            session.setAttribute("accessToken", accessToken);
-            session.setAttribute("loginUser", user);
-            log.info("test {}", user);
-            return "redirect:/kakaoinfo";
+                user.setUserEmail(userInfo.getEmail());
+                user.setUserName(userInfo.getNickName());
+                session.setAttribute(LOGIN_FLAG, user);
+                session.setAttribute("profile_path", userInfo.getProfileImg());
+                session.setAttribute(LOGIN_FROM, KAKAO);
+                session.setAttribute("accessToken", accessToken);
+                session.setAttribute("loginUser", user);
+                log.info("test {}", user);
+                return "redirect:/kakaoinfo";
+            }
+            return "redirect:/user/login";
         }
-
-        String referer = (String) session.getAttribute("referer");
-        log.info("referer 테스트 - {}", referer);
-        String url = referer.substring(referer.indexOf("/"));
-        log.info("자르기 테스트 - {}",url);
         return "redirect:"+url;
     }
     @GetMapping("/kakaoinfo")
@@ -65,17 +66,18 @@ public class KakaoController {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("loginUser");
         log.info(request.getHeader("Referer"));
+        String referer = (String) session.getAttribute("referer");
+        String url = referer.substring(referer.indexOf("/"));
         log.info(session.getAttribute("loginUser"));
         String login = "kakao";
         if(user.getUserEmail()==null){
-            return "/user/kakao_email";
+            return "redirect:"+url;
         }else{
             boolean check = kakaoService.kakaoLogin(session, login);
             log.info("true? false? {}", check);
-            String referer = (String) session.getAttribute("referer");
             log.info("referer 테스트 - {}", referer);
             if(referer !=null) {
-                String url = referer.substring(referer.indexOf("/"));
+
                 log.info("자르기 테스트 - {}",url);
                 return check ? "redirect:"+url : "/user/kakao_nickname";
             }

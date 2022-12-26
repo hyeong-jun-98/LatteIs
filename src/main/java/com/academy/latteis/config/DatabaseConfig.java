@@ -12,6 +12,15 @@ import javax.sql.DataSource;
 @Configuration
 @PropertySource("classpath:db_info.properties")
 public class DatabaseConfig {
+//    @Value("${aws.rds_user_name}")
+//    private String username;
+//
+//    @Value("${aws.rds_password}")
+//    private String password;
+//
+//    @Value("${aws.rds_url}")
+//    private String url;
+
     @Value("${aws.rds_user_name}")
     private String username;
 
@@ -20,6 +29,7 @@ public class DatabaseConfig {
 
     @Value("${aws.rds_url}")
     private String url;
+
 
     @Bean
     public DataSource dataSource(){ // <bean id="dataSource"

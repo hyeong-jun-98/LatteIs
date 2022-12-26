@@ -20,7 +20,7 @@
 .custom-wrap {
     background-color: white;
     border-radius: 5%;
-    width: 90%;
+    width: 800px;
     margin: auto;
     height: 550px;
     margin-bottom: 20%  ;
@@ -82,7 +82,6 @@ html > body {
 
     .form-size {
         width: 100%;
-
     }
 
     .write-container {
@@ -90,6 +89,15 @@ html > body {
         margin: 200px auto 150px;
         font-size: 1.2em;
         padding: 5%;
+    }
+
+    .custom-wrap {
+        background-color: white;
+        border-radius: 5%;
+        width: 90%;
+        margin: auto;
+        height: 550px;
+        margin-bottom: 20%  ;
     }
 
 
