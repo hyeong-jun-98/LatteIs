@@ -190,7 +190,7 @@
     background-size: 100% 100%;
 }
 
-@media screen and (max-width: 390px) {
+@media screen and (max-width: 412px) {
     .topbar {
         height: 80px;
         padding: 5px;

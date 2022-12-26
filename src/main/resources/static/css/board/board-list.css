@@ -138,14 +138,14 @@ table tr th:nth-child(3) {
     border-color: orange !important;
 }
 
-@media screen and (max-width: 390px){
+@media screen and (max-width: 412px){
     .wrap{
         font-size: 1px;
     }
 }
 
 /* 아이폰 12 프로 화면 */
-@media screen and (max-width: 390px) {
+@media screen and (max-width: 412px) {
     html {
         min-height: 844px;
     }

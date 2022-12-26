@@ -475,7 +475,7 @@ body{
 a{
     text-decoration: none;
 }
-@media screen and (max-width: 390px) {
+@media screen and (max-width: 412px) {
     .title{
         font-size:40px;
         margin-top: 0;
