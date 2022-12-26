@@ -74,18 +74,23 @@ public class KakaoController {
         String url = referer.substring(referer.indexOf("/"));
         log.info(session.getAttribute("loginUser"));
         String login = "kakao";
+        User loginUser = null;
 
         if(user.getUserEmail()!=null) {//카카오 이메일 동의
-            if(userMapper.findUser(user.getUserEmail(),login)==null){//카카오 이메일 동의+첫 로그인
+            loginUser = userMapper.findUser(user.getUserEmail(),login);
+            if(loginUser==null){//카카오 이메일 동의+첫 로그인
                 return "/user/kakao_nickname";
             }else {//카카오 이메일 비동의 + n번째 로그인
+                session.setAttribute("loginUser", loginUser);
                 return "redirect:"+url;
             }
         }
         else{//카카오 이메일 비동의
-            if(userMapper.findUser((String)session.getAttribute("kakaoEmail"),login)==null){//카카오 이메일 비동의+첫 로그인
+            loginUser = userMapper.findUser((String)session.getAttribute("kakaoEmail"),login);
+            if(loginUser==null){//카카오 이메일 비동의+첫 로그인
                 return "/user/kakao_email";
             }else {//카카오 이메일 비동의 + n번째 로그인
+                session.setAttribute("loginUser", loginUser);
                 return "redirect:"+url;
             }
         }
