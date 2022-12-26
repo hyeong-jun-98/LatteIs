@@ -199,6 +199,7 @@
 
 
     (function(){
+        kakao();
         login();
         joinform();
         home();
