@@ -180,6 +180,7 @@
     function toExit(){
         document.getElementById("toExit").onclick = e =>{
             if (confirm("정말 회원정보를 삭제 하겠습니까?") == true){    //확인
+                localStorage.removeItem("userEmail");
                 location.href="/user/exit";
             }else{   //취소
                 return;
