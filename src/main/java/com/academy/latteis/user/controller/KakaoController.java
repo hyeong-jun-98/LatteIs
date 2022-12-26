@@ -36,6 +36,9 @@ public class KakaoController {
         String url = referer.substring(referer.indexOf("/"));
 
         log.info("{} GET!! code - {}", KAKAO_REDIRECT_URI, code);
+        for(int i=0; i<10; i++) {
+            log.info("카카오 로그인 세션 확인{}", session.getAttribute("loginUser"));
+        }
         // 인가코드를 통해 액세스토큰 발급받기
         // 우리서버에서 카카오서버로 통신을 해야함.
         String accessToken = kakaoService.getAccessToken(code);
