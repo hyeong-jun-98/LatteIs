@@ -109,6 +109,7 @@
             }
             .login_form{
                 left: 10%;
+                margin-left: 0;
             }
             body{
                 margin: 0;
