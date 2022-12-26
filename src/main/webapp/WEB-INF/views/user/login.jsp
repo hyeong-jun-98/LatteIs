@@ -108,7 +108,7 @@
                 border-radius: 0px;
             }
             .login_form{
-                margin-left: 0;
+                margin-left: 5%;
             }
             body{
                 margin: 0;
