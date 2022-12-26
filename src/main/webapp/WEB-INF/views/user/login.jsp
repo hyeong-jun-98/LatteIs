@@ -118,6 +118,10 @@
             }
             .login_form .join a{
                 width: 100%;
+                margin-left: 0;
+            }
+            .login_form .join a >img{
+                width: 100%;
             }
             .bg .text{
                 line-height: 0px;
