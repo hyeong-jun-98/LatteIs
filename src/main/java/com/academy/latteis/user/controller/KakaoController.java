@@ -61,7 +61,7 @@ public class KakaoController {
                 return "redirect:/kakaoinfo";
             }
         }
-        return "redirect:"+url;
+        return "redirect:"+KAKAO_REDIRECT_URI;
     }
     @GetMapping("/kakaoinfo")
     public String kakaoInfo(HttpServletRequest request){
