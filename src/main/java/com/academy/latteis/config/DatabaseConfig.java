@@ -21,13 +21,13 @@ public class DatabaseConfig {
 //    @Value("${aws.rds_url}")
 //    private String url;
 
-    @Value("${local.db.username}")
+    @Value("${aws.rds_user_name}")
     private String username;
 
-    @Value("${local.db.password}")
+    @Value("${aws.rds_password}")
     private String password;
 
-    @Value("${local.db.url}")
+    @Value("${aws.rds_url}")
     private String url;
 
 

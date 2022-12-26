@@ -36,13 +36,16 @@ public class KakaoController {
         String url = referer.substring(referer.indexOf("/"));
 
         log.info("{} GET!! code - {}", KAKAO_REDIRECT_URI, code);
+        for(int i=0; i<10; i++) {
+            log.info("카카오 로그인 세션 확인{}", session.getAttribute("loginUser"));
+        }
         // 인가코드를 통해 액세스토큰 발급받기
         // 우리서버에서 카카오서버로 통신을 해야함.
         String accessToken = kakaoService.getAccessToken(code);
 
         // 액세스 토큰을 통해 사용자 정보 요청(프로필사진, 닉네임 등)
         KaKaoUserInfoDTO userInfo = kakaoService.getKakaoUserInfo(accessToken);
-        if(userInfo.getEmail()==null) {
+        if(userInfo.getEmail()!=null) {
             // 로그인 처리
             if (userInfo != null) {
                 User user = new User();
@@ -57,7 +60,6 @@ public class KakaoController {
                 log.info("test {}", user);
                 return "redirect:/kakaoinfo";
             }
-            return "redirect:"+url;
         }
         return "redirect:"+url;
     }
