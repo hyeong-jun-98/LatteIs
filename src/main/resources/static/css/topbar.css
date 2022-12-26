@@ -242,7 +242,7 @@
     .menu > div:nth-child(2) {
         height: 30%;
         padding: 20px;
-        border-bottom: 2px solid black;
+        /*border-bottom: 2px solid black;*/
     }
 
     .menu > div:last-child {
@@ -342,7 +342,6 @@
     }
 
     .m-login {
-        margin-top: 30px;
         margin-right: 10px;
         text-align: right;
     }
