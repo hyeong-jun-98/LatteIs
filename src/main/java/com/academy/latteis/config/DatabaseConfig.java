@@ -19,7 +19,7 @@ public class DatabaseConfig {
 //    private String password;
 //
 //    @Value("${aws.rds_url}")
-//    private String url;
+//    private String url;sd
 
     @Value("${aws.rds_user_name}")
     private String username;
