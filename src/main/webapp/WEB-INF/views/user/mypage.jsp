@@ -81,7 +81,7 @@
         position: relative;
         margin: 1em 0;
     }
-    @media screen and (max-width: 390px) {
+    @media screen and (max-width: 412px) {
         .mypage_wrapper{
             width: auto;
             height: auto;
