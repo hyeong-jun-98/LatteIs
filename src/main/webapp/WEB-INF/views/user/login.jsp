@@ -100,7 +100,7 @@
             font-size: 80px;
             text-align: center;
         }
-        @media screen and (max-width: 412px) {
+        @media screen and (max-width: 820px) {
             .login_wrapper{
                 width: 100%;
                 height: 1000px;
