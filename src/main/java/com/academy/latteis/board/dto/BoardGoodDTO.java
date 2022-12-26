@@ -22,4 +22,7 @@ public class BoardGoodDTO {
 
     // good
     private String userNo;  // 좋아요를 누가 눌렀냐..
+
+    private String prettierDate;    // 변경된 날짜 포맷 문자열
+
 }

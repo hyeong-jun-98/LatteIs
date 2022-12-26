@@ -37,6 +37,7 @@
         <h1 class="main-title">키워드 게시판</h1>
         <div class="board-no-title">
             <span>${board.boardNo}번 게시물 (${board.topicName})</span>
+            <span>${board.prettierDate}</span>
         </div>
 
         <div class="mb-3">
@@ -60,7 +61,7 @@
 
         <!-- 댓글 영역 -->
         <div id="comments" class="row">
-            <div class="offset-md-1 col-md-10">
+            <div class="col-md-12">
                 <!--댓글 내용 영역-->
                 <div class="card">
                     <!-- 댓글 내용 헤더 -->

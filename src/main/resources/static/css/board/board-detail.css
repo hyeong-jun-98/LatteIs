@@ -47,6 +47,9 @@ body {
     font-size: 20px;
     margin-bottom: 20px;
     color: #808080;
+
+    display: flex;
+    justify-content: space-between;
 }
 
 .content-container .main-content {
@@ -202,7 +205,7 @@ textarea {
 }
 
 /*==================================*/
-@media screen and (max-width: 412px) {
+@media screen and (max-width: 820px) {
 
     .my-img {
         width: 100%;
