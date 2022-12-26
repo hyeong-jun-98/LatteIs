@@ -108,7 +108,7 @@
                 border-radius: 0px;
             }
             .login_form{
-                margin-left: 5%;
+                left: 10%;
             }
             body{
                 margin: 0;
@@ -122,6 +122,7 @@
                 font-size: 3em;
             }
             .bg{
+                width: 100%;
                 height: 80%;
                 margin: 0;
             }
