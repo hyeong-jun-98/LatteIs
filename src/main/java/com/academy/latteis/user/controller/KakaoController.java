@@ -57,7 +57,7 @@ public class KakaoController {
                 log.info("test {}", user);
                 return "redirect:/kakaoinfo";
             }
-            return "redirect:"+url;
+            return "redirect:/user/login";
         }
         return "redirect:"+url;
     }
