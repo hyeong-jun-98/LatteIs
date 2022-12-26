@@ -7,10 +7,13 @@ import com.academy.latteis.user.service.KakaoService;
 import com.academy.latteis.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.HttpEntityMethodProcessor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,16 +39,13 @@ public class KakaoController {
         String url = referer.substring(referer.indexOf("/"));
 
         log.info("{} GET!! code - {}", KAKAO_REDIRECT_URI, code);
-        for(int i=0; i<10; i++) {
-            log.info("카카오 로그인 세션 확인{}", session.getAttribute("loginUser"));
-        }
+
         // 인가코드를 통해 액세스토큰 발급받기
         // 우리서버에서 카카오서버로 통신을 해야함.
         String accessToken = kakaoService.getAccessToken(code);
 
         // 액세스 토큰을 통해 사용자 정보 요청(프로필사진, 닉네임 등)
         KaKaoUserInfoDTO userInfo = kakaoService.getKakaoUserInfo(accessToken);
-        if(userInfo.getEmail()!=null) {
             // 로그인 처리
             if (userInfo != null) {
                 User user = new User();
@@ -60,13 +60,13 @@ public class KakaoController {
                 log.info("test {}", user);
                 return "redirect:/kakaoinfo";
             }
-        }
-        return "redirect:"+KAKAO_REDIRECT_URI;
+        return "redirect:"+url;
     }
     @GetMapping("/kakaoinfo")
     public String kakaoInfo(HttpServletRequest request){
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("loginUser");
+        user.setUserEmail((String)session.getAttribute("kakaoEmail"));
         log.info(request.getHeader("Referer"));
         String referer = (String) session.getAttribute("referer");
         String url = referer.substring(referer.indexOf("/"));
@@ -81,9 +81,9 @@ public class KakaoController {
             if(referer !=null) {
 
                 log.info("자르기 테스트 - {}",url);
-                return check ? "redirect:"+url : "/user/kakao_nickname";
+                return check ? "redirect:"+url : "/user/kakao_email";
             }
-            return check ? "redirect:/" : "/user/kakao_nickname";
+            return check ? "redirect:/" : "/user/kakao_email";
         }
     }
     @PostMapping("/kakaoemail")
@@ -128,5 +128,13 @@ public class KakaoController {
         session.invalidate();
 
         return "redirect:/user/login";
+    }
+
+    @GetMapping("/kakao/email")
+    @ResponseBody
+    public void check(String userEmail, HttpSession session) {
+        log.info("로컬스토리지 이메일 {}", userEmail);
+        session.setAttribute("kakaoEmail", userEmail);
+
     }
 }
