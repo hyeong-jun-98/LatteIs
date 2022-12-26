@@ -336,15 +336,15 @@ body{
     display: none;
 }
 .quiz_picture div:nth-child(1){
-    background-image: url("/img/quizMain.png");
+    background-image: url("/img/quizMain.PNG");
     display: block;
 }
 .quiz_picture div:nth-child(2){
-    background-image: url("/img/quizWrite.png");
+    background-image: url("/img/quizWrite.PNG");
     display: block;
 }
 .quiz_picture div:nth-child(3){
-    background-image: url("/img/quizDetail.png");
+    background-image: url("/img/quizDetail.PNG");
     display: block;
 }
 /*.quiz_picture div:nth-child(2){*/
