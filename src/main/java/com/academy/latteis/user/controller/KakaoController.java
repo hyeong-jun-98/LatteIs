@@ -2,6 +2,7 @@ package com.academy.latteis.user.controller;
 
 import com.academy.latteis.user.domain.User;
 import com.academy.latteis.user.dto.KaKaoUserInfoDTO;
+import com.academy.latteis.user.repository.UserMapper;
 import com.academy.latteis.user.service.KakaoService;
 
 import com.academy.latteis.user.service.UserService;
@@ -29,6 +30,8 @@ import static com.academy.latteis.user.domain.SNSLogin.*;
 public class KakaoController {
 
     private final KakaoService kakaoService;
+    private final UserMapper userMapper;
+
 
 
     // 카카오 인증서버가 보내준 인가코드를 받아서 처리할 메서드
@@ -66,25 +69,27 @@ public class KakaoController {
     public String kakaoInfo(HttpServletRequest request){
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("loginUser");
-        user.setUserEmail((String)session.getAttribute("kakaoEmail"));
         log.info(request.getHeader("Referer"));
         String referer = (String) session.getAttribute("referer");
         String url = referer.substring(referer.indexOf("/"));
         log.info(session.getAttribute("loginUser"));
         String login = "kakao";
-        if(user.getUserEmail()==null){
-            return "redirect:"+url;
-        }else{
-            boolean check = kakaoService.kakaoLogin(session, login);
-            log.info("true? false? {}", check);
-            log.info("referer 테스트 - {}", referer);
-            if(referer !=null) {
 
-                log.info("자르기 테스트 - {}",url);
-                return check ? "redirect:"+url : "/user/kakao_email";
+        if(user.getUserEmail()!=null) {//카카오 이메일 동의
+            if(userMapper.findUser(user.getUserEmail(),login)==null){//카카오 이메일 동의+첫 로그인
+                return "/user/kakao_nickname";
+            }else {//카카오 이메일 비동의 + n번째 로그인
+                return "redirect:"+url;
             }
-            return check ? "redirect:/" : "/user/kakao_email";
         }
+        else{//카카오 이메일 비동의
+            if(userMapper.findUser((String)session.getAttribute("kakaoEmail"),login)==null){//카카오 이메일 비동의+첫 로그인
+                return "/user/kakao_email";
+            }else {//카카오 이메일 비동의 + n번째 로그인
+                return "redirect:"+url;
+            }
+        }
+
     }
     @PostMapping("/kakaoemail")
     public String kakaoEmail(HttpSession session, User user) throws Exception{
