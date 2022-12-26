@@ -65,17 +65,18 @@ public class KakaoController {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("loginUser");
         log.info(request.getHeader("Referer"));
+        String referer = (String) session.getAttribute("referer");
+        String url = referer.substring(referer.indexOf("/"));
         log.info(session.getAttribute("loginUser"));
         String login = "kakao";
         if(user.getUserEmail()==null){
-            return "/user/kakao_email";
+            return "redirect:"+url;
         }else{
             boolean check = kakaoService.kakaoLogin(session, login);
             log.info("true? false? {}", check);
-            String referer = (String) session.getAttribute("referer");
             log.info("referer 테스트 - {}", referer);
             if(referer !=null) {
-                String url = referer.substring(referer.indexOf("/"));
+
                 log.info("자르기 테스트 - {}",url);
                 return check ? "redirect:"+url : "/user/kakao_nickname";
             }
