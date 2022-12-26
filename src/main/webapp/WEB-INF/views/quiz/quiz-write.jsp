@@ -374,7 +374,7 @@
             if (!confirm('작성하시겠습니까?')) return;
             const $writeForm = document.getElementById('write-form');
             const $input = document.createElement('input');
-            $input.setAttribute("type", "text");
+            $input.setAttribute("type", "hidden");
             $input.setAttribute("name", "fileName");
             $input.setAttribute("value", canvas.toDataURL());
             $writeForm.append($input);
