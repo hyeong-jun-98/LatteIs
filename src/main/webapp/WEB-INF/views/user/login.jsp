@@ -117,7 +117,6 @@
                 margin: 0;
             }
             .login_form .join a{
-                margin-left: 1%;
                 width: 100%;
             }
             .bg .text{
@@ -150,7 +149,7 @@
                 <button id="joinform">회원가입</button>
                 <button id="home">홈으로</button>
                 <a id="custom-login-btn">
-                    <img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300"/>
+                    <img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg"/>
                 </a>
             </div>
         </div>
