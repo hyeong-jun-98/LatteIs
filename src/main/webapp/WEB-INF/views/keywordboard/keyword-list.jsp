@@ -200,16 +200,25 @@
         }
     }
 
-    // 게시글 상세보기
+    // 노트북 -> 게시글 상세보기
     function detailEvent() {
         const $tbody = document.querySelector('.table-group-divider');
         $tbody.onclick = e => {
             if (!e.target.matches('a')) return;
             const boardNo = e.target.parentNode.parentNode.firstElementChild.dataset.bno;
-            console.log(boardNo);
             location.href = "/keyword/detail/"
-                + boardNo + "?pageNum=${pm.page.pageNum}&amount=${pm.page.amount}"
-            ;
+                + boardNo + "?pageNum=${pm.page.pageNum}&amount=${pm.page.amount}";
+        }
+    }
+
+    // 모바일 -> 게시글 상세보기
+    function mobileDetailEvent() {
+        const toDetailList = document.querySelectorAll('.board-area a');
+        for (let toDetail of toDetailList) {
+            toDetail.onclick = () => {
+                location.href = "/keyword/detail/"
+                    + toDetail.dataset.bno + "?pageNum=${pm.page.pageNum}&amount=${pm.page.amount}";
+            }
         }
     }
 
@@ -261,7 +270,8 @@
 
     (function () {
         alertServerMessage();
-        detailEvent();
+        detailEvent();  // 컴퓨터
+        mobileDetailEvent();    // 모바일
         writeForm();
         appendPageActive();
         appendAmountActive();
