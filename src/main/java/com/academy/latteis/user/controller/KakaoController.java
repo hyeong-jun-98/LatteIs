@@ -45,7 +45,7 @@ public class KakaoController {
 
         // 액세스 토큰을 통해 사용자 정보 요청(프로필사진, 닉네임 등)
         KaKaoUserInfoDTO userInfo = kakaoService.getKakaoUserInfo(accessToken);
-        if(userInfo.getEmail()==null) {
+        if(userInfo.getEmail()!=null) {
             // 로그인 처리
             if (userInfo != null) {
                 User user = new User();
@@ -60,7 +60,6 @@ public class KakaoController {
                 log.info("test {}", user);
                 return "redirect:/kakaoinfo";
             }
-            return "redirect:/user/login";
         }
         return "redirect:"+url;
     }
