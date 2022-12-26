@@ -346,7 +346,6 @@
         text-align: right;
     }
     .m-nickname {
-        margin-top: 30px;
         margin-right: 10px;
         text-align: right;
     }
@@ -359,9 +358,7 @@
         top: 20px;
     }
     #login-mapper{
-        display: flex;
-        position: absolute;
-        right: 0;
+        display: inline-flex;
     }
 }
 
