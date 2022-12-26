@@ -22,6 +22,11 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
+    <style>
+        .fileDrop:hover {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 
@@ -57,9 +62,10 @@
             <!-- 첨부파일 드래그 앤 드롭 영역 -->
             <div class="form-group upload-hide">
                 <div class="fileDrop">
-                    <span>Drop Here!!</span>
+                    <span>Drop Or Click!!</span>
                 </div>
                 <div class="uploadDiv">
+                    <input type="file" id="hidden-file" name="files" style="display:none" multiple>
                 </div>
                 <!-- 업로드된 파일의 썸네일을 보여줄 영역 -->
                 <div class="write-img-uploaded-list">
@@ -183,12 +189,27 @@
             handleFiles(files);
         })
 
+        // 파일 업로드 영역 클릭 이벤트
+        $(document).on('click', '.fileDrop', function () {
+            // 1. 파일 업로드 창 열기
+            $('#hidden-file').click();
+
+            // 2. input file이 change 되면 파일 정보 가져오기
+            $('#hidden-file').change(function(e){
+                console.log($(this)[0].files);
+
+                // 3. 썸네일 보여주기
+                handleFiles($(this)[0].files);
+            });
+
+        })
+
         // 사진 삭제 이벤트
         $(document).on('click', 'img', function () {
             const $img = $(this);   // 클릭한 이미지
             const $fileInput = document.getElementsByName('files');     // input file 리스트
-            for (let item of $fileInput){
-                if (item.value.substring(item.value.lastIndexOf('\\') + 1) === $img.data('name')){
+            for (let item of $fileInput) {
+                if (item.value.substring(item.value.lastIndexOf('\\') + 1) === $img.data('name')) {
                     item.remove();  // 클릭한 이미지의 input 태그 삭제
                 }
             }
@@ -199,8 +220,8 @@
         $(document).on('click', 'a', function () {
             const $file = $(this);   // 클릭한 파일
             const $fileInput = document.getElementsByName('files');     // input file 리스트
-            for (let item of $fileInput){
-                if (item.value.substring(item.value.lastIndexOf('\\') + 1) === $file.data('name')){
+            for (let item of $fileInput) {
+                if (item.value.substring(item.value.lastIndexOf('\\') + 1) === $file.data('name')) {
                     item.remove();  // 클릭한 파일의 input 태그 삭제
                 }
             }
@@ -236,9 +257,19 @@
         }
     }
 
+    function clickFileUploadArea() {
+        const $fileDrop = document.querySelector(".fileDrop");
+        $fileDrop.onclick = () => {
+
+        }
+    }
+
     (function () {
         writeEvent();
         toList();
+
+        // // 파일 업로드 영역 클릭 이벤트
+        // clickFileUploadArea();
     })();
 
 </script>
