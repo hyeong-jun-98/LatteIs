@@ -100,21 +100,27 @@
             font-size: 80px;
             text-align: center;
         }
-        @media screen and (max-width: 412px) {
+        @media screen and (max-width: 820px) {
             .login_wrapper{
                 width: 100%;
                 height: 1000px;
                 margin: 0;
                 border-radius: 0px;
+                box-sizing: border-box;
             }
             .login_form{
+                width: 100%;
+                left: 10%;
                 margin-left: 0;
             }
             body{
                 margin: 0;
             }
             .login_form .join a{
-                margin-left: 6px;
+                width: 100%;
+                margin-left: 0;
+            }
+            .login_form .join a >img{
                 width: 100%;
             }
             .bg .text{
@@ -122,6 +128,7 @@
                 font-size: 3em;
             }
             .bg{
+                width: 100%;
                 height: 80%;
                 margin: 0;
             }
@@ -145,8 +152,8 @@
                 <button id="login">로그인</button>
                 <button id="joinform">회원가입</button>
                 <button id="home">홈으로</button>
-                <a id="custom-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=${kakaoAppKey}&redirect_uri=http://15.165.29.94${kakaoRedirect}&response_type=code">
-                    <img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300"/>
+                <a id="custom-login-btn">
+                    <img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg"/>
                 </a>
             </div>
         </div>
@@ -187,10 +194,19 @@
             location.href= "/";
         }
     }
+    function kakao(){
+        document.getElementById("custom-login-btn").onclick = e =>{
+            let email = localStorage.getItem("userEmail");
+            fetch("/kakao/email?userEmail="+email);
+
+            location.href="https://kauth.kakao.com/oauth/authorize?client_id=${kakaoAppKey}&redirect_uri=http://15.165.29.94${kakaoRedirect}&response_type=code";
+        }
+    }
 
 
 
     (function(){
+        kakao();
         login();
         joinform();
         home();

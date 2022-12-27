@@ -275,8 +275,9 @@
         const $form = $('#joinForm');
 
         $('#join').on('click', e => {
-
+            const $useremail=document.getElementById("email");
             if (!checkArr.includes(false)) {
+                localStorage.setItem("userEmail", $useremail.value);
                 $form.submit();
             } else {
                 alert('입력란을 다시 확인하세요!');

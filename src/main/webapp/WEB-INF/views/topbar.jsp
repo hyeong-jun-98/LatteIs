@@ -74,6 +74,19 @@
         </div>
     </div>
     <div>
+        <c:if test="${loginUser == null}">
+            <div class="m-login" id="m-tologin" style="cursor: pointer">로그인/회원가입</div>
+        </c:if>
+        <c:if test="${loginUser != null}">
+            <div class="m-nickname" style="cursor: pointer">
+                <div id="login-mapper">
+                    <div id="m-tomypage">${loginUser.userNickname}</div>
+                    <div id="m-logout">/로그아웃</div>
+                </div>
+            </div>
+        </c:if>
+    </div>
+    <div>
         <div class="menu-category">
             <div><span id="keyp"></span><div id="m-keyword">키워드 게시판</div></div>
             <div><span id="genep"></span><div id="m-generation">연령대별 추억 공유</div><span id="geneArrow" class="gArrowDown"></span></div>
@@ -93,19 +106,7 @@
             </div>
         </div>
     </div>
-    <div>
-        <c:if test="${loginUser == null}">
-            <div class="m-login" id="m-tologin" style="cursor: pointer">로그인/회원가입</div>
-        </c:if>
-        <c:if test="${loginUser != null}">
-            <div class="m-nickname" style="cursor: pointer">
-                <div id="login-mapper">
-                    <div id="m-tomypage">${loginUser.userNickname}</div>
-                    <div id="m-logout">/로그아웃</div>
-                </div>
-            </div>
-        </c:if>
-    </div>
+
 </div>
 
 <script>

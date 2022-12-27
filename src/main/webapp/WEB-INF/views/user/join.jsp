@@ -122,6 +122,9 @@
     b{
         font-size: 20px;
     }
+    #back{
+        margin-top: 2%;
+    }
     @media screen and (max-width: 820px) {
         .login_wrapper{
             width: 100%;
@@ -183,6 +186,7 @@
 
             </div>
             <button id="join" type="button">회원가입</button>
+            <button id="back" type="button">로그인 화면으로</button>
         </form>
 
     </div>
@@ -366,6 +370,12 @@
                 alert('입력란을 다시 확인하세요!');
             }
         });
+
+        const $back = document.getElementById("back");
+
+        $back.onclick = e =>{
+            location.href="/user/login";
+        }
 
 
 
