@@ -203,7 +203,7 @@
     $(document).ready(function () {
         //입력값 검증 정규표현식
         //const getIdCheck = RegExp(/^[a-zA-Z0-9]{4,14}$/);
-        const getNicknameCheck = RegExp(/^.{0,10}$/);
+        const getNicknameCheck = RegExp(/^.{0,8}$/);
         const getPwCheck = RegExp(
             /([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
         const getName = RegExp(/^[가-힣]+$/);
@@ -230,7 +230,7 @@
             // 일치하면 true, 일치하지 않으면 false를 리턴
             else if (!getNicknameCheck.test($idInput.val())) {
                 $idInput.css('border-color', 'red');
-                $('.check_nickname').html('<b class="c-red">10자 이내로 작성하세요!</b>');
+                $('.check_nickname').html('<b class="c-red">8자 이내로 작성하세요!</b>');
                 checkArr[0] = false;
             }
 
