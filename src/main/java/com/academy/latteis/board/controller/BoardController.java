@@ -159,6 +159,8 @@ public class BoardController {
     public String write(Board board, RedirectAttributes ra, HttpServletRequest request) {
         String uri = request.getRequestURI();   // 요청 uri
         log.info("controller request {} POST! - board={}", uri, board);
+        for(int i=0; i<10; i++)
+        log.info("파일 크기 확인 {}", board.getFiles().get(0).getSize());
 
         boolean flag;
         HttpSession session = request.getSession();
