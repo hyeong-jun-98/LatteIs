@@ -91,7 +91,7 @@ public class DiaryController {
 
         model.addAttribute("dMList", diaryMyMap.get("dMList"));
         model.addAttribute("pm", pm);
-        session.setAttribute("topbar", "page");
+        session.setAttribute("topbar", "diary");
         return "diary/diary_myList";
     }
 

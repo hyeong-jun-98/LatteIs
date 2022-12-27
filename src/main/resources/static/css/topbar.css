@@ -11,10 +11,10 @@
     padding-bottom: 0;
 }
 .icon{
-    width: 80px;
-    height: 80px;
-    margin-top: -10px;
-    background-size: cover;
+    width: 2vw;
+    height: 2vw;
+    margin-top: 15px;
+    background-size: 100% 100%;
     background-image: url("https://cdn-icons-png.flaticon.com/128/6937/6937770.png");
 }
 .icon-wrapper{
@@ -25,24 +25,54 @@
 }
 .icon-text{
     margin-top: 20px;
-    font-size: 30px;
+    font-size: 1.5vw;
 }
 .category{
-    font-size: 30px;
+    width: 100%;
+    font-size: 1.5vw;
     height: 150px;
     margin-top: -30px;
     display: flex;
+    justify-content: space-around;
 
 }
 .category div{
-    width: 200px;
+    justify-content: center;
+    width: 20%;
     height: 100%;
-    margin: 20px;
-    margin-right: 40px;
     text-align: center;
     line-height: 150px;
-    margin-top: 0;
-    margin-bottom: 0;
+    display: flex;
+    position: relative;
+}
+#generationcate{
+    display: block;
+}
+#diarycate{
+    display: block;
+}
+.category div div{
+    display: flex;
+    width: 100%;
+}
+.category div >span{
+    background-image: url("/img/images-removebg-preview.png");
+    background-size: 100% 100%;
+    width: 2vw;
+    height: 2vw;
+    margin-top: 60px;
+    visibility: hidden;
+    position: absolute;
+    left: 3.5vw;
+}
+#pencil1{
+    left: 1vw;
+}
+#pencil2{
+    left: 0;
+}
+#pencil3{
+    left: 1.7vw;
 }
 .category >div:hover{
     color: white;
@@ -57,14 +87,14 @@
 .login{
     width: 150px;
     height: 100%;
-    font-size: 20px;
+    font-size: 1vw;
     line-height: 90px;
     margin-left: 50px;
 }
 .nickname{
     width: 200px;
     height: 100%;
-    font-size: 20px;
+    font-size: 1vw;
     line-height: 90px;
     margin-left: 50px;
     display: flex;
@@ -91,13 +121,19 @@
     display: none;
 }
 #category #generationcate #subcatec >div{
-    margin: 0;
-    font-size: 20px;
+    justify-content: center;
+    margin-left: 20%;
+    width: 60%;
+    font-size: 1vw;
     background: rgba(0,0,0,0.1);
     display: flex;
     text-align: center;
 }
+#generation{
+    width: 100%;
+}
 .category #subcatec{
+    width: 100%;
     overflow: hidden;
     height: 0px;
     animation-duration: 1s;
@@ -105,21 +141,22 @@
 }
 #subcatec span{
     background: url("/img/images-removebg-preview.png");
-    width: 25px;
-    height: 25px;
+    width: 1vw;
+    height: 1vw;
     background-size: 100% 100%;
-    margin-top: 35px;
-    margin-left: 50px;
+    margin-top: 2vw;
+    margin-left: 2vw;
     visibility: hidden;
+    display: none;
 }
 #subcatec > div{
-    height: 100px;
+    height: 5vw;
 }
 #subcatec div div{
     width: 60%;
     margin-left: 0;
-    text-align: left;
-    line-height: 100px;
+    text-align: center;
+    line-height: 5vw;
 }
 #subcatec >div:hover span{
     visibility: visible;
@@ -127,14 +164,20 @@
 #subcatec >div:hover div{
     color: white;
 }
+#diary{
+    width: 100%;
+}
 #category #diarycate #subcated >div{
-    margin: 0;
-    font-size: 20px;
+    justify-content: center;
+    width: 60%;
+    margin-left: 23%;
+    font-size: 1vw;
     background: rgba(0,0,0,0.1);
     display: flex;
     text-align: center;
 }
 .category #subcated{
+    width: 100%;
     overflow: hidden;
     height: 0px;
     animation-duration: 1s;
@@ -142,21 +185,22 @@
 }
 #subcated span{
     background: url("/img/images-removebg-preview.png");
-    width: 25px;
-    height: 25px;
+    width: 1vw;
+    height: 1vw;
     background-size: 100% 100%;
-    margin-top: 35px;
-    margin-left: 50px;
+    margin-top: 2vw;
+    margin-left: 2vw;
     visibility: hidden;
+    display: none;
 }
 #subcated > div{
-    height: 100px;
+    height: 5vw;
 }
 #subcated div div{
     width: 60%;
     margin-left: 0;
-    text-align: left;
-    line-height: 100px;
+    text-align: center;
+    line-height: 5vw;
 }
 #subcated >div:hover span{
     visibility: visible;
@@ -188,6 +232,13 @@
     margin-left: 30px;
     background: url("/img/homeMenu.png");
     background-size: 100% 100%;
+}
+
+#subcatec{
+    display: block;
+}
+#subcated{
+    display: block;
 }
 
 /*@media screen and (max-width: 412px) {*/
