@@ -66,8 +66,8 @@ body {
 }
 
 .board-list .amount li {
-    width: 8%;
-    margin-right: 10px;
+    width: 20%;
+    margin-left: 10px;
 }
 
 .board-list .amount li a {
