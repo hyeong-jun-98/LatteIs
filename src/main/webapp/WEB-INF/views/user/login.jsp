@@ -205,7 +205,7 @@
             let email = localStorage.getItem("userEmail");
             fetch("/kakao/email?userEmail="+email);
 
-            location.href="https://kauth.kakao.com/oauth/authorize?client_id=${kakaoAppKey}&redirect_uri=http://15.165.29.94${kakaoRedirect}&response_type=code";
+            location.href="https://kauth.kakao.com/oauth/authorize?client_id=${kakaoAppKey}&redirect_uri=http://latteis.life${kakaoRedirect}&response_type=code";
         }
     }
 
