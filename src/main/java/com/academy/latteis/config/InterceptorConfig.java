@@ -27,6 +27,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
+        // 자동 로그인 인터셉터 설정
+        registry.addInterceptor(autoLoginInterceptor)
+                .addPathPatterns("/","/**");
+
         // 게시판 인터셉터 설정
         registry.addInterceptor(boardInterceptor)
                 .addPathPatterns("/freeboard/*", "/generation/*", "/keyword/*", "/user/revise", "/user/exit", "/user/mypage", "/kakaoinfo", "/kakaoemail", "/kakaonickname", "/kakao/logout")
@@ -50,8 +54,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(homeInterceptor)
                         .addPathPatterns("/");
 
-        // 자동 로그인 인터셉터 설정
-        registry.addInterceptor(autoLoginInterceptor)
-                .addPathPatterns("/","/**");
+
     }
 }

@@ -16,17 +16,15 @@
         </div>
     </div>
     <div class="category" style="cursor: pointer" id="category">
-        <div id="img">
-        </div>
-        <div id="fiximg">
-        </div>
         <div id="keyword">
-            오늘의 키워드
+            <span id="pencil1"></span>
+            <div>오늘의 키워드</div>
         </div>
 
         <div id="generationcate">
             <div id="generation">
-                연령대별 추억 공유
+                <span id="pencil2"></span>
+                <div>연령대별 추억 공유</div>
             </div>
             <div id="subcatec">
                 <div><span></span><div id="subc00">00년대</div></div>
@@ -37,15 +35,18 @@
         </div>
 
         <div id="list">
-            자유게시판
+            <span id="pencil3"></span>
+            <div>자유게시판</div>
         </div>
 
         <div id="quiz">
-            퀴즈
+            <span id="pencil4"></span>
+            <div>퀴즈</div>
         </div>
         <div id="diarycate">
             <div id="diary">
-                일기
+                <span id="pencil5"></span>
+                <div>일기</div>
             </div>
             <div id="subcated">
                 <div><span></span><div id="subd1">나의 일기</div></div>
@@ -115,37 +116,31 @@
 
         var page = "${topbar}";
         console.log("페이지" + page);
-        const $pencil = document.getElementById("fiximg");
         if (page != null) {
             switch (page) {
                 case 'keyword':
                     document.getElementById('keyword').style.color = "white";
-                    $pencil.style.left = "325px";
-                    $pencil.style.display = "block";
+                    document.getElementById('pencil1').style.visibility="visible";
                     // document.getElementById('diary').style.background="rgba(0,0,0,0.3)";
                     break;
                 case 'diary':
                     document.getElementById('diary').style.color = "white";
-                    $pencil.style.left = "1440px";
-                    $pencil.style.display = "block";
+                    document.getElementById('pencil5').style.visibility="visible";
                     // document.getElementById('diary').style.background="rgba(0,0,0,0.3)";
                     break;
                 case 'free':
                     document.getElementById('list').style.color = "white";
-                    $pencil.style.left = "860px";
-                    $pencil.style.display = "block";
+                    document.getElementById('pencil3').style.visibility="visible";
                     // document.getElementById('list').style.background="rgba(0,0,0,0.3)";
                     break;
                 case 'generation':
                     document.getElementById('generation').style.color = "white";
-                    $pencil.style.left = "585px";
-                    $pencil.style.display = "block";
+                    document.getElementById('pencil2').style.visibility="visible";
                     // document.getElementById('list').style.background="rgba(0,0,0,0.3)";
                     break;
                 case 'quiz':
                     document.getElementById('quiz').style.color = "white";
-                    $pencil.style.left = "1160px";
-                    $pencil.style.display = "block";
+                    document.getElementById('pencil4').style.visibility="visible";
                     // document.getElementById('list').style.background="rgba(0,0,0,0.3)";
                     break;
             }
@@ -263,58 +258,52 @@
         const $list = document.getElementById("list");
         const $game = document.getElementById("quiz");
         const $diary = document.getElementById("diary");
-        const $pencil = document.getElementById("img");
         const $subcatec = document.getElementById("subcatec");
         const $subcated = document.getElementById("subcated");
 
         $keyword.onmouseenter = e => {
-            $pencil.style.left = "325px";
-            $pencil.style.display = "block";
+            document.getElementById('pencil1').style.visibility="visible";
         }
         $keyword.onmouseout = e => {
-            $pencil.style.display = "none";
+            document.getElementById('pencil1').style.visibility="hidden";
         }
         $generation.onmouseenter = e => {
-            $pencil.style.left = "585px";
-            $pencil.style.display = "block";
+            document.getElementById('pencil2').style.visibility="visible";
             $subcatec.style.animationName="slidec";
         }
         $generation.onmouseout = e => {
-            $pencil.style.display = "none";
+            document.getElementById('pencil2').style.visibility="hidden";
             $subcatec.style.animationName="";
         }
         $subcatec.onmouseover = e =>{
-            $subcatec.style.height="400px";
+            $subcatec.style.height="25vw";
         }
         $subcatec.onmouseleave = e =>{
             $subcatec.style.height="0px";
             $subcatec.style.animationName="";
         }
         $list.onmouseenter = e => {
-            $pencil.style.left = "860px";
-            $pencil.style.display = "block";
+            document.getElementById('pencil3').style.visibility="visible";
         }
         $list.onmouseout = e => {
-            $pencil.style.display = "none";
+            document.getElementById('pencil3').style.visibility="hidden";
         }
         $game.onmouseenter = e => {
-            $pencil.style.left = "1160px";
-            $pencil.style.display = "block";
+            document.getElementById('pencil4').style.visibility="visible";
         }
         $game.onmouseout = e => {
-            $pencil.style.display = "none";
+            document.getElementById('pencil4').style.visibility="hidden";
         }
         $diary.onmouseover = e => {
-            $pencil.style.left = "1440px";
-            $pencil.style.display = "block";
+            document.getElementById('pencil5').style.visibility="visible";
             $subcated.style.animationName="slided";
         }
         $diary.onmouseleave = e => {
-            $pencil.style.display = "none";
+            document.getElementById('pencil5').style.visibility="hidden";
             $subcated.style.animationName="";
         }
         $subcated.onmouseover = e =>{
-            $subcated.style.height="300px";
+            $subcated.style.height="25vw";
         }
         $subcated.onmouseleave = e =>{
             $subcated.style.height="0px";
