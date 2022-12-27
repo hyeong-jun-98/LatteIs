@@ -40,7 +40,7 @@
             height: 40%;
             float: left;
             margin-top: 100px;
-            margin-left: 75px;
+            margin-left: 4vw;
         }
         .login_form .input{
             font-size: 40px;
