@@ -70,9 +70,13 @@
             margin-bottom: 50px;
         }
         .login_form .join a{
-            margin-left: 25%;
             z-index: 100;
             position: relative;
+        }
+        .login_form .join a >img{
+            width: 80%;
+            margin-left: 10%;
+            height: 60px;
         }
         .login_form .join{
             margin: auto;
@@ -122,6 +126,8 @@
             }
             .login_form .join a >img{
                 width: 100%;
+                margin-left: 0;
+                height: auto;
             }
             .bg .text{
                 line-height: 0px;
