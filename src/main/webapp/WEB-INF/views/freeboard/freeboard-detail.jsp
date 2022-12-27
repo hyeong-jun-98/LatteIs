@@ -703,7 +703,7 @@
         // 이미지 파일 판단
         function isImageFile(originFileName) {
             //정규표현식
-            const pattern = /jpg$|gif$|png$/i;
+            const pattern = /jpg$|gif$|jpeg$|jfif$|png$/i;
             return originFileName.match(pattern);
         }
 
