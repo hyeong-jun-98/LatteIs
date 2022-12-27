@@ -58,7 +58,7 @@
             </div>
 
             <!-- 첨부파일 드래그 앤 드롭 영역 -->
-            <div class="form-group upload-hide">
+            <div class="form-group">
                 <div class="fileDrop">
                     <span>Drop Here!!</span>
                 </div>
@@ -66,9 +66,6 @@
                 </div>
                 <!-- 업로드된 파일의 썸네일을 보여줄 영역 -->
                 <div class="write-img-uploaded-list">
-                </div>
-                <!-- 업로드된 파일의 썸네일을 보여줄 영역 -->
-                <div class="write-file-uploaded-list">
                 </div>
             </div>
 
@@ -184,6 +181,18 @@
             handleFiles(files);
 
         })
+
+        /* ===== 클릭해서 파일 업로드 하기 ===== */
+        // 1. 파일 업로드 창 열기
+        $(document).on('click', '.fileDrop', function (e) {
+            $('#hidden-file').click();
+        });
+        // 2. input file이 change 되면 파일 정보 가져오기
+        $('#hidden-file').change(function (e) {
+            // 3. 썸네일 보여주기
+            handleFiles($(this)[0].files);
+        })
+        /* ========================== */
 
         // 사진 삭제 이벤트
         $(document).on('click', 'img', function () {

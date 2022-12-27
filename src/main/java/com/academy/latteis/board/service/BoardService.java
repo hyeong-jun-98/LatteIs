@@ -35,7 +35,7 @@ public class BoardService {
     // 게시글 작성
     @Transactional
     public boolean writeFreeService(Board board, List<String> fileNames) {
-        log.info("save free service start - {}", board);
+        log.info("save free service start - board = {}, fileNames = {}", board, fileNames);
 
         // 게시물 내용 DB에 저장
         boolean flag = boardMapper.writeFree(board);
@@ -254,7 +254,7 @@ public class BoardService {
     // 게시글 수정
     @Transactional
     public boolean editService(EditBoardDTO board, List<String> fileNames) {
-        log.info("edit service start - {}", fileNames.size());
+        log.info("edit service start - {}", fileNames);
         log.info("수정할 파일 이름은 {}", board.getEditFileNames());
         boolean flag = boardMapper.edit(board);
         List<String> editFileNames = board.getEditFileNames();

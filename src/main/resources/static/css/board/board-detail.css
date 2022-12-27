@@ -98,6 +98,10 @@ body {
     margin-bottom: 16px;
 }
 
+.fileDrop:hover {
+    color: red;
+}
+
 .write-img-uploaded-list, .write-file-uploaded-list {
     width: 100%;
     padding: 0;
@@ -237,10 +241,6 @@ textarea {
     }
     .user-block span:last-child {
         width: auto;
-    }
-
-    .upload-hide {
-        display: none;
     }
 
 }
