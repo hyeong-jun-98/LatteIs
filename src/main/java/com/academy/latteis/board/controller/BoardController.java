@@ -166,7 +166,7 @@ public class BoardController {
         if (uri.equals("/generation/write")) {     // 연령대별 게시판 게시글 작성 요청이면 if문 안에 실행
             // 클라이언트가 전송한 파일 업로드하기
             List<String> fileNames = new ArrayList<>();
-            if (board.getFiles() != null){
+            if (board.getFiles() != null && board.getFiles().get(0).getSize() > 0){
                 for (MultipartFile file : board.getFiles()) {
                     fileNames.add(FileUtils.uploadFile(file, UPLOAD_PATH));
                 }
@@ -180,11 +180,10 @@ public class BoardController {
         //키워드 글 작성
         else if (uri.equals("/keyword/write")) {
             log.info("컨트롤러에서 키워드는 {}", request.getSession().getAttribute("keyword"));
-//            board.setTopicNo(Long.parseLong((String) request.getSession().getAttribute("keyword")));
 
             // 클라이언트가 전송한 파일 업로드하기
             List<String> fileNames = new ArrayList<>();
-            if (board.getFiles() != null){
+            if (board.getFiles() != null && board.getFiles().get(0).getSize() > 0){
                 for (MultipartFile file : board.getFiles()) {
                     fileNames.add(FileUtils.uploadFile(file, UPLOAD_PATH));
                 }
@@ -198,7 +197,7 @@ public class BoardController {
         // 자유게시판 게시글 작성이면
         // 클라이언트가 전송한 파일 업로드하기
         List<String> fileNames = new ArrayList<>();
-        if (board.getFiles() != null){
+        if (board.getFiles() != null && board.getFiles().get(0).getSize() > 0){
             for (MultipartFile file : board.getFiles()) {
                 fileNames.add(FileUtils.uploadFile(file, UPLOAD_PATH));
             }
@@ -284,11 +283,12 @@ public class BoardController {
         HttpSession session = request.getSession();
         // 클라이언트가 전송한 파일 업로드하기
         List<String> fileNames = new ArrayList<>();
-        if (board.getFiles() != null){
+        if (board.getFiles() != null && board.getFiles().get(0).getSize() > 0){
             for (MultipartFile file : board.getFiles()) {
                 fileNames.add(FileUtils.uploadFile(file, UPLOAD_PATH));
             }
         }
+
         boolean flag = boardService.editService(board, fileNames);
         if (uri.equals("/freeboard/edit")) {
             where = "redirect:/freeboard/detail/" + board.getBoardNo() + "?pageNum=" + page.getPageNum() + "&amount=" + page.getAmount();

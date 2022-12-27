@@ -38,10 +38,12 @@
         display: none;
         width: 2em;
     }
-    .wrap{
+
+    .wrap {
         position: relative;
     }
-    #stamp{
+
+    #stamp {
         position: absolute;
         left: 14%;
         top: 28%;
@@ -49,7 +51,7 @@
         display: none;
     }
 
-    #fixStamp{
+    #fixStamp {
         position: absolute;
         right: 0;
         width: 10em;
@@ -57,10 +59,11 @@
     }
 
 
-    .flex{
+    .flex {
         display: flex;
     }
-    .result{
+
+    .result {
         line-height: 44px;
         margin-left: 10px;
         display: none;
@@ -73,6 +76,7 @@
         background-size: 100% 100%;
         color: white;
     }
+
     .board-no-title {
         display: flex;
         justify-content: space-between;
@@ -114,9 +118,18 @@
         </div>
 
         <div class="mb-3">
+            <c:if test="${loginUser.userNickname == q.quizWriter}">
+                <button id="show-answer" onclick="showAnswer()">정답 보기</button>
+                <button id="hide-answer" onclick="hideAnswer()" style="display: none">정답 숨기기</button>
+                <input type="hidden" class="form-control" id="answer-input" value="${q.quizAnswer}" name="quizAnswer"
+                       readonly>
+            </c:if>
+        </div>
+
+        <div class="mb-3">
             <img src="/img/stamp.png" id="fixStamp">
             <img src="/img/stamp.png" id="stamp" class="stamp">
-<%--            <img src="/img/discorrect.png" id="discorrect">--%>
+            <%--            <img src="/img/discorrect.png" id="discorrect">--%>
             <img id="my-img" class="my-img">
         </div>
 
@@ -125,6 +138,7 @@
             <input type="text" class="form-control answer" id="quiz-input"
                    placeholder="퀴즈 정답" name="quiz_answer" readonly>
         </div>
+
 
         <div class="mb-3 flex">
             <input type="" class="form-control w-25 media-w" id="answer"
@@ -258,6 +272,24 @@
 
 <!-- 게시글 상세보기 관련 script -->
 <script>
+
+    // 정답 보기/숨기기 버튼
+    const $showAnswer = document.getElementById("show-answer");
+    const $hideAnswer = document.getElementById("hide-answer");
+
+    // 내가 출제한 퀴즈 정답 보기
+    function showAnswer() {
+        $showAnswer.style.display = "none"; // 정답 보기 버튼 숨김
+        $hideAnswer.style.display = "block";    // 정답 숨기기 버튼 보이게
+        document.getElementById("answer-input").setAttribute("type", "text");
+    }
+    // 퀴즈 정답 숨기기
+    function hideAnswer() {
+        $showAnswer.style.display = "block";
+        $hideAnswer.style.display = "none";
+        document.getElementById("answer-input").setAttribute("type", "hidden");
+    }
+
     // 그림 크기 설정
     function setImgSize() {
         const canvas = document.querySelector("#my-img");
@@ -273,15 +305,15 @@
 
 
     //본인 출제 문제 감지
-    function my(){
+    function my() {
         let writer = '${q.quizWriter}';
         let user = '${user.userNickname}';
         const $quiz = document.getElementById('quiz-button');
         const $answer = document.getElementById('answer');
         const $showAnswer = document.getElementById('quiz-input');
-        if(writer==user){
-            $quiz.style.display="none";
-            $answer.style.display="none";
+        if (writer == user) {
+            $quiz.style.display = "none";
+            $answer.style.display = "none";
         }
     }
 
@@ -293,13 +325,13 @@
         const $crown = document.getElementById('crown');
         const $fixStamp = document.getElementById('fixStamp');
         let check = ${q.quizCheck};
-        if(check=='1'){
-            $quiz.style.display="none";
-            $answer.style.display="none";
-            $crown.style.display="block";
-            $showAnswer.style.display="inline-block";
-            $showAnswer.value='정답: ${q.quizAnswer} / 정답자: ${q.whoCorrect}';
-            $fixStamp.style.display="block";
+        if (check == '1') {
+            $quiz.style.display = "none";
+            $answer.style.display = "none";
+            $crown.style.display = "block";
+            $showAnswer.style.display = "inline-block";
+            $showAnswer.value = '정답: ${q.quizAnswer} / 정답자: ${q.whoCorrect}';
+            $fixStamp.style.display = "block";
         }
     }
 
@@ -314,7 +346,7 @@
             if (${empty loginUser}) { // 로그인 안돼있으면
                 alert("로그인 후 이용 가능한 서비스 입니다.");
                 return;
-            } else if (answer === '' && ${not empty loginUser}){
+            } else if (answer === '' && ${not empty loginUser}) {
                 alert('정답을 입력해주세요.')
                 return;
             }
@@ -327,7 +359,7 @@
                 .then(quiz => {
                     let jsonQuiz = JSON.parse(quiz);
 
-                    switch (jsonQuiz.levelUp){
+                    switch (jsonQuiz.levelUp) {
                         case 1:
                             alert("축하합니다!! 유치원생으로 레벨업 하셨습니다.");
                             break;
@@ -351,24 +383,24 @@
                     let quizAnswer = jsonQuiz.quizAnswer;
                     let whoCorrect = jsonQuiz.whoCorrect;
                     console.log(check);
-                    if(check=='1'){
+                    if (check == '1') {
                         const $showAnswer = document.getElementById('quiz-input');
-                        $crown.style.display="block";
-                        $quiz.style.display="none";
-                        $answer.style.display="none";
-                        $showAnswer.style.display="inline-block";
-                        $showAnswer.value="정답: "+quizAnswer+" / 정답자: "+whoCorrect;
-                        $stamp.style.display="block";
-                        $stamp.className="animate__animated animate__flash";
-                        $result.style.display="none";
-                    }else{
-                        $answer.style.border="red solid 2px";
-                        $answer.className="form-control w-25 media-w animate__animated animate__flash";
-                        $result.style.display="block";
+                        $crown.style.display = "block";
+                        $quiz.style.display = "none";
+                        $answer.style.display = "none";
+                        $showAnswer.style.display = "inline-block";
+                        $showAnswer.value = "정답: " + quizAnswer + " / 정답자: " + whoCorrect;
+                        $stamp.style.display = "block";
+                        $stamp.className = "animate__animated animate__flash";
+                        $result.style.display = "none";
+                    } else {
+                        $answer.style.border = "red solid 2px";
+                        $answer.className = "form-control w-25 media-w animate__animated animate__flash";
+                        $result.style.display = "block";
                         setTimeout(() =>
-                                $answer.style.border="#ced4da solid 2px", 1200);
+                            $answer.style.border = "#ced4da solid 2px", 1200);
                         setTimeout(() =>
-                            $answer.className="form-control w-25 media-w",1200);
+                            $answer.className = "form-control w-25 media-w", 1200);
                     }
                 })
         }

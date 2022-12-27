@@ -1,5 +1,6 @@
 package com.academy.latteis.quiz.repository;
 
+import com.academy.latteis.board.dto.ValidateUserDTO;
 import com.academy.latteis.common.page.DiaryPage;
 import com.academy.latteis.quiz.domain.Quiz;
 import org.apache.ibatis.annotations.Mapper;
@@ -38,6 +39,7 @@ public interface QuizMapper {
     // 퀴즈 출제자 등급 나타내기
     String findQuizWriterGrade (String quizWriter);
 
-
+    // 게시물 번호로 게시글 작성자의 계정명과 권한 가져오기
+    ValidateUserDTO findUserByQuizNo(Long quizNo);
 
 }
