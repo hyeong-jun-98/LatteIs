@@ -55,16 +55,20 @@ public class QuizInterceptor implements HandlerInterceptor {
 
             // 컨트롤러의 메소드를 처리한 후 모델에 담긴 데이터의 맵
             Map<String, Object> modelMap = modelAndView.getModel();
+            log.info("모델 맵은 {}", modelMap);
 
             ValidateUserDTO dto = (ValidateUserDTO) modelMap.get("validate");
             Long quizNo = (Long) modelMap.get("quizNo");
-            DiaryPage diaryPage = (DiaryPage) modelMap.get("page");
+            DiaryPage diaryPage = (DiaryPage) modelMap.get("diaryPage");
 
             if (isAdmin(session)) {
                 log.info("인터셉터 : 관리자");
                 return;
             }
 
+            log.info("세션은 {}", session);
+            log.info("퀴즈 번호는 {}", quizNo);
+            log.info("dto는 {}", dto);
             if (!isMine(session, dto.getUserEmail())) {
                 response.sendRedirect("/quiz/detail/" + quizNo + "?pageNum=" + diaryPage.getPageNum() + "&amount=" + diaryPage.getAmount() + "&msg=no-match");
             }

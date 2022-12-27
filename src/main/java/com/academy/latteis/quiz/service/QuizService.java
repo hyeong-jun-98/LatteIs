@@ -1,5 +1,6 @@
 package com.academy.latteis.quiz.service;
 
+import com.academy.latteis.board.dto.ValidateUserDTO;
 import com.academy.latteis.common.page.DiaryPage;
 import com.academy.latteis.quiz.domain.Quiz;
 import com.academy.latteis.quiz.repository.QuizMapper;
@@ -80,7 +81,6 @@ public class QuizService {
     public boolean writeService(Quiz quiz) {
         log.info("quiz write service start");
         boolean flag = quizMapper.write(quiz);
-
         return flag;
     }
 
@@ -173,6 +173,12 @@ public class QuizService {
             Quiz quiz= quizMapper.findOne((long)quizNo);
             return quiz;
         }
+    }
+
+    // 게시글 번호로 작성자 회원정보 가져오기
+    public ValidateUserDTO getUser(Long quizNo) {
+        log.info("quiz service start - quizNo = {}", quizNo);
+        return quizMapper.findUserByQuizNo(quizNo);
     }
 
     //  퀴즈 작성자 등급 가져오기

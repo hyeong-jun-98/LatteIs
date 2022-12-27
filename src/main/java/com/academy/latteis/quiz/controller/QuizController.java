@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -94,11 +95,26 @@ public class QuizController {
         return "quiz/quiz_detail";
     }
 
-    // 퀴즈 삭제
+    // 퀴즈 삭제 확인 요청
     @GetMapping("/delete")
-    public String delete(Long quizNo) {
+    public String delete(Long quizNo, Model model, @ModelAttribute("diaryPage") DiaryPage diaryPage, HttpServletRequest request) {
+        log.info("controller request {} GET! - quizNo={}", request.getRequestURI(), quizNo);
+        model.addAttribute("quizNo", quizNo);
+        model.addAttribute("validate", quizService.getUser(quizNo));
+
+        return "quiz/process-delete";
+    }
+
+    // 퀴즈 삭제 확정 요청
+    @PostMapping("/delete")
+    public String delete(Long quizNo, RedirectAttributes ra, @ModelAttribute("diaryPage") DiaryPage diaryPage, HttpServletRequest request) {
+        String uri = request.getRequestURI();
+        log.info("controller request {} POST! - {}", uri);
+
         boolean flag = quizService.deleteService(quizNo);
-        return flag ? "redirect:/quiz/list" : "redirect:/quiz/list";
+        if (flag) ra.addFlashAttribute("msg", "delete-success");
+
+        return "redirect:/quiz/list";
     }
 
     @GetMapping("/check")

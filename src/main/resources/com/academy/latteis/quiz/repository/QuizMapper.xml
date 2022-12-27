@@ -41,8 +41,8 @@
 
     <!-- 퀴즈 작성 -->
     <insert id="write">
-        insert into quiz(quiz_writer, file_name, quiz_answer, quiz_score)
-        values (#{quizWriter}, #{fileName}, #{quizAnswer}, #{quizScore})
+        insert into quiz(quiz_writer, file_name, quiz_answer, quiz_score, user_nickname)
+        values (#{quizWriter}, #{fileName}, #{quizAnswer}, #{quizScore}, #{userNickname})
     </insert>
 
     <!-- 퀴즈 삭제 -->
@@ -80,6 +80,15 @@
 <!--    등급 가져오기-->
     <select id="findQuizWriterGrade" resultType="String">
         select user_grade from user where user_nickname = (select quiz_writer from quiz where quiz_writer = #{quizWriter} limit 1)
+    </select>
+
+    <!-- 퀴즈 번호에 맞는 계정 가져오기 -->
+    <select id="findUserByQuizNo" resultType="com.academy.latteis.board.dto.ValidateUserDTO">
+        SELECT user_email AS userEmail, auth
+        FROM user
+        WHERE user_nickname = (SELECT user_nickname
+                               FROM quiz
+                               WHERE quiz_no = #{quizNo})
     </select>
 
 
